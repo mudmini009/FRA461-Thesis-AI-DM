@@ -21,6 +21,7 @@ The system is designed as a **"Stateless Machine"** to ensure accuracy and reduc
 
 ```text
 my_ai_dm_project/
+├── .env                     # Secrets (API Key) - gitignored
 ├── requirements.txt         # Python Dependencies (google-generativeai, etc.)
 ├── main.py                  # Simulation Entry Point
 ├── src/
