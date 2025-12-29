@@ -6,6 +6,31 @@ Powered by **Gemini 2.5 Flash-Lite** and optimized with **TOON**.
 
 ---
 
+# 🐉 AI Dungeon Master Core
+
+## 🚀 Current Progress (Phase 1: Architecture)
+
+We are building the **Two-Path Architecture** described in the thesis.
+
+### ✅ Components Completed:
+
+1.  **Intent Router (`src/router/`):**
+    - Uses **Gemini 2.5 Flash-Lite** to classify user input.
+    - Distinguishes between `FIXED` (Rules) and `CREATIVE` (Narrative) actions.
+2.  **Rules Engine (`src/logic/`):**
+    - `dice_roller.py`: A stateless, deterministic dice parser.
+    - Supports standard D&D notation (e.g., `1d20+5`).
+
+### 🕹️ How to Run
+
+1. Activate environment: `conda activate ai_dm_core` (or your preferred env)
+2. Run the main loop:
+   ```bash
+   python src/router/intent_router.py
+   ```
+
+---
+
 ## 🧠 Core Philosophy
 
 The system is designed as a **"Stateless Machine"** to ensure accuracy and reduce complexity.

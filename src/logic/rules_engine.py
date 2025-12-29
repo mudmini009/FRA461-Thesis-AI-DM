@@ -1,5 +1,5 @@
-import random
 from src.models.character import Character, Stat, Zone, Condition
+from src.logic.dice_roller import roll
 
 class RulesEngine:
     @staticmethod
@@ -66,24 +66,41 @@ class RulesEngine:
         # Step 4: Disadvantage
         has_disadvantage = (attack_type != 'melee' and distance >= 2)
 
-        # Step 5: Roll to Hit
-        roll1 = random.randint(1, 20)
-        roll2 = random.randint(1, 20)
-        d20_roll = min(roll1, roll2) if has_disadvantage else roll1
+        # Step 5: Roll to Hit (Using Dice Engine)
+        # We roll "1d20 + stat_bonus"
+        hit_expression = f"1d20+{stat_bonus}"
+        
+        roll1 = roll(hit_expression)
+        final_roll = roll1
 
-        attack_total = d20_roll + stat_bonus
-        is_crit = (d20_roll == 20)
+        if has_disadvantage:
+            roll2 = roll(hit_expression)
+            # Take the lower total
+            if roll2['total'] < roll1['total']:
+                final_roll = roll2
+        
+        d20_roll = final_roll['rolls'][0] # The raw die result
+        attack_total = final_roll['total']
+        is_crit = final_roll['is_critical']
+        
+        # Determine Hit
         is_hit = is_crit or (attack_total >= target.ac)
 
         # Step 6: Apply Damage
         damage = 0
+        damage_details = None
+        
         if is_hit:
-            actual_dice_count = damage_dice_count * 2 if is_crit else damage_dice_count
+            # Critical Hit: Double dice count
+            final_dice_count = damage_dice_count * 2 if is_crit else damage_dice_count
+            total_bonus = stat_bonus + weapon_bonus
             
-            for _ in range(actual_dice_count):
-                damage += random.randint(1, damage_dice_sides)
+            # Construct damage string: e.g. "1d8+5"
+            dmg_expression = f"{final_dice_count}d{damage_dice_sides}+{total_bonus}"
+            damage_result = roll(dmg_expression)
             
-            damage += stat_bonus + weapon_bonus
+            damage = damage_result['total']
+            damage_details = damage_result
             
             if damage < 0:
                 damage = 0
@@ -97,12 +114,14 @@ class RulesEngine:
             'damage': damage,
             'is_crit': is_crit,
             'disadvantage': has_disadvantage,
-            'message': None # Explicitly adding message key to avoid key errors if accessed
+            'message': None,
+            'attacker_name': attacker.name,
+            'target_name': target.name
         }
 
     @staticmethod
     def resolve_check(actor: Character, stat: Stat, dc: int) -> bool:
         bonus = actor.stats.get(stat, 0)
-        d20_roll = random.randint(1, 20)
-        total = d20_roll + bonus
-        return total >= dc
+        # Roll 1d20 + bonus
+        result = roll(f"1d20+{bonus}")
+        return result['total'] >= dc

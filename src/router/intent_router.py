@@ -1,7 +1,13 @@
 import os
 import json
+import sys
+sys.path.append('.') 
 import google.generativeai as genai
 from dotenv import load_dotenv
+
+# --- REFRACTORED IMPORTS ---
+from src.logic.rules_engine import RulesEngine
+from src.models.character import Character, Stat, Zone, Condition
 
 # Load environment variables
 load_dotenv()
@@ -61,45 +67,91 @@ def classify_intent(user_input: str) -> dict:
         return {"type": "ERROR", "message": str(e)}
 
 if __name__ == "__main__":
-    # --- 1. Automated Weird Test Cases ---
-    print("\n" + "="*40)
-    print("🧪 RUNNING WEIRD EDGE CASES")
-    print("="*40)
-
-    weird_scenarios = [
-        "I kiss the goblin on the forehead",              # Social/Creative
-        "I throw my boots at the wizard",                 # Improvised Attack (Could be Fixed or Creative, lets see)
-        "I drink my health potion",                       # Standard Use (Fixed)
-        "I smash the potion bottle on the ground to create glass shards", # Creative Use
-        "I run 30 feet towards the door",                 # Standard Move (Fixed)
-        "I do a backflip over the table",                 # Stunt (Creative)
-        "I cast Fireball centered on myself",             # Standard Cast (Fixed - even if dumb)
-        "I inspect the wall for secret buttons"           # Investigation (Creative)
-    ]
-
-    for scenario in weird_scenarios:
-        result = classify_intent(scenario)
-        print(f"🔹 In:  {scenario}")
-        print(f"🔸 Out: {result}\n")
-
-    # --- 2. Interactive Loop ---
-    print("="*40)
-    print("🎮 INTERACTIVE MODE (Type 'exit' to quit)")
-    print("="*40)
+    print("\n" + "="*50)
+    print("🎮 AI DM PROTOTYPE: TWO-PATH ARCHITECTURE")
+    print("="*50)
     
+    # --- 1. INITIALIZE CHARACTERS (Real Objects) ---
+    player = Character(
+        id="p1", 
+        name="Valen", 
+        role="Fighter", 
+        hp=20, 
+        max_hp=20, 
+        ac=16, 
+        stats={Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: 1},
+        zone=Zone.NEAR
+    )
+    
+    goblin = Character(
+        id="e1", 
+        name="Goblin Scavenger", 
+        role="Monster", 
+        hp=7, 
+        max_hp=7, 
+        ac=12, 
+        stats={Stat.PHYS: 1, Stat.MENT: -1, Stat.SOC: -1},
+        zone=Zone.NEAR
+    )
+
+    print(f"🦸 Player: {player}")
+    print(f"👹 Enemy:  {goblin}")
+
     while True:
         try:
-            user_input = input("\nYour Action > ")
-            if user_input.lower() in ['exit', 'quit', 'q']:
-                print("Shutting down router.")
-                break
-            
-            if not user_input.strip():
-                continue
+            print(f"\n[{player.name} ({player.hp}/{player.max_hp} HP)] Action > ", end="")
+            user_input = input()
+            if user_input.lower() in ['exit', 'quit', 'q']: break
+            if not user_input.strip(): continue
 
-            result = classify_intent(user_input)
-            print(f"🤖 Router Decision: {json.dumps(result, indent=2)}")
+            print("   Thinking...", end="\r") # Loading effect
             
+            # 1. ROUTER: Decide Intent
+            decision = classify_intent(user_input)
+            
+            # Clear loading line
+            print(" " * 20, end="\r")
+            
+            print(f"🤖 Intent: {decision.get('type', 'ERROR').ljust(10)} | Command: {decision.get('command', 'N/A')}")
+
+            # 2. PATH A: FIXED RULES (Delegated to RulesEngine)
+            if decision.get('type') == 'FIXED':
+                
+                if decision.get('command') == 'ATTACK':
+                    print(f"   ⚔️  Executing Attack Sequence...")
+                    
+                    # --- DELEGATION TO RULES ENGINE ---
+                    result = RulesEngine.resolve_attack(player, goblin)
+                    
+                    # Display Result
+                    roll_info = f"{result['roll']} + {player.stats[Stat.PHYS]} (Bonus)"
+                    
+                    if result['is_crit']:
+                         print(f"   🔥 CRITICAL HIT! (Natural 20!)")
+                    
+                    if result['is_hit']:
+                        if not result['is_crit']:
+                             print(f"   💥 HIT! (Total {result['total']} vs AC {goblin.ac})")
+                        
+                        print(f"   🩸 Damage Dealt: {result['damage']}")
+                        print(f"   📉 Goblin HP: {goblin.hp}/{goblin.max_hp} ({goblin.condition.name})")
+                    else:
+                        print(f"   🛡️ MISS! (Total {result['total']} vs AC {goblin.ac})")
+
+                elif decision.get('command') == 'MOVE':
+                    print("   🏃 Processing Movement Rules... (To be implemented)")
+                
+                else:
+                    print(f"   ⚙️ Processing {decision.get('command')}... (To be implemented)")
+
+            # 3. PATH B: CREATIVE (The AI Narrator)
+            elif decision.get('type') == 'CREATIVE':
+                 print(f"   ✨ Sending to LLM Narrator: '{decision.get('description', 'No description')}'")
+                 
+            # Error handling
+            elif decision.get('type') == 'ERROR':
+                print(f"   ❌ Error: {decision.get('message')}")
+        
         except KeyboardInterrupt:
-            print("\nShutting down router.")
+            print("\nShutting down...")
             break
