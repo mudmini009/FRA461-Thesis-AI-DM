@@ -100,7 +100,7 @@ players[4]{id,name,role,hp,zone,phys,ment,soc,items}: p1,Valen,Fighter,18/20,NEA
 
 The "Calculator" containing pure functions.
 
-- `roll_dice(notation)`: Input "1d20" -> Output int.
+- `roll(expression)`: Input "1d20" -> Output dict `{total, rolls, is_crit}`.
 - `resolve_attack(attacker, target)`: Logic for d20 + PHYS vs Target AC.
 - `resolve_check(actor, stat, dc)`: Logic for d20 + Stat >= DC.
 
@@ -110,7 +110,7 @@ The "Calculator" containing pure functions.
 
 **Player:** "I attack the Wolf Spider!"
 
-1. **Router:** Detect Attack → Call `rules_engine.resolve_attack(p1, e1)`
+1. **Router:** Detect Attack → Call `RulesEngine.resolve_attack(p1, e1)`
 2. **Engine:** Roll d20, Check vs AC, Roll Dmg, Update State.
 3. **System:** Create Log `[System]: Hit! Dealt 6 Dmg.`
 4. **RAG:** Send Log + State (TOON) to LLM Narrator.
