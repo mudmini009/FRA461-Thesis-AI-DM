@@ -3,6 +3,7 @@ import json
 import google.generativeai as genai
 from typing import List, Dict, Any
 from src.models.character import Character
+from src.models.toon_converter import TOONConverter
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,18 +31,18 @@ class LLMService:
         Decides if an action is possible based on Party Inventory and Logic.
         """
         
-        # 1. Build Context (Party Inventories)
-        party_context = "PARTY STATE:\n"
-        for char in party_state:
-            items_str = ", ".join(char.inventory) if char.inventory else "Empty"
-            party_context += f"- {char.name} ({char.role}): [HP: {char.hp}/{char.max_hp}] [Items: {items_str}]\n"
+        
+        # 1. Build Context (TOON Format)
+        toon_context = TOONConverter.convert(party_state, []) # Enemies not needed for basic arbitration context yet, or could be added
             
         prompt = f"""
         You are the ARBITER (Game Referee) for a TTRPG.
         Your job is to validate a CREATIVE ACTION proposed by a player.
         
-        CONTEXT:
-        {party_context}
+        Note: Game State is provided in TOON format (players[N]{{fields}}: row, row). Inventory items are pipe-separated | within brackets.
+        
+        GAME STATE (TOON Format):
+        {toon_context}
         
         ACTIVE PLAYER: {active_player.name}
         PROPOSED ACTION: "{action_description}"

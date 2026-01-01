@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from src.logic.rules_engine import RulesEngine
 from src.models.character import Character, Stat, Zone, Condition
 from src.services.llm_service import LLMService
+from src.services.data_manager import DataManager
 
 # Load environment variables
 load_dotenv()
@@ -80,33 +81,20 @@ if __name__ == "__main__":
         print(f"❌ Failed to load LLM Service: {e}")
         exit()
 
-    # --- 1. INITIALIZE CHARACTERS (Real Objects) ---
-    player = Character(
-        id="p1", 
-        name="Valen", 
-        role="Fighter", 
-        hp=20, 
-        max_hp=20, 
-        ac=16, 
-        stats={Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: 1},
-        zone=Zone.NEAR,
-        inventory=["Rope (50ft)", "Torch", "Rations"] # <--- Added Inventory
-    )
-    
-    goblin = Character(
-        id="e1", 
-        name="Goblin Scavenger", 
-        role="Monster", 
-        hp=7, 
-        max_hp=7, 
-        ac=12, 
-        stats={Stat.PHYS: 1, Stat.MENT: -1, Stat.SOC: -1},
-        zone=Zone.NEAR,
-        inventory=["Rusty Dagger"]
-    )
+    # --- 1. LOAD DATA FROM JSON ---
+    data_manager = DataManager()
+    party, enemies = data_manager.load_game()
 
-    # Party State (simulated)
-    party = [player, goblin]
+    if not party:
+        print("❌ Error: No party data found. Check data/campaign.json")
+        exit()
+
+    # Set Active Characters for Testing
+    player = party[0]       # Valen
+    goblin = enemies[0]     # Goblin Scavenger
+
+    # Update the party list variable used later by LLMService
+    party = party + enemies # Combine lists so the Arbiter sees everyone in context
 
     print(f"🦸 Player: {player}")
     print(f"👹 Enemy:  {goblin}")
