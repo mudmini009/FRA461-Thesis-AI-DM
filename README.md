@@ -124,3 +124,36 @@ The "Calculator" containing pure functions.
 2. **LLM (Arbitrator):** Analyze intent, set Difficulty (DC 12), Output Call: `resolve_check(p1, MENT, 12)`.
 3. **Rules Engine:** Roll d20 + MENT, Check Success/Fail.
 4. **LLM (Narrator):** Receive Success → "You successfully translate the runes! They read: 'Beware of traps ahead'."
+
+---
+
+## 🧠 Phase 2: The AI Arbiter
+
+The system now supports **Improvised Creative Actions** (Path B).
+
+### 🤖 The Arbiter Role
+
+When a player attempts a non-standard action, the system calls the `LLMService` which acts as a Referee.
+
+1.  **Context Aware:** It reads the **Inventory** of ALL party members (Teamwork support).
+2.  **Physics Check:** It validates if the action is logically possible (Arbiter Judgement).
+3.  **Stat Assignment:** It decides which Stat (PHYS/MENT/SOC) to roll and sets a DC (Difficulty Class).
+
+### 🗣️ The Narrator Role
+
+After the dice roll (Calculated by Python), the result is sent back to the LLM to generate an immersive description.
+
+**Example:**
+
+> **Player:** "I use my rope to trip the running goblin."
+> **Arbiter:** "Allowed (Has Rope). Roll PHYS (DC 15)."
+> **Dice:** Player rolls 18 (Success).
+> **Narrator:** "You deftly toss the rope, tangling the goblin's legs. It crashes face-first into the dirt!"
+
+### 🔗 Symbolic Grounding (Side Effects)
+
+The Arbiter doesn't just narrate; it **updates the Python Game State**.
+
+- If the Arbiter determines a target suffers a Condition (e.g., `RESTRAINED`, `PRONE`), it returns this in the JSON.
+- The **Rules Engine** automatically applies this condition to the target's data model.
+- **Result:** The Goblin's status explicitly changes from `NORMAL` to `RESTRAINED` in code, affecting future logic.

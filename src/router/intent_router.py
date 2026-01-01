@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 # --- REFRACTORED IMPORTS ---
 from src.logic.rules_engine import RulesEngine
 from src.models.character import Character, Stat, Zone, Condition
+from src.services.llm_service import LLMService
 
 # Load environment variables
 load_dotenv()
@@ -68,9 +69,17 @@ def classify_intent(user_input: str) -> dict:
 
 if __name__ == "__main__":
     print("\n" + "="*50)
-    print("🎮 AI DM PROTOTYPE: TWO-PATH ARCHITECTURE")
+    print("🎮 AI DM PROTOTYPE: TWO-PATH ARCHITECTURE (PHASE 2)")
     print("="*50)
     
+    # --- 0. INITIALIZE SERVICES ---
+    try:
+        llm_service = LLMService()
+        print("✅ LLM Arbiter Online")
+    except Exception as e:
+        print(f"❌ Failed to load LLM Service: {e}")
+        exit()
+
     # --- 1. INITIALIZE CHARACTERS (Real Objects) ---
     player = Character(
         id="p1", 
@@ -80,7 +89,8 @@ if __name__ == "__main__":
         max_hp=20, 
         ac=16, 
         stats={Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: 1},
-        zone=Zone.NEAR
+        zone=Zone.NEAR,
+        inventory=["Rope (50ft)", "Torch", "Rations"] # <--- Added Inventory
     )
     
     goblin = Character(
@@ -91,15 +101,19 @@ if __name__ == "__main__":
         max_hp=7, 
         ac=12, 
         stats={Stat.PHYS: 1, Stat.MENT: -1, Stat.SOC: -1},
-        zone=Zone.NEAR
+        zone=Zone.NEAR,
+        inventory=["Rusty Dagger"]
     )
+
+    # Party State (simulated)
+    party = [player, goblin]
 
     print(f"🦸 Player: {player}")
     print(f"👹 Enemy:  {goblin}")
 
     while True:
         try:
-            print(f"\n[{player.name} ({player.hp}/{player.max_hp} HP)] Action > ", end="")
+            print(f"\n[{player.name}] Action > ", end="")
             user_input = input()
             if user_input.lower() in ['exit', 'quit', 'q']: break
             if not user_input.strip(): continue
@@ -119,11 +133,8 @@ if __name__ == "__main__":
                 
                 if decision.get('command') == 'ATTACK':
                     print(f"   ⚔️  Executing Attack Sequence...")
-                    
-                    # --- DELEGATION TO RULES ENGINE ---
                     result = RulesEngine.resolve_attack(player, goblin)
                     
-                    # Display Result
                     roll_info = f"{result['roll']} + {player.stats[Stat.PHYS]} (Bonus)"
                     
                     if result['is_crit']:
@@ -132,7 +143,6 @@ if __name__ == "__main__":
                     if result['is_hit']:
                         if not result['is_crit']:
                              print(f"   💥 HIT! (Total {result['total']} vs AC {goblin.ac})")
-                        
                         print(f"   🩸 Damage Dealt: {result['damage']}")
                         print(f"   📉 Goblin HP: {goblin.hp}/{goblin.max_hp} ({goblin.condition.name})")
                     else:
@@ -140,14 +150,73 @@ if __name__ == "__main__":
 
                 elif decision.get('command') == 'MOVE':
                     print("   🏃 Processing Movement Rules... (To be implemented)")
-                
                 else:
                     print(f"   ⚙️ Processing {decision.get('command')}... (To be implemented)")
 
-            # 3. PATH B: CREATIVE (The AI Narrator)
+            # 3. PATH B: CREATIVE (The AI Arbiter)
             elif decision.get('type') == 'CREATIVE':
-                 print(f"   ✨ Sending to LLM Narrator: '{decision.get('description', 'No description')}'")
+                 description = decision.get('description', user_input)
+                 print(f"   🤔 Arbiter Judging: '{description}'")
                  
+                 # A. Arbitration
+                 judgment = llm_service.get_creative_judgment(party, player, description)
+                 
+                 if judgment['allowed']:
+                     print(f"   ✅ Allowed! Reason: {judgment['reason']}")
+                     
+                     stat_str = judgment.get('check_stat', 'PHYS')
+                     dc = judgment.get('dc', 10)
+                     
+                     # Map string to Enum safely
+                     try:
+                         target_stat = Stat[stat_str]
+                     except KeyError:
+                         target_stat = Stat.PHYS # Default falllback
+                         
+                     print(f"   🎲 Rolling Check: {target_stat.value} (DC {dc})")
+                     
+                     # B. Execution (Rules Engine)
+                     success = RulesEngine.resolve_check(player, target_stat, dc)
+                     
+                     # Get the raw roll just for display (RulesEngine returns bool, but let's assume valid)
+                     # For more detail, normally RulesEngine.resolve_check should return dict, but for now we trust the bool.
+                     # But wait, to narrate we need the roll. 
+                     # Let's peek at the helper or just narrate the success/fail.
+                     # The implementation plan said: narrate_result(action, outcome_bool).
+                     
+                     outcome_text = "PASSED" if success else "FAILED"
+                     print(f"   {'🌟' if success else '💀'} Check {outcome_text}!")
+                     
+                     # --- C. SYMBOLIC GROUNDING (Side Effects) ---
+                     # Added logic to update Game State based on Arbiter's Condition
+                     if success:
+                         condition_str = judgment.get('on_success_condition')
+                         target_name = judgment.get('target_name_guess')
+                         
+                         if condition_str and target_name:
+                             # 1. Search for target in party (Fuzzy Match)
+                             found_target = None
+                             for char in party:
+                                 if target_name.lower() in char.name.lower():
+                                     found_target = char
+                                     break
+                            
+                             # 2. Apply Condition
+                             if found_target:
+                                 try:
+                                     new_condition = Condition[condition_str]
+                                     found_target.condition = new_condition
+                                     print(f"   ⚠️ STATUS UPDATE: {found_target.name} is now {new_condition.name}!")
+                                 except KeyError:
+                                     print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
+
+                     # D. Narration
+                     narration = llm_service.narrate_result(description, "Hidden", dc, success)
+                     print(f"   🗣️  DM: \"{narration}\"")
+                     
+                 else:
+                     print(f"   🚫 Denied! Reason: {judgment['reason']}")
+
             # Error handling
             elif decision.get('type') == 'ERROR':
                 print(f"   ❌ Error: {decision.get('message')}")

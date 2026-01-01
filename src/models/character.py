@@ -17,6 +17,10 @@ class Condition(Enum):
     INJURED = "INJURED"
     UNCONSCIOUS = "UNCONSCIOUS"
     DEAD = "DEAD"
+    RESTRAINED = "RESTRAINED"
+    PRONE = "PRONE"
+    BLINDED = "BLINDED"
+    STUNNED = "STUNNED"
 
 @dataclass
 class Character:
