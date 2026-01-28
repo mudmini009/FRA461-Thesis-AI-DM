@@ -49,6 +49,8 @@ my_ai_dm_project/
 ├── .env                     # Secrets (API Key) - gitignored
 ├── requirements.txt         # Python Dependencies (google-generativeai, etc.)
 ├── main.py                  # Simulation Entry Point
+├── data/                    # [Persistence Layer]
+│   └── campaign.json        # External Game Data (Party & Enemies)
 ├── src/
 │   ├── models/              # [Data Layer] - Single Source of Truth
 │   │   ├── character.py     # Defines Character stats (PHYS/MENT/SOC), HP, Zone.
@@ -66,6 +68,7 @@ my_ai_dm_project/
 │   │
 │   └── services/            # [External Services] - AI & Data Fetching
 │       ├── llm_service.py   # API Client for Gemini 2.5 Flash-Lite (Narrator/Arbitrator).
+│       ├── data_manager.py  # Loads JSON data and converts strings to Enums.
 │       └── rag_service.py   # Prepares Context (State + History + Rules) for the LLM.
 │
 └── tests/                   # [Quality Assurance] - Proof of Mechanism
