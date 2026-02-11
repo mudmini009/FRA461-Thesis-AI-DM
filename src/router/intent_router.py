@@ -97,8 +97,13 @@ if __name__ == "__main__":
     # Keep party and enemies separate for TOON conversion
     # party = party + enemies <--- REMOVED
 
-    print(f"🦸 Player: {player}")
-    print(f"👹 Enemy:  {goblin}")
+    print(f"🦸 Active Party:")
+    for p in party:
+        print(f"   - {p}")
+
+    print(f"👹 Enemies:")
+    for e in enemies:
+        print(f"   - {e}")
 
     while True:
         try:
@@ -219,8 +224,16 @@ if __name__ == "__main__":
             if not enemy_logs:
                 print("   (No active enemies or targets)")
             else:
+                # Collect event log for narration
+                full_event_log = ""
                 for log in enemy_logs:
-                    print(f"   {log}")
+                    print(f"   [SYSTEM] {log}")
+                    full_event_log += log + " "
+                
+                # Generate Narration
+                print(f"   thinking...", end="\r")
+                narration = llm_service.narrate_combat_round(full_event_log)
+                print(f"   🗣️  DM: \"{narration}\"")
 
             # --- 5. CHECK WIN/LOSS CONDITIONS ---
             active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]

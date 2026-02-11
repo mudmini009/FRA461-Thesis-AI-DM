@@ -107,3 +107,22 @@ class LLMService:
             return response.text.strip()
         except Exception as e:
             return f"Narrator Error: {str(e)}"
+
+    def narrate_combat_round(self, event_log: str) -> str:
+        """
+        Summarizes a series of mechanical combat events into immersive text.
+        """
+        prompt = f"""
+        You are the Dungeon Master. 
+        The following mechanical events just happened in the enemy turn: 
+        '{event_log}'
+        
+        Summarize these events into 1-2 vivid, action-packed sentences.
+        Do not use game mechanics numbers in the output. Focus on the visual impact, sound, and pain.
+        """
+        
+        try:
+            response = self.narrator_model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            return f"Narrator Error: {str(e)}"
