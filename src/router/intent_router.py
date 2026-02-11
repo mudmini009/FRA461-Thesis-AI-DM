@@ -10,6 +10,7 @@ from src.logic.rules_engine import RulesEngine
 from src.models.character import Character, Stat, Zone, Condition
 from src.services.llm_service import LLMService
 from src.services.data_manager import DataManager
+from src.logic.enemy_ai import EnemyAI
 
 # Load environment variables
 load_dotenv()
@@ -198,15 +199,39 @@ if __name__ == "__main__":
                                  except KeyError:
                                      print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
 
-                     # D. Narration
                      narration = llm_service.narrate_result(description, "Hidden", dc, success)
                      print(f"   🗣️  DM: \"{narration}\"")
                      
-                 else:
-                     print(f"   🚫 Denied! Reason: {judgment['reason']}")
+                     
+            # --- 4. ENEMY TURN (Side Initiative) ---
+            # Automatically triggers after Player's Action (if not just chatting/error)
+            if decision.get('type') in ['FIXED', 'CREATIVE']:
+                print(f"\n   ⚠️  Enemies are reacting...")
+                enemy_logs = EnemyAI.execute_turn(enemies, party)
+                for log in enemy_logs:
+                    print(f"   {log}")
+                    
+                # --- 5. WIN/LOSS CHECK ---
+                active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+                active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+                
+                if not active_players:
+                    print("\n" + "="*50)
+                    print("💀 GAME OVER: The party has fallen.")
+                    print("="*50)
+                    break
+                    
+                if not active_enemies:
+                    print("\n" + "="*50)
+                    print("🏆 VICTORY: All enemies defeated!")
+                    print("="*50)
+                    break
+                     
+            else:
+                 pass # No else needed really if we cover FIXED and CREATIVE above, but to be safe for ERROR/Unknown
 
             # Error handling
-            elif decision.get('type') == 'ERROR':
+            if decision.get('type') == 'ERROR':
                 print(f"   ❌ Error: {decision.get('message')}")
         
         except KeyboardInterrupt:
