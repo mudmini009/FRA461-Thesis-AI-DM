@@ -94,8 +94,8 @@ if __name__ == "__main__":
     player = party[0]       # Valen
     goblin = enemies[0]     # Goblin Scavenger
 
-    # Update the party list variable used later by LLMService
-    party = party + enemies # Combine lists so the Arbiter sees everyone in context
+    # Keep party and enemies separate for TOON conversion
+    # party = party + enemies <--- REMOVED
 
     print(f"🦸 Player: {player}")
     print(f"👹 Enemy:  {goblin}")
@@ -148,7 +148,7 @@ if __name__ == "__main__":
                  print(f"   🤔 Arbiter Judging: '{description}'")
                  
                  # A. Arbitration
-                 judgment = llm_service.get_creative_judgment(party, player, description)
+                 judgment = llm_service.get_creative_judgment(party, enemies, player, description)
                  
                  if judgment['allowed']:
                      print(f"   ✅ Allowed! Reason: {judgment['reason']}")
@@ -183,9 +183,10 @@ if __name__ == "__main__":
                          target_name = judgment.get('target_name_guess')
                          
                          if condition_str and target_name:
-                             # 1. Search for target in party (Fuzzy Match)
+                             # 1. Search for target in party or enemies (Fuzzy Match)
                              found_target = None
-                             for char in party:
+                             all_actors = party + enemies
+                             for char in all_actors:
                                  if target_name.lower() in char.name.lower():
                                      found_target = char
                                      break
@@ -199,40 +200,43 @@ if __name__ == "__main__":
                                  except KeyError:
                                      print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
 
+                     # D. Narration
                      narration = llm_service.narrate_result(description, "Hidden", dc, success)
                      print(f"   🗣️  DM: \"{narration}\"")
                      
-                     
-            # --- 4. ENEMY TURN (Side Initiative) ---
-            # Automatically triggers after Player's Action (if not just chatting/error)
-            if decision.get('type') in ['FIXED', 'CREATIVE']:
-                print(f"\n   ⚠️  Enemies are reacting...")
-                enemy_logs = EnemyAI.execute_turn(enemies, party)
-                for log in enemy_logs:
-                    print(f"   {log}")
-                    
-                # --- 5. WIN/LOSS CHECK ---
-                active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
-                active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
-                
-                if not active_players:
-                    print("\n" + "="*50)
-                    print("💀 GAME OVER: The party has fallen.")
-                    print("="*50)
-                    break
-                    
-                if not active_enemies:
-                    print("\n" + "="*50)
-                    print("🏆 VICTORY: All enemies defeated!")
-                    print("="*50)
-                    break
-                     
-            else:
-                 pass # No else needed really if we cover FIXED and CREATIVE above, but to be safe for ERROR/Unknown
+                 else:
+                     print(f"   🚫 Denied! Reason: {judgment['reason']}")
 
             # Error handling
-            if decision.get('type') == 'ERROR':
+            elif decision.get('type') == 'ERROR':
                 print(f"   ❌ Error: {decision.get('message')}")
+                continue # Skip enemy turn on error
+
+            # --- 4. ENEMY TURN (Side Initiative) ---
+            print(f"\n   🔻 Enemy Turn:")
+            enemy_logs = EnemyAI.execute_turn(enemies, party)
+            
+            if not enemy_logs:
+                print("   (No active enemies or targets)")
+            else:
+                for log in enemy_logs:
+                    print(f"   {log}")
+
+            # --- 5. CHECK WIN/LOSS CONDITIONS ---
+            active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+            active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+
+            if not active_players:
+                print("\n" + "💀"*20)
+                print("GAME OVER - The Party has fallen!")
+                print("💀"*20)
+                break
+            
+            if not active_enemies:
+                print("\n" + "🏆"*20)
+                print("VICTORY - All enemies defeated!")
+                print("🏆"*20)
+                break
         
         except KeyboardInterrupt:
             print("\nShutting down...")

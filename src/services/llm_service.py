@@ -25,7 +25,7 @@ class LLMService:
             generation_config={"temperature": 0.7} # Text output, not JSON
         )
 
-    def get_creative_judgment(self, party_state: List[Character], active_player: Character, action_description: str) -> Dict[str, Any]:
+    def get_creative_judgment(self, party_state: List[Character], enemies_state: List[Character], active_player: Character, action_description: str) -> Dict[str, Any]:
         """
         Acts as the Arbiter/Referee.
         Decides if an action is possible based on Party Inventory and Logic.
@@ -33,7 +33,7 @@ class LLMService:
         
         
         # 1. Build Context (TOON Format)
-        toon_context = TOONConverter.convert(party_state, []) # Enemies not needed for basic arbitration context yet, or could be added
+        toon_context = TOONConverter.convert(party_state, enemies_state)
             
         prompt = f"""
         You are the ARBITER (Game Referee) for a TTRPG.

@@ -14,15 +14,12 @@ We are building the **Two-Path Architecture** described in the thesis.
 
 ### ✅ Components Completed:
 
-1.  **AI Arbiter & Router:** Two-Path System (Rules vs. Creative) is fully active.
-2.  **Enemy AI:** Side-Initiative Auto-Battler is implemented.
-3.  **Data Persistence:** JSON-based Campaign loading.
-
-4.  **Intent Router (`src/router/`):**
+1.  **Intent Router (`src/router/`):**
     - Uses **Gemini 2.5 Flash-Lite** to classify user input.
     - Distinguishes between `FIXED` (Rules) and `CREATIVE` (Narrative) actions.
-5.  **Rules Engine (`src/logic/`):**
+2.  **Rules Engine (`src/logic/`):**
     - `dice_roller.py`: A stateless, deterministic dice parser.
+    - `enemy_ai.py`: Basic Side Initiative AI (Auto-Turn).
     - Supports standard D&D notation (e.g., `1d20+5`).
 
 ### 🕹️ How to Run
@@ -63,8 +60,8 @@ my_ai_dm_project/
 │   │
 │   ├── logic/               # [Core Logic] - Stateless Rules Engine (The "Calculator")
 │   │   ├── rules_engine.py  # Main entry for Path A. Handles `resolve_attack`, `resolve_check`.
+│   │   ├── enemy_ai.py      # [NEW] Logic for Enemy Turn (Target Selection & Attack).
 │   │   ├── dice_roller.py   # Pure RNG functions (d20, damage rolls). No AI here.
-│   │   ├── enemy_ai.py      # [New] Stateless Enemy Logic (Side Initiative).
 │   │   └── abilities.py     # Hardcoded logic for Class Feats (e.g., Second Wind, Smite).
 │   │
 │   ├── router/              # [The Brain] - Decides Path A vs Path B
