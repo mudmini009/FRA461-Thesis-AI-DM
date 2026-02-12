@@ -126,8 +126,27 @@ if __name__ == "__main__":
             if decision.get('type') == 'FIXED':
                 
                 if decision.get('command') == 'ATTACK':
-                    print(f"   ⚔️  Executing Attack Sequence...")
-                    result = RulesEngine.resolve_attack(player, goblin)
+                    target_name = decision.get('target')
+                    target = None
+                    
+                    # 1. Try to find specified target
+                    if target_name:
+                        for e in enemies:
+                            if target_name.lower() in e.name.lower() and e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]:
+                                target = e
+                                break
+                    
+                    # 2. Fallback to first active enemy if no target found or specified
+                    if not target:
+                        active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+                        if active_enemies:
+                            target = active_enemies[0]
+                        else:
+                            print("   ⚠️ No active enemies to attack!")
+                            continue # Skip turn if no enemies
+
+                    print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
+                    result = RulesEngine.resolve_attack(player, target)
                     
                     raw_rolls = result.get('raw_rolls', [result['roll']])
                     roll_info = f"{raw_rolls} + {player.stats[Stat.PHYS]} (Bonus)"
@@ -137,11 +156,11 @@ if __name__ == "__main__":
                     
                     if result['is_hit']:
                         if not result['is_crit']:
-                             print(f"   💥 HIT! (Rolled {roll_info} = {result['total']} vs AC {goblin.ac})")
+                             print(f"   💥 HIT! (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
                         print(f"   🩸 Damage Dealt: {result['damage']}")
-                        print(f"   📉 Goblin HP: {goblin.hp}/{goblin.max_hp} ({goblin.condition.name})")
+                        print(f"   📉 {target.name} HP: {target.hp}/{target.max_hp} ({target.condition.name})")
                     else:
-                        print(f"   🛡️ MISS! (Rolled {roll_info} = {result['total']} vs AC {goblin.ac})")
+                        print(f"   🛡️ MISS! (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
 
                 elif decision.get('command') == 'MOVE':
                     print("   🏃 Processing Movement Rules... (To be implemented)")
