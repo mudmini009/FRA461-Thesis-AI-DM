@@ -45,5 +45,22 @@ class Character:
         else:
             self.condition = Condition.NORMAL
 
+    def to_dict(self) -> Dict[str, any]:
+        """
+        Converts the Character object back to a dictionary for JSON storage.
+        """
+        return {
+            "id": self.id,
+            "name": self.name,
+            "role": self.role,
+            "hp": self.hp,
+            "max_hp": self.max_hp,
+            "ac": self.ac,
+            "stats": {k.name: v for k, v in self.stats.items()}, # Enum key -> String
+            "zone": self.zone.name, # Enum -> String
+            "inventory": self.inventory,
+            "condition": self.condition.name # Enum -> String
+        }
+
     def __str__(self):
         return f"Character(id: {self.id}, name: {self.name}, role: {self.role}, hp: {self.hp}/{self.max_hp}, condition: {self.condition.name}, zone: {self.zone.name})"

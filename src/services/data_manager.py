@@ -38,6 +38,22 @@ class DataManager:
         except Exception as e:
             print(f"❌ Error loading game data: {e}")
             return [], []
+    def save_game(self, party: List[Character], enemies: List[Character]):
+        """
+        Saves the current game state to the JSON file.
+        Overwrites existing data.
+        """
+        data = {
+            "party": [p.to_dict() for p in party],
+            "enemies": [e.to_dict() for e in enemies]
+        }
+        
+        try:
+            with open(self.data_path, 'w') as f:
+                json.dump(data, f, indent=4)
+            # print("💾 Game Saved.") # Optional log
+        except Exception as e:
+            print(f"❌ Error saving game data: {e}")
 
     def _create_char(self, data: Dict[str, Any]) -> Character:
         """

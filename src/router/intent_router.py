@@ -257,6 +257,11 @@ if __name__ == "__main__":
                 narration = llm_service.narrate_combat_round(full_event_log)
                 print(f"   🗣️  DM: \"{narration}\"")
 
+            # --- 4.5 AUTO-SAVE ---
+            data_manager.save_game(party, enemies)
+
+            # --- 5. CHECK WIN/LOSS CONDITIONS ---
+
             # --- 5. CHECK WIN/LOSS CONDITIONS ---
             active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
             active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
