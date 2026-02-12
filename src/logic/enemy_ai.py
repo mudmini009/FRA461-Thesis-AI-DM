@@ -32,9 +32,21 @@ class EnemyAI:
 
         # 3. Execution Loop
         for enemy in active_enemies:
-            # A. Target Selection (Simple Random for now)
-            # In future, could target lowest HP or closest zone
-            target = random.choice(valid_targets)
+            # A. Target Selection (Smart AI)
+            # Priority 1: Proximity (Same Zone)
+            # Priority 2: Weakness (Lowest HP)
+            
+            # 1. Filter by Zone
+            proximity_targets = [p for p in valid_targets if p.zone == enemy.zone]
+            candidates = proximity_targets if proximity_targets else valid_targets
+            
+            # 2. Filter by Weakness (Lowest HP)
+            # Find the minimum HP among candidates
+            min_hp = min(c.hp for c in candidates)
+            weakest_targets = [c for c in candidates if c.hp == min_hp]
+            
+            # 3. Final Selection (Random among the "best" targets)
+            target = random.choice(weakest_targets)
             
             # B. Perform Action (Standard Attack)
             # Reusing the RulesEngine from Path A
