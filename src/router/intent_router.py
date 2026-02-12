@@ -180,6 +180,7 @@ if __name__ == "__main__":
                      
                      stat_str = judgment.get('check_stat', 'PHYS')
                      dc = judgment.get('dc', 10)
+                     if dc is None: dc = 10 # Safety fallback
                      
                      # Map string to Enum safely
                      try:
