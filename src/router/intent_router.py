@@ -211,6 +211,7 @@ if __name__ == "__main__":
                      
                  else:
                      print(f"   🚫 Denied! Reason: {judgment['reason']}")
+                     continue # Skip enemy turn if action is denied
 
             # Error handling
             elif decision.get('type') == 'ERROR':
