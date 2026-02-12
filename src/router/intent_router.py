@@ -129,18 +129,19 @@ if __name__ == "__main__":
                     print(f"   ⚔️  Executing Attack Sequence...")
                     result = RulesEngine.resolve_attack(player, goblin)
                     
-                    roll_info = f"{result['roll']} + {player.stats[Stat.PHYS]} (Bonus)"
+                    raw_rolls = result.get('raw_rolls', [result['roll']])
+                    roll_info = f"{raw_rolls} + {player.stats[Stat.PHYS]} (Bonus)"
                     
                     if result['is_crit']:
                          print(f"   🔥 CRITICAL HIT! (Natural 20!)")
                     
                     if result['is_hit']:
                         if not result['is_crit']:
-                             print(f"   💥 HIT! (Total {result['total']} vs AC {goblin.ac})")
+                             print(f"   💥 HIT! (Rolled {roll_info} = {result['total']} vs AC {goblin.ac})")
                         print(f"   🩸 Damage Dealt: {result['damage']}")
                         print(f"   📉 Goblin HP: {goblin.hp}/{goblin.max_hp} ({goblin.condition.name})")
                     else:
-                        print(f"   🛡️ MISS! (Total {result['total']} vs AC {goblin.ac})")
+                        print(f"   🛡️ MISS! (Rolled {roll_info} = {result['total']} vs AC {goblin.ac})")
 
                 elif decision.get('command') == 'MOVE':
                     print("   🏃 Processing Movement Rules... (To be implemented)")
@@ -170,16 +171,16 @@ if __name__ == "__main__":
                      print(f"   🎲 Rolling Check: {target_stat.value} (DC {dc})")
                      
                      # B. Execution (Rules Engine)
-                     success = RulesEngine.resolve_check(player, target_stat, dc)
+                     check_result = RulesEngine.resolve_check(player, target_stat, dc)
+                     success = check_result['success']
                      
-                     # Get the raw roll just for display (RulesEngine returns bool, but let's assume valid)
-                     # For more detail, normally RulesEngine.resolve_check should return dict, but for now we trust the bool.
-                     # But wait, to narrate we need the roll. 
-                     # Let's peek at the helper or just narrate the success/fail.
-                     # The implementation plan said: narrate_result(action, outcome_bool).
                      
                      outcome_text = "PASSED" if success else "FAILED"
-                     print(f"   {'🌟' if success else '💀'} Check {outcome_text}!")
+                     # Format raw rolls: [15] + 3
+                     bonus = player.stats.get(target_stat, 0)
+                     roll_str = f"{check_result['raw_rolls']} + {bonus}"
+                     
+                     print(f"   {'🌟' if success else '💀'} Check {outcome_text}! (Rolled {roll_str} = {check_result['total']} vs DC {dc})")
                      
                      # --- C. SYMBOLIC GROUNDING (Side Effects) ---
                      # Added logic to update Game State based on Arbiter's Condition

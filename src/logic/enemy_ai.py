@@ -1,6 +1,6 @@
 import random
 from typing import List
-from src.models.character import Character, Condition
+from src.models.character import Character, Condition, Stat
 from src.logic.rules_engine import RulesEngine
 
 class EnemyAI:
@@ -44,13 +44,19 @@ class EnemyAI:
             outcome = "MISS"
             damage_text = ""
             
+            raw_rolls = result.get('raw_rolls', [result['roll']])
+            bonus = enemy.stats.get(Stat.PHYS, 0) # Assuming PHYS for simple enemy AI
+            # Or retrieve from result if we stored bonus there, but we didn't. 
+            # Recalculating bonus for display is fine, or just showing [Roll] is enough.
+            # Let's just show "Rolled [14]"
+            
             if result['is_hit']:
                 outcome = "HIT"
                 damage_text = f" for {result['damage']} damage"
                 if result['is_crit']:
                     outcome = "CRITICAL HIT"
             
-            log_entry = f"👹 {enemy.name} attacks {target.name}: {outcome}! (Rolled {result['total']}){damage_text}"
+            log_entry = f"👹 {enemy.name} attacks {target.name}: {outcome}! (Rolled {raw_rolls} = {result['total']}){damage_text}"
             logs.append(log_entry)
             
             # Check if target went down, so other enemies don't keep attacking a corpse

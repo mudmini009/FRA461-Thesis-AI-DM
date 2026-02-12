@@ -110,6 +110,7 @@ class RulesEngine:
         return {
             'is_hit': is_hit,
             'roll': d20_roll,
+            'raw_rolls': final_roll['rolls'], # Added raw rolls for transparency
             'total': attack_total,
             'damage': damage,
             'is_crit': is_crit,
@@ -120,8 +121,12 @@ class RulesEngine:
         }
 
     @staticmethod
-    def resolve_check(actor: Character, stat: Stat, dc: int) -> bool:
+    def resolve_check(actor: Character, stat: Stat, dc: int) -> dict:
         bonus = actor.stats.get(stat, 0)
         # Roll 1d20 + bonus
         result = roll(f"1d20+{bonus}")
-        return result['total'] >= dc
+        return {
+            'success': result['total'] >= dc,
+            'total': result['total'],
+            'raw_rolls': result['rolls']
+        }
