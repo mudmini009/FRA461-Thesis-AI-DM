@@ -11,6 +11,7 @@ from src.models.character import Character, Stat, Zone, Condition
 from src.services.llm_service import LLMService
 from src.services.data_manager import DataManager
 from src.logic.enemy_ai import EnemyAI
+from src.models.toon_converter import TOONConverter
 
 # Load environment variables
 load_dotenv()
@@ -254,11 +255,16 @@ if __name__ == "__main__":
                 
                 # Generate Narration
                 print(f"   thinking...", end="\r")
-                narration = llm_service.narrate_combat_round(full_event_log)
+                
+                # Context for Narrator (Health Status)
+                toon_context = TOONConverter.convert(party, enemies)
+                narration = llm_service.narrate_combat_round(full_event_log, toon_context)
+                
                 print(f"   🗣️  DM: \"{narration}\"")
 
             # --- 4.5 AUTO-SAVE ---
             data_manager.save_game(party, enemies)
+            # print("   💾 Progress Saved.") # Uncomment for verbose logging
 
             # --- 5. CHECK WIN/LOSS CONDITIONS ---
 

@@ -45,7 +45,7 @@ class TOONConverter:
             
             for e in enemies:
                 # CSV-style Row
-                line = f"  {e.id},{e.name},{e.hp}/{e.max_hp},{e.zone.name},{e.condition.name}"
+                line = f"  {e.id},{e.name},{e.hp}/{e.max_hp}({e.get_health_status()}),{e.zone.name},{e.condition.name}"
                 toon_output.append(line)
 
         return "\n".join(toon_output)

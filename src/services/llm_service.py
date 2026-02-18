@@ -108,17 +108,22 @@ class LLMService:
         except Exception as e:
             return f"Narrator Error: {str(e)}"
 
-    def narrate_combat_round(self, event_log: str) -> str:
+    def narrate_combat_round(self, event_log: str, toon_context: str) -> str:
         """
         Summarizes a series of mechanical combat events into immersive text.
         """
         prompt = f"""
         You are the Dungeon Master. 
-        The following mechanical events just happened in the enemy turn: 
+        
+        COMBATANTS STATUS (TOON):
+        {toon_context}
+        
+        The following mechanical events just happened: 
         '{event_log}'
         
         Summarize these events into 1-2 vivid, action-packed sentences.
-        Do not use game mechanics numbers in the output. Focus on the visual impact, sound, and pain.
+        CRITICAL: Do NOT use numbers. Instead, use the Health Status (e.g. "Values is Bloodied", "Grok is Critical") to describe their physical state.
+        Focus on the visual impact, sound, and pain.
         """
         
         try:

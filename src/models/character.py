@@ -62,5 +62,17 @@ class Character:
             "condition": self.condition.name # Enum -> String
         }
 
+    def get_health_status(self) -> str:
+        """
+        Returns a narrative description of health for the LLM.
+        """
+        percent = self.hp / self.max_hp
+        if percent == 1.0: return "Unscathed"
+        if percent > 0.75: return "Scratched"
+        if percent > 0.50: return "Injured"
+        if percent > 0.25: return "Wounded"
+        if percent > 0.0: return "Critical"
+        return "Dead"
+
     def __str__(self):
         return f"Character(id: {self.id}, name: {self.name}, role: {self.role}, hp: {self.hp}/{self.max_hp}, condition: {self.condition.name}, zone: {self.zone.name})"
