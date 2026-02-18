@@ -1,0 +1,65 @@
+{
+    "party": [
+        {
+            "id": "p1",
+            "name": "Valen the Explorer",
+            "role": "Fighter",
+            "hp": 24,
+            "max_hp": 30,
+            "ac": 18,
+            "stats": {
+                "PHYS": 5,
+                "MENT": 2,
+                "SOC": 2
+            },
+            "zone": "NEAR",
+            "inventory": [
+                "Prototype Power Glove",
+                "High-Voltage EMP Emitter",
+                "Can of Redbull (Heals HP)",
+                "Flashbang Grenade"
+            ],
+            "condition": "INJURED"
+        }
+    ],
+    "enemies": [
+        {
+            "id": "e1",
+            "name": "Senior Robotics Engineer",
+            "role": "Monster",
+            "hp": 8,
+            "max_hp": 15,
+            "ac": 12,
+            "stats": {
+                "PHYS": 1,
+                "MENT": 2,
+                "SOC": -1
+            },
+            "zone": "NEAR",
+            "inventory": [
+                "Heavy Servo Motor",
+                "Spilled Coffee"
+            ],
+            "condition": "INJURED"
+        },
+        {
+            "id": "e2",
+            "name": "Panicking Freshman",
+            "role": "Minion",
+            "hp": 5,
+            "max_hp": 5,
+            "ac": 9,
+            "stats": {
+                "PHYS": -1,
+                "MENT": -1,
+                "SOC": 0
+            },
+            "zone": "MID",
+            "inventory": [
+                "Arduino Board",
+                "Screwdriver"
+            ],
+            "condition": "NORMAL"
+        }
+    ]
+}

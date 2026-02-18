@@ -70,7 +70,11 @@ def classify_intent(user_input: str) -> dict:
     except Exception as e:
         return {"type": "ERROR", "message": str(e)}
 
-if __name__ == "__main__":
+def start_combat_loop(data_path: str = "data/campaign.json") -> str:
+    """
+    Main Combat Loop.
+    Returns: "RESTART", "VICTORY", "DEFEAT", or "EXIT".
+    """
     print("\n" + "="*50)
     print("🎮 AI DM PROTOTYPE: TWO-PATH ARCHITECTURE (PHASE 2)")
     print("="*50)
@@ -81,36 +85,52 @@ if __name__ == "__main__":
         print("✅ LLM Arbiter Online")
     except Exception as e:
         print(f"❌ Failed to load LLM Service: {e}")
-        exit()
+        return "EXIT"
 
     # --- 1. LOAD DATA FROM JSON ---
-    data_manager = DataManager()
+    data_manager = DataManager(data_path)
     party, enemies = data_manager.load_game()
 
     if not party:
-        print("❌ Error: No party data found. Check data/campaign.json")
-        exit()
+        print(f"❌ Error: No party data found in {data_path}")
+        return "EXIT"
 
     # Set Active Characters for Testing
-    player = party[0]       # Valen
-    goblin = enemies[0]     # Goblin Scavenger
+    player = party[0]       
 
-    # Keep party and enemies separate for TOON conversion
-    # party = party + enemies <--- REMOVED
+    # print(f"🦸 Active Party:")
+    # for p in party:
+    #     print(f"   - {p}")
 
-    print(f"🦸 Active Party:")
-    for p in party:
-        print(f"   - {p}")
-
-    print(f"👹 Enemies:")
-    for e in enemies:
-        print(f"   - {e}")
+    # print(f"👹 Enemies:")
+    # for e in enemies:
+    #     print(f"   - {e}")
 
     while True:
         try:
-            print(f"\n[{player.name}] Action > ", end="")
+            # --- DASHBOARD (FIBO UI) ---
+            print("\n" + "─"*50)
+            # PLAYER DETAILS
+            stats = f"PHYS:{player.stats[Stat.PHYS]} MENT:{player.stats[Stat.MENT]} SOC:{player.stats[Stat.SOC]}"
+            inventory = " | ".join(player.inventory)
+            print(f"⚡ {player.name.upper()} | HP: {player.hp}/{player.max_hp} | Zone: {player.zone.name} | Cond: {player.condition.name}")
+            print(f"   📊 Stats: {stats}")
+            print(f"   🎒 Bag:   [{inventory}]")
+            print("─"*50)
+            print("TARGETS:")
+            for e in enemies:
+                if e.condition not in [Condition.DEAD]:
+                    status_icon = "👹" if e.role == "Monster" else "👽"
+                    health_status = e.get_health_status()
+                    print(f"   {status_icon} {e.name:<25} {health_status:<10} [{e.zone.name}] {e.condition.name if e.condition != Condition.NORMAL else ''}")
+            print("─"*50)
+
+            print(f"[{player.name}] Action > ", end="")
             user_input = input()
-            if user_input.lower() in ['exit', 'quit', 'q']: break
+            
+            # RESTART LOGIC
+            if user_input.lower() == 'restart': return "RESTART"
+            if user_input.lower() in ['exit', 'quit', 'q']: return "EXIT"
             if not user_input.strip(): continue
 
             print("   Thinking...", end="\r") # Loading effect
@@ -159,7 +179,8 @@ if __name__ == "__main__":
                         if not result['is_crit']:
                              print(f"   💥 HIT! (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
                         print(f"   🩸 Damage Dealt: {result['damage']}")
-                        print(f"   📉 {target.name} HP: {target.hp}/{target.max_hp} ({target.condition.name})")
+                        # UI Update: Hide specific HP numbers
+                        print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
                     else:
                         print(f"   🛡️ MISS! (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
 
@@ -274,16 +295,21 @@ if __name__ == "__main__":
 
             if not active_players:
                 print("\n" + "💀"*20)
-                print("GAME OVER - The Party has fallen!")
+                print("DEFEAT - The Party has fallen!")
                 print("💀"*20)
-                break
+                return "DEFEAT"
             
             if not active_enemies:
                 print("\n" + "🏆"*20)
                 print("VICTORY - All enemies defeated!")
                 print("🏆"*20)
-                break
+                return "VICTORY"
         
         except KeyboardInterrupt:
             print("\nShutting down...")
             break
+            
+    return "EXIT"
+
+if __name__ == "__main__":
+    start_combat_loop()
