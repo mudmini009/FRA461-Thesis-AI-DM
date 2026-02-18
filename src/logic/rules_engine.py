@@ -4,17 +4,34 @@ from src.logic.dice_roller import roll
 class RulesEngine:
     @staticmethod
     def resolve_attack(attacker: Character, target: Character, attack_type: str = 'melee') -> dict:
-        # Step 1: Validate Target
-        if target.condition in [Condition.DEAD, Condition.UNCONSCIOUS]:
+        # Step 1: Validate Attacker & Target
+        if attacker.condition in [Condition.STUNNED, Condition.UNCONSCIOUS, Condition.DEAD]:
             return {
                 'is_hit': False,
-                'message': 'Target is dead or unconscious!',
-                'roll': 0,
-                'total': 0,
-                'damage': 0,
-                'is_crit': False,
-                'disadvantage': False,
+                'message': f'{attacker.name} is {attacker.condition.name} and cannot attack!',
+                'roll': 0, 'total': 0, 'damage': 0, 'is_crit': False, 'disadvantage': False
             }
+
+        if target.condition in [Condition.DEAD]:
+            return {
+                'is_hit': False,
+                'message': 'Target is already dead!',
+                'roll': 0, 'total': 0, 'damage': 0, 'is_crit': False, 'disadvantage': False
+            }
+
+        # Step 1.5: Tactical Modifiers (Advantage/Disadvantage)
+        # If Target is STUNNED/RESTRAINED/UNCONSCIOUS -> Auto-Crit or massive advantage? 
+        # For 5e Lite: Advantage (+5 to roll)
+        tactical_bonus = 0
+        tactical_message = ""
+        
+        if target.condition in [Condition.STUNNED, Condition.RESTRAINED, Condition.UNCONSCIOUS, Condition.BLINDED, Condition.PRONE]:
+            tactical_bonus += 5
+            tactical_message = f"(+5 Advantage vs {target.condition.name})"
+        
+        if attacker.condition in [Condition.BLINDED, Condition.RESTRAINED]:
+            tactical_bonus -= 5
+            tactical_message += f"(-5 Disadvantage: {attacker.condition.name})"
 
         # Step 2: Calculate Zone Distance
         zones = [Zone.NEAR, Zone.MID, Zone.FAR]
@@ -67,8 +84,9 @@ class RulesEngine:
         has_disadvantage = (attack_type != 'melee' and distance >= 2)
 
         # Step 5: Roll to Hit (Using Dice Engine)
-        # We roll "1d20 + stat_bonus"
-        hit_expression = f"1d20+{stat_bonus}"
+        # We roll "1d20 + total_bonus"
+        total_hit_bonus = stat_bonus + tactical_bonus
+        hit_expression = f"1d20{total_hit_bonus:+}"
         
         roll1 = roll(hit_expression)
         final_roll = roll1

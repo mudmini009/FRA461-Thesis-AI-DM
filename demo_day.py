@@ -31,7 +31,7 @@ NARRATIVE = [
     "They notice you. The Senior Engineer cracks his knuckles, grabbing a heavy servo motor. It's time to fight!"
 ]
 
-def print_slow(text, delay=0.03):
+def print_slow(text, delay=0.01):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)

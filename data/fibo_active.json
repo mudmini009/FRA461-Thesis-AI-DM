@@ -4,7 +4,7 @@
             "id": "p1",
             "name": "Valen the Explorer",
             "role": "Fighter",
-            "hp": 24,
+            "hp": 30,
             "max_hp": 30,
             "ac": 18,
             "stats": {
@@ -19,7 +19,7 @@
                 "Can of Redbull (Heals HP)",
                 "Flashbang Grenade"
             ],
-            "condition": "INJURED"
+            "condition": "NORMAL"
         }
     ],
     "enemies": [
@@ -27,7 +27,7 @@
             "id": "e1",
             "name": "Senior Robotics Engineer",
             "role": "Monster",
-            "hp": 8,
+            "hp": 15,
             "max_hp": 15,
             "ac": 12,
             "stats": {
@@ -40,7 +40,7 @@
                 "Heavy Servo Motor",
                 "Spilled Coffee"
             ],
-            "condition": "INJURED"
+            "condition": "BLINDED"
         },
         {
             "id": "e2",
@@ -54,7 +54,7 @@
                 "MENT": -1,
                 "SOC": 0
             },
-            "zone": "MID",
+            "zone": "NEAR",
             "inventory": [
                 "Arduino Board",
                 "Screwdriver"

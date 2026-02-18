@@ -17,10 +17,18 @@ class EnemyAI:
         """
         logs = []
         
-        # 1. Filter Active Enemies
-        active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+        # 1. Filter Active Enemies (Check Incapacitated States)
+        active_enemies = []
+        for e in enemies:
+             # Skip if Dead, Unconscious, or Stunned
+             if e.condition in [Condition.DEAD, Condition.UNCONSCIOUS, Condition.STUNNED]:
+                 if e.condition != Condition.DEAD:
+                     logs.append(f"⚠️ {e.name} is {e.condition.name} and cannot act!")
+                 continue
+             active_enemies.append(e)
         
         if not active_enemies:
+            if not logs: logs.append("No active enemies to act.")
             return logs # No enemies left to act
             
         # 2. Filter Valid Targets (Living Players)

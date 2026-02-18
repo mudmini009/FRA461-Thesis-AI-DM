@@ -14,7 +14,7 @@ class Zone(Enum):
 
 class Condition(Enum):
     NORMAL = "NORMAL"
-    INJURED = "INJURED"
+    # INJURED = "INJURED"  <-- REMOVED per validaton request
     UNCONSCIOUS = "UNCONSCIOUS"
     DEAD = "DEAD"
     RESTRAINED = "RESTRAINED"
@@ -39,11 +39,12 @@ class Character:
         self.hp -= amount
         if self.hp <= 0:
             self.hp = 0
-            self.condition = Condition.UNCONSCIOUS
-        elif self.hp < self.max_hp:
-            self.condition = Condition.INJURED
-        else:
-            self.condition = Condition.NORMAL
+            # If already dead, stay dead. If not, go unconscious (or dead for NPCs generally)
+            if self.condition != Condition.DEAD:
+                self.condition = Condition.UNCONSCIOUS
+        
+        # NOTE: We no longer set 'INJURED' here. 
+        # Condition is reserved for tactical states.
 
     def to_dict(self) -> Dict[str, any]:
         """
