@@ -1,6 +1,6 @@
 # 🏰 AI Dungeon Master (Lite 5e) - Python Core
 
-### 🚀 PHASE 2 DEMO STATUS (Feb 20-21, 2026)
+### 🚀 FIBO DEMO DAY SHOWCASE (Feb 20-21, 2026)
 
 **Current Progress:**
 
