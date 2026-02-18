@@ -1,5 +1,26 @@
 # 🏰 AI Dungeon Master (Lite 5e) - Python Core
 
+### 🚀 PHASE 2 DEMO STATUS (Feb 20-21, 2026)
+
+**Current Progress:**
+
+- ✅ **Deterministic Combat Loop:** Full Side-Initiative loop (Player Team vs. Enemy AI).
+- ✅ **Two-Path Architecture:** Functional Intent Router separating Fixed Mechanics from Creative Arbitration.
+- ✅ **Optimized State Management:** Implemented TOON (Token-Oriented Object Notation) for context efficiency.
+- ✅ **Dynamic Data:** Scenarios loaded via JSON (Scenario: "The Ambush").
+
+**In Progress / Next Steps:**
+
+- ⏳ **World Exploration:** Map traversal and non-combat narrative transitions.
+- ⏳ **Advanced RAG:** Deep history retrieval for long-term campaign memory.
+- ⏳ **Character Growth:** XP and Level-up systems.
+
+---
+
+**Note to Evaluators:** This demo focuses on the **Combat Engine** and the **Hybrid AI-Rules Logic**. The map and exploration systems are scheduled for Phase 3.
+
+---
+
 A "Hybrid-Arbitrated" AI Dungeon Master backend system.
 Refactored from Flutter to **Python** for automated simulation and logic verification.
 Powered by **Gemini 2.5 Flash-Lite** and optimized with **TOON**.
