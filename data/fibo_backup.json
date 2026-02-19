@@ -17,16 +17,10 @@
     "enemies": [
         {
             "id": "e1", "name": "Senior Robotics Engineer", "role": "Monster",
-            "hp": 15, "max_hp": 15, "ac": 12,
-            "stats": {"PHYS": 1, "MENT": 2, "SOC": -1},
-            "zone": "NEAR", "inventory": ["Heavy Servo Motor", "Spilled Coffee"],
-            "condition": "NORMAL"
-        },
-        {
-            "id": "e2", "name": "Panicking Freshman", "role": "Minion",
-            "hp": 5, "max_hp": 5, "ac": 9,
-            "stats": {"PHYS": -1, "MENT": -1, "SOC": 0},
-            "zone": "NEAR", "inventory": ["Arduino Board", "Screwdriver"],
+            "hp": 25, "max_hp": 25, "ac": 12,
+            "stats": {"PHYS": 2, "MENT": 2, "SOC": -1},
+            "zone": "NEAR", 
+            "inventory": ["Industrial Wrench", "Experimental Circuit Board"],
             "condition": "NORMAL"
         }
     ]

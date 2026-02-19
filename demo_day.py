@@ -27,8 +27,8 @@ NARRATIVE = [
     "Rumors spoke of a hidden AI treasure deep within the Institute of Field Robotics (FIBO) at KMUTT.",
     "You step into the glass elevator, pressing the button for the restricted top floor.",
     "The gears grind, the lights flicker, and the doors slide open to a forgotten, dimly lit laboratory.",
-    "Amongst scattered drone parts and sparking wires, two rogue engineers are arguing over a blueprint.",
-    "They notice you. The Senior Engineer cracks his knuckles, grabbing a heavy servo motor. It's time to fight!"
+    "Amongst scattered drone parts and sparking wires, a massive rogue engineer stands guard over a blueprint.",
+    "He notices you. The Senior Engineer cracks his knuckles, grabbing a heavy servo motor. It's time to fight!"
 ]
 
 def print_slow(text, delay=0.01):
