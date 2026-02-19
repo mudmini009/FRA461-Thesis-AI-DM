@@ -1,59 +1,79 @@
-# 🏰 AI Dungeon Master (Lite 5e) - Python Core
+# 🏰 AI Dungeon Master (FIBO Senior Project)
 
-### 🚀 FIBO DEMO DAY SHOWCASE (Feb 20-21, 2026)
+> **FIBO DEMO DAY SHOWCASE (Feb 20-21, 2026)**  
+> _Interactive AI-Powered Tabletop RPG Engine_
 
-**Current Progress:**
+This project demonstrates a **Hybrid AI Game Master** that combines the narrative flexibility of Large Language Models (LLM) with the mechanical precision of a hard-coded Rules Engine.
 
-- ✅ **Deterministic Combat Loop:** Full Side-Initiative loop (Player Team vs. Enemy AI).
-- ✅ **Two-Path Architecture:** Functional Intent Router separating Fixed Mechanics from Creative Arbitration.
+---
+
+## 📊 Current Progress (Phase 2: The Combat Engine)
+
+- ✅ **Hybrid Architecture:** A "Two-Path" system routing player intent to either the **Rules Engine** (for attacks/movement) or the **LLM Arbiter** (for creative improv).
+- ✅ **Stateless Rules Engine:** Deterministic Python logic for dice rolling, AC checks, and damage calculation (No AI hallucinations on math).
+- ✅ **LLM Arbiter:** A "Referee" AI that judges creative actions, assigns Difficulty Classes (DC), and updates game state (e.g., applying "Stunned" conditions).
+- ✅ **Tactical Combat:** Full support for Status Effects (`BLINDED`, `STUNNED`, `RESTRAINED`) with mechanical advantages/disadvantages.
+- ✅ **Immersive UI:** Console-based dashboard showing real-time HP, Zone, and Inventory.
 - ✅ **Optimized State Management:** Implemented TOON (Token-Oriented Object Notation) for context efficiency.
-- ✅ **Dynamic Data:** Scenarios loaded via JSON (Scenario: "The Ambush").
 
-**In Progress / Next Steps:**
+**Demo Scenario:**
 
-- ⏳ **World Exploration:** Map traversal and non-combat narrative transitions.
-- ⏳ **Advanced RAG:** Deep history retrieval for long-term campaign memory.
-- ⏳ **Character Growth:** XP and Level-up systems.
-
----
-
-**Note to Evaluators:** This demo focuses on the **Combat Engine** and the **Hybrid AI-Rules Logic**. The map and exploration systems are scheduled for Phase 3.
+- **Mode:** 1v1 Boss Fight
+- **Player:** Valen the Explorer (Level 5 Fighter)
+- **Boss:** Senior Robotics Engineer (Custom Statblock)
 
 ---
 
-A "Hybrid-Arbitrated" AI Dungeon Master backend system.
-Refactored from Flutter to **Python** for automated simulation and logic verification.
-Powered by **Gemini 2.5 Flash-Lite** and optimized with **TOON**.
+## 🛠️ How to Run
+
+**Prerequisites:**
+
+- Python 3.10+
+- Gemini API Key (in `.env`)
+
+**Launch the Demo:**
+
+```bash
+# activate your environment
+conda activate ai_dm_core
+
+# Run the dedicated launcher
+python demo_day.py
+```
+
+**Controls:**
+
+- **Attack:** "I attack the engineer with my wrench"
+- **Use Item:** "I throw a flashbang"
+- **Creative:** "I kick the table to block his path"
+- **Restart:** Type `restart` to reset the demo for a new player.
+- **Exit:** Type `exit` or `quit`.
 
 ---
 
-# 🐉 AI Dungeon Master Core
+## 📂 Project Structure
 
-## 🚀 Current Progress (Phase 1: Architecture)
-
-We are building the **Two-Path Architecture** described in the thesis.
-
-### ✅ Components Completed:
-
-1.  **Intent Router (`src/router/`):**
-    - Uses **Gemini 2.5 Flash-Lite** to classify user input.
-    - Distinguishes between `FIXED` (Rules) and `CREATIVE` (Narrative) actions.
-2.  **Rules Engine (`src/logic/`):**
-    - `dice_roller.py`: A stateless, deterministic dice parser.
-    - `enemy_ai.py`: Basic Side Initiative AI (Auto-Turn).
-    - Supports standard D&D notation (e.g., `1d20+5`).
-
-### 🕹️ How to Run
-
-1. Activate environment: `conda activate ai_dm_core` (or your preferred env)
-2. Run the main loop:
-   ```bash
-   python src/router/intent_router.py
-   ```
+```text
+AI_Dungeon_Master/
+├── demo_day.py              # [LAUNCHER] Main entry point for the showcase
+├── data/                    # [DATA] JSON files for Game State
+│   ├── fibo_backup.json     # Pristine state (Reset source)
+│   └── fibo_active.json     # Mutable live state
+├── src/
+│   ├── router/              # [BRAIN] Intent Classification
+│   │   └── intent_router.py # Main loop & decision tree
+│   ├── logic/               # [CALCULATOR] Pure Python Rules
+│   │   ├── rules_engine.py  # Combat math & modifiers
+│   │   ├── enemy_ai.py      # Enemy turn logic
+│   │   └── dice_roller.py   # RNG engine (Deterministic)
+│   ├── models/              # [STATE] Data Classes (Character, Condition)
+│   └── services/            # [IO] External APIs (Gemini)
+└── requirements.txt         # Dependencies
+```
 
 ---
 
-## 🧠 Core Philosophy
+## � Core Philosophy
 
 The system is designed as a **"Stateless Machine"** to ensure accuracy and reduce complexity.
 
