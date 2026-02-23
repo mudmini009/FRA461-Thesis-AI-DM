@@ -16,6 +16,12 @@ from src.models.toon_converter import TOONConverter
 # Load environment variables
 load_dotenv()
 
+DEBUG_MODE = os.getenv("DEBUG_MODE", "True").lower() == "true"
+
+def debug_print(*args, **kwargs):
+    if DEBUG_MODE:
+        print(*args, **kwargs)
+
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY")
 
@@ -129,6 +135,11 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
             user_input = input()
             
             # RESTART LOGIC
+            if user_input.lower() == 'debug':
+                global DEBUG_MODE
+                DEBUG_MODE = not DEBUG_MODE
+                print(f"   🔧 Debug Mode is now {'ON' if DEBUG_MODE else 'OFF'}")
+                continue
             if user_input.lower() == 'restart': return "RESTART"
             if user_input.lower() in ['exit', 'quit', 'q']: return "EXIT"
             if not user_input.strip(): continue
@@ -141,7 +152,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
             # Clear loading line
             print(" " * 20, end="\r")
             
-            print(f"🤖 Intent: {decision.get('type', 'ERROR').ljust(10)} | Command: {decision.get('command', 'N/A')}")
+            debug_print(f"🤖 Intent: {decision.get('type', 'ERROR').ljust(10)} | Command: {decision.get('command', 'N/A')}")
 
             # 2. PATH A: FIXED RULES (Delegated to RulesEngine)
             if decision.get('type') == 'FIXED':
@@ -166,23 +177,26 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             print("   ⚠️ No active enemies to attack!")
                             continue # Skip turn if no enemies
 
-                    print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
+                    debug_print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
                     result = RulesEngine.resolve_attack(player, target)
                     
                     raw_rolls = result.get('raw_rolls', [result['roll']])
                     roll_info = f"{raw_rolls} + {player.stats[Stat.PHYS]} (Bonus)"
                     
                     if result['is_crit']:
-                         print(f"   🔥 CRITICAL HIT! (Natural 20!)")
+                         print(f"   🔥 CRITICAL HIT!")
+                         debug_print("      (Natural 20!)")
                     
                     if result['is_hit']:
                         if not result['is_crit']:
-                             print(f"   💥 HIT! (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
+                             print(f"   💥 HIT!")
+                             debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
                         print(f"   🩸 Damage Dealt: {result['damage']}")
                         # UI Update: Hide specific HP numbers
                         print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
                     else:
-                        print(f"   🛡️ MISS! (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
+                        print(f"   🛡️ MISS!")
+                        debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
 
                 elif decision.get('command') == 'MOVE':
                     print("   🏃 Processing Movement Rules... (To be implemented)")
@@ -192,13 +206,13 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
             # 3. PATH B: CREATIVE (The AI Arbiter)
             elif decision.get('type') == 'CREATIVE':
                  description = decision.get('description', user_input)
-                 print(f"   🤔 Arbiter Judging: '{description}'")
+                 debug_print(f"   🤔 Arbiter Judging: '{description}'")
                  
                  # A. Arbitration
                  judgment = llm_service.get_creative_judgment(party, enemies, player, description)
                  
                  if judgment['allowed']:
-                     print(f"   ✅ Allowed! Reason: {judgment['reason']}")
+                     debug_print(f"   ✅ Allowed! Reason: {judgment['reason']}")
                      
                      stat_str = judgment.get('check_stat', 'PHYS')
                      dc = judgment.get('dc', 10)
@@ -210,7 +224,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                      except KeyError:
                          target_stat = Stat.PHYS # Default falllback
                          
-                     print(f"   🎲 Rolling Check: {target_stat.value} (DC {dc})")
+                     debug_print(f"   🎲 Rolling Check: {target_stat.value} (DC {dc})")
                      
                      # B. Execution (Rules Engine)
                      check_result = RulesEngine.resolve_check(player, target_stat, dc)
@@ -222,7 +236,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                      bonus = player.stats.get(target_stat, 0)
                      roll_str = f"{check_result['raw_rolls']} + {bonus}"
                      
-                     print(f"   {'🌟' if success else '💀'} Check {outcome_text}! (Rolled {roll_str} = {check_result['total']} vs DC {dc})")
+                     debug_print(f"   {'🌟' if success else '💀'} Check {outcome_text}! (Rolled {roll_str} = {check_result['total']} vs DC {dc})")
                      
                      # --- C. SYMBOLIC GROUNDING (Side Effects) ---
                      # Added logic to update Game State based on Arbiter's Condition
@@ -246,7 +260,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                                      found_target.condition = new_condition
                                      print(f"   ⚠️ STATUS UPDATE: {found_target.name} is now {new_condition.name}!")
                                  except KeyError:
-                                     print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
+                                     debug_print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
 
                      # D. Narration
                      narration = llm_service.narrate_result(description, "Hidden", dc, success)
@@ -266,12 +280,12 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
             enemy_logs = EnemyAI.execute_turn(enemies, party)
             
             if not enemy_logs:
-                print("   (No active enemies or targets)")
+                debug_print("   (No active enemies or targets)")
             else:
                 # Collect event log for narration
                 full_event_log = ""
                 for log in enemy_logs:
-                    print(f"   [SYSTEM] {log}")
+                    debug_print(f"   [SYSTEM] {log}")
                     full_event_log += log + " "
                 
                 # Generate Narration
