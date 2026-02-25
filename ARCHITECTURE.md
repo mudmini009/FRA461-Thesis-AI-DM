@@ -69,11 +69,8 @@ The container for the entire simulation snapshot.
 
 - **players:** List of Character objects.
 - **enemies:** List of Character objects.
-- **turn_count:** Integer tracking rounds.
-- **phase:** Enum (PLAYER_TURN, ENEMY_TURN).
-- **action_log:** List of strings (Last 5-10 actions). Short-term memory.
-- **quest_goal:** Current objective string (e.g., "Find the hidden lever").
-- **location_desc:** Environmental context (e.g., "A damp cave with dripping water").
+- **turn_count:** Integer tracking the number of rounds.
+- **logs:** List of strings (Last actions). Serves as short-term memory for the LLM.
 
 ### 3.3 TOON Format Strategy
 
@@ -99,9 +96,12 @@ The Router is the "Frontal Lobe" of the system. It uses **Gemini 2.5 Flash-Lite*
 ### Decision Tree
 
 - **Input:** "I cast Firebolt at the spider!"
-
   - **Check:** Matches standard Lite 5e keywords (Attack, Cast, Move, Use Item).
   - **Result:** `FIXED` -> Path A (Rules Engine).
+
+- **Input:** "I hit the goblin and then run away to the FAR zone."
+  - **Check:** Matches a compound action combining multiple fixed mechanics.
+  - **Result:** `FIXED_COMBO` -> Path A (Rules Engine). Extracts an `action_order` array (e.g. `["ATTACK", "MOVE"]`) to dynamically execute the mechanics in the user's requested order.
 
 - **Input:** "I want to tie the rope to trip the goblin."
   - **Check:** No standard rule matches. Complex intent.
@@ -117,11 +117,12 @@ A collection of Pure Python Functions. This layer is the "Calculator."
 
 - `roll(expression: str) -> dict`: Parses "1d20", "2d6+3". Returns stateless dict.
 - `resolve_attack(attacker, target) -> dict`:
-  - Calculation: d20 + PHYS vs Target AC.
-  - Crit Logic: If natural 20, double damage dice.
-  - Output: Object containing `{is_hit, damage, is_crit}`.
-- `resolve_check(actor, stat, dc) -> bool`:
+  - Calculation: d20 + PHYS vs Target AC (or MENT for spells). Includes Advantage/Disadvantage based on Zone distance and Conditions.
+  - Crit Logic: If natural 20, double damage dice count.
+  - Output: Dictionary containing `{is_hit, roll, total, damage, is_crit, disadvantage, message}`.
+- `resolve_check(actor, stat, dc) -> dict`:
   - Calculation: d20 + Stat >= DC.
+  - Output: Dictionary containing `{success, total, raw_rolls}`.
 
 ### 5.2 Ability Handlers
 
@@ -166,30 +167,28 @@ _Optimized for flexibility._
 
 ---
 
-## 7. Combat Loop Mechanics (Side Initiative)
+## 7. Combat Loop Mechanics (Initiative Queue)
 
-To simplify the UI and logic flow, the system uses Side Initiative.
+To provide a more dynamic and fair combat experience, the system uses an **Initiative Queue**.
 
-- **Phase 1: Player Turn (Blue Phase)**
+- **Initialization:**
+  - At the start of combat, every active Character (Player and Enemy) rolls Initiative: `1d20 + PHYS modifier`.
+  - The `InitiativeQueue` sorts all combatants from highest to lowest roll.
 
-  - Players can act in any order.
-  - Engine accepts inputs for P1, P2, P3, etc.
-  - Turn ends when all players act or "End Turn" is triggered.
-
-- **Phase 2: Enemy Turn (Red Phase)**
-  - **AI Logic:** Enemies select targets based on Zone (Prefer NEAR).
-  - **Batch Processing:** Engine runs `resolve_attack` for all active enemies instantly.
-  - **Narrative:** LLM summarizes the entire enemy round: _"The first spider bites P1, while the second shoots a web at P2 but misses."_
+- **Turn Execution (Single Layer):**
+  - The queue advances one character at a time.
+  - If it is a **Player's Turn**, the Engine waits for user input.
+  - If it is an **Enemy's Turn**, the AI logic evaluates targets (preferring NEAR zone), executes a single attack/move, and automatically narrates the outcome.
+  - Dead or Unconscious characters are dynamically skipped in the queue.
+  - Once the queue finishes, `Round Count` increments, and it loops back to the top.
 
 ---
 
-## 8. RAG Context Strategy
+## 8. LLM Prompt Context Strategy
 
-Every prompt sent to the LLM (Narrator or Arbitrator) includes a strictly formatted Context Block.
+Every prompt sent to the LLM (Narrator or Arbitrator) includes a strictly formatted Context Block to minimize hallucinations and save tokens.
 
-1.  **Current State (TOON):** Real-time HP, Position, and Inventory.
-2.  **Narrative Context:**
-    - Location: "The Dark Forest" (Sets the tone).
-    - Goal: "Defeat the Spider Queen" (Keeps focus).
-3.  **Action History:** Last 5 entries from `action_log` (Ensures continuity).
-4.  **Rule Context:** Static definitions of Stats (PHYS/MENT/SOC) so the AI understands the capabilities.
+1.  **System Constraints:** Explicit instructions restricting the LLM to output strictly formatted JSON for the Arbitrator, or brief 1-2 sentence descriptions for the Narrator.
+2.  **Current State (TOON):** Real-time HP, Zone Position, and Condition logic dynamically dumped into a highly compressed TOON string.
+3.  **Active Entity Context:** Defines exactly which Player or Enemy is currently acting.
+4.  **Raw Action Iteration:** The verbatim parsed action or attempt proposed by the game loop.

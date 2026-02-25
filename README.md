@@ -29,6 +29,9 @@ This project demonstrates a **Hybrid AI Game Master** that combine the narrative
 # Initialize environment (Example using Conda)
 conda activate ai_dm_core
 
+# Install dependencies
+pip install -r requirements.txt
+
 # Run the dedicated launcher
 python demo_day.py
 ```
@@ -40,27 +43,34 @@ python demo_day.py
 ```text
 AI_Dungeon_Master/
 ├── demo_day.py              # [LAUNCHER] Interactive combat prototype entry point
+├── main.py                  # Simulation entry point
 ├── LITE_5E_RULES.md         # [RULES] The formal "Lite 5e" rulebook for the AI and Player
+├── ARCHITECTURE.md          # [DOCS] High-level system design overview
+├── requirements.txt         # [DEPS] Project dependencies
 ├── src/
 │   ├── router/              # [THE BRAIN] Intent Classification & Main Loop
 │   │   ├── intent_router.py # Main loop; classifies input to PATH A or PATH B
 │   │   └── intents.py       # Intent Data Models
 │   ├── logic/               # [CALCULATOR] Pure Python Mechanics
 │   │   ├── rules_engine.py  # Combat math, AC/DC checks, and modifiers
-│   │   ├── combat_manager.py # Initiative Queue and turn-order management
+│   │   ├── combat_manager.py # [NEW] Initiative Queue and turn-order management
 │   │   ├── enemy_ai.py      # Tactical decision making for NPCs
-│   │   └── dice_roller.py   # RNG engine for dice expressions (e.g., "1d20+5")
+│   │   ├── dice_roller.py   # RNG engine for dice expressions (e.g., "1d20+5")
+│   │   └── abilities.py     # Hardcoded logic for Class Feats
 │   ├── models/              # [STATE] Single Source of Truth
 │   │   ├── character.py     # Data classes for HP, Stats, Zones, and Conditions
 │   │   ├── game_state.py    # Global state container
 │   │   └── toon_converter.py# Object-to-String serializer for minimal token usage
 │   └── services/            # [IO] External APIs & Persistence
 │       ├── llm_service.py   # Gemini API integration for Arbitration and Narration
-│       └── data_manager.py  # JSON save/load system
+│       ├── data_manager.py  # JSON save/load system
+│       └── rag_service.py   # RAG/Context preparation
 ├── data/                    # [DATA] Game state persistence
 │   ├── fibo_backup.json     # Clean state for resets
-│   └── fibo_active.json     # Current live session data
+│   ├── fibo_active.json     # Current live session data
+│   └── campaign.json        # Base character definitions
 └── tests/                   # [QA] Unit tests for Rules Engine
+    └── test_rules.py        # Pytest verifying Rule Adherence
 ```
 
 ---
@@ -69,11 +79,11 @@ AI_Dungeon_Master/
 
 The system is built as a **"Stateless Symbolic Machine"** to ensure 100% mechanical consistency.
 
-1. **Rule-First Decisioning:** If an action matches a standard game mechanic (Attack, Move, Item), the AI is bypassed for the calculation. The Python engine handles the math.
-2. **Symbolic Grounding:** When the AI allows a creative action (e.g., "I pull the rug"), it must return a **Symbolic Side Effect** (e.g., `target_condition: PRONE`). The Python engine then applies this to the live model.
-3. **TOON Serialization:** Uses a custom compact format for game state to reduce LLM token usage by up to 50%, ensuring faster response times and lower costs.
+1.  **Rule-First Decisioning:** If an action matches a standard game mechanic (Attack, Move, Item), the AI is bypassed for the calculation. The Python engine handles the math.
+2.  **Symbolic Grounding:** When the AI allows a creative action (e.g., "I pull the rug"), it must return a **Symbolic Side Effect** (e.g., `target_condition: PRONE`). The Python engine then applies this to the live model.
+3.  **TOON Serialization:** Uses a custom compact format for game state to reduce LLM token usage by up to 50%, ensuring faster response times and lower costs.
 
 ---
 
-## � Game Rules
+##  Game Rules
 See [LITE_5E_RULES.md](file:///home/mudmini009/AI_Dungeon_Master/LITE_5E_RULES.md) for the complete mechanical breakdown of the FIBO Lite 5e system.
