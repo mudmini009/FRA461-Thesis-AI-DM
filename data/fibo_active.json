@@ -4,7 +4,7 @@
             "id": "p1",
             "name": "Valen the Explorer",
             "role": "Fighter",
-            "hp": 30,
+            "hp": 22,
             "max_hp": 30,
             "ac": 18,
             "stats": {
@@ -12,7 +12,7 @@
                 "MENT": 2,
                 "SOC": 2
             },
-            "zone": "MID",
+            "zone": "FAR",
             "inventory": [
                 "Prototype Power Glove",
                 "High-Voltage EMP Emitter",
@@ -27,7 +27,7 @@
             "id": "e1",
             "name": "Senior Robotics Engineer",
             "role": "Monster",
-            "hp": 18,
+            "hp": 25,
             "max_hp": 25,
             "ac": 12,
             "stats": {
@@ -35,7 +35,7 @@
                 "MENT": 2,
                 "SOC": -1
             },
-            "zone": "MID",
+            "zone": "FAR",
             "inventory": [
                 "Industrial Wrench",
                 "Experimental Circuit Board"
