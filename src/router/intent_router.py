@@ -220,7 +220,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                         else:
                             if result.get('message'):
                                 print(f"   ⚠️ {result['message']}")
-                                continue # Skip the enemy's turn so player can try again
+                                # Turn no longer refunded; enemy gets to play
                             else:
                                 print(f"   🛡️ MISS!")
                                 debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
@@ -262,7 +262,9 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
 
                 elif decision.get('type') == 'FIXED_COMBO':
                     action_order = decision.get('action_order', ['MOVE', 'ATTACK'])
-                    turn_failed = False
+                    
+                    # Track if ANY valid action occurred to prevent completely empty refunded turns.
+                    # But for now, we just let the turn advance since they attempted a combat action.
                     
                     for action in action_order:
                         if action == 'MOVE':
@@ -272,8 +274,8 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             
                             if not target_zone_str or target_zone_str not in ["NEAR", "MID", "FAR"]:
                                 print(f"   ⚠️ Invalid move destination: '{target_zone_str}'. Please specify NEAR, MID, or FAR.")
-                                turn_failed = True
-                                break
+                                # We skip this sub-action but don't break the whole combo
+                                continue
                                 
                             try:
                                 target_zone = Zone[target_zone_str]
@@ -298,8 +300,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                                     
                             except Exception as e:
                                 print(f"   ⚠️ Failed to move: {e}")
-                                turn_failed = True
-                                break
+                                continue
                                 
                         elif action == 'ATTACK':
                             # Resolve Attack
@@ -318,8 +319,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                                     target = active_enemies[0]
                                 else:
                                     print("   ⚠️ No active enemies to attack!")
-                                    turn_failed = True
-                                    break
+                                    continue
                             
                             debug_print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
                             attack_type = decision.get('attack_type', 'melee')
@@ -341,14 +341,11 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             else:
                                 if result.get('message'):
                                     print(f"   ⚠️ {result['message']}")
-                                    turn_failed = True
-                                    break
+                                    # We skip this sub-action but let the turn advance naturally
+                                    pass
                                 else:
                                     print(f"   🛡️ MISS!")
                                     debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
-
-                    if turn_failed:
-                        continue # Skip to re-prompt and refund turn
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
