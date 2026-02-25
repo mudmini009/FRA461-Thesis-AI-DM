@@ -70,7 +70,7 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         OUTPUT FORMAT (JSON ONLY):
         For Path A (Single Action): {"type": "FIXED", "command": "ATTACK" | "CAST" | "MOVE" | "USE", "target": "string or null", "attack_type": "melee" | "ranged"}
           - If command is MOVE, "target" MUST be exactly "NEAR", "MID", or "FAR".
-        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "string or null", "attack_type": "melee" | "ranged"}
+        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "string or null", "attack_type": "melee" | "ranged", "action_order": ["MOVE", "ATTACK"] | ["ATTACK", "MOVE"]}
         For Path B: {"type": "CREATIVE", "description": "short summary of intent"}
         """
     )
@@ -261,81 +261,94 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                         print(f"   ⚙️ Processing {decision.get('command')}... (To be implemented)")
 
                 elif decision.get('type') == 'FIXED_COMBO':
-                    # 1. Resolve Movement First
-                    target_zone_str = decision.get('move_target', '').upper()
-                    moved_successfully = False
+                    action_order = decision.get('action_order', ['MOVE', 'ATTACK'])
+                    turn_failed = False
                     
-                    if not target_zone_str or target_zone_str not in ["NEAR", "MID", "FAR"]:
-                        print(f"   ⚠️ Invalid move destination: '{target_zone_str}'. Please specify NEAR, MID, or FAR.")
-                        continue
-                        
-                    try:
-                        target_zone = Zone[target_zone_str]
-                        zones = [Zone.NEAR, Zone.MID, Zone.FAR]
-                        current_idx = zones.index(player.zone)
-                        target_idx = zones.index(target_zone)
-                        
-                        if abs(current_idx - target_idx) > 1:
-                            step = 1 if target_idx > current_idx else -1
-                            target_zone = zones[current_idx + step]
-                            print(f"   ⚠️ You can only move 1 zone per turn. Moving you to {target_zone.name} instead.")
-                            moved_successfully = True
-                        elif current_idx == target_idx:
-                            print(f"   🏃 You are already in the {target_zone.name} zone.")
-                            moved_successfully = True
-                        else:
-                            moved_successfully = True
+                    for action in action_order:
+                        if action == 'MOVE':
+                            # Resolve Movement
+                            target_zone_str = decision.get('move_target', '').upper()
+                            moved_successfully = False
                             
-                        if moved_successfully:
-                            player.zone = target_zone
-                            print(f"   🏃 {player.name} moved to the {target_zone.name} zone.")
-                            
-                    except Exception as e:
-                        print(f"   ⚠️ Failed to move: {e}")
-                        continue
-                    
-                    # 2. Resolve Attack Second
-                    target_name = decision.get('attack_target')
-                    target = None
-                    
-                    if target_name:
-                        for e in enemies:
-                            if target_name.lower() in e.name.lower() and e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]:
-                                target = e
+                            if not target_zone_str or target_zone_str not in ["NEAR", "MID", "FAR"]:
+                                print(f"   ⚠️ Invalid move destination: '{target_zone_str}'. Please specify NEAR, MID, or FAR.")
+                                turn_failed = True
                                 break
-                    
-                    if not target:
-                        active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
-                        if active_enemies:
-                            target = active_enemies[0]
-                        else:
-                            print("   ⚠️ No active enemies to attack!")
-                            continue
-                    
-                    debug_print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
-                    attack_type = decision.get('attack_type', 'melee')
-                    result = RulesEngine.resolve_attack(player, target, attack_type=attack_type)
-                    
-                    raw_rolls = result.get('raw_rolls', [result['roll']])
-                    roll_info = f"{raw_rolls} + {player.stats[Stat.PHYS]} (Bonus)"
-                    
-                    if result['is_crit']:
-                         print(f"   🔥 CRITICAL HIT!")
-                         debug_print("      (Natural 20!)")
-                    
-                    if result['is_hit']:
-                        if not result['is_crit']:
-                             print(f"   💥 HIT!")
-                             debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
-                        print(f"   🩸 Damage Dealt: {result['damage']}")
-                        print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
-                    else:
-                        if result.get('message'):
-                            print(f"   ⚠️ {result['message']}")
-                            continue
-                        else:
-                            print(f"   🛡️ MISS!")
-                            debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
+                                
+                            try:
+                                target_zone = Zone[target_zone_str]
+                                zones = [Zone.NEAR, Zone.MID, Zone.FAR]
+                                current_idx = zones.index(player.zone)
+                                target_idx = zones.index(target_zone)
+                                
+                                if abs(current_idx - target_idx) > 1:
+                                    step = 1 if target_idx > current_idx else -1
+                                    target_zone = zones[current_idx + step]
+                                    print(f"   ⚠️ You can only move 1 zone per turn. Moving you to {target_zone.name} instead.")
+                                    moved_successfully = True
+                                elif current_idx == target_idx:
+                                    print(f"   🏃 You are already in the {target_zone.name} zone.")
+                                    moved_successfully = True
+                                else:
+                                    moved_successfully = True
+                                    
+                                if moved_successfully:
+                                    player.zone = target_zone
+                                    print(f"   🏃 {player.name} moved to the {target_zone.name} zone.")
+                                    
+                            except Exception as e:
+                                print(f"   ⚠️ Failed to move: {e}")
+                                turn_failed = True
+                                break
+                                
+                        elif action == 'ATTACK':
+                            # Resolve Attack
+                            target_name = decision.get('attack_target')
+                            target = None
+                            
+                            if target_name:
+                                for e in enemies:
+                                    if target_name.lower() in e.name.lower() and e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]:
+                                        target = e
+                                        break
+                            
+                            if not target:
+                                active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+                                if active_enemies:
+                                    target = active_enemies[0]
+                                else:
+                                    print("   ⚠️ No active enemies to attack!")
+                                    turn_failed = True
+                                    break
+                            
+                            debug_print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
+                            attack_type = decision.get('attack_type', 'melee')
+                            result = RulesEngine.resolve_attack(player, target, attack_type=attack_type)
+                            
+                            raw_rolls = result.get('raw_rolls', [result['roll']])
+                            roll_info = f"{raw_rolls} + {player.stats[Stat.PHYS]} (Bonus)"
+                            
+                            if result['is_crit']:
+                                 print(f"   🔥 CRITICAL HIT!")
+                                 debug_print("      (Natural 20!)")
+                            
+                            if result['is_hit']:
+                                if not result['is_crit']:
+                                     print(f"   💥 HIT!")
+                                     debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
+                                print(f"   🩸 Damage Dealt: {result['damage']}")
+                                print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
+                            else:
+                                if result.get('message'):
+                                    print(f"   ⚠️ {result['message']}")
+                                    turn_failed = True
+                                    break
+                                else:
+                                    print(f"   🛡️ MISS!")
+                                    debug_print(f"      (Rolled {roll_info} = {result['total']} vs AC {target.ac})")
+
+                    if turn_failed:
+                        continue # Skip to re-prompt and refund turn
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':

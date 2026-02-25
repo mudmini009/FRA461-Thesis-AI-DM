@@ -54,7 +54,7 @@ def main():
             continue
             
         print("-" * 50)
-        time.sleep(1)
+        time.sleep(0.3)
         
         # 2. Play Narrative
         for line in NARRATIVE:
