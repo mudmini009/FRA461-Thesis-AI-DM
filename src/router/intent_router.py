@@ -13,6 +13,7 @@ from src.services.data_manager import DataManager
 from src.logic.enemy_ai import EnemyAI
 from src.models.toon_converter import TOONConverter
 from src.logic.combat_manager import InitiativeQueue
+import difflib
 
 # Load environment variables
 load_dotenv()
@@ -68,9 +69,9 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Unorthodox Item Use (e.g., "I pour the oil on the floor to make him slip")
         
         OUTPUT FORMAT (JSON ONLY):
-        For Path A (Single Action): {"type": "FIXED", "command": "ATTACK" | "CAST" | "MOVE" | "USE", "target": "string or null", "attack_type": "melee" | "ranged"}
+        For Path A (Single Action): {"type": "FIXED", "command": "ATTACK" | "CAST" | "MOVE" | "USE", "target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged"}
           - If command is MOVE, "target" MUST be exactly "NEAR", "MID", or "FAR".
-        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "string or null", "attack_type": "melee" | "ranged", "action_order": ["MOVE", "ATTACK"] | ["ATTACK", "MOVE"]}
+        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged", "action_order": ["MOVE", "ATTACK"] | ["ATTACK", "MOVE"]}
         For Path B: {"type": "CREATIVE", "description": "short summary of intent"}
         """
     )
@@ -82,6 +83,32 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         return json.loads(response.text)
     except Exception as e:
         return {"type": "ERROR", "message": str(e)}
+
+def _find_target(target_name_or_id: str, enemies: list) -> Character | None:
+    """Helper to resolve target ID using 3-tier matching."""
+    if not target_name_or_id:
+        return None
+        
+    target_name_or_id = target_name_or_id.lower().strip()
+    active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+    
+    # 1. Exact ID Match (Primary)
+    for e in active_enemies:
+        if e.id.lower() == target_name_or_id:
+            return e
+            
+    # 2. Fuzzy String Match (Fallback for Typos)
+    active_names = {e.name.lower(): e for e in active_enemies}
+    matches = difflib.get_close_matches(target_name_or_id, active_names.keys(), n=1, cutoff=0.4)
+    if matches:
+        return active_names[matches[0]]
+        
+    # 3. Old Substring Match (Last Resort)
+    for e in active_enemies:
+        if target_name_or_id in e.name.lower():
+            return e
+            
+    return None
 
 def start_combat_loop(data_path: str = "data/campaign.json") -> str:
     """
@@ -183,12 +210,9 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                         target_name = decision.get('target')
                         target = None
                         
-                        # 1. Try to find specified target
+                        # 1. & 2. Try Exact ID or Fuzzy Match
                         if target_name:
-                            for e in enemies:
-                                if target_name.lower() in e.name.lower() and e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]:
-                                    target = e
-                                    break
+                            target = _find_target(target_name, enemies)
                         
                         # 2. Fallback to first active enemy if no target found or specified
                         if not target:
@@ -308,10 +332,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             target = None
                             
                             if target_name:
-                                for e in enemies:
-                                    if target_name.lower() in e.name.lower() and e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]:
-                                        target = e
-                                        break
+                                target = _find_target(target_name, enemies)
                             
                             if not target:
                                 active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
