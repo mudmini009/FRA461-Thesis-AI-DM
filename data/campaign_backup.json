@@ -20,20 +20,7 @@
         "Torch"
       ],
       "condition": "NORMAL"
-    },
-    //already support many player battle but too hard for story telling so
-    // {
-    //   "id": "p2",
-    //   "name": "Elyra",
-    //   "role": "Mage",
-    //   "hp": 14,
-    //   "max_hp": 14,
-    //   "ac": 11,
-    //   "stats": {"PHYS": -1, "MENT": 4, "SOC": 1},
-    //   "zone": "MID",
-    //   "inventory": ["Staff", "Spellbook", "Potion of Healing"],
-    //   "condition": "NORMAL"
-    // }
+    }
   ],
   "enemies": [
     {
