@@ -169,14 +169,14 @@ _Optimized for flexibility._
 
 ## 7. Combat Loop Mechanics (Initiative Queue)
 
-To provide a more dynamic and fair combat experience, the system uses an **Initiative Queue**.
+To provide a more dynamic and fair combat experience, the system uses an **Initiative Queue** orchestrated by the Main Game Loop (`src/engine/game_loop.py`).
 
 - **Initialization:**
   - At the start of combat, every active Character (Player and Enemy) rolls Initiative: `1d20 + PHYS modifier`.
   - The `InitiativeQueue` sorts all combatants from highest to lowest roll.
 
 - **Turn Execution (Single Layer):**
-  - The queue advances one character at a time.
+  - The queue advances one character at a time in `game_loop.py`.
   - If it is a **Player's Turn**, the Engine waits for user input.
   - If it is an **Enemy's Turn**, the AI logic evaluates targets (preferring NEAR zone), executes a single attack/move, and automatically narrates the outcome.
   - Dead or Unconscious characters are dynamically skipped in the queue.

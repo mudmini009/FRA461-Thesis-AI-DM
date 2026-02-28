@@ -7,7 +7,7 @@ import shutil
 # Ensure we can import from src
 sys.path.append(os.getcwd())
 
-from src.router.intent_router import start_combat_loop
+from src.engine.game_loop import start_combat_loop
 
 BACKUP_FILE = "data/fibo_backup.json"
 ACTIVE_FILE = "data/fibo_active.json"

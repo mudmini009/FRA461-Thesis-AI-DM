@@ -48,15 +48,14 @@ AI_Dungeon_Master/
 ├── ARCHITECTURE.md          # [DOCS] High-level system design overview
 ├── requirements.txt         # [DEPS] Project dependencies
 ├── src/
-│   ├── router/              # [THE BRAIN] Intent Classification & Main Loop
-│   │   ├── intent_router.py # Main loop; classifies input to PATH A or PATH B
-│   │   └── intents.py       # Intent Data Models
+│   ├── engine/              # [ORCHESTRATOR] The Main Simulation Loop
+│   │   └── game_loop.py     # Handles turn queue and execution flow
+│   ├── ui/                  # [DASHBOARD] CLI Presentation
+│   │   └── dashboard.py     # Renders HP, ASCII targets, and zones
+│   ├── router/              # [THE BRAIN] Intent Classification & Action Logic
+│   │   ├── intent_router.py # Pure LLM interface (JSON output only)
+│   │   └── intents.py       # Action execution handlers (MOVE/ATTACK)
 │   ├── logic/               # [CALCULATOR] Pure Python Mechanics
-│   │   ├── rules_engine.py  # Combat math, AC/DC checks, and modifiers
-│   │   ├── combat_manager.py # [NEW] Initiative Queue and turn-order management
-│   │   ├── enemy_ai.py      # Tactical decision making for NPCs
-│   │   ├── dice_roller.py   # RNG engine for dice expressions (e.g., "1d20+5")
-│   │   └── abilities.py     # Hardcoded logic for Class Feats
 │   ├── models/              # [STATE] Single Source of Truth
 │   │   ├── character.py     # Data classes for HP, Stats, Zones, and Conditions
 │   │   ├── game_state.py    # Global state container
