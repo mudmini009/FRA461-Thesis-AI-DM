@@ -1,184 +1,184 @@
-# ชุดกติกาย่อ Lite 5e (ฉบับสำหรับโครงงาน)
+# Lite 5e Ruleset (Thesis Edition)
 
-## บทนำ
+## Introduction
 
-ยินดีต้อนรับนักผจญภัย! คู่มือกติกานี้ถูกออกแบบมาสำหรับผู้เล่นใหม่ และเพื่อวัตถุประสงค์ของโครงงานนี้โดยเฉพาะ ระบบของเราได้รับแรงบันดาลใจจาก Dungeons & Dragons ฉบับที่ 5 แต่ได้ถูกปรับให้เรียบง่ายขึ้น เพื่อให้:
+Welcome, adventurers! This rulebook is designed for new players and specifically for this thesis project. Our system is heavily inspired by Dungeons & Dragons 5th Edition, but streamlined to be:
 
-- **ง่ายต่อการเรียนรู้**
-- **เล่นได้อย่างรวดเร็ว**
-- **เหมาะสมกับการโต้ตอบกับ AI Dungeon Master (LLM)**
+- **Easy to learn**
+- **Fast to play**
+- **Optimized for LLM/AI Dungeon Master interaction**
 
-ไม่ว่าคุณจะเป็นนักรบที่เหวี่ยงดาบ, นักบวชผู้ร้องขอพลังจากทวยเทพ, หรือจอมเวทผู้ควบคุมความเป็นจริง กฎเหล่านี้จะมอบโครงสร้างที่ยุติธรรมให้กับการเล่นของคุณ ในขณะที่ยังคงรักษาอิสระในการดำเนินเรื่องราวไว้
-
----
-
-## วิธีการเล่น (How to Play)
-
-หัวใจหลักของเกมนั้นเรียบง่าย:
-
-1.  **LLM/DM บรรยายสถานการณ์** (เช่น “ก็อบลินตัวหนึ่งกระโดดออกมาจากหลังถังไม้!”)
-2.  **ผู้เล่นบอกสิ่งที่คุณต้องการจะทำ** (เช่น “ฉันจะใช้ดาบฟันไปที่ก็อบลิน!”)
-3.  **ระบบทอยลูกเต๋าเพื่อดูว่าคุณทำสำเร็จหรือไม่** (เช่น d20 + PHYS หรือ d20 + MENT เทียบกับ AC/DC)
-4.  **ผลลัพธ์จะถูกบรรยายออกมา** (เช่น “ดาบของคุณฟันเข้าอย่างจัง! ก็อบลินได้รับความเสียหาย 7 หน่วย”)
+Whether you are a sword-swinging warrior, a cleric calling upon divine power, or a mage who bends reality, these rules provide a fair framework for your play while maintaining total narrative freedom.
 
 ---
 
-## พื้นฐานเรื่องลูกเต๋า (Dice Basics)
+## How to Play
 
-เราจะใช้ระบบ **d20** เป็นหลัก:
+The core gameplay loop is simple:
 
-- **การตรวจสอบทักษะ (Skill Checks):** `d20 + ค่าโบนัสค่าสถานะ` เทียบกับ `ค่าความยาก (DC)`
-- **การโจมตี (Attack Rolls):** `d20 + ค่าโบนัสค่าสถานะ` เทียบกับ `ค่าความป้องกัน (AC) ของศัตรู`
-- **การคำนวณความเสียหาย (Damage Rolls):** ทอยลูกเต๋าที่เล็กกว่า (d6, d8, etc.)
-
-**การทอยพิเศษ (Advantage & Disadvantage):**
-
-- **ได้เปรียบ (Advantage):** ได้โบนัส +5 ในการทอย (เช่น เมื่อศัตรูติดสถานะ Stunned หรือ Unconscious)
-- **เสียเปรียบ (Disadvantage):** ถูกหักลบ -5 ในการทอย (เช่น เมื่อคุณติดสถานะ Blinded) หรือต้องทอยลูกเต๋า 2 ครั้งและใช้ค่าที่น้อยกว่า (สำหรับการโจมตีระยะไกลที่เป้าหมายอยู่ Far)
-- **ได้แต้ม 20 (Natural 20):** สำเร็จโดยอัตโนมัติ (**Critical Success**) และสร้างความเสียหายสองเท่า (สำหรับการโจมตี)
-- **ได้แต้ม 1 (Natural 1):** ล้มเหลวโดยอัตโนมัติ (**Critical Failure**) และอาจมีผลเสียตามมา
+1.  **The LLM/DM describes the situation** (e.g., “A goblin jumps out from behind the barrel!”)
+2.  **The player states their intent** (e.g., “I swing my sword at the goblin!”)
+3.  **The system rolls dice to resolve success** (e.g., d20 + PHYS or d20 + MENT vs. AC/DC)
+4.  **The outcome is narrated** (e.g., “Your sword strikes true! The goblin takes 7 damage.”)
 
 ---
 
-## ค่าสถานะและค่าโบนัส (Stats & Modifiers)
+## Dice Basics
 
-เราได้รวมค่าความสามารถทั้ง 6 ของ D&D แบบดั้งเดิมให้เหลือเพียง **3 ค่าสถานะหลัก**:
+We primarily use the **d20** system:
 
-| ค่าสถานะ            | ครอบคลุม                         | ตัวอย่างการกระทำ                      |
-| :------------------ | :------------------------------- | :------------------------------------ |
-| **กายภาพ (PHYS)**   | พลัง, ความคล่องแคล่ว, ความทนทาน  | โจมตี, ปีนป่าย, หลบหลีก, ผลัก         |
-| **สติปัญญา (MENT)** | ความฉลาด, เชาวน์ปัญญา, การรับรู้ | ค้นหาความรู้, สังเกตกับดัก, แก้ปริศนา |
-| **สังคม (SOC)**     | เสน่ห์, การโน้มน้าวใจ            | โน้มน้าวใจ, โกหก, ข่มขู่              |
+- **Skill Checks:** `d20 + Stat Modifier` vs. `Difficulty Class (DC)`
+- **Attack Rolls:** `d20 + Stat Modifier` vs. `Enemy Armor Class (AC)`
+- **Damage Rolls:** Rolling smaller dice (d6, d8, etc.)
 
-แต่ละค่าสถานะจะมี **ค่าโบนัส (Modifier)** ตั้งแต่ **–2 ถึง +5** ซึ่งจะนำไปบวกกับการทอยลูกเต๋า
+**Special Rolls (Advantage & Disadvantage):**
 
----
-
-## พลังชีวิต (Hit Points - HP)
-
-- ตัวละครทั้งหมดเริ่มต้นที่ **20 HP** ที่เลเวล 1
-- ความเสียหายจะลดค่า HP
-- **HP เหลือ 0 = หมดสติ (Unconscious)**
-- หากไม่ได้รับการรักษา อาจนำไปสู่ความตายได้
+- **Advantage:** Grants a +5 flat bonus to the roll (e.g., when the enemy is Stunned or Unconscious).
+- **Disadvantage:** Incurs a -5 flat penalty to the roll (e.g., when you are Blinded), OR requires rolling 2 dice and taking the lowest result (for Ranged attacks against a Far target).
+- **Natural 20:** Automatic resolution success (**Critical Success**) and deals double damage (for attacks).
+- **Natural 1:** Automatic resolution failure (**Critical Failure**) and may incur narrative consequences.
 
 ---
 
-## ระบบการต่อสู้ (Combat System)
+## Stats & Modifiers
 
-การต่อสู้เป็นแบบ **ผลัดกันเล่น (Turn-based)** และใช้ระบบ **โซน (Zone-based)**
+We have condensed the standard 6 D&D Ability Scores into just **3 Core Stats**:
 
-### ลำดับการเล่น (Turn Order)
+| Stat                | Covers                               | Example Actions                           |
+| :------------------ | :----------------------------------- | :---------------------------------------- |
+| **Physical (PHYS)** | Strength, Dexterity, Constitution    | Attacking, climbing, dodging, shoving     |
+| **Mental (MENT)**   | Intelligence, Wisdom, Perception     | Recalling lore, spotting traps, puzzles   |
+| **Social (SOC)**    | Charisma, Persuasion                 | Persuading, lying, intimidating           |
 
-ระบบจะใช้ระบบ **Initiative Queue** เพื่อกำหนดลำดับการเล่นที่ยุติธรรมและไดนามิก:
-
-1.  **การทอยลำดับ (Initiative Roll):** เมื่อเริ่มการต่อสู้ ทุกตัวละครจะทอย `d20 + PHYS bonus` 
-2.  **การจัดลำดับ:** ใครทอยได้แต้มสูงกว่าจะได้เล่นก่อน (คล้ายกับ D&D 5e ที่ใช้ Dexterity แต่ในระบบ Lite 5e นี้เราใช้ค่า **PHYS** ซึ่งครอบคลุมความคล่องแคล่วด้วย)
-3.  **การวนรอบ:** เมื่อทุกคนในลำดับเล่นครบแล้ว จะขึ้นรอบ (Round) ใหม่และวนกลับไปที่คนแรกสุดในคิวอีกครั้ง
-4.  **ตัวละครที่หมดสติ:** หากตัวละคร HP เหลือ 0 หรือติดสถานะที่ทำให้เล่นไม่ได้ ระบบจะข้ามเทิร์นนั้นไปโดยอัตโนมัติ
-
-ในรอบของคุณ คุณสามารถทำ **1 การกระทำ (Action) + 1 การเคลื่อนที่ (Move)** โดยคุณสามารถ**เลือกลำดับก่อน-หลังได้เอง** (เช่น เดินเข้าไปฟัน หรือ ฟันก่อนแล้วค่อยวิ่งหนี)
-
-- **การกระทำ (Action):** โจมตี (ระยะประชิด/ระยะไกล), ร่ายเวท (ถ้ามี), ใช้ความสามารถพิเศษ, ใช้ไอเทม (ดื่มยา, โยนขวด), มีปฏิสัมพันธ์กับสิ่งแวดล้อม (ถีบประตู, ดึงคันโยก)
-- **การเคลื่อนที่ (Move):** เคลื่อนที่ไปยังโซนอื่น (สูงสุด 1 โซนต่อรอบ)
-
-### การเคลื่อนที่ (Movement)
-
-เราไม่ใช้ตารางการต่อสู้ แต่จะแบ่งพื้นที่ออกเป็น **โซน**:
-
-- **โซนเดียวกัน (Same Zone):** สามารถโจมตีระยะประชิดและระยะไกลได้
-- **โซนติดกัน (Adjacent Zone):** สามารถโจมตีระยะไกลได้ แต่ระยะประชิดไม่ได้
-- **โซนไกล (Far Zone):** สามารถโจมตีระยะไกลได้ แต่จะเกิดค่าเสียเปรียบ (**Disadvantage**) คือระบบจะทอย d20 สองครั้งและใช้**ค่าที่น้อยที่สุด** (ใช้เมื่อโจมตีเป้าหมายที่อยู่ห่างออกไป 2 โซน เช่น จาก Near ไป Far)
-
-ผู้เล่นสามารถเคลื่อนที่ได้ 1 โซนต่อรอบ เป็นการเคลื่อนที่ (Move)
-
-### การโจมตี (Attacking)
-
-การโจมตีแบ่งเป็น 2 ประเภทตามอาวุธที่ใช้:
-
-#### 1. การโจมตีระยะประชิด (Melee Attack)
-
-- **เงื่อนไข:** ผู้โจมตีและเป้าหมายต้องอยู่ **โซนเดียวกัน (Same Zone)**
-- **สูตรทอย:** `d20 + PHYS` vs `AC`
-- **ความเสียหาย:** `Weapon Dice + PHYS`
-
-#### 2. การโจมตีระยะไกล/เวทมนตร์ (Ranged/Spell Attack)
-
-- **เงื่อนไข:** โจมตีได้ทุกโซน (หากเป้าหมายอยู่ห่างกัน 2 โซน เช่น Near ไป Far จะเสียเปรียบ/**Disadvantage**)
-- **สูตรทอย:** `d20 + MENT` (สำหรับเวท) หรือ `d20 + PHYS` (สำหรับธนู) vs `AC`
-- **ความเสียหาย:** `Spell/Weapon Dice + MENT` (สำหรับเวท) หรือ `+ PHYS` (สำหรับธนู)
-
-- **Critical Hit (Nat 20):** ความเสียหายสองเท่า
+Each stat has a **Modifier** ranging from **–2 to +5**, which is added to your d20 rolls.
 
 ---
 
-## ตัวอย่างอาชีพ (Example Classes)
+## Hit Points (HP)
 
-### **นักรบ (Fighter)**
+- All characters start with **20 HP** at Level 1.
+- Damage reduces HP.
+- **0 HP = Unconscious.**
+- If left untreated, reaching 0 HP can lead to death.
+
+---
+
+## Combat System
+
+Combat is **Turn-based** and utilizes a grid-less **Zone-based** positioning system.
+
+### Turn Order
+
+The system uses an **Initiative Queue** to determine a fair and dynamic turn order:
+
+1.  **Initiative Roll:** At the start of combat, all characters roll `d20 + PHYS bonus`.
+2.  **Sorting:** Whoever rolls highest goes first (Similar to D&D 5e utilizing Dexterity, but in Lite 5e we use the consolidated **PHYS** stat).
+3.  **Looping:** Once everyone in the queue has acted, a new Round begins and the turn order loops back to the top of the queue.
+4.  **Unconscious Characters:** If a character drops to 0 HP or suffers a condition that prevents taking actions, the system automatically skips their turn.
+
+On your turn, you may take **1 Action + 1 Move**, and you may **choose the order** in which they resolve (e.g., Move into range then Attack, or Attack then run away).
+
+- **Action:** Attack (Melee/Ranged), Cast a Spell (if applicable), Use a Special Ability, Use an Item (drink potion, throw bomb), Interact with the Environment (kick a door, pull a lever).
+- **Move:** Traverse to a different Zone (Maximum 1 Zone per turn).
+
+### Movement & Zones
+
+We do not use battle grids; instead, space is divided into **Zones**:
+
+- **Same Zone (NEAR):** Allows for both Melee and Ranged attacks.
+- **Adjacent Zone (MID):** Allows for Ranged attacks, but Melee attacks fail.
+- **Far Zone (FAR):** Allows for Ranged attacks, but incurs **Disadvantage** (The system rolls two d20s and takes the **lowest result**) because the target is 2 zones away (e.g., Near to Far).
+
+Players may Move exactly 1 Zone per turn as their Move action.
+
+### Attacking
+
+Attacks are divided into 2 categories based on the weapon:
+
+#### 1. Melee Attack
+
+- **Condition:** Attacker and Target must be in the **Same Zone**.
+- **Roll Formula:** `d20 + PHYS` vs `AC`
+- **Damage:** `Weapon Dice + PHYS`
+
+#### 2. Ranged / Spell Attack
+
+- **Condition:** Can attack across any Zone (Attacking a target 2 zones away incurs **Disadvantage**).
+- **Roll Formula:** `d20 + MENT` (for Spells) or `d20 + PHYS` (for Bows) vs `AC`
+- **Damage:** `Spell/Weapon Dice + MENT` (for Spells) or `+ PHYS` (for Bows)
+
+- **Critical Hit (Nat 20):** Damage is doubled.
+
+---
+
+## Example Classes
+
+### **Fighter**
 
 - **HP:** 20 | **AC:** 16 (Chainmail)
-- **Attack (Melee):** ดาบยาว (Longsword) → `1d8 + PHYS`
-- **Ability:** `Second Wind` → รักษา HP `1d10 + 1` (1 ครั้ง/การต่อสู้)
+- **Attack (Melee):** Longsword → `1d8 + PHYS`
+- **Ability:** `Second Wind` → Heals HP `1d10 + 1` (1 use / combat)
 
-### **พาลาดิน (Paladin)**
+### **Paladin**
 
 - **HP:** 20 | **AC:** 16 (Chainmail)
-- **Attack (Melee):** ดาบใหญ่ (Greatsword) → `2d6 + PHYS`
-- **Ability:** `Smite` → เพิ่มความเสียหาย `2d8` (2 ครั้ง/วัน)
-- **Ability:** `Lay on Hands` → รักษา HP `1d8 + MENT` (1 ครั้ง/วัน)
+- **Attack (Melee):** Greatsword → `2d6 + PHYS`
+- **Ability:** `Smite` → Adds `2d8` damage (2 uses / day)
+- **Ability:** `Lay on Hands` → Heals HP `1d8 + MENT` (1 use / day)
 
-### **นักบวช (Cleric)**
+### **Cleric**
 
 - **HP:** 18 | **AC:** 18 (Plate + Shield)
-- **Attack (Melee):** ค้อนศึก (Warhammer) → `1d8 + PHYS`
-- **Ability:** `Pray` (ทอย MENT เทียบกับ DC 13) → เลือกผล: รักษาพันธมิตร (`1d8 + MENT`) หรือ โจมตีศัตรู (`1d8 + MENT` Radiant Dmg)
+- **Attack (Melee):** Warhammer → `1d8 + PHYS`
+- **Ability:** `Pray` (Roll MENT vs DC 13) → Choose outcome: Heal an ally (`1d8 + MENT`) or Damage an enemy (`1d8 + MENT` Radiant Dmg)
 
-### **จอมเวท (Mage)**
+### **Mage**
 
 - **HP:** 15 | **AC:** 12 (Robes + Mage Armor)
-- **Attack (Ranged Spell):** คถาไฟ (Firebolt) → `1d10 + MENT` (ระยะไกล)
-- **Attack (Melee):** ไม้เท้า (Quarterstaff) → `1d6 + PHYS` (ระยะประชิด - กรณีฉุกเฉิน)
-- **Spells:** 2 ครั้ง/วัน (รูปแบบอิสระ, LLM ทำหน้าที่กำหนด DC และผลกระทบ)
+- **Attack (Ranged Spell):** Firebolt → `1d10 + MENT` (Ranged)
+- **Attack (Melee):** Quarterstaff → `1d6 + PHYS` (Melee - Emergency case)
+- **Spells:** 2 uses / day (Free-form magic; the LLM Arbiter handles DC and the narrative impact)
 
 ---
 
-## ไอเทมและช่องเก็บของ (Items & Inventory)
+## Items & Inventory
 
-ตลอดการผจญภัย ตัวละครจะเก็บและใช้งานไอเทมต่างๆ ระบบของเรามีกฎสำหรับ **ไอเทมใช้แล้วทิ้ง (Consumables)** ดังนี้:
+Throughout the adventure, characters will acquire and use items. Our system enforces specific rules for **Consumable Items**:
 
-- **การใช้งานแบบปกติตามกฎ (Path A):** หากคุณพิมพ์คำสั่งให้ใช้ไอเทมที่ชัดเจน (เช่น "ฉันดื่ม Potion" หรือ "กาง Scroll") ระบบจะตรวจสอบคีย์เวิร์ด (เช่น potion, scroll, ration, food, bomb) และลบไอเทมนั้นออกจากช่องเก็บของคุณโดยอัตโนมัติ
-- **การใช้งานแบบสร้างสรรค์ (Path B):** หากคุณนำไอเทมไปประยุกต์ใช้ในสถานการณ์ต่างๆ (เช่น "ฉันเอาเชือกไปเผาไฟเพื่อให้แสงสว่าง" หรือ "ฉันปาขวดเปล่าไปกระแทกกำแพงเพื่อเบี่ยงเบนความสนใจ") AI (Arbiter) จะพิจารณาว่าการกระทำนั้นทำให้ไอเทม **สูญหาย หรือ ถูกทำลาย** หรือไม่ หากใช่ ไอเทมชิ้นนั้นจะถูกลบออกจากช่องเก็บของคุณเช่นกัน
+- **Fixed Mechanical Usage (Path A):** If you explicitly command the use of a standard RPG item (e.g., "I drink my Potion" or "I read the Scroll"), the system checks against hardcoded keywords (potion, scroll, ration, food, bomb). If matched, that item is automatically consumed and removed from your inventory array.
+- **Creative Improvised Usage (Path B):** If you narratively repurpose an item (e.g., "I use my rope to light a fire for illumination" or "I smash my empty glass bottle against the wall to cause a distraction"), the AI (Arbiter) evaluates if the narrative action causes the item to be **lost, consumed, or destroyed**. If the Arbiter determines it was consumed, the item is removed from your inventory.
 
-*หมายเหตุ: คุณไม่สามารถใช้ไอเทมที่คุณไม่มีในช่องเก็บของได้*
-
----
-
-## การพักผ่อนและเวลา (Rest & Time)
-
-### พักสั้น (Short Rest)
-
-- **ระยะเวลา:** 1 ชั่วโมง
-- **ผลลัพธ์:** ฟื้นฟู HP `1d8 + ค่าโบนัส` (ถ้ามี), ฟื้นฟูความสามารถที่ใช้ได้จำกัด (เช่น Second Wind)
-
-### พักยาว (Long Rest)
-
-- **ระยะเวลา:** 8 ชั่วโมง (ต้องทำในที่ที่ปลอดภัย)
-- **ผลลัพธ์:** ฟื้นฟู HP ทั้งหมด, ฟื้นฟูเวทมนตร์และความสามารถทั้งหมด
+*Note: You cannot use or interact with items that do not currently exist within your inventory array.*
 
 ---
 
-## สถานะผิดปกติ (Conditions)
+## Rest & Time
 
-- **หมดสติ (Unconscious):** HP เหลือ 0, ไม่สามารถกระทำการใดๆ ได้
-- **มึนงง (Stunned):** ข้ามรอบของตัวเองในเทิร์นถัดไป
-- **ถูกพันธนาการ (Restrained):** การทอยเต๋าที่ใช้ค่า PHYS จะเสียเปรียบ (Disadvantage)
-- **ตาย (Dead):** ออกจากเกม เว้นแต่จะถูกชุบชีวิต
+### Short Rest
+
+- **Duration:** 1 Hour
+- **Effect:** Restores HP equal to `1d8 + Modifier` (if applicable), refreshes limited-use abilities (e.g., Second Wind).
+
+### Long Rest
+
+- **Duration:** 8 Hours (Must be done in a safe location)
+- **Effect:** Completely restores all HP, Spells, and limited-use abilities to maximum.
 
 ---
 
-## การเพิ่มระดับ (Leveling Up)
+## Conditions
 
-(หมายเหตุ: เป็นทางเลือกสำหรับต้นแบบ อาจยังไม่ implement)
+- **Unconscious:** 0 HP; unable to perform any actions.
+- **Stunned:** Forfeits their turn entirely in the Initiative Queue for that round.
+- **Restrained:** All d20 rolls utilizing the PHYS stat suffer Disadvantage.
+- **Dead:** Removed from the game unless resurrected.
 
-- **+5 HP** ต่อเลเวล
-- **เลือกระหว่าง:** +1 ค่าสถานะ หรือ เพิ่มการใช้ความสามารถ/เวทมนตร์ใหม่
-- **ระบบ XP อย่างง่าย:** 250 XP ต่อเลเวล
+---
+
+## Leveling Up
+
+(Note: Optional feature for prototype, may not be implemented yet)
+
+- **+5 Max HP** per level.
+- **Choose between:** +1 to a Stat OR a new spell/ability use.
+- **Simple XP System:** 250 XP required per level.
