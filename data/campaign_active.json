@@ -4,7 +4,7 @@
             "id": "p1",
             "name": "Valen",
             "role": "Fighter",
-            "hp": 16,
+            "hp": 18,
             "max_hp": 24,
             "ac": 16,
             "stats": {
@@ -19,13 +19,13 @@
                 "Rope (50ft)",
                 "Torch"
             ],
-            "condition": "INJURED"
+            "condition": "NORMAL"
         },
         {
             "id": "p2",
             "name": "Elyra",
             "role": "Mage",
-            "hp": 0,
+            "hp": 10,
             "max_hp": 14,
             "ac": 11,
             "stats": {
@@ -39,7 +39,7 @@
                 "Spellbook",
                 "Potion of Healing"
             ],
-            "condition": "UNCONSCIOUS"
+            "condition": "NORMAL"
         }
     ],
     "enemies": [
@@ -47,7 +47,7 @@
             "id": "e1",
             "name": "Grok the Crusher",
             "role": "Monster",
-            "hp": 17,
+            "hp": 18,
             "max_hp": 18,
             "ac": 14,
             "stats": {

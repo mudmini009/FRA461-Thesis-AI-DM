@@ -56,7 +56,7 @@ python demo_day.py
     - [Get your free key from Google AI Studio here](https://aistudio.google.com/app/apikey).
 
 4.  **Setup the Environment (Pick ONE method)**
-    - **The Automatic Way:** Just run the game! (`python demo_day.py`). The system will detect that you are missing a key, pause the game, and prompt you to paste it in the terminal. It will then automatically create the `.env` file for you.
+    - **The Automatic Way:** Just run the game! (`python main.py`). The system will detect that you are missing a key, pause the game, and prompt you to paste it in the terminal. It will then automatically create the `.env` file for you.
     - **The Manual Way:** Create a new file named `.env` in the root folder of this project and paste your key inside like this:
       ```env
       GEMINI_API_KEY=your_key_here_xyz123
@@ -64,7 +64,7 @@ python demo_day.py
 
 5.  **Run the Game**
     ```bash
-    python demo_day.py
+    python main.py
     ```
 
 ---

@@ -1,7 +1,10 @@
-import sys
 import os
+import sys
 import json
-sys.path.append('.')
+# Change working directory to project root and add to sys.path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+os.chdir(project_root)
+sys.path.insert(0, project_root)
 from src.services.data_manager import DataManager
 
 def test():

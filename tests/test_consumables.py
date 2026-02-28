@@ -1,6 +1,9 @@
 import os
 import sys
-sys.path.append(os.getcwd())
+# Change working directory to project root and add to sys.path
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+os.chdir(project_root)
+sys.path.insert(0, project_root)
 
 from src.models.character import Character, Stat, Zone, Condition
 from src.router.intent_router import classify_intent
