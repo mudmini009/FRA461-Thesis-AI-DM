@@ -38,6 +38,37 @@ python demo_day.py
 
 ---
 
+## 🚀 Quick Start / Installation
+
+1.  **Clone the Repository**
+    ```bash
+    git clone [repository_url]
+    cd AI_Dungeon_Master
+    ```
+
+2.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3.  **Get a Free API Key**
+    - The game requires a Google Gemini API Key to run.
+    - [Get your free key from Google AI Studio here](https://aistudio.google.com/app/apikey).
+
+4.  **Setup the Environment (Pick ONE method)**
+    - **The Automatic Way:** Just run the game! (`python demo_day.py`). The system will detect that you are missing a key, pause the game, and prompt you to paste it in the terminal. It will then automatically create the `.env` file for you.
+    - **The Manual Way:** Create a new file named `.env` in the root folder of this project and paste your key inside like this:
+      ```env
+      GEMINI_API_KEY=your_key_here_xyz123
+      ```
+
+5.  **Run the Game**
+    ```bash
+    python demo_day.py
+    ```
+
+---
+
 ## 📂 Project Structure
 
 ```text

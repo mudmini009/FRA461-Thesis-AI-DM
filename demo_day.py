@@ -37,7 +37,37 @@ def print_slow(text, delay=0.01):
         time.sleep(delay)
     print()
 
+def check_api_setup():
+    """First-Time Boot Wizard: Ensures API key exists before crashing."""
+    from dotenv import load_dotenv
+    load_dotenv()
+    
+    if "GEMINI_API_KEY" not in os.environ:
+        print("\n" + "="*50)
+        print("🚨 FIRST TIME SETUP: Missing Gemini API Key! 🚨")
+        print("="*50)
+        print("It looks like you don't have a Gemini API key set up.")
+        print("(Get one for free at: https://aistudio.google.com/app/apikey)\n")
+        
+        while True:
+            api_key = input("Please paste your API key here: ").strip()
+            if api_key:
+                try:
+                    with open(".env", "a") as f:
+                        f.write(f"\nGEMINI_API_KEY={api_key}\n")
+                    os.environ["GEMINI_API_KEY"] = api_key
+                    print("\n✅ API Key saved to .env!")
+                    time.sleep(1)
+                    break
+                except Exception as e:
+                    print(f"❌ Failed to write to .env: {e}")
+                    sys.exit(1)
+            else:
+                print("Key cannot be empty. Please try again.")
+
 def main():
+    check_api_setup()
+    
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(BANNER)
