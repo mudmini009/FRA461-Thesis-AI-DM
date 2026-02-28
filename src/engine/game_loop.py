@@ -59,7 +59,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
             
             # --- TURN LOGIC ---
             if current_actor in party:
-                print(f"Action > ", end="")
+                print(f"Action > ", end="", flush=True)
                 user_input = input()
             
                 # RESTART LOGIC
@@ -72,7 +72,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                 if user_input.lower() in ['exit', 'quit', 'q']: return "EXIT"
                 if not user_input.strip(): continue
 
-                print("   Thinking...", end="\r") # Loading effect
+                print("   Thinking...", end="\r", flush=True) # Loading effect
                 
                 # 1. ROUTER: Decide Intent
                 current_toon_state = TOONConverter.convert(party, enemies)

@@ -1,21 +1,13 @@
 {
     "party": [
         {
-            "id": "p1",
-            "name": "Valen the Explorer",
-            "role": "Fighter",
-            "hp": 30,
-            "max_hp": 30,
-            "ac": 18,
-            "stats": {
-                "PHYS": 5,
-                "MENT": 2,
-                "SOC": 2
-            },
-            "zone": "NEAR",
+            "id": "p1", "name": "Valen the Explorer", "role": "Fighter",
+            "hp": 30, "max_hp": 30, "ac": 18,
+            "stats": {"PHYS": 5, "MENT": 2, "SOC": 2},
+            "zone": "NEAR", 
             "inventory": [
-                "Prototype Power Glove",
-                "High-Voltage EMP Emitter",
+                "Prototype Power Glove", 
+                "High-Voltage EMP Emitter", 
                 "Can of Redbull (Heals HP)",
                 "Flashbang Grenade"
             ],
@@ -24,22 +16,11 @@
     ],
     "enemies": [
         {
-            "id": "e1",
-            "name": "Senior Robotics Engineer",
-            "role": "Monster",
-            "hp": 25,
-            "max_hp": 25,
-            "ac": 12,
-            "stats": {
-                "PHYS": 2,
-                "MENT": 2,
-                "SOC": -1
-            },
-            "zone": "NEAR",
-            "inventory": [
-                "Industrial Wrench",
-                "Experimental Circuit Board"
-            ],
+            "id": "e1", "name": "Senior Robotics Engineer", "role": "Monster",
+            "hp": 25, "max_hp": 25, "ac": 12,
+            "stats": {"PHYS": 2, "MENT": 2, "SOC": -1},
+            "zone": "NEAR", 
+            "inventory": ["Industrial Wrench", "Experimental Circuit Board"],
             "condition": "NORMAL"
         }
     ]
