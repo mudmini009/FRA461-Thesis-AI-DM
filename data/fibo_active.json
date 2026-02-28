@@ -4,7 +4,7 @@
             "id": "p1",
             "name": "Valen the Explorer",
             "role": "Fighter",
-            "hp": 22,
+            "hp": 30,
             "max_hp": 30,
             "ac": 18,
             "stats": {
@@ -12,7 +12,7 @@
                 "MENT": 2,
                 "SOC": 2
             },
-            "zone": "FAR",
+            "zone": "NEAR",
             "inventory": [
                 "Prototype Power Glove",
                 "High-Voltage EMP Emitter",
@@ -35,7 +35,7 @@
                 "MENT": 2,
                 "SOC": -1
             },
-            "zone": "FAR",
+            "zone": "NEAR",
             "inventory": [
                 "Industrial Wrench",
                 "Experimental Circuit Board"
