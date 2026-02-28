@@ -80,7 +80,8 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
 
     try:
         response = model.generate_content(prompt)
-        return json.loads(response.text)
+        text = response.text.replace('```json', '').replace('```', '').strip()
+        return json.loads(text)
     except Exception as e:
         return {"type": "ERROR", "message": str(e)}
 

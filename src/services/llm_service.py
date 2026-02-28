@@ -51,7 +51,8 @@ class LLMService:
         1. Check PHYS/LOGIC: Is this action possible?
         2. Check INVENTORY: If they use an item, DOES SOMEONE in the party have it?
         3. Determine Side Effects: If the action succeeds, does the target suffer a Condition? (RESTRAINED, PRONE, BLINDED, STUNNED).
-        
+        4. Check Consumption: If the player uses an item in a way that destroys, consumes, or loses it (e.g., throwing a weapon away, burning a rope, eating a mushroom), add "consumed_item": "Item Name". Otherwise, return "consumed_item": null.
+
         OUTPUT (JSON ONLY):
         {{
             "allowed": boolean,
@@ -59,7 +60,8 @@ class LLMService:
             "check_stat": "PHYS" | "MENT" | "SOC" | "NONE",
             "dc": integer (10-25),
             "on_success_condition": "RESTRAINED" | "PRONE" | "BLINDED" | "STUNNED" | null,
-            "target_name_guess": "Name of the target from description (e.g. 'Goblin Scavenger') or null"
+            "target_name_guess": "Name of the target from description (e.g. 'Goblin Scavenger') or null",
+            "consumed_item": "Name of the item destroyed/consumed or null"
         }}
         """
         
@@ -73,6 +75,7 @@ class LLMService:
             if "dc" not in data: data["dc"] = 15
             if "on_success_condition" not in data: data["on_success_condition"] = None
             if "target_name_guess" not in data: data["target_name_guess"] = None
+            if "consumed_item" not in data: data["consumed_item"] = None
             
             return data
             
@@ -83,7 +86,8 @@ class LLMService:
                 "check_stat": "PHYS", 
                 "dc": 99,
                 "on_success_condition": None,
-                "target_name_guess": None
+                "target_name_guess": None,
+                "consumed_item": None
             }
 
     def narrate_result(self, action_text: str, roll_result: int, dc: int, is_success: bool) -> str:

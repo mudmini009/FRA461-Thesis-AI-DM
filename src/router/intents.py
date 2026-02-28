@@ -98,6 +98,38 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 debug_print(f"      (Rolled {roll_info} = {result.get('total', 0)} vs AC {target.ac})")
         return True
     
+    elif action_type == 'USE':
+        target_item = decision.get('target')
+        if not target_item:
+            print(f"   ⚠️ Use what?")
+            return False
+            
+        if not player.inventory:
+            print(f"   ⚠️ Your inventory is empty!")
+            return False
+            
+        # Try to find the item in inventory
+        matches = difflib.get_close_matches(target_item, player.inventory, n=1, cutoff=0.4)
+        if not matches:
+            print(f"   ⚠️ You and the party don't seem to have a '{target_item}'.")
+            return False
+            
+        found_item = matches[0]
+        
+        # Check if it's consumable based on keywords
+        CONSUMABLE_KEYWORDS = ["potion", "scroll", "ration", "food", "bomb", "charge", "grenade", "drink", "redbull", "heal"]
+        is_consumable = any(keyword in found_item.lower() for keyword in CONSUMABLE_KEYWORDS)
+        
+        if is_consumable:
+            player.inventory.remove(found_item)
+            print(f"   🧪 [SYSTEM] Using '{found_item}' (Consumed).")
+            # Note: The actual mechanical effect (like healing) depends on Hardcoded Rule Engine mappings 
+            # which would ideally be called here via RulesEngine.use_item(). 
+            # For now, popping it completes Path A's responsibility.
+        else:
+            print(f"   ⚙️ [SYSTEM] Equipped/Interacted with '{found_item}'.")
+        return True
+
     else:
         print(f"   ⚙️ Processing {action_type}... (To be implemented)")
         return False
@@ -151,6 +183,16 @@ def handle_creative_intent(decision: dict, user_input: str, player: Character, p
                         print(f"   ⚠️ STATUS UPDATE: {found_target.name} is now {new_condition.name}!")
                     except KeyError:
                         debug_print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
+
+        # Handle Item Consumption (Path B)
+        consumed_item = judgment.get('consumed_item')
+        if consumed_item and player.inventory:
+            # Fuzzy match to ensure we remove the correct item string from the list
+            matches = difflib.get_close_matches(consumed_item, player.inventory, n=1, cutoff=0.5)
+            if matches:
+                item_to_remove = matches[0]
+                player.inventory.remove(item_to_remove)
+                print(f"   🔥 [SYSTEM] '{item_to_remove}' was consumed/lost.")
 
         narration = llm_service.narrate_result(description, "Hidden", dc, success)
         print(f"   🗣️  DM: \"{narration}\"")
