@@ -135,3 +135,39 @@ class LLMService:
             return response.text.strip()
         except Exception as e:
             return f"Narrator Error: {str(e)}"
+            
+    def categorize_item(self, item_name: str) -> Dict[str, Any]:
+        """
+        Uses the LLM to dynamically classify an unknown item string into a strict backend mechanical category.
+        """
+        prompt = f"""
+        You are the Item Arbiter for a pure Python Game Engine.
+        A player wants to USE the following item from their inventory:="{item_name}"
+        
+        Your job is to categorize this item into one of the following strict mechanical types:
+        - SMALL_HEAL: Equivalent to a standard potion or bandage (+10 HP).
+        - BIG_HEAL: Equivalent to a major heal or elixir (+25 HP).
+        - CURE: Removes bad conditions like BLINDED or STUNNED (e.g., Antidote, Eyedrops).
+        - DAMAGE: A destructive item they accidentally or intentionally used on themselves (e.g., Bomb).
+        - NONE: A standard weapon, key, or junk item with no immediate mechanical buff.
+        
+        Determine if the item is consumed upon use (is_consumable). Weapons are usually NOT consumable, whereas food/potions/bombs ARE.
+        
+        OUTPUT (JSON ONLY):
+        {{
+            "is_consumable": boolean,
+            "effect_type": "SMALL_HEAL" | "BIG_HEAL" | "CURE" | "DAMAGE" | "NONE"
+        }}
+        """
+        try:
+            response = self.model.generate_content(prompt)
+            data = json.loads(response.text)
+            
+            if "is_consumable" not in data: data["is_consumable"] = False
+            if "effect_type" not in data: data["effect_type"] = "NONE"
+            
+            return data
+            
+        except Exception as e:
+             # Failsafe: Don't consume it, give it no effect
+             return {"is_consumable": False, "effect_type": "NONE"}

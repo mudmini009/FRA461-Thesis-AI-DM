@@ -116,18 +116,31 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
             
         found_item = matches[0]
         
-        # Check if it's consumable based on keywords
-        CONSUMABLE_KEYWORDS = ["potion", "scroll", "ration", "food", "bomb", "charge", "grenade", "drink", "redbull", "heal"]
-        is_consumable = any(keyword in found_item.lower() for keyword in CONSUMABLE_KEYWORDS)
+        print(f"   🔍 Analyzing '{found_item}'...")
+        
+        # We need an LLMService instance to use the Arbiter. 
+        # Since execute_fixed_action doesn't have it in signature, we'll instantiate a fresh one temporarily for this isolated lookup.
+        # Alternatively, we could refactor the signature, but this is cleaner for now.
+        temp_llm = LLMService()
+        arbiter_result = temp_llm.categorize_item(found_item)
+        
+        is_consumable = arbiter_result.get('is_consumable', False)
+        effect_type = arbiter_result.get('effect_type', 'NONE')
         
         if is_consumable:
             player.inventory.remove(found_item)
             print(f"   🧪 [SYSTEM] Using '{found_item}' (Consumed).")
-            # Note: The actual mechanical effect (like healing) depends on Hardcoded Rule Engine mappings 
-            # which would ideally be called here via RulesEngine.use_item(). 
-            # For now, popping it completes Path A's responsibility.
+            
+            # Apply mechanical effect via RulesEngine using the AI's category
+            effect_result = RulesEngine.use_item(player, found_item, effect_type)
+            print(f"   ✨ {effect_result['message']}")
+            
         else:
+            if effect_type != "NONE":
+                 effect_result = RulesEngine.use_item(player, found_item, effect_type)
+                 print(f"   ✨ {effect_result['message']}")
             print(f"   ⚙️ [SYSTEM] Equipped/Interacted with '{found_item}'.")
+            
         return True
 
     else:

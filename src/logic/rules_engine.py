@@ -2,6 +2,54 @@ from src.models.character import Character, Stat, Zone, Condition
 from src.logic.dice_roller import roll
 
 class RulesEngine:
+    pass # Base class mechanics happen here
+
+    @staticmethod
+    def use_item(user: Character, item_name: str, effect_type: str) -> dict:
+        """
+        Applies mathematical effects of an item to a character based on the LLM Arbiter's strict categorization.
+        Returns a dict with 'success' and 'message'.
+        """
+        # effect_type should be one of: SMALL_HEAL, BIG_HEAL, CURE, DAMAGE, NONE
+        
+        if effect_type == "SMALL_HEAL" or effect_type == "HEAL":
+            value = 10
+            old_hp = user.hp
+            user.hp = min(user.hp + value, user.max_hp)
+            healed_amount = user.hp - old_hp
+            
+            if healed_amount > 0 and user.condition == Condition.UNCONSCIOUS:
+                user.condition = Condition.NORMAL
+            return {"success": True, "message": f"Restored {healed_amount} HP! (Now {user.hp}/{user.max_hp})"}
+            
+        elif effect_type == "BIG_HEAL":
+            value = 25
+            old_hp = user.hp
+            user.hp = min(user.hp + value, user.max_hp)
+            healed_amount = user.hp - old_hp
+            
+            if healed_amount > 0 and user.condition == Condition.UNCONSCIOUS:
+                user.condition = Condition.NORMAL
+            return {"success": True, "message": f"Restored {healed_amount} HP! (Now {user.hp}/{user.max_hp})"}
+            
+        elif effect_type == "CURE":
+            if user.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]:
+                old_cond = user.condition
+                user.condition = Condition.NORMAL
+                return {"success": True, "message": f"Cured condition: {old_cond.name} -> NORMAL."}
+            else:
+                 return {"success": False, "message": f"Cannot cure {user.condition.name} with this item."}
+                 
+        elif effect_type == "DAMAGE":
+            value = 15
+            user.take_damage(value)
+            return {"success": True, "message": f"The item backfired/exploded! Took {value} damage."}
+            
+        elif effect_type == "NARRATIVE":
+             return {"success": True, "message": f"You examine the '{item_name}'. (Narrative Effect)"}
+
+        return {"success": True, "message": f"Used '{item_name}'."}
+
     @staticmethod
     def resolve_attack(attacker: Character, target: Character, attack_type: str = 'melee') -> dict:
         # Step 1: Validate Attacker & Target
