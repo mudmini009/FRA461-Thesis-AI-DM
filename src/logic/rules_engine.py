@@ -51,6 +51,65 @@ class RulesEngine:
         return {"success": True, "message": f"Used '{item_name}'."}
 
     @staticmethod
+    def resolve_escape(player: Character, enemies: list) -> dict:
+        """
+        Resolves a FLEE action using contested 1d20 + PHYS rolls.
+        Proximity penalty is applied to the enemy's roll based on Zone distance.
+        """
+        active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS, Condition.PACIFIED]]
+        if not active_enemies:
+            return {
+                'success': True,
+                'message': "No active enemies to flee from!",
+                'player_total': 0, 'enemy_total': 0, 'distance': 0
+            }
+
+        zones = [Zone.NEAR, Zone.MID, Zone.FAR]
+        player_idx = zones.index(player.zone)
+        
+        # Find closest enemy distance
+        closest_distance = 999
+        closest_enemy = active_enemies[0]
+        for e in active_enemies:
+            dist = abs(player_idx - zones.index(e.zone))
+            if dist < closest_distance:
+                closest_distance = dist
+                closest_enemy = e
+
+        # Proximity Penalty applies to the ENEMY'S roll
+        enemy_bonus = closest_enemy.stats.get(Stat.PHYS, 0)
+        proximity_modifier = 0
+        if closest_distance == 0:
+            proximity_modifier = 5
+        elif closest_distance == 1:
+            proximity_modifier = 2
+
+        # Roll for Player
+        player_bonus = player.stats.get(Stat.PHYS, 0)
+        player_result = roll(f"1d20+{player_bonus}")
+        player_total = player_result['total']
+
+        # Roll for Enemy
+        enemy_hit_bonus = enemy_bonus + proximity_modifier
+        enemy_result = roll(f"1d20+{enemy_hit_bonus}")
+        enemy_total = enemy_result['total']
+
+        success = player_total > enemy_total
+
+        return {
+            'success': success,
+            'player_total': player_total,
+            'player_roll': player_result['rolls'][0],
+            'player_bonus': player_bonus,
+            'enemy_total': enemy_total,
+            'enemy_roll': enemy_result['rolls'][0],
+            'enemy_bonus': enemy_bonus,
+            'proximity_modifier': proximity_modifier,
+            'distance': closest_distance,
+            'closest_enemy_name': closest_enemy.name
+        }
+
+    @staticmethod
     def resolve_attack(attacker: Character, target: Character, attack_type: str = 'melee') -> dict:
         # Step 1: Validate Attacker & Target
         if attacker.condition in [Condition.STUNNED, Condition.UNCONSCIOUS, Condition.DEAD]:

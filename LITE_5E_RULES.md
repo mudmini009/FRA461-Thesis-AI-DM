@@ -109,6 +109,20 @@ Attacks are divided into 2 categories based on the weapon:
 
 - **Critical Hit (Nat 20):** Damage is doubled.
 
+### Fleeing / Escaping
+
+To flee from combat, a player must declare their intent to escape (e.g., "I run away!"). The system resolves this using a contested **PHYS** check against the closest active enemy:
+
+- **Player Roll:** `d20 + PHYS`
+- **Enemy Roll:** `d20 + PHYS` + **Proximity Penalty**
+
+**Proximity Penalty:** It is significantly harder to escape if enemies are right next to you. The enemy receives a mathematical bonus to their roll based on the distance (in Zones) between you and them:
+- **Same Zone (Distance 0):** Enemy gets a **+5 bonus**.
+- **Adjacent Zone (Distance 1):** Enemy gets a **+2 bonus**.
+- **Far Zone (Distance 2+):** No bonus (+0).
+
+*Tactical Tip:* Since you get 1 Move and 1 Action per turn, you should use your Move to increase your distance from the enemy, and then use your Action to Flee in the same sequence, reducing the enemy's proximity penalty! If your total beats the enemy's total, you successfully escape combat. If you fail, the enemy cuts off your escape and your turn is consumed.
+
 ---
 
 ## Example Classes

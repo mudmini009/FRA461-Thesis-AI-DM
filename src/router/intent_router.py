@@ -59,7 +59,8 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Cast Spell (magic, cantrips, scrolls)
         - Move (running, walking, tactical movement, disengaging)
         - Standard Item Use (drinking potion, equipping armor, eating food, lighting torch)
-        - Combo (doing a Move AND an Attack in the same sentence)
+        - Flee / Escape (running away from combat)
+        - Combo (doing a Move AND an Attack/Flee in the same sentence)
         
         PATH B (CREATIVE ACTION) - Narrative & Improv:
         The input is complex, narrative, social, or uses items in non-standard ways.
@@ -69,9 +70,9 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Unorthodox Item Use (e.g., "I pour the oil on the floor to make him slip")
         
         OUTPUT FORMAT (JSON ONLY):
-        For Path A (Single Action): {"type": "FIXED", "command": "ATTACK" | "CAST" | "MOVE" | "USE", "target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged"}
+        For Path A (Single Action): {"type": "FIXED", "command": "ATTACK" | "CAST" | "MOVE" | "USE" | "FLEE", "target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged"}
           - If command is MOVE, "target" MUST be exactly "NEAR", "MID", or "FAR".
-        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged", "action_order": ["MOVE", "ATTACK"] | ["ATTACK", "MOVE"]}
+        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged", "action_order": ["MOVE", "ATTACK"] | ["ATTACK", "MOVE"] | ["MOVE", "FLEE"] | ["FLEE", "MOVE"]}
         For Path B: {"type": "CREATIVE", "description": "short summary of intent"}
         """
     )

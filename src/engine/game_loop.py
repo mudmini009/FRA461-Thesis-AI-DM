@@ -8,6 +8,7 @@ from src.logic.enemy_ai import EnemyAI
 from src.ui.dashboard import render_dashboard
 from src.router.intent_router import classify_intent
 from src.router.intents import execute_fixed_action, handle_creative_intent
+from src.logic.rules_engine import RulesEngine
 
 DEBUG_MODE = os.getenv("DEBUG_MODE", "True").lower() == "true"
 
@@ -84,13 +85,38 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                 debug_print(f"🤖 Intent: {decision.get('type', 'ERROR').ljust(10)} | Command: {decision.get('command', 'N/A')}")
 
                 # 2. PATH A: FIXED RULES (Delegated to RulesEngine)
+                escaped = False
                 if decision.get('type') == 'FIXED':
-                    execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print)
+                    if decision.get('command') == 'FLEE':
+                        result = RulesEngine.resolve_escape(current_actor, enemies)
+                        if result['success']:
+                            print("   💨 [SYSTEM] You successfully outran the enemies!")
+                            debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
+                            escaped = True
+                        else:
+                            print("   🛑 [SYSTEM] The enemy cuts off your escape!")
+                            debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
+                    else:
+                        execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print)
 
                 elif decision.get('type') == 'FIXED_COMBO':
                     action_order = decision.get('action_order', ['MOVE', 'ATTACK'])
                     for action in action_order:
-                        execute_fixed_action(action, decision, current_actor, enemies, debug_print)
+                        if action == 'FLEE':
+                            result = RulesEngine.resolve_escape(current_actor, enemies)
+                            if result['success']:
+                                print("   💨 [SYSTEM] You successfully outran the enemies!")
+                                debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
+                                escaped = True
+                                break
+                            else:
+                                print("   🛑 [SYSTEM] The enemy cuts off your escape!")
+                                debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
+                        else:
+                            execute_fixed_action(action, decision, current_actor, enemies, debug_print)
+
+                if escaped:
+                    break
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
