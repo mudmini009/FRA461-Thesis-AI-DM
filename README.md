@@ -2,7 +2,7 @@
   <h1>🏰 AI Dungeon Master</h1>
   <p><i>FIBO Senior Project (2026)</i></p>
 
-  [![Project Status](https://img.shields.io/badge/Status-Phase_3_Complete-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/AI_Dungeon_Master)
+  [![Project Status](https://img.shields.io/badge/Status-Phase_3_On_Going-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
   [![Ruleset](https://img.shields.io/badge/Ruleset-Lite_5e-blueviolet?style=for-the-badge)](./LITE_5E_RULES.md)
   [![Model](https://img.shields.io/badge/AI-Gemini_Pro-blue?style=for-the-badge)](https://ai.google.dev/)
 </div>
