@@ -145,6 +145,22 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                 print("\n" + "🏆"*20)
                 print("VICTORY - All enemies defeated!")
                 print("🏆"*20)
+                
+                # --- AUTO-LOOT LOGIC ---
+                looted_items = []
+                for e in enemies:
+                    if getattr(e, 'inventory', None):
+                        looted_items.extend(e.inventory)
+                        e.inventory = [] # Clear enemy pockets
+
+                if looted_items and party:
+                    main_player = party[0]
+                    main_player.inventory.extend(looted_items)
+                    print(f"\n💰 [SYSTEM] Auto-Looted: [{', '.join(looted_items)}] from the fallen enemies!")
+                    
+                    # Force a save to lock in the new fat inventory
+                    data_manager.save_game(party, enemies)
+
                 return "VICTORY"
         
         except KeyboardInterrupt:
