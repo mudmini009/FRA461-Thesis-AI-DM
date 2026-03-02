@@ -21,7 +21,14 @@ This project demonstrates a **Hybrid AI Game Master** that combine the narrative
 
 ---
 
-## 🛠️ How to Run
+## � Game Rules
+
+For the complete mechanical breakdown of the FIBO Lite 5th Edition system, check out the official rulebook:  
+👉 **[LITE_5E_RULES.md](file:///home/mudmini009/AI_Dungeon_Master/LITE_5E_RULES.md)**
+
+---
+
+## �🛠️ How to Run
 
 **Prerequisites:**
 - Python 3.10+
@@ -76,6 +83,11 @@ python demo_day.py
 
 ```text
 AI_Dungeon_Master/
+├── docs/                    # [THESIS] Final 2026 graduation thesis reports (WIP)
+├── archive/                 # [HISTORY] Past iterations and research
+│   ├── phase2_demo/         # Old FIBO lab scripts and demo JSONs
+│   ├── references/          # Academic research papers and references
+│   └── old_docs/            # Past presentations and progress reports
 ├── demo_day.py              # [LAUNCHER] Interactive combat prototype entry point
 ├── main.py                  # Simulation entry point
 ├── LITE_5E_RULES.md         # [RULES] The formal "Lite 5e" rulebook for the AI and Player
@@ -99,9 +111,8 @@ AI_Dungeon_Master/
 │       ├── data_manager.py  # JSON save/load system
 │       └── rag_service.py   # RAG/Context preparation
 ├── data/                    # [DATA] Game state persistence
-│   ├── fibo_backup.json     # Clean state for resets
-│   ├── fibo_active.json     # Current live session data
-│   └── campaign.json        # Base character definitions
+│   ├── campaign_backup.json # Clean state for resets
+│   └── campaign_active.json # Current live session data
 └── tests/                   # [QA] Unit tests for Rules Engine
     └── test_rules.py        # Pytest verifying Rule Adherence
 ```
@@ -118,5 +129,14 @@ The system is built as a **"Stateless Symbolic Machine"** to ensure 100% mechani
 
 ---
 
-##  Game Rules
-See [LITE_5E_RULES.md](file:///home/mudmini009/AI_Dungeon_Master/LITE_5E_RULES.md) for the complete mechanical breakdown of the FIBO Lite 5e system.
+---
+
+## 🎓 Acknowledgments & References
+
+This project is built upon the foundational research of AI-assisted narrative generation and LLM-based agent architecture. We would like to acknowledge the following papers for their inspiration on our hybrid system:
+
+1. **Jørgensen et al. (2024)** – *ChatRPG: A Multi-Agent "ReAct" Game Master*
+2. **Sakellaridis (2024)** – *LLM-Based Agent as Dungeon Master*
+3. **Song et al. (2024)** – *Tool-Assisted AI DM: Function Calling & External Tools*
+
+*(Full academic PDFs can be found in the `archive/references/` directory.)*
