@@ -1,9 +1,18 @@
-# 🏰 AI Dungeon Master (FIBO Senior Project)
+<div align="center">
+  <h1>🏰 AI Dungeon Master</h1>
+  <p><i>FIBO Senior Project (2026)</i></p>
+
+  [![Project Status](https://img.shields.io/badge/Status-Phase_3_Complete-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/AI_Dungeon_Master)
+  [![Ruleset](https://img.shields.io/badge/Ruleset-Lite_5e-blueviolet?style=for-the-badge)](./LITE_5E_RULES.md)
+  [![Model](https://img.shields.io/badge/AI-Gemini_Pro-blue?style=for-the-badge)](https://ai.google.dev/)
+</div>
+
+---
 
 > **FIBO DEMO DAY SHOWCASE (Feb 20-21, 2026)**  
 > _Interactive AI-Powered Tabletop RPG Engine_
 
-This project demonstrates a **Hybrid AI Game Master** that combine the narrative flexibility of Large Language Models (LLM) with the mechanical precision of a hard-coded Rules Engine. It solves the "AI Hallucination" problem by keeping math and game state strictly in Python while letting the AI handle creativity and narration.
+This project demonstrates a **Hybrid AI Game Master** that combines the narrative flexibility of Large Language Models (LLM) with the mechanical precision of a hard-coded **Rules Engine**. It solves the "AI Hallucination" problem by keeping math and game state strictly in Python while letting the AI handle creativity and immersive narration.
 
 ---
 
@@ -20,15 +29,16 @@ This project demonstrates a **Hybrid AI Game Master** that combine the narrative
 - 💡 **QoL Features:** "Idiot-proof" automated API key wizard and developer debug toggles to expose underlying AI processing.
 
 ---
+## 📜 Game Rules
 
-## � Game Rules
+For the complete mechanical breakdown of the **FIBO Lite 5th Edition** system, check out the official rulebook:  
 
-For the complete mechanical breakdown of the FIBO Lite 5th Edition system, check out the official rulebook:  
-👉 **[LITE_5E_RULES.md](file:///home/mudmini009/AI_Dungeon_Master/LITE_5E_RULES.md)**
+> [!TIP]
+> **[👉 Official Rulebook: LITE_5E_RULES.md](./LITE_5E_RULES.md)**
 
 ---
 
-## �🛠️ How to Run
+## 🛠️ How to Run
 
 **Prerequisites:**
 - Python 3.10+
@@ -135,8 +145,9 @@ The system is built as a **"Stateless Symbolic Machine"** to ensure 100% mechani
 
 This project is built upon the foundational research of AI-assisted narrative generation and LLM-based agent architecture. We would like to acknowledge the following papers for their inspiration on our hybrid system:
 
-1. **Jørgensen et al. (2024)** – *ChatRPG: A Multi-Agent "ReAct" Game Master*
-2. **Sakellaridis (2024)** – *LLM-Based Agent as Dungeon Master*
-3. **Song et al. (2024)** – *Tool-Assisted AI DM: Function Calling & External Tools*
+- 📄 **Jørgensen et al. (2024)** – *ChatRPG: A Multi-Agent "ReAct" Game Master*
+- 📄 **Sakellaridis (2024)** – *LLM-Based Agent as Dungeon Master*
+- 📄 **Song et al. (2024)** – *Tool-Assisted AI DM: Function Calling & External Tools*
 
-*(Full academic PDFs can be found in the `archive/references/` directory.)*
+> [!NOTE]
+> *Full academic PDFs can be found in the `<samp>archive/references/</samp>` directory.*
