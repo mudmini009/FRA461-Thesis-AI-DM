@@ -133,7 +133,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
 
             # --- 5. CHECK WIN/LOSS CONDITIONS ---
             active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
-            active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+            active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS, Condition.PACIFIED]]
 
             if not active_players:
                 print("\n" + "💀"*20)

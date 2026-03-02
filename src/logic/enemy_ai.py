@@ -17,8 +17,11 @@ class EnemyAI:
         """
         logs = []
         
-        if enemy.condition in [Condition.DEAD, Condition.UNCONSCIOUS, Condition.STUNNED]:
-             logs.append(f"⚠️ {enemy.name} is {enemy.condition.name} and cannot act!")
+        if enemy.condition in [Condition.DEAD, Condition.UNCONSCIOUS, Condition.STUNNED, Condition.PACIFIED]:
+             if enemy.condition == Condition.PACIFIED:
+                 logs.append(f"🕊️ {enemy.name} is {enemy.condition.name} and chooses not to attack.")
+             else:
+                 logs.append(f"⚠️ {enemy.name} is {enemy.condition.name} and cannot act!")
              return logs
             
         # 2. Filter Valid Targets (Living Players)

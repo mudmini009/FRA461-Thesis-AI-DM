@@ -21,6 +21,7 @@ class Condition(Enum):
     PRONE = "PRONE"
     BLINDED = "BLINDED"
     STUNNED = "STUNNED"
+    PACIFIED = "PACIFIED"
 
 @dataclass
 class Character:
