@@ -15,14 +15,18 @@ class DataManager:
     def __init__(self, data_path: str = "data/campaign.json"):
         self.data_path = data_path
 
-    def load_game(self) -> Tuple[List[Character], List[Character], Deque[str]]:
+    def load_game(self, settings: Optional[Dict[str, Any]] = None) -> Tuple[List[Character], List[Character], Deque[str]]:
         """
         Loads the game state from the JSON file.
         Returns: (party_list, enemies_list, event_memory_deque)
         """
+        if not settings:
+            settings = self.load_settings()
+        max_events = settings.get("memory", {}).get("max_history_events", 10)
+
         if not os.path.exists(self.data_path):
             print(f"❌ Error: Data file not found at {self.data_path}")
-            return [], [], deque(maxlen=10)
+            return [], [], deque(maxlen=max_events)
 
         try:
             with open(self.data_path, 'r') as f:
@@ -35,14 +39,14 @@ class DataManager:
             party = [self._create_char(c) for c in party_data]
             enemies = [self._create_char(c) for c in enemy_data]
             
-            # Using deque automatically handles the rolling sliding window of max 10 events.
-            event_memory = deque(memory_data, maxlen=10)
+            # Using deque automatically handles the rolling sliding window of max N events.
+            event_memory = deque(memory_data, maxlen=max_events)
             
             return party, enemies, event_memory
             
         except Exception as e:
             print(f"❌ Error loading game data: {e}")
-            return [], [], deque(maxlen=10)
+            return [], [], deque(maxlen=max_events)
             
     def save_game(self, party: List[Character], enemies: List[Character], event_memory: Optional[Deque[str]] = None):
         """
@@ -61,6 +65,37 @@ class DataManager:
             # print("💾 Game Saved.") # Optional log
         except Exception as e:
             print(f"❌ Error saving game data: {e}")
+
+    @staticmethod
+    def load_settings(filepath: str = "data/settings.json") -> Dict[str, Any]:
+        """Loads configuration from JSON, with safe fallback defaults."""
+        defaults = {
+            "memory": {"max_history_events": 10},
+            "engine": {"debug_mode": False, "default_dc": 10, "fuzzy_match_cutoff": 0.4},
+            "llm": {"arbiter_model": "gemini-2.5-flash-lite", "narrator_model": "gemini-2.5-flash-lite", "arbiter_temperature": 0.3, "narrator_temperature": 0.7}
+        }
+        
+        settings = {}
+        try:
+            if os.path.exists(filepath):
+                with open(filepath, 'r') as f:
+                    user_settings = json.load(f)
+                
+                # Merge defaults with user settings
+                for category, options in defaults.items():
+                    settings[category] = options.copy()
+                    if category in user_settings and isinstance(user_settings[category], dict):
+                        settings[category].update(user_settings[category])
+            else:
+                settings = defaults.copy()
+                with open(filepath, 'w') as f:
+                    json.dump(settings, f, indent=4)
+                    
+            return settings
+            
+        except Exception as e:
+            print(f"   ⚠️ Error loading settings: {e}. Using defaults.")
+            return defaults
 
     @staticmethod
     def load_lore(filepath: str = "data/world_lore.txt") -> str:

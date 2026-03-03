@@ -10,7 +10,7 @@ from src.router.intent_router import classify_intent
 from src.router.intents import execute_fixed_action, handle_creative_intent
 from src.logic.rules_engine import RulesEngine
 
-DEBUG_MODE = os.getenv("DEBUG_MODE", "True").lower() == "true"
+DEBUG_MODE = False
 
 def debug_print(*args, **kwargs):
     if DEBUG_MODE:
@@ -25,18 +25,22 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
     print("🎮 AI DM PROTOTYPE: TWO-PATH ARCHITECTURE (PHASE 3)")
     print("="*50)
     
+    # --- 1. LOAD DATA FROM JSON ---
+    data_manager = DataManager(data_path)
+    settings = data_manager.load_settings()
+    world_lore = data_manager.load_lore()
+    party, enemies, event_memory = data_manager.load_game(settings=settings)
+
+    global DEBUG_MODE
+    DEBUG_MODE = settings.get("engine", {}).get("debug_mode", False)
+
     # --- 0. INITIALIZE SERVICES ---
     try:
-        llm_service = LLMService()
+        llm_service = LLMService(settings=settings)
         print("✅ LLM Arbiter Online")
     except Exception as e:
         print(f"❌ Failed to load LLM Service: {e}")
         return "EXIT"
-
-    # --- 1. LOAD DATA FROM JSON ---
-    data_manager = DataManager(data_path)
-    world_lore = data_manager.load_lore()
-    party, enemies, event_memory = data_manager.load_game()
 
     if not party:
         print(f"❌ Error: No party data found in {data_path}")
@@ -102,7 +106,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             event_memory.append(f"{current_actor.name} failed to flee from combat.")
                             debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                     else:
-                        success, log_msg = execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print)
+                        success, log_msg = execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print, settings=settings)
                         if log_msg:
                             event_memory.append(log_msg)
 
@@ -122,7 +126,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                                 event_memory.append(f"{current_actor.name} failed to flee from combat.")
                                 debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                         else:
-                            success, log_msg = execute_fixed_action(action, decision, current_actor, enemies, debug_print)
+                            success, log_msg = execute_fixed_action(action, decision, current_actor, enemies, debug_print, settings=settings)
                             if log_msg:
                                 event_memory.append(log_msg)
 
@@ -131,7 +135,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
-                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, event_memory=event_memory)
+                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, event_memory=event_memory, settings=settings)
                     if not success:
                         continue # Skip enemy turn if action is denied
                     elif log_msg:

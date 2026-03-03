@@ -83,7 +83,16 @@ python demo_day.py
       GEMINI_API_KEY=your_key_here_xyz123
       ```
 
-5.  **Run the Game**
+5.  **Configure Settings (Optional)**
+    - You can tweak the engine's behavior without touching Python code!
+    - Open `data/settings.json` to configure:
+      - Memory Queue Size (`max_history_events`)
+      - Default Difficulty Classes (`default_dc`)
+      - AI Creativity (`arbiter_temperature`, `narrator_temperature`)
+      - Target Fuzzy Matching strictness (`fuzzy_match_cutoff`).
+    - *Note: If you delete this file, the engine will safely regenerate it with default values.*
+
+6.  **Run the Game**
     ```bash
     python main.py
     ```
@@ -123,7 +132,10 @@ AI_Dungeon_Master/
 │       └── rag_service.py   # RAG/Context preparation
 ├── data/                    # [DATA] Game state persistence
 │   ├── campaign_backup.json # Clean state for resets
-│   └── campaign_active.json # Current live session data
+│   ├── campaign_active.json # Current live session data
+│   ├── settings_backup.json # Reference file of the original safe default settings
+│   ├── settings.json        # [CONFIG] Editable JSON for backend parameters
+│   └── world_lore.txt       # [LORE] Static RAG context for the Narrator
 └── tests/                   # [QA] Unit tests for Rules Engine
     └── test_rules.py        # Pytest verifying Rule Adherence
 ```

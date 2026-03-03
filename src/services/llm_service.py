@@ -9,20 +9,27 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class LLMService:
-    def __init__(self, model_name: str = "gemini-2.5-flash-lite"):
+    def __init__(self, settings: Optional[Dict[str, Any]] = None):
         self.api_key = os.getenv("GEMINI_API_KEY")
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY not found in .env")
+            
+        if not settings:
+            settings = {"llm": {"arbiter_model": "gemini-2.5-flash-lite", "narrator_model": "gemini-2.5-flash-lite", "arbiter_temperature": 0.3, "narrator_temperature": 0.7}}
+            
+        arbiter_model = settings.get("llm", {}).get("arbiter_model", "gemini-2.5-flash-lite")
+        narrator_model = settings.get("llm", {}).get("narrator_model", "gemini-2.5-flash-lite")
+        arbiter_temp = settings.get("llm", {}).get("arbiter_temperature", 0.3)
+        narrator_temp = settings.get("llm", {}).get("narrator_temperature", 0.7)
         
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel(
-            model_name=model_name,
-            generation_config={"temperature": 0.3, "response_mime_type": "text/plain"}
+            model_name=arbiter_model,
+            generation_config={"temperature": arbiter_temp, "response_mime_type": "text/plain"}
         )
-        # Narrator uses a slightly higher temp for creativity, but we can reuse the model or config
         self.narrator_model = genai.GenerativeModel(
-            model_name=model_name,
-            generation_config={"temperature": 0.7} # Text output, not JSON
+            model_name=narrator_model,
+            generation_config={"temperature": narrator_temp}
         )
 
     def get_creative_judgment(self, party_state: List[Character], enemies_state: List[Character], active_player: Character, action_description: str, event_memory: Optional[Deque[str]] = None) -> Dict[str, Any]:

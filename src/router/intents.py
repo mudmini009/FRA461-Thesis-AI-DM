@@ -1,10 +1,10 @@
 import difflib
-from typing import List, Optional, Deque, Tuple
+from typing import List, Optional, Deque, Tuple, Dict, Any
 from src.models.character import Character, Condition, Zone, Stat
 from src.logic.rules_engine import RulesEngine
 from src.services.llm_service import LLMService
 
-def _find_target(target_name_or_id: str, enemies: List[Character]) -> Optional[Character]:
+def _find_target(target_name_or_id: str, enemies: List[Character], settings: Optional[Dict[str, Any]] = None) -> Optional[Character]:
     """Helper to resolve target ID using 3-tier matching."""
     if not target_name_or_id:
         return None
@@ -18,8 +18,11 @@ def _find_target(target_name_or_id: str, enemies: List[Character]) -> Optional[C
             return e
             
     # 2. Fuzzy String Match (Fallback for Typos)
+    fuzzy_cutoff = 0.4
+    if settings is not None:
+        fuzzy_cutoff = settings.get("engine", {}).get("fuzzy_match_cutoff", 0.4)
     active_names = {e.name.lower(): e for e in active_enemies}
-    matches = difflib.get_close_matches(target_name_or_id, list(active_names.keys()), n=1, cutoff=0.4)
+    matches = difflib.get_close_matches(target_name_or_id, list(active_names.keys()), n=1, cutoff=fuzzy_cutoff)
     if matches:
         return active_names[matches[0]]
         
@@ -30,7 +33,7 @@ def _find_target(target_name_or_id: str, enemies: List[Character]) -> Optional[C
             
     return None
 
-def execute_fixed_action(action_type: str, decision: dict, player: Character, enemies: List[Character], debug_print) -> Tuple[bool, Optional[str]]:
+def execute_fixed_action(action_type: str, decision: dict, player: Character, enemies: List[Character], debug_print, settings: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
     """Executes a single FIXED action (Move or Attack)."""
     log_msg = None
     if action_type == 'MOVE':
@@ -65,7 +68,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
             
     elif action_type == 'ATTACK':
         target_name = decision.get('target', decision.get('attack_target'))
-        target = _find_target(target_name, enemies) if target_name else None
+        target = _find_target(target_name, enemies, settings=settings) if target_name else None
         
         if not target:
             active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
@@ -116,7 +119,10 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
             return False, None
             
         # Try to find the item in inventory
-        matches = difflib.get_close_matches(target_item, player.inventory, n=1, cutoff=0.4)
+        fuzzy_cutoff = 0.4
+        if settings is not None:
+            fuzzy_cutoff = settings.get("engine", {}).get("fuzzy_match_cutoff", 0.4)
+        matches = difflib.get_close_matches(target_item, player.inventory, n=1, cutoff=fuzzy_cutoff)
         if not matches:
             print(f"   ⚠️ You and the party don't seem to have a '{target_item}'.")
             return False, None
@@ -128,7 +134,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         # We need an LLMService instance to use the Arbiter. 
         # Since execute_fixed_action doesn't have it in signature, we'll instantiate a fresh one temporarily for this isolated lookup.
         # Alternatively, we could refactor the signature, but this is cleaner for now.
-        temp_llm = LLMService()
+        temp_llm = LLMService(settings=settings)
         arbiter_result = temp_llm.categorize_item(found_item)
         
         is_consumable = arbiter_result.get('is_consumable', False)
@@ -159,7 +165,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         print(f"   ⚙️ Processing {action_type}... (To be implemented)")
         return False, None
 
-def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, event_memory: Optional[Deque[str]] = None) -> Tuple[bool, Optional[str]]:
+def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, event_memory: Optional[Deque[str]] = None, settings: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
     """Handles Path B (Creative) logic and side effects."""
     description = decision.get('description', user_input)
     debug_print(f"   🤔 Arbiter Judging: '{description}'")
@@ -169,9 +175,12 @@ def handle_creative_intent(decision: dict, user_input: str, player: Character, p
     if judgment.get('allowed'):
         debug_print(f"   ✅ Allowed! Reason: {judgment.get('reason')}")
         
+        default_dc = 10
+        if settings is not None:
+            default_dc = settings.get("engine", {}).get("default_dc", 10)
         stat_str = judgment.get('check_stat', 'PHYS')
-        dc = judgment.get('dc', 10)
-        if dc is None: dc = 10 
+        dc = judgment.get('dc', default_dc)
+        if dc is None: dc = default_dc 
         
         try:
             target_stat = Stat[stat_str]
@@ -217,7 +226,10 @@ def handle_creative_intent(decision: dict, user_input: str, player: Character, p
         consumed_item = judgment.get('consumed_item')
         if consumed_item and player.inventory:
             # Fuzzy match to ensure we remove the correct item string from the list
-            matches = difflib.get_close_matches(consumed_item, player.inventory, n=1, cutoff=0.5)
+            fuzzy_cutoff = 0.4
+            if settings is not None:
+                fuzzy_cutoff = settings.get("engine", {}).get("fuzzy_match_cutoff", 0.4)
+            matches = difflib.get_close_matches(consumed_item, player.inventory, n=1, cutoff=fuzzy_cutoff)
             if matches:
                 item_to_remove = matches[0]
                 player.inventory.remove(item_to_remove)

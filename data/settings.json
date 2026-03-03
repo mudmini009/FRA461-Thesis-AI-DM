@@ -1,0 +1,16 @@
+{
+    "memory": {
+        "max_history_events": 10
+    },
+    "engine": {
+        "debug_mode": false,
+        "default_dc": 10,
+        "fuzzy_match_cutoff": 0.4
+    },
+    "llm": {
+        "arbiter_model": "gemini-2.5-flash-lite",
+        "narrator_model": "gemini-2.5-flash-lite",
+        "arbiter_temperature": 0.3,
+        "narrator_temperature": 0.7
+    }
+}
