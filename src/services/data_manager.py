@@ -62,6 +62,18 @@ class DataManager:
         except Exception as e:
             print(f"❌ Error saving game data: {e}")
 
+    @staticmethod
+    def load_lore(filepath: str = "data/world_lore.txt") -> str:
+        """Loads world building text for the LLM narrator."""
+        try:
+            with open(filepath, 'r') as f:
+                return f.read().strip()
+        except FileNotFoundError:
+            return "A generic dark fantasy world filled with dangerous monsters."
+        except Exception as e:
+            print(f"   [DEBUG] Error loading lore from {filepath}: {e}")
+            return "A generic dark fantasy world filled with dangerous monsters."
+
     def _create_char(self, data: Dict[str, Any]) -> Character:
         """
         Helper to convert raw JSON dictionary into a strongly-typed Character object.

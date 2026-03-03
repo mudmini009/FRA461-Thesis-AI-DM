@@ -111,32 +111,34 @@ class LLMService:
         except Exception as e:
             return f"Narrator Error: {str(e)}"
 
-    def narrate_combat_round(self, event_log: str, toon_context: str, event_memory: Optional[Deque[str]] = None) -> str:
-        """
-        Summarizes a series of mechanical combat events into immersive text.
-        """
-        # Build Memory Context
+    def narrate_combat_round(self, action_log: str, combat_context: str, event_memory: Optional[Deque[str]] = None, world_lore: str = "") -> str:
+        """Generates immersive DM narration based on mechanically resolved actions."""
+        
         memory_context = ""
         if event_memory:
-            memory_context = "\nRECENT EVENTS:\n" + "\n".join([f"- {m}" for m in event_memory])
-            
-        prompt = f"""
-        You are the Dungeon Master. 
+            memory_list = list(event_memory)
+            memory_context = f"\nRECENT HISTORY (Last few turns):\n" + "\n".join(f"- {event}" for event in memory_list) + "\n"
         
-        COMBATANTS STATUS (TOON):
-        {toon_context}
+        lore_context = f"\nWORLD LORE:\n{world_lore}\n" if world_lore else ""
+
+        system_instruction = f"""
+        You are an expert Dungeon Master in an immersive text-based RPG.
+        Your job is to translate raw, mechanical combat logs into exciting, second-person narrative.
+        {lore_context}
+        Current Combat State (TOON Format):
+        {combat_context}
         {memory_context}
-        
-        The following mechanical events just happened: 
-        '{event_log}'
-        
-        Summarize these events into 1-2 vivid, action-packed sentences.
+        Instructions:
+        1. Keep the narration brief (2-3 sentences max).
+        2. Describe the physical action dynamically.
+        3. Do NOT invent new mechanical outcomes or numbers.
+        4. Focus on flavor and tension.
         CRITICAL: Do NOT use numbers. Instead, use the Health Status (e.g. "Values is Bloodied", "Grok is Critical") to describe their physical state.
         Focus on the visual impact, sound, and pain.
         """
         
         try:
-            response = self.narrator_model.generate_content(prompt)
+            response = self.narrator_model.generate_content(contents=[{"role": "user", "parts": [action_log]}], system_instruction=system_instruction)
             return response.text.strip()
         except Exception as e:
             return f"Narrator Error: {str(e)}"

@@ -35,6 +35,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
 
     # --- 1. LOAD DATA FROM JSON ---
     data_manager = DataManager(data_path)
+    world_lore = data_manager.load_lore()
     party, enemies, event_memory = data_manager.load_game()
 
     if not party:
@@ -160,7 +161,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     
                     # Context for Narrator (Health Status and short-term memory)
                     toon_context = TOONConverter.convert(party, enemies)
-                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, event_memory=event_memory)
+                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, event_memory=event_memory, world_lore=world_lore)
                     
                     print(f"   🗣️  DM: \"{narration}\"")
                     
