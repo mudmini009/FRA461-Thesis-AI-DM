@@ -89,7 +89,7 @@ class EnemyAI:
                     if result['is_crit']:
                         outcome = "CRITICAL HIT"
                 
-                log_entry = f"👹 {enemy.name} attacks {target.name}: {outcome}! (Rolled {raw_rolls} = {result['total']}){damage_text}"
+                log_entry = f"👹 {enemy.name} attacks {target.name}: {outcome}!{damage_text}"
                 logs.append(log_entry)
             
         # Check if target went down
