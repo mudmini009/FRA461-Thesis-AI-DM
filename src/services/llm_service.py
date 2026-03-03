@@ -17,7 +17,7 @@ class LLMService:
         genai.configure(api_key=self.api_key)
         self.model = genai.GenerativeModel(
             model_name=model_name,
-            generation_config={"temperature": 0.3, "response_mime_type": "application/json"}
+            generation_config={"temperature": 0.3, "response_mime_type": "text/plain"}
         )
         # Narrator uses a slightly higher temp for creativity, but we can reuse the model or config
         self.narrator_model = genai.GenerativeModel(
@@ -53,21 +53,14 @@ class LLMService:
         3. Determine Side Effects: If the action succeeds, does the target suffer a Condition? (RESTRAINED, PRONE, BLINDED, STUNNED, PACIFIED).
         4. Check Consumption: If the player uses an item in a way that destroys, consumes, or loses it (e.g., throwing a weapon away, burning a rope, eating a mushroom), add "consumed_item": "Item Name". Otherwise, return "consumed_item": null.
 
-        OUTPUT (JSON ONLY):
-        {{
-            "allowed": boolean,
-            "reason": "Short explanation",
-            "check_stat": "PHYS" | "MENT" | "SOC" | "NONE",
-            "dc": integer (10-25),
-            "on_success_condition": "RESTRAINED" | "PRONE" | "BLINDED" | "STUNNED" | "PACIFIED" | null,
-            "target_name_guess": "Name of the target from description (e.g. 'Goblin Scavenger') or null",
-            "consumed_item": "Name of the item destroyed/consumed or null"
-        }}
+        OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
+        For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.
+        Example: allowed:true|reason:Target is distracted|check_stat:PHYS|dc:12|on_success_condition:PRONE|target_name_guess:Goblin|consumed_item:null
         """
         
         try:
             response = self.model.generate_content(prompt)
-            data = json.loads(response.text)
+            data = TOONConverter.decode(response.text.strip())
             
             # Safety defaults
             if "allowed" not in data: data["allowed"] = False
@@ -153,15 +146,13 @@ class LLMService:
         
         Determine if the item is consumed upon use (is_consumable). Weapons are usually NOT consumable, whereas food/potions/bombs ARE.
         
-        OUTPUT (JSON ONLY):
-        {{
-            "is_consumable": boolean,
-            "effect_type": "SMALL_HEAL" | "BIG_HEAL" | "CURE" | "DAMAGE" | "NONE"
-        }}
+        OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
+        For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.
+        Example: is_consumable:true|effect_type:SMALL_HEAL
         """
         try:
             response = self.model.generate_content(prompt)
-            data = json.loads(response.text)
+            data = TOONConverter.decode(response.text.strip())
             
             if "is_consumable" not in data: data["is_consumable"] = False
             if "effect_type" not in data: data["effect_type"] = "NONE"

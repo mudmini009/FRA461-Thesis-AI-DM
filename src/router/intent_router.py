@@ -40,10 +40,10 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
 
     genai.configure(api_key=api_key)
     
-    # Generation Config for JSON output
+    # Generation Config for plain text output
     generation_config = {
         "temperature": 0.1,
-        "response_mime_type": "application/json",
+        "response_mime_type": "text/plain",
     }
     
     model = genai.GenerativeModel(
@@ -69,11 +69,16 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Investigation (examining runes, searching for traps, listening at doors)
         - Unorthodox Item Use (e.g., "I pour the oil on the floor to make him slip")
         
-        OUTPUT FORMAT (JSON ONLY):
-        For Path A (Single Action): {"type": "FIXED", "command": "ATTACK" | "CAST" | "MOVE" | "USE" | "FLEE", "target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged"}
-          - If command is MOVE, "target" MUST be exactly "NEAR", "MID", or "FAR".
-        For Path A (Combo Action): {"type": "FIXED_COMBO", "move_target": "NEAR" | "MID" | "FAR", "attack_target": "Exact ID of the target from the GAME STATE (e.g., 'e1', 'e2') or null", "attack_type": "melee" | "ranged", "action_order": ["MOVE", "ATTACK"] | ["ATTACK", "MOVE"] | ["MOVE", "FLEE"] | ["FLEE", "MOVE"]}
-        For Path B: {"type": "CREATIVE", "description": "short summary of intent"}
+        OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
+        For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.
+        
+        For Path A (Single Action): type:FIXED|command:ATTACK | CAST | MOVE | USE | FLEE|target:e1|attack_type:melee
+          - If command is MOVE, "target" MUST be exactly NEAR, MID, or FAR.
+          - Example: type:FIXED|command:MOVE|target:MID|attack_type:null
+          
+        For Path A (Combo Action): type:FIXED_COMBO|move_target:MID|attack_target:e1|attack_type:ranged|action_order:[MOVE,ATTACK]
+        
+        For Path B: type:CREATIVE|description:short summary of intent
         """
     )
 
@@ -81,10 +86,11 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
 
     try:
         response = model.generate_content(prompt)
-        text = response.text.replace('```json', '').replace('```', '').strip()
-        return json.loads(text)
+        text = response.text.strip()
+        debug_print(f"      [LLM TOON Response]: {text}")
+        return TOONConverter.decode(text)
     except Exception as e:
-        return {"type": "ERROR", "message": str(e)}
+        return {"type": "ERROR", "message": f"Decode Error: {str(e)}"}
 
 def _find_target(target_name_or_id: str, enemies: list) -> Character | None:
     """Helper to resolve target ID using 3-tier matching."""
