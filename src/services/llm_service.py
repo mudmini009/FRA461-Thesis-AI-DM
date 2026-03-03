@@ -1,7 +1,7 @@
 import os
 import json
 import google.generativeai as genai
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Deque, Optional
 from src.models.character import Character
 from src.models.toon_converter import TOONConverter
 from dotenv import load_dotenv
@@ -25,7 +25,7 @@ class LLMService:
             generation_config={"temperature": 0.7} # Text output, not JSON
         )
 
-    def get_creative_judgment(self, party_state: List[Character], enemies_state: List[Character], active_player: Character, action_description: str) -> Dict[str, Any]:
+    def get_creative_judgment(self, party_state: List[Character], enemies_state: List[Character], active_player: Character, action_description: str, event_memory: Optional[Deque[str]] = None) -> Dict[str, Any]:
         """
         Acts as the Arbiter/Referee.
         Decides if an action is possible based on Party Inventory and Logic.
@@ -34,6 +34,11 @@ class LLMService:
         
         # 1. Build Context (TOON Format)
         toon_context = TOONConverter.convert(party_state, enemies_state)
+        
+        # 2. Build Memory Context
+        memory_context = ""
+        if event_memory:
+            memory_context = "\nRECENT EVENTS (For Context):\n" + "\n".join([f"- {m}" for m in event_memory])
             
         prompt = f"""
         You are the ARBITER (Game Referee) for a TTRPG.
@@ -43,6 +48,7 @@ class LLMService:
         
         GAME STATE (TOON Format):
         {toon_context}
+        {memory_context}
         
         ACTIVE PLAYER: {active_player.name}
         PROPOSED ACTION: "{action_description}"
@@ -105,15 +111,21 @@ class LLMService:
         except Exception as e:
             return f"Narrator Error: {str(e)}"
 
-    def narrate_combat_round(self, event_log: str, toon_context: str) -> str:
+    def narrate_combat_round(self, event_log: str, toon_context: str, event_memory: Optional[Deque[str]] = None) -> str:
         """
         Summarizes a series of mechanical combat events into immersive text.
         """
+        # Build Memory Context
+        memory_context = ""
+        if event_memory:
+            memory_context = "\nRECENT EVENTS:\n" + "\n".join([f"- {m}" for m in event_memory])
+            
         prompt = f"""
         You are the Dungeon Master. 
         
         COMBATANTS STATUS (TOON):
         {toon_context}
+        {memory_context}
         
         The following mechanical events just happened: 
         '{event_log}'

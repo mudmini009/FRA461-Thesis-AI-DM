@@ -23,6 +23,7 @@ This project demonstrates a **Hybrid AI Game Master** that combines the narrativ
 - 🤖 **LLM Arbiter:** A "Referee" AI that judges creative actions, assigns Difficulty Classes (DC), and applies symbolic status effects (e.g., `STUNNED`, `RESTRAINED`).
 - 🏃 **Tactical Zone Combat:** Grid-less tactical movement using `NEAR`, `MID`, and `FAR` zones with range-based disadvantage.
 - 🃏 **Initiative Queue:** A dynamic turn-order system where every character (Player & Enemy) rolls initiative at the start of combat.
+- 🧠 **Contextual Short-Term Memory:** Utilizes an efficient $\mathcal{O}(1)$ `collections.deque` sliding window to inject recent gameplay events (max 10) directly into the Arbiter and Narrator LLM prompts, ensuring contextual continuity without wasting API tokens on the stateless routing layer.
 - ⚡ **Dynamic Sequence Actions:** Supports complex commands like "I shoot then run away" or "I run in then attack", executing them in the order specified by the user.
 - 🎒 **Inventory Engine:** Auto-looting, dynamic disposable items, and rigorous LLM-categorized consumable mechanics.
 - 🗣️ **Narrative State Transitions:** Talk your way out of fights with Diplomacy (`PACIFIED` state), or use tactical math-based fleeing mechanics.

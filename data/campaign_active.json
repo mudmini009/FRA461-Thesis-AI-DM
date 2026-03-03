@@ -1,65 +1,75 @@
 {
-  "party": [
-    {
-      "id": "p1",
-      "name": "Valen",
-      "role": "Fighter",
-      "hp": 24,
-      "max_hp": 24,
-      "ac": 16,
-      "stats": {
-        "PHYS": 3,
-        "MENT": 0,
-        "SOC": 1
-      },
-      "zone": "NEAR",
-      "inventory": [
-        "Longsword",
-        "Shield",
-        "Rope (50ft)",
-        "Torch"
-      ],
-      "condition": "NORMAL"
-    }
-  ],
-  "enemies": [
-    {
-      "id": "e1",
-      "name": "Grok the Crusher",
-      "role": "Monster",
-      "hp": 18,
-      "max_hp": 18,
-      "ac": 14,
-      "stats": {
-        "PHYS": 4,
-        "MENT": -2,
-        "SOC": -2
-      },
-      "zone": "NEAR",
-      "inventory": [
-        "Spiked Club",
-        "Rusty Chainmail"
-      ],
-      "condition": "NORMAL"
-    },
-    {
-      "id": "e2",
-      "name": "Snivel",
-      "role": "Monster",
-      "hp": 5,
-      "max_hp": 5,
-      "ac": 12,
-      "stats": {
-        "PHYS": 1,
-        "MENT": -1,
-        "SOC": -1
-      },
-      "zone": "MID",
-      "inventory": [
-        "Shortbow",
-        "Dagger"
-      ],
-      "condition": "NORMAL"
-    }
-  ]
+    "party": [
+        {
+            "id": "p1",
+            "name": "Valen",
+            "role": "Fighter",
+            "hp": 11,
+            "max_hp": 24,
+            "ac": 16,
+            "stats": {
+                "PHYS": 3,
+                "MENT": 0,
+                "SOC": 1
+            },
+            "zone": "NEAR",
+            "inventory": [
+                "Longsword",
+                "Shield"
+            ],
+            "condition": "NORMAL"
+        }
+    ],
+    "enemies": [
+        {
+            "id": "e1",
+            "name": "Grok the Crusher",
+            "role": "Monster",
+            "hp": 18,
+            "max_hp": 18,
+            "ac": 14,
+            "stats": {
+                "PHYS": 4,
+                "MENT": -2,
+                "SOC": -2
+            },
+            "zone": "NEAR",
+            "inventory": [
+                "Spiked Club",
+                "Rusty Chainmail"
+            ],
+            "condition": "RESTRAINED"
+        },
+        {
+            "id": "e2",
+            "name": "Snivel",
+            "role": "Monster",
+            "hp": 0,
+            "max_hp": 5,
+            "ac": 12,
+            "stats": {
+                "PHYS": 1,
+                "MENT": -1,
+                "SOC": -1
+            },
+            "zone": "NEAR",
+            "inventory": [
+                "Shortbow",
+                "Dagger"
+            ],
+            "condition": "UNCONSCIOUS"
+        }
+    ],
+    "event_memory": [
+        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Snivel moves to the NEAR zone toward Valen. \ud83d\udc79 Snivel attacks Valen: HIT! (Rolled [17] = 18) for 5 damage",
+        "Valen attempted creative action: i burn my torch and throw to all of them",
+        "Enemy phase: \ud83d\udc79 Grok the Crusher attacks Valen: MISS! (Rolled [3] = 7)",
+        "Enemy phase: \ud83d\udc79 Snivel attacks Valen: HIT! (Rolled [17] = 18) for 2 damage",
+        "Valen executed fixed command: ATTACK against target e2",
+        "Enemy phase: \ud83d\udc79 Grok the Crusher attacks Valen: MISS! (Rolled [5] = 9)",
+        "Valen attempted creative action: after the grok dead i will fight with snivel",
+        "Enemy phase: \ud83d\udc79 Grok the Crusher attacks Valen: MISS! (Rolled [1] = 5)",
+        "Valen attempted creative action: i rope to tied grok",
+        "Enemy phase: \ud83d\udc79 Grok the Crusher attacks Valen: MISS! (Rolled [16] = 15)"
+    ]
 }

@@ -1,5 +1,5 @@
 import difflib
-from typing import List, Optional
+from typing import List, Optional, Deque
 from src.models.character import Character, Condition, Zone, Stat
 from src.logic.rules_engine import RulesEngine
 from src.services.llm_service import LLMService
@@ -147,12 +147,12 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         print(f"   ⚙️ Processing {action_type}... (To be implemented)")
         return False
 
-def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print) -> bool:
+def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, event_memory: Optional[Deque[str]] = None) -> bool:
     """Handles Path B (Creative) logic and side effects."""
     description = decision.get('description', user_input)
     debug_print(f"   🤔 Arbiter Judging: '{description}'")
     
-    judgment = llm_service.get_creative_judgment(party, enemies, player, description)
+    judgment = llm_service.get_creative_judgment(party, enemies, player, description, event_memory=event_memory)
     
     if judgment.get('allowed'):
         debug_print(f"   ✅ Allowed! Reason: {judgment.get('reason')}")

@@ -35,7 +35,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
 
     # --- 1. LOAD DATA FROM JSON ---
     data_manager = DataManager(data_path)
-    party, enemies = data_manager.load_game()
+    party, enemies, event_memory = data_manager.load_game()
 
     if not party:
         print(f"❌ Error: No party data found in {data_path}")
@@ -90,14 +90,19 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     if decision.get('command') == 'FLEE':
                         result = RulesEngine.resolve_escape(current_actor, enemies)
                         if result['success']:
-                            print("   💨 [SYSTEM] You successfully outran the enemies!")
+                            msg = f"💨 [SYSTEM] You successfully outran the enemies!"
+                            print(f"   {msg}")
+                            event_memory.append(f"{current_actor.name} successfully fled from combat.")
                             debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                             escaped = True
                         else:
-                            print("   🛑 [SYSTEM] The enemy cuts off your escape!")
+                            msg = f"🛑 [SYSTEM] The enemy cuts off your escape!"
+                            print(f"   {msg}")
+                            event_memory.append(f"{current_actor.name} failed to flee from combat.")
                             debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                     else:
                         execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print)
+                        event_memory.append(f"{current_actor.name} executed fixed command: {decision.get('command')} against target {decision.get('target')}")
 
                 elif decision.get('type') == 'FIXED_COMBO':
                     action_order = decision.get('action_order', ['MOVE', 'ATTACK'])
@@ -106,23 +111,28 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             result = RulesEngine.resolve_escape(current_actor, enemies)
                             if result['success']:
                                 print("   💨 [SYSTEM] You successfully outran the enemies!")
+                                event_memory.append(f"{current_actor.name} successfully fled from combat.")
                                 debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                                 escaped = True
                                 break
                             else:
                                 print("   🛑 [SYSTEM] The enemy cuts off your escape!")
+                                event_memory.append(f"{current_actor.name} failed to flee from combat.")
                                 debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                         else:
                             execute_fixed_action(action, decision, current_actor, enemies, debug_print)
+                            event_memory.append(f"{current_actor.name} executed combo action: {action}")
 
                 if escaped:
                     break
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
-                    success = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print)
+                    success = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, event_memory=event_memory)
                     if not success:
                         continue # Skip enemy turn if action is denied
+                    else:
+                        event_memory.append(f"{current_actor.name} attempted creative action: {user_input}")
 
                 # Error handling
                 elif decision.get('type') == 'ERROR':
@@ -146,16 +156,18 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     # Generate Narration
                     print(f"   thinking...", end="\r")
                     
-                    # Context for Narrator (Health Status)
+                    # Context for Narrator (Health Status and short-term memory)
                     toon_context = TOONConverter.convert(party, enemies)
-                    narration = llm_service.narrate_combat_round(full_event_log, toon_context)
+                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, event_memory=event_memory)
                     
                     print(f"   🗣️  DM: \"{narration}\"")
+                    
+                    event_memory.append(f"Enemy phase: {full_event_log.strip()}")
 
             queue.advance_turn()
 
             # --- 4.5 AUTO-SAVE ---
-            data_manager.save_game(party, enemies)
+            data_manager.save_game(party, enemies, event_memory=event_memory)
 
             # --- 5. CHECK WIN/LOSS CONDITIONS ---
             active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
@@ -185,7 +197,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     print(f"\n💰 [SYSTEM] Auto-Looted: [{', '.join(looted_items)}] from the fallen enemies!")
                     
                     # Force a save to lock in the new fat inventory
-                    data_manager.save_game(party, enemies)
+                    data_manager.save_game(party, enemies, event_memory=event_memory)
 
                 return "VICTORY"
         
