@@ -101,11 +101,9 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             event_memory.append(f"{current_actor.name} failed to flee from combat.")
                             debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                     else:
-                        execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print)
-                        target_str = decision.get('target', '')
-                        target_name = next((c.name for c in (party + enemies) if getattr(c, 'id', '') == target_str or c.name.lower() == target_str.lower()), target_str)
-                        action_log = f"{current_actor.name} used {decision.get('command')} on {target_name}".strip() if target_name else f"{current_actor.name} used {decision.get('command')}"
-                        event_memory.append(action_log)
+                        success, log_msg = execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print)
+                        if log_msg:
+                            event_memory.append(log_msg)
 
                 elif decision.get('type') == 'FIXED_COMBO':
                     action_order = decision.get('action_order', ['MOVE', 'ATTACK'])
@@ -123,23 +121,20 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                                 event_memory.append(f"{current_actor.name} failed to flee from combat.")
                                 debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                         else:
-                            execute_fixed_action(action, decision, current_actor, enemies, debug_print)
-                            target_str = decision.get('target', '')
-                            target_name = next((c.name for c in (party + enemies) if getattr(c, 'id', '') == target_str or c.name.lower() == target_str.lower()), target_str)
-                            action_log = f"{current_actor.name} used combo action: {action} on {target_name}".strip() if target_name else f"{current_actor.name} used combo action: {action}"
-                            event_memory.append(action_log)
+                            success, log_msg = execute_fixed_action(action, decision, current_actor, enemies, debug_print)
+                            if log_msg:
+                                event_memory.append(log_msg)
 
                 if escaped:
                     break
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
-                    success = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, event_memory=event_memory)
+                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, event_memory=event_memory)
                     if not success:
                         continue # Skip enemy turn if action is denied
-                    else:
-                        creative_desc = decision.get('description', user_input)
-                        event_memory.append(f"{current_actor.name} attempted: {creative_desc}")
+                    elif log_msg:
+                        event_memory.append(log_msg)
 
                 # Error handling
                 elif decision.get('type') == 'ERROR':

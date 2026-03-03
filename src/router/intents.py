@@ -1,5 +1,5 @@
 import difflib
-from typing import List, Optional, Deque
+from typing import List, Optional, Deque, Tuple
 from src.models.character import Character, Condition, Zone, Stat
 from src.logic.rules_engine import RulesEngine
 from src.services.llm_service import LLMService
@@ -30,14 +30,15 @@ def _find_target(target_name_or_id: str, enemies: List[Character]) -> Optional[C
             
     return None
 
-def execute_fixed_action(action_type: str, decision: dict, player: Character, enemies: List[Character], debug_print) -> bool:
+def execute_fixed_action(action_type: str, decision: dict, player: Character, enemies: List[Character], debug_print) -> Tuple[bool, Optional[str]]:
     """Executes a single FIXED action (Move or Attack)."""
+    log_msg = None
     if action_type == 'MOVE':
         target_zone_str = decision.get('target', decision.get('move_target', '')).upper()
         
         if not target_zone_str or target_zone_str not in ["NEAR", "MID", "FAR"]:
             print(f"   ⚠️ Invalid move destination: '{target_zone_str}'. Please specify NEAR, MID, or FAR.")
-            return False
+            return False, None
             
         try:
             target_zone = Zone[target_zone_str]
@@ -51,15 +52,16 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 print(f"   ⚠️ You can only move 1 zone per turn. Moving you to {target_zone.name} instead.")
             elif current_idx == target_idx:
                 print(f"   🏃 You are already in the {target_zone.name} zone.")
-                return True
+                return True, f"{player.name} is in the {target_zone.name} zone."
                 
             player.zone = target_zone
-            print(f"   🏃 {player.name} moved to the {target_zone.name} zone.")
-            return True
+            log_msg = f"{player.name} moved to the {target_zone.name} zone."
+            print(f"   🏃 {log_msg}")
+            return True, log_msg
             
         except Exception as e:
             print(f"   ⚠️ Failed to move: {e}")
-            return False
+            return False, None
             
     elif action_type == 'ATTACK':
         target_name = decision.get('target', decision.get('attack_target'))
@@ -71,7 +73,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 target = active_enemies[0]
             else:
                 print("   ⚠️ No active enemies to attack!")
-                return False
+                return False, None
 
         debug_print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
         attack_type = decision.get('attack_type', 'melee')
@@ -80,39 +82,44 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         raw_rolls = result.get('raw_rolls', [result.get('roll', 0)])
         roll_info = f"{raw_rolls} + {player.stats.get(Stat.PHYS, 0)} (Bonus)"
         
-        if result.get('is_crit'):
-             print(f"   🔥 CRITICAL HIT!")
-             debug_print("      (Natural 20!)")
-        
         if result.get('is_hit'):
-            if not result.get('is_crit'):
+            outcome = "CRITICAL HIT" if result.get('is_crit') else "HIT"
+            if result.get('is_crit'):
+                 print(f"   🔥 CRITICAL HIT!")
+                 debug_print("      (Natural 20!)")
+            else:
                  print(f"   💥 HIT!")
                  debug_print(f"      (Rolled {roll_info} = {result.get('total', 0)} vs AC {target.ac})")
+            
             print(f"   🩸 Damage Dealt: {result.get('damage', 0)}")
             print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
+            log_msg = f"{player.name} attacked {target.name}: {outcome} for {result.get('damage', 0)} damage."
         else:
             if result.get('message'):
                 print(f"   ⚠️ {result['message']}")
+                log_msg = f"{player.name} attacked {target.name}: FAILED ({result['message']})"
             else:
                 print(f"   🛡️ MISS!")
                 debug_print(f"      (Rolled {roll_info} = {result.get('total', 0)} vs AC {target.ac})")
-        return True
+                log_msg = f"{player.name} attacked {target.name}: MISS"
+        
+        return True, log_msg
     
     elif action_type == 'USE':
         target_item = decision.get('target')
         if not target_item:
             print(f"   ⚠️ Use what?")
-            return False
+            return False, None
             
         if not player.inventory:
             print(f"   ⚠️ Your inventory is empty!")
-            return False
+            return False, None
             
         # Try to find the item in inventory
         matches = difflib.get_close_matches(target_item, player.inventory, n=1, cutoff=0.4)
         if not matches:
             print(f"   ⚠️ You and the party don't seem to have a '{target_item}'.")
-            return False
+            return False, None
             
         found_item = matches[0]
         
@@ -129,25 +136,30 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         
         if is_consumable:
             player.inventory.remove(found_item)
-            print(f"   🧪 [SYSTEM] Using '{found_item}' (Consumed).")
+            msg = f"{player.name} used '{found_item}' (Consumed)."
+            print(f"   🧪 [SYSTEM] {msg}")
             
             # Apply mechanical effect via RulesEngine using the AI's category
             effect_result = RulesEngine.use_item(player, found_item, effect_type)
             print(f"   ✨ {effect_result['message']}")
+            log_msg = f"{msg} Result: {effect_result['message']}"
             
         else:
             if effect_type != "NONE":
                  effect_result = RulesEngine.use_item(player, found_item, effect_type)
                  print(f"   ✨ {effect_result['message']}")
-            print(f"   ⚙️ [SYSTEM] Equipped/Interacted with '{found_item}'.")
+                 log_msg = f"{player.name} used '{found_item}'. Result: {effect_result['message']}"
+            else:
+                 print(f"   ⚙️ [SYSTEM] Equipped/Interacted with '{found_item}'.")
+                 log_msg = f"{player.name} interacted with '{found_item}'."
             
-        return True
+        return True, log_msg
 
     else:
         print(f"   ⚙️ Processing {action_type}... (To be implemented)")
-        return False
+        return False, None
 
-def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, event_memory: Optional[Deque[str]] = None) -> bool:
+def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, event_memory: Optional[Deque[str]] = None) -> Tuple[bool, Optional[str]]:
     """Handles Path B (Creative) logic and side effects."""
     description = decision.get('description', user_input)
     debug_print(f"   🤔 Arbiter Judging: '{description}'")
@@ -177,6 +189,8 @@ def handle_creative_intent(decision: dict, user_input: str, player: Character, p
         
         debug_print(f"   {'🌟' if success else '💀'} Check {outcome_text}! (Rolled {roll_str} = {check_result.get('total', 0)} vs DC {dc})")
         
+        log_msg = f"{player.name} attempted: {description}. Result: {outcome_text} (DC {dc})"
+        
         if success:
             condition_str = judgment.get('on_success_condition')
             target_name = judgment.get('target_name_guess')
@@ -193,7 +207,9 @@ def handle_creative_intent(decision: dict, user_input: str, player: Character, p
                     try:
                         new_condition = Condition[condition_str]
                         found_target.condition = new_condition
-                        print(f"   ⚠️ STATUS UPDATE: {found_target.name} is now {new_condition.name}!")
+                        status_msg = f"{found_target.name} is now {new_condition.name}!"
+                        print(f"   ⚠️ STATUS UPDATE: {status_msg}")
+                        log_msg += f" | {status_msg}"
                     except KeyError:
                         debug_print(f"   ⚠️ Warning: Arbiter returned invalid condition '{condition_str}'")
 
@@ -205,11 +221,14 @@ def handle_creative_intent(decision: dict, user_input: str, player: Character, p
             if matches:
                 item_to_remove = matches[0]
                 player.inventory.remove(item_to_remove)
-                print(f"   🔥 [SYSTEM] '{item_to_remove}' was consumed/lost.")
+                consume_msg = f"'{item_to_remove}' was consumed/lost."
+                print(f"   🔥 [SYSTEM] {consume_msg}")
+                log_msg += f" | {consume_msg}"
 
         narration = llm_service.narrate_result(description, "Hidden", dc, success)
         print(f"   🗣️  DM: \"{narration}\"")
-        return True
+        return True, log_msg
     else:
-        print(f"   🚫 Denied! Reason: {judgment.get('reason')}")
-        return False
+        reason = judgment.get('reason', 'Action denied by Arbiter.')
+        print(f"   🚫 Denied! Reason: {reason}")
+        return False, f"{player.name} attempted: {description}. Result: DENIED ({reason})"
