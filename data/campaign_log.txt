@@ -1,0 +1,5 @@
+[DM] A guttural snarl erupts from the smaller, goblin-like creature as it darts forward, closing the distance between you. It lunges with surprising speed, a rusted dagger a mere blur in its clawed hand, but your shield snaps up, deflecting the blow with a jarring clang.
+[DM] The hulking Ruin-Born, Grok the Crusher, bellows a guttural war cry as his crude, jagged axe swings wildly. You sidestep the brutal arc, the wind of its passage whistling past your ear, the heavy blade embedding itself with a *thud* into the muddy ground.
+[PLAYER] i swing it sword
+[DM] The wiry Ruin-Born, Snivel, lunges at you with surprising speed, a rusted blade glinting in its clawed hand. You parry the wild swing with your shield, the impact jarring your arm, but the creature's attack goes wide.
+[DM] The hulking Ruin-Born, Grok the Crusher, roars, his rusted axe a blur. It crashes against your shield with the force of a falling anvil, the impact jarring your arm to the bone. You stagger back, the world momentarily swimming as a searing pain blooms where the axe head glanced off your armor.

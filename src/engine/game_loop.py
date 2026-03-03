@@ -21,6 +21,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
     Main Combat Loop.
     Returns: "RESTART", "VICTORY", "DEFEAT", or "EXIT".
     """
+    global DEBUG_MODE
     print("\n" + "="*50)
     print("🎮 AI DM PROTOTYPE: TWO-PATH ARCHITECTURE (PHASE 3)")
     print("="*50)
@@ -70,13 +71,15 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
             
                 # RESTART LOGIC
                 if user_input.lower() == 'debug':
-                    global DEBUG_MODE
                     DEBUG_MODE = not DEBUG_MODE
                     print(f"   🔧 Debug Mode is now {'ON' if DEBUG_MODE else 'OFF'}")
                     continue
                 if user_input.lower() == 'restart': return "RESTART"
                 if user_input.lower() in ['exit', 'quit', 'q']: return "EXIT"
                 if not user_input.strip(): continue
+
+                # NEW: Write raw player action to campaign log
+                DataManager.append_to_log(f"[PLAYER] {user_input}")
 
                 print("   Thinking...", end="\r", flush=True) # Loading effect
                 
@@ -168,6 +171,9 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     narration = llm_service.narrate_combat_round(full_event_log, toon_context, event_memory=event_memory, world_lore=world_lore)
                     
                     print(f"   🗣️  DM: \"{narration}\"")
+                    
+                    # NEW: Write the generated narrative to the campaign log
+                    DataManager.append_to_log(f"[DM] {narration}")
                     
                     event_memory.append(f"Enemy phase: {full_event_log.strip()}")
 

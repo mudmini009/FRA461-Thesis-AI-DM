@@ -67,6 +67,25 @@ class DataManager:
             print(f"❌ Error saving game data: {e}")
 
     @staticmethod
+    def append_to_log(text: str, log_path: str = "data/campaign_log.txt"):
+        """Appends a single line of narrative/action history to the continuous campaign log."""
+        try:
+            with open(log_path, 'a', encoding="utf-8") as f:
+                f.write(text + "\n")
+        except Exception as e:
+            print(f"   ⚠️ Warning: Could not write to campaign log: {e}")
+
+    @staticmethod
+    def clear_log(log_path: str = "data/campaign_log.txt"):
+        """Erases the continuous campaign log when starting a New Game/Resetting."""
+        try:
+            # Overwrite the file with emptiness
+            with open(log_path, 'w', encoding="utf-8") as f:
+                f.write("")
+        except Exception as e:
+            pass
+
+    @staticmethod
     def load_settings(filepath: str = "data/settings.json") -> Dict[str, Any]:
         """Loads configuration from JSON, with safe fallback defaults."""
         defaults = {

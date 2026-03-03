@@ -143,9 +143,10 @@ class LLMService:
         CRITICAL: Do NOT use numbers. Instead, use the Health Status (e.g. "Values is Bloodied", "Grok is Critical") to describe their physical state.
         Focus on the visual impact, sound, and pain.
         """
+        full_prompt = f"{system_instruction}\n\nLog to narrate:\n{action_log}"
         
         try:
-            response = self.narrator_model.generate_content(contents=[{"role": "user", "parts": [action_log]}], system_instruction=system_instruction)
+            response = self.narrator_model.generate_content(full_prompt)
             return response.text.strip()
         except Exception as e:
             return f"Narrator Error: {str(e)}"

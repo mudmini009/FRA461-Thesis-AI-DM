@@ -7,6 +7,7 @@ import shutil
 sys.path.append(os.getcwd())
 
 from src.engine.game_loop import start_combat_loop
+from src.services.data_manager import DataManager
 
 BACKUP_FILE = "data/campaign_backup.json"
 ACTIVE_FILE = "data/campaign_active.json"
@@ -73,6 +74,7 @@ def main():
         # 1. Reset Data
         try:
             shutil.copy(BACKUP_FILE, ACTIVE_FILE)
+            DataManager.clear_log()
             print("[SYSTEM] 💾 Game Data Reset Successfully. Ready for adventure.")
         except FileNotFoundError:
             print(f"❌ Error: Backup file {BACKUP_FILE} not found!")
