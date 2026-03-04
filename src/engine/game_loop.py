@@ -79,7 +79,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                 if not user_input.strip(): continue
 
                 # NEW: Write raw player action to campaign log
-                DataManager.append_to_log(f"[PLAYER] {user_input}")
+                DataManager.append_to_log(f"[{current_actor.name}] {user_input}")
 
                 print("   Thinking...", end="\r", flush=True) # Loading effect
                 
@@ -101,17 +101,20 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             msg = f"💨 [SYSTEM] You successfully outran the enemies!"
                             print(f"   {msg}")
                             event_memory.append(f"{current_actor.name} successfully fled from combat.")
+                            DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} successfully fled from combat.")
                             debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                             escaped = True
                         else:
                             msg = f"🛑 [SYSTEM] The enemy cuts off your escape!"
                             print(f"   {msg}")
                             event_memory.append(f"{current_actor.name} failed to flee from combat.")
+                            DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} failed to flee from combat.")
                             debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                     else:
                         success, log_msg = execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print, settings=settings)
                         if log_msg:
                             event_memory.append(log_msg)
+                            DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
 
                 elif decision.get('type') == 'FIXED_COMBO':
                     action_order = decision.get('action_order', ['MOVE', 'ATTACK'])
@@ -121,17 +124,20 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             if result['success']:
                                 print("   💨 [SYSTEM] You successfully outran the enemies!")
                                 event_memory.append(f"{current_actor.name} successfully fled from combat.")
+                                DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} successfully fled from combat.")
                                 debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                                 escaped = True
                                 break
                             else:
                                 print("   🛑 [SYSTEM] The enemy cuts off your escape!")
                                 event_memory.append(f"{current_actor.name} failed to flee from combat.")
+                                DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} failed to flee from combat.")
                                 debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                         else:
                             success, log_msg = execute_fixed_action(action, decision, current_actor, enemies, debug_print, settings=settings)
                             if log_msg:
                                 event_memory.append(log_msg)
+                                DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
 
                 if escaped:
                     break
@@ -143,6 +149,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                         continue # Skip enemy turn if action is denied
                     elif log_msg:
                         event_memory.append(log_msg)
+                        DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
 
                 # Error handling
                 elif decision.get('type') == 'ERROR':
@@ -162,6 +169,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     for log in enemy_logs:
                         debug_print(f"   [SYSTEM] {log}")
                         full_event_log += log + " "
+                        DataManager.append_to_log(f"   [SYSTEM] {log}")
                     
                     # Generate Narration
                     print(f"   thinking...", end="\r")
@@ -173,7 +181,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     print(f"   🗣️  DM: \"{narration}\"")
                     
                     # NEW: Write the generated narrative to the campaign log
-                    DataManager.append_to_log(f"[DM] {narration}")
+                    DataManager.append_to_log(f"[DM] ({current_actor.name}'s Turn) {narration}\n")
                     
                     event_memory.append(f"Enemy phase: {full_event_log.strip()}")
 
