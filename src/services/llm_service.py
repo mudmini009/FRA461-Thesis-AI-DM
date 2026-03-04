@@ -32,7 +32,7 @@ class LLMService:
             generation_config={"temperature": narrator_temp}
         )
 
-    def get_creative_judgment(self, party_state: List[Character], enemies_state: List[Character], active_player: Character, action_description: str, event_memory: Optional[Deque[str]] = None) -> Dict[str, Any]:
+    def get_creative_judgment(self, party_state: List[Character], enemies_state: List[Character], active_player: Character, action_description: str, combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None) -> Dict[str, Any]:
         """
         Acts as the Arbiter/Referee.
         Decides if an action is possible based on Party Inventory and Logic.
@@ -44,8 +44,10 @@ class LLMService:
         
         # 2. Build Memory Context
         memory_context = ""
-        if event_memory:
-            memory_context = "\nRECENT EVENTS (For Context):\n" + "\n".join([f"- {m}" for m in event_memory])
+        if story_memory:
+            memory_context += "\nSTORY HISTORY (The larger narrative):\n" + "\n".join([f"- {m}" for m in story_memory])
+        if combat_memory:
+            memory_context += "\nRECENT COMBAT EVENTS (Immediate Context):\n" + "\n".join([f"- {m}" for m in combat_memory])
             
         prompt = f"""
         You are the ARBITER (Game Referee) for a TTRPG.
@@ -118,13 +120,16 @@ class LLMService:
         except Exception as e:
             return f"Narrator Error: {str(e)}"
 
-    def narrate_combat_round(self, action_log: str, combat_context: str, event_memory: Optional[Deque[str]] = None, world_lore: str = "") -> str:
+    def narrate_combat_round(self, action_log: str, combat_context: str, combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None, world_lore: str = "") -> str:
         """Generates immersive DM narration based on mechanically resolved actions."""
         
         memory_context = ""
-        if event_memory:
-            memory_list = list(event_memory)
-            memory_context = f"\nRECENT HISTORY (Last few turns):\n" + "\n".join(f"- {event}" for event in memory_list) + "\n"
+        if story_memory:
+            memory_list = list(story_memory)
+            memory_context += f"\nSTORY HISTORY:\n" + "\n".join(f"- {event}" for event in memory_list) + "\n"
+        if combat_memory:
+            memory_list = list(combat_memory)
+            memory_context += f"\nRECENT COMBAT HISTORY (Last few turns):\n" + "\n".join(f"- {event}" for event in memory_list) + "\n"
         
         lore_context = f"\nWORLD LORE:\n{world_lore}\n" if world_lore else ""
 
@@ -184,3 +189,29 @@ class LLMService:
         except Exception as e:
              # Failsafe: Don't consume it, give it no effect
              return {"is_consumable": False, "effect_type": "NONE"}
+
+    def summarize_combat(self, combat_memory: Deque[str]) -> str:
+        """
+        Collapses a full queue of mechanical combat logs into a single narrative sentence.
+        """
+        if not combat_memory:
+            return "A brief skirmish occurred."
+            
+        combat_log = "\n".join(list(combat_memory))
+        prompt = f"""
+        You are the DM Summarizer.
+        The party just finished a combat encounter.
+        Here is the mechanical log of the fight:
+        
+        {combat_log}
+        
+        Write exactly ONE single narrative sentence summarizing the entire outcome of this fight.
+        Focus on who was defeated and any interesting narrative details.
+        Do NOT use any numbers, stats, HP, or mechanical terms.
+        """
+        
+        try:
+            response = self.narrator_model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            return "The party emerged victorious from a brutal battle."

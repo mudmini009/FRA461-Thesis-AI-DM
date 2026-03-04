@@ -30,7 +30,7 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
     data_manager = DataManager(data_path)
     settings = data_manager.load_settings()
     world_lore = data_manager.load_lore()
-    party, enemies, event_memory = data_manager.load_game(settings=settings)
+    party, enemies, combat_memory, story_memory = data_manager.load_game(settings=settings)
 
     global DEBUG_MODE
     DEBUG_MODE = settings.get("engine", {}).get("debug_mode", False)
@@ -100,20 +100,20 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                         if result['success']:
                             msg = f"💨 [SYSTEM] You successfully outran the enemies!"
                             print(f"   {msg}")
-                            event_memory.append(f"{current_actor.name} successfully fled from combat.")
+                            combat_memory.append(f"{current_actor.name} successfully fled from combat.")
                             DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} successfully fled from combat.")
                             debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                             escaped = True
                         else:
                             msg = f"🛑 [SYSTEM] The enemy cuts off your escape!"
                             print(f"   {msg}")
-                            event_memory.append(f"{current_actor.name} failed to flee from combat.")
+                            combat_memory.append(f"{current_actor.name} failed to flee from combat.")
                             DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} failed to flee from combat.")
                             debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                     else:
                         success, log_msg = execute_fixed_action(decision.get('command'), decision, current_actor, enemies, debug_print, settings=settings)
                         if log_msg:
-                            event_memory.append(log_msg)
+                            combat_memory.append(log_msg)
                             DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
 
                 elif decision.get('type') == 'FIXED_COMBO':
@@ -123,32 +123,41 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                             result = RulesEngine.resolve_escape(current_actor, enemies)
                             if result['success']:
                                 print("   💨 [SYSTEM] You successfully outran the enemies!")
-                                event_memory.append(f"{current_actor.name} successfully fled from combat.")
+                                combat_memory.append(f"{current_actor.name} successfully fled from combat.")
                                 DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} successfully fled from combat.")
                                 debug_print(f"      [Math] Escaped: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                                 escaped = True
                                 break
                             else:
                                 print("   🛑 [SYSTEM] The enemy cuts off your escape!")
-                                event_memory.append(f"{current_actor.name} failed to flee from combat.")
+                                combat_memory.append(f"{current_actor.name} failed to flee from combat.")
                                 DataManager.append_to_log(f"   [SYSTEM] {current_actor.name} failed to flee from combat.")
                                 debug_print(f"      [Math] Failed Escape: Player ({result['player_roll']} + {result['player_bonus']} = {result['player_total']}) vs {result.get('closest_enemy_name', 'None')} ({result['enemy_roll']} + {result['enemy_bonus']} + {result['proximity_modifier']}(Dist) = {result['enemy_total']})")
                         else:
                             success, log_msg = execute_fixed_action(action, decision, current_actor, enemies, debug_print, settings=settings)
                             if log_msg:
-                                event_memory.append(log_msg)
+                                combat_memory.append(log_msg)
                                 DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
 
                 if escaped:
+                    print(f"   🔄 Extricating from combat...")
+                    if combat_memory:
+                        print(f"   [System] Summarizing combat for Story Memory...")
+                        summary = llm_service.summarize_combat(combat_memory)
+                        print(f"   📖 [STORY MEMORY] {summary}")
+                        DataManager.append_to_log(f"[STORY SUMMARY] {summary}\n")
+                        story_memory.append(summary)
+                        combat_memory.clear()
+                        data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory)
                     break
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
-                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, event_memory=event_memory, settings=settings)
+                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, combat_memory=combat_memory, story_memory=story_memory, settings=settings)
                     if not success:
                         continue # Skip enemy turn if action is denied
                     elif log_msg:
-                        event_memory.append(log_msg)
+                        combat_memory.append(log_msg)
                         DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
 
                 # Error handling
@@ -176,19 +185,19 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     
                     # Context for Narrator (Health Status and short-term memory)
                     toon_context = TOONConverter.convert(party, enemies)
-                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, event_memory=event_memory, world_lore=world_lore)
+                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, combat_memory=combat_memory, story_memory=story_memory, world_lore=world_lore)
                     
                     print(f"   🗣️  DM: \"{narration}\"")
                     
                     # NEW: Write the generated narrative to the campaign log
                     DataManager.append_to_log(f"[DM] ({current_actor.name}'s Turn) {narration}\n")
                     
-                    event_memory.append(f"Enemy phase: {full_event_log.strip()}")
+                    combat_memory.append(f"Enemy phase: {full_event_log.strip()}")
 
             queue.advance_turn()
 
             # --- 4.5 AUTO-SAVE ---
-            data_manager.save_game(party, enemies, event_memory=event_memory)
+            data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory)
 
             # --- 5. CHECK WIN/LOSS CONDITIONS ---
             active_players = [p for p in party if p.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
@@ -218,7 +227,16 @@ def start_combat_loop(data_path: str = "data/campaign.json") -> str:
                     print(f"\n💰 [SYSTEM] Auto-Looted: [{', '.join(looted_items)}] from the fallen enemies!")
                     
                     # Force a save to lock in the new fat inventory
-                    data_manager.save_game(party, enemies, event_memory=event_memory)
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory)
+
+                if combat_memory:
+                    print(f"\n   [System] Summarizing combat for Story Memory...")
+                    summary = llm_service.summarize_combat(combat_memory)
+                    print(f"   📖 [STORY MEMORY] {summary}")
+                    DataManager.append_to_log(f"\n[STORY SUMMARY] {summary}\n")
+                    story_memory.append(summary)
+                    combat_memory.clear()
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory)
 
                 return "VICTORY"
         

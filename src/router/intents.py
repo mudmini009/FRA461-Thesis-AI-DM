@@ -165,12 +165,12 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         print(f"   ⚙️ Processing {action_type}... (To be implemented)")
         return False, None
 
-def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, event_memory: Optional[Deque[str]] = None, settings: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
+def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None, settings: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
     """Handles Path B (Creative) logic and side effects."""
     description = decision.get('description', user_input)
     debug_print(f"   🤔 Arbiter Judging: '{description}'")
     
-    judgment = llm_service.get_creative_judgment(party, enemies, player, description, event_memory=event_memory)
+    judgment = llm_service.get_creative_judgment(party, enemies, player, description, combat_memory=combat_memory, story_memory=story_memory)
     
     if judgment.get('allowed'):
         debug_print(f"   ✅ Allowed! Reason: {judgment.get('reason')}")

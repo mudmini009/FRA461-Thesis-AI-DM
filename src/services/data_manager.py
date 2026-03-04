@@ -15,18 +15,19 @@ class DataManager:
     def __init__(self, data_path: str = "data/campaign.json"):
         self.data_path = data_path
 
-    def load_game(self, settings: Optional[Dict[str, Any]] = None) -> Tuple[List[Character], List[Character], Deque[str]]:
+    def load_game(self, settings: Optional[Dict[str, Any]] = None) -> Tuple[List[Character], List[Character], Deque[str], Deque[str]]:
         """
         Loads the game state from the JSON file.
-        Returns: (party_list, enemies_list, event_memory_deque)
+        Returns: (party_list, enemies_list, combat_memory_deque, story_memory_deque)
         """
         if not settings:
             settings = self.load_settings()
-        max_events = settings.get("memory", {}).get("max_history_events", 10)
+        max_combat = settings.get("memory", {}).get("max_combat_events", 10)
+        max_story = settings.get("memory", {}).get("max_story_events", 5)
 
         if not os.path.exists(self.data_path):
             print(f"❌ Error: Data file not found at {self.data_path}")
-            return [], [], deque(maxlen=max_events)
+            return [], [], deque(maxlen=max_combat), deque(maxlen=max_story)
 
         try:
             with open(self.data_path, 'r') as f:
@@ -34,21 +35,23 @@ class DataManager:
                 
             party_data = data.get("party", [])
             enemy_data = data.get("enemies", [])
-            memory_data = data.get("event_memory", [])
+            combat_data = data.get("combat_memory",  data.get("event_memory", [])) # Fallback if migrating
+            story_data = data.get("story_memory", [])
             
             party = [self._create_char(c) for c in party_data]
             enemies = [self._create_char(c) for c in enemy_data]
             
             # Using deque automatically handles the rolling sliding window of max N events.
-            event_memory = deque(memory_data, maxlen=max_events)
+            combat_memory = deque(combat_data, maxlen=max_combat)
+            story_memory = deque(story_data, maxlen=max_story)
             
-            return party, enemies, event_memory
+            return party, enemies, combat_memory, story_memory
             
         except Exception as e:
             print(f"❌ Error loading game data: {e}")
-            return [], [], deque(maxlen=max_events)
+            return [], [], deque(maxlen=max_combat), deque(maxlen=max_story)
             
-    def save_game(self, party: List[Character], enemies: List[Character], event_memory: Optional[Deque[str]] = None):
+    def save_game(self, party: List[Character], enemies: List[Character], combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None):
         """
         Saves the current game state to the JSON file.
         Overwrites existing data.
@@ -56,7 +59,8 @@ class DataManager:
         data = {
             "party": [p.to_dict() for p in party],
             "enemies": [e.to_dict() for e in enemies],
-            "event_memory": list(event_memory) if event_memory else []
+            "combat_memory": list(combat_memory) if combat_memory else [],
+            "story_memory": list(story_memory) if story_memory else []
         }
         
         try:
@@ -89,7 +93,7 @@ class DataManager:
     def load_settings(filepath: str = "data/settings.json") -> Dict[str, Any]:
         """Loads configuration from JSON, with safe fallback defaults."""
         defaults = {
-            "memory": {"max_history_events": 10},
+            "memory": {"max_combat_events": 10, "max_story_events": 5},
             "engine": {"debug_mode": False, "default_dc": 10, "fuzzy_match_cutoff": 0.4},
             "llm": {"arbiter_model": "gemini-2.5-flash-lite", "narrator_model": "gemini-2.5-flash-lite", "arbiter_temperature": 0.3, "narrator_temperature": 0.7}
         }
@@ -172,6 +176,6 @@ class DataManager:
 if __name__ == "__main__":
     # Test Block
     dm = DataManager()
-    p, e, m = dm.load_game()
-    print(f"Loaded {len(p)} players and {len(e)} enemies. Memory events: {len(m)}")
+    p, e, cm, sm = dm.load_game()
+    print(f"Loaded {len(p)} players and {len(e)} enemies. Memory events: {len(cm)}")
     if p: print(f"Player 1: {p[0]}")
