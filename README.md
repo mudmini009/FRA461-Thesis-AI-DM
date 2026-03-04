@@ -154,6 +154,58 @@ The system is built as a **"Stateless Symbolic Machine"** to ensure 100% mechani
 
 ---
 
+## ☑️ Development Progress
+
+**💾 Data & State Management**
+- [x]  **External JSON State Persistence:** Game state (Party & Enemies) is loaded and saved dynamically via `data/campaign.json` and `fibo_active.json` using the `DataManager`.
+- [x]  **Bidirectional TOON Serialization:** A custom serialization pipeline (`TOONConverter`) drastically reduces API overhead. State is compressed into TOON before sending to the Arbiter. Furthermore, all LLM API outputs return 1-line TOON (`key:value|key:value`), completely eliminating verbose JSON outputs. This achieves ~50% total token reduction and lower latency.
+- [x]  **Decoupled Health vs. Tactical Conditions:** The `Character` model strictly separates Health Status from Tactical Conditions (Enum: `NORMAL`, `STUNNED`, `BLINDED`), ensuring narrative damage doesn't overwrite mechanical penalties.
+- [x]  **Sliding Window Context Management:** Implemented an $\mathcal{O}(1)$ time complexity event queue using Python's `collections.deque(maxlen=10)`. The engine automatically records combat events and safely serializes them.
+- [x]  **Static Lore Injection (Static RAG):** Implemented a fail-safe retrieval system that loads world-building context from `data/world_lore.txt`.
+- [x]  **Robust Backend Configuration (`settings.json`):** Abstracted hardcoded variables into an open-source-friendly JSON config file. Exposes core engine parameters and LLM API settings.
+- [x]  **Persistent Campaign Journal:** Implemented an append-only logging system that permanently records every player input and AI output in real-time to a local file. Includes an auto-reset mechanism triggered during new game boots.
+
+**🧠 The Intent Router (Two-Path Architecture)**
+- [x]  **Path A (Fixed Rules Routing):** Standard RPG mechanics (Attack, Move) bypass the LLM for calculation, sending the action directly to the Python `RulesEngine`.
+- [x]  **Path B (Creative Improv Routing):** Complex user prompts are intelligently routed to the `LLMService` (Arbiter), which judges logical feasibility, assigns a DC, and automatically outputs a Symbolic Side Effect.
+- [x]  **Dynamic Action Sequencing (`FIXED_COMBO`):** The LLM parses multi-step user intents and extracts an `action_order` array.
+- [x]  **Action Fairness & Economy Guard:** The engine intelligently handles invalid actions. If an Arbiter denies a creative narrative request, the turn is refunded.
+
+**⚔️ Combat & Rules Engine**
+- [x]  **Stateless Rules Engine (`RulesEngine`):** Pure Python math logic handles all 1d20 dice rolls, AC (Armor Class) checks, Critical Hit doubling logic, and applies Stat modifiers.
+- [x]  **Individual Rolling Initiative Queue:** Upgraded from legacy "Side vs. Side" turns to a granular, individual turn order. Every combatant rolls `1d20 + PHYS` at the start of combat. 
+- [x]  **3-Tier Intelligent Target Selection:** LLM ID Extraction -> Fuzzy Spell Matching -> Auto-Fallback.
+- [x]  **Enemy AI Tactics (`EnemyAI`):** A lightweight AI that targets the nearest valid opponent and executes a single turn, narrating the sequence automatically.
+- [x]  **Mechanical Status Effects:** Conditions have actual engine consequences. `STUNNED` characters automatically forfeit their turn.
+
+**🏃 Spatial & Movement Mechanics (Zones)**
+- [x]  **Tactical Zone Tracking:** Grid-less combat utilizing distinct range zones (`NEAR`, `MID`, `FAR`).
+- [x]  **Range Penalties:** Using melee weapons outside `NEAR` range automatically triggers "Out of Range" failures.
+- [x]  **Movement Enforcement (1-Zone Rule):** Restricting movement to exactly 1 adjacent zone per turn and automatically resolving incorrect distance requests.
+- [x]  **AI Gap-Closing:** Melee-equipped enemies are programmed to automatically spend their turn moving one zone closer if they are out of range.
+
+**🖥️ UI & Narrative Generation**
+- [x]  **LLM Generative Narration:** The system translates raw, calculated Python logs into immersive, D&D-style second-person narration.
+- [x]  **Immersive CLI Dashboard:** A cleanly formatted terminal UI that updates every turn.
+- [x]  **Developer Debug Mode:** A toggle (`debug` command) that exposes the raw LLM JSON outputs and parsed intents to prove the system works.
+- [x]  **Demo Day Launcher (`demo_day.py`):** A dedicated, crash-resistant script with ASCII art, an interactive command loop, and an auto-reset function.
+- [x]  **"Idiot-Proof" Onboarding (QoL):** An automated first-time boot sequence that intercepts missing `GEMINI_API_KEY` errors.
+
+**🎒 Item & Inventory Mechanics**
+- [x]  **Symbolic Disposable Items (Path B):** Complex or narrative item usage is routed to the Arbiter, and properly discarded if 'consumed'.
+- [x]  **Automated Victory Looting (Auto-Loot):** Upon triggering the `VICTORY` state, the engine intercepts the combat loop, extracts all items from defeated enemies, transfers them to the player.
+- [x]  **Hardcoded Consumable Logic (Path A):** Standard items bypass the LLM entirely to guarantee zero hallucinations using `ITEM_EFFECTS` mappings.
+
+**🗣️ Narrative State Transitions**
+- [x]  **Diplomacy & Pacification (Path B):** Players can dynamically talk their way out of fights. The LLM Arbiter can assign a new `PACIFIED` status. The game loop correctly counts them as "defeated" to trigger a `VICTORY` state without bloodshed.
+- [x]  **Tactical Fleeing Mechanics (Path A):** Contested `1d20 + PHYS` checks with zone proximity modifiers.
+
+**🚧 Future Work / Missing Features**
+- **Narrative State Transitions:**
+    - [ ]  **World Exploration Mode:** Disabling Initiative and transitioning to a free-form RAG exploration state.
+    - [ ]  **Lore Expansion:** Populating `world_lore.txt` with more complex situational data to further ground the AI's creative narration.
+    - [ ]  **Optional Story Summarizer (Load Feature):** Utilizing the newly built Campaign Log to let the LLM generate a "Previously on..." summary when players load a saved game.
+
 ---
 
 ## 🎓 Acknowledgments & References
