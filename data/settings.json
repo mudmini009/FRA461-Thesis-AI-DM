@@ -4,7 +4,7 @@
         "max_story_events": 5
     },
     "engine": {
-        "debug_mode": false,
+        "debug_mode": true,
         "default_dc": 10,
         "fuzzy_match_cutoff": 0.4
     },

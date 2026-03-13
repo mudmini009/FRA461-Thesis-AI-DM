@@ -1,20 +1,20 @@
-   [SYSTEM] 👹 Grok the Crusher attacks Valen: MISS!
-[DM] (Grok the Crusher's Turn) The hulking Ruin-Born, Grok the Crusher, roars and swings a crude, spiked club with all its might. You sidestep the brutal blow, the wind of its passage whistling past your ear as the weapon slams into the dirt where you stood moments before.
-
-[Valen] i run your mama sticky ass 
-   [SYSTEM] Valen attempted: player is insulting the enemy. Result: PASSED (DC 10) | Grok the Crusher is now PACIFIED!
    [SYSTEM] 🏃 👹 Snivel moves to the NEAR zone toward Valen.
    [SYSTEM] 👹 Snivel attacks Valen: MISS!
-[DM] (Snivel's Turn) The guttural snarl of Snivel echoes as the goblin scuttles forward, its rusted blade a blur of motion. You sidestep the clumsy lunge, the wind of its passage ruffling your hair. The creature's wild swing whiffs through the air, a testament to its unfocused rage.
+[DM] (Snivel's Turn) A guttural snarl erupts from the smaller, wretched creature as it scrambles forward, its rusted blade a blur. You parry the wild swing with your shield, the impact jarring your arm, but the blow glances off harmlessly.
 
-   [SYSTEM] 🕊️ Grok the Crusher is PACIFIED and chooses not to attack.
-[DM] (Grok the Crusher's Turn) The hulking Grok the Crusher, his rage seemingly spent, lowers his crude club. He stands still, a hulking statue of menace, his eyes glazed over, no longer fixed on you with murderous intent.
+[Valen] i swing my sword an grok and then move to mid zone
+   [SYSTEM] Valen attacked Grok the Crusher: MISS
+   [SYSTEM] Valen moved to the MID zone.
+   [SYSTEM] 🏃 👹 Grok the Crusher moves to the MID zone toward Valen.
+   [SYSTEM] 👹 Grok the Crusher attacks Valen: MISS!
+[DM] (Grok the Crusher's Turn) The hulking Ruin-Born, Grok the Crusher, lumbers forward into the MID zone, his rusted cleaver raised. With a guttural roar, he swings wildly, but the blow whistles through the air, inches from your helm.
 
-[Valen] i run nigga run
-   [SYSTEM] Valen failed to flee from combat.
+   [SYSTEM] 🏃 👹 Snivel moves to the MID zone toward Valen.
    [SYSTEM] 👹 Snivel attacks Valen: MISS!
-[DM] (Snivel's Turn) The goblin, Snivel, lunges forward with a rusty dagger, its beady eyes filled with malice. You sidestep the clumsy thrust, the foul stench of its unwashed hide filling your nostrils as the blade whistles harmlessly through the air.
+[DM] (Snivel's Turn) The small, hunched creature, Snivel, scrambles forward, its beady eyes fixed on you. It lunges with a rusty shard of metal, but your shield deflects the clumsy blow with a dull clang.
 
-   [SYSTEM] 🕊️ Grok the Crusher is PACIFIED and chooses not to attack.
-[DM] (Grok the Crusher's Turn) The hulking Grok the Crusher stands frozen, its rage seemingly extinguished by your sharp tongue. It remains a dangerous presence, but for now, it is pacified, its massive fists held loosely at its sides.
+[Valen] i swing my sword at snivel
+   [SYSTEM] Valen attacked Snivel: HIT for 9 damage.
+   [SYSTEM] 👹 Grok the Crusher attacks Valen: MISS!
+[DM] (Grok the Crusher's Turn) The hulking Ruin-Born swings its rusted axe in a wide, brutal arc. You manage to twist out of the way just in time, the wind of the blow whistling past your ear.
 
