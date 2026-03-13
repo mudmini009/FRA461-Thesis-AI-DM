@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="N9lTAYzH6NXhv2aIVXTQ" name="start_loop">
-        <mxGraphModel dx="1013" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="456" dy="584" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -37,14 +37,17 @@
                 <mxCell id="ask_sum" value="Summarize Old&lt;br&gt;Adventure?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="550" y="360" width="140" height="80" as="geometry"/>
                 </mxCell>
-                <mxCell id="sum_yes" value="&lt;b&gt;[LLM Summarizer Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Previously on...&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                <mxCell id="sum_yes" value="&lt;b&gt;[LLM Recap Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Previously on...&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="440" y="480" width="160" height="60" as="geometry"/>
                 </mxCell>
                 <mxCell id="sum_no" value="Load raw chat/history&lt;br&gt;directly into memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="640" y="480" width="140" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="enter_game" value="ENTER GAME LOOP" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
-                    <mxGeometry x="344" y="800" width="140" height="60" as="geometry"/>
+                <mxCell id="prologue" value="&lt;b&gt;[LLM Prologue Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Cold Open&quot; from Stats/Lore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="800" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="enter_game" value="Main Game Loop&lt;br&gt;(Wait for Input /restart /quit)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="334" y="920" width="160" height="80" as="geometry"/>
                 </mxCell>
                 <mxCell id="e_start_menu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="start" target="menu" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -99,8 +102,16 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e_init_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="init_new" target="enter_game" edge="1">
+                <mxCell id="e_init_prologue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="init_new" target="prologue" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_prologue_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="prologue" target="enter_game" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="220" y="960"/>
+                            <mxPoint x="334" y="960"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="e_load_ask" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="load_data" target="ask_sum" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
@@ -124,16 +135,16 @@
                 <mxCell id="e_sum_yes_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_yes" target="enter_game" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="520" y="750"/>
-                            <mxPoint x="414" y="750"/>
+                            <mxPoint x="520" y="890"/>
+                            <mxPoint x="414" y="890"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="e_sum_no_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_no" target="enter_game" edge="1">
                     <mxGeometry relative="1" as="geometry">
                         <Array as="points">
-                            <mxPoint x="710" y="750"/>
-                            <mxPoint x="414" y="750"/>
+                            <mxPoint x="710" y="890"/>
+                            <mxPoint x="414" y="890"/>
                         </Array>
                     </mxGeometry>
                 </mxCell>
