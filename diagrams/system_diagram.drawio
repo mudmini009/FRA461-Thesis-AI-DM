@@ -1,0 +1,300 @@
+<mxfile host="65bd71144e">
+    <diagram id="N9lTAYzH6NXhv2aIVXTQ" name="start_loop">
+        <mxGraphModel dx="1013" dy="1298" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="start" value="START GAME" style="ellipse;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="354" y="40" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="menu" value="Main Menu" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="344" y="140" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="char_dec" value="Character Creation" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="240" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="char_pre" value="Select Pre-made&lt;br&gt;(Load from files)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="360" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="char_cus" value="Write Custom Bio&lt;br&gt;&lt;b&gt;[LLM Extracts Stats]&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="360" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="world_dec" value="World Lore Setup" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="460" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="world_pre" value="Select Existing Lore&lt;br&gt;(Load world_lore.txt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="580" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="world_cus" value="Write Concept&lt;br&gt;&lt;b&gt;[LLM Expands Lore]&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="280" y="580" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="init_new" value="Initialize New Session State" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="140" y="700" width="160" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="load_data" value="Load State&lt;br&gt;(Char, Lore, Campaign, Log)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="250" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="ask_sum" value="Summarize Old&lt;br&gt;Adventure?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="360" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="sum_yes" value="&lt;b&gt;[LLM Summarizer Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Previously on...&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="440" y="480" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="sum_no" value="Load raw chat/history&lt;br&gt;directly into memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="640" y="480" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="enter_game" value="ENTER GAME LOOP" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="344" y="800" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_start_menu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="start" target="menu" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_menu_new" value="New Game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="menu" target="char_dec" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_menu_cont" value="Continue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="menu" target="load_data" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_char_pre" value="Pre-made" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="char_dec" target="char_pre" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_char_cus" value="Custom" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="char_dec" target="char_cus" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_char_pre_w" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_pre" target="world_dec" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="100" y="440"/>
+                            <mxPoint x="220" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_char_cus_w" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_cus" target="world_dec" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="340" y="440"/>
+                            <mxPoint x="220" y="440"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_world_pre" value="Pre-made" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="world_dec" target="world_pre" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_world_cus" value="Custom" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="world_dec" target="world_cus" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_world_pre_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="world_pre" target="init_new" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="100" y="670"/>
+                            <mxPoint x="220" y="670"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_world_cus_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="world_cus" target="init_new" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="340" y="670"/>
+                            <mxPoint x="220" y="670"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_init_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="init_new" target="enter_game" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_load_ask" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="load_data" target="ask_sum" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_ask_yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="ask_sum" target="sum_yes" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="520" y="460"/>
+                            <mxPoint x="520" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_ask_no" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="ask_sum" target="sum_no" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="710" y="460"/>
+                            <mxPoint x="710" y="460"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_sum_yes_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_yes" target="enter_game" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="520" y="750"/>
+                            <mxPoint x="414" y="750"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_sum_no_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_no" target="enter_game" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="710" y="750"/>
+                            <mxPoint x="414" y="750"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram id="LBGO12hc4Tj30yP1SlIG" name="combat_loop">
+        <mxGraphModel dx="2130" dy="2838" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="roll_initiative" value="Roll Initiative&lt;br&gt;(1d20 + PHYS)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="354" y="-80" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="start_turn" value="Initiative Queue&lt;br&gt;Next Turn" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="354" y="20" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="check_actor" value="Is Actor Player or Enemy?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="344" y="120" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="wait_input" value="Player Turn&lt;br&gt;Wait for User Prompt" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="220" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="enemy_ai" value="Enemy Turn&lt;br&gt;[EnemyAI Logic]&lt;br&gt;1. Filter Valid Targets&lt;br&gt;2. Target Lowest HP in Zone&lt;br&gt;3. Move Closer&lt;br&gt;4. Attack" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="220" width="160" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="router" value="Intent Router&lt;br&gt;(Path A or Path B?)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="140" y="320" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="path_a_logic" value="Path A&lt;br&gt;(Fixed Logic Branch)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="40" y="440" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="path_b_logic" value="Path B&lt;br&gt;(Creative Logic Branch)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="440" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="a_split" value="Action or Consumable?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="30" y="540" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="arbiter_llm" value="Arbiter LLM&lt;br&gt;1. Logic feasibility&lt;br&gt;2. DC assignment&lt;br&gt;3. Symbolic Side Effect&lt;br&gt;4. Item Consumption" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="260" y="660" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="a_action" value="Fixed Action&lt;br&gt;Send to RulesEngine&lt;br&gt;(1d20 math)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="-70" y="660" width="140" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="a_item" value="Hardcoded Consumable&lt;br&gt;Bypass LLM, use ITEM_EFFECTS, pop() inventory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="90" y="660" width="160" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="handshake" value="The Handshake&lt;br&gt;Python Rules Engine&lt;br&gt;(Final Dice Roll vs AC/DC)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="344" y="800" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="persistence" value="State Persistence&lt;br&gt;Update Game State JSON&lt;br&gt;(Health, Zones, Conditions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="324" y="900" width="200" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="memory" value="Memory Layer&lt;br&gt;Log to O(1) Deque" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="344" y="1000" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="narrator" value="Narrative Output&lt;br&gt;[DM Narrator Agent]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="344" y="1100" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="collapse_node" value="State Transition?&lt;br&gt;(Victory/Flee)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="354" y="1200" width="140" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="summarizer" value="Context Collapse&lt;br&gt;[LLM Summarizer Agent]" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="540" y="1210" width="160" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="end_combat" value="End Combat" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="740" y="1210" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_start_init" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="roll_initiative" target="start_turn" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_start" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="start_turn" target="check_actor" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_check_player" value="Player" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="check_actor" target="wait_input" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_check_enemy" value="Enemy" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="check_actor" target="enemy_ai" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_wait_router" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="wait_input" target="router" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_path_a" value="Path A (Fixed)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="router" target="path_a_logic" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_path_b" value="Path B (Creative)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="router" target="path_b_logic" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_split" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="path_a_logic" target="a_split" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_b_to_arbiter" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="path_b_logic" target="arbiter_llm" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_action" value="Action" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="a_split" target="a_action" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_item" value="Consumable" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="a_split" target="a_item" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_arbiter_hand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="arbiter_llm" target="handshake" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="340" y="760"/>
+                            <mxPoint x="424" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_action_hand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="a_action" target="handshake" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint y="760"/>
+                            <mxPoint x="424" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_item_hand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="a_item" target="handshake" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="170" y="760"/>
+                            <mxPoint x="424" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_enemy_hand" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="enemy_ai" target="handshake" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="620" y="760"/>
+                            <mxPoint x="424" y="760"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_persist" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="handshake" target="persistence" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_memory" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="persistence" target="memory" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_narrator" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="memory" target="narrator" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_collapse_check" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="narrator" target="collapse_node" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_sum" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="collapse_node" target="summarizer" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e_loop" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="collapse_node" target="start_turn" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="424" y="1320"/>
+                            <mxPoint x="-110" y="1320"/>
+                            <mxPoint x="-110" y="50"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="e_end" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="summarizer" target="end_combat" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

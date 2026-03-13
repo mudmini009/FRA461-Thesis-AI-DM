@@ -1,0 +1,139 @@
+<mxGraphModel dx="456" dy="584" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="start" value="START GAME" style="ellipse;whiteSpace=wrap;html=1;fillColor=#232F3E;strokeColor=#232F3E;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="354" y="40" width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="menu" value="Main Menu" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="344" y="140" width="140" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="char_dec" value="Character Creation" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="150" y="240" width="140" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="char_pre" value="Select Pre-made&lt;br&gt;(Load from files)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="40" y="360" width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="char_cus" value="Write Custom Bio&lt;br&gt;&lt;b&gt;[LLM Extracts Stats]&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="280" y="360" width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="world_dec" value="World Lore Setup" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="150" y="460" width="140" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="world_pre" value="Select Existing Lore&lt;br&gt;(Load world_lore.txt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="40" y="580" width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="world_cus" value="Write Concept&lt;br&gt;&lt;b&gt;[LLM Expands Lore]&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="280" y="580" width="120" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="init_new" value="Initialize New Session State" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="140" y="700" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="load_data" value="Load State&lt;br&gt;(Char, Lore, Campaign, Log)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="540" y="250" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="ask_sum" value="Summarize Old&lt;br&gt;Adventure?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="550" y="360" width="140" height="80" as="geometry" />
+    </mxCell>
+    <mxCell id="sum_yes" value="&lt;b&gt;[LLM Summarizer Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Previously on...&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="440" y="480" width="160" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="sum_no" value="Load raw chat/history&lt;br&gt;directly into memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="640" y="480" width="140" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="enter_game" value="ENTER GAME LOOP" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="344" y="800" width="140" height="60" as="geometry" />
+    </mxCell>
+    <mxCell id="e_start_menu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="start" target="menu" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_menu_new" value="New Game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="menu" target="char_dec" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_menu_cont" value="Continue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="menu" target="load_data" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_char_pre" value="Pre-made" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="char_dec" target="char_pre" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_char_cus" value="Custom" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="char_dec" target="char_cus" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_char_pre_w" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_pre" target="world_dec" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="100" y="440" />
+          <mxPoint x="220" y="440" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_char_cus_w" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_cus" target="world_dec" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="340" y="440" />
+          <mxPoint x="220" y="440" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_world_pre" value="Pre-made" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="world_dec" target="world_pre" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_world_cus" value="Custom" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="world_dec" target="world_cus" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_world_pre_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="world_pre" target="init_new" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="100" y="670" />
+          <mxPoint x="220" y="670" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_world_cus_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="world_cus" target="init_new" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="340" y="670" />
+          <mxPoint x="220" y="670" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_init_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="init_new" target="enter_game" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_load_ask" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="load_data" target="ask_sum" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_ask_yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="ask_sum" target="sum_yes" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="520" y="460" />
+          <mxPoint x="520" y="460" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_ask_no" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="ask_sum" target="sum_no" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="710" y="460" />
+          <mxPoint x="710" y="460" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_sum_yes_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_yes" target="enter_game" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="520" y="750" />
+          <mxPoint x="414" y="750" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_sum_no_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_no" target="enter_game" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="710" y="750" />
+          <mxPoint x="414" y="750" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>
