@@ -1,0 +1,353 @@
+[
+    {
+        "id": "A-01",
+        "category": "Path A: Melee",
+        "input": "I slash the goblin with my sword.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "melee"
+    },
+    {
+        "id": "A-02",
+        "category": "Path A: Melee",
+        "input": "I punch the bandit in the face.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "melee"
+    },
+    {
+        "id": "A-03",
+        "category": "Path A: Melee",
+        "input": "I hit the orc with my warhammer.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "melee"
+    },
+    {
+        "id": "A-04",
+        "category": "Path A: Melee",
+        "input": "I stab the skeleton.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "melee"
+    },
+    {
+        "id": "A-05",
+        "category": "Path A: Melee",
+        "input": "I swing my greatsword at the guard.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "melee"
+    },
+    {
+        "id": "A-06",
+        "category": "Path A: Ranged",
+        "input": "I cast Firebolt at the FAR enemy.",
+        "expected_type": "FIXED",
+        "expected_command": "CAST"
+    },
+    {
+        "id": "A-07",
+        "category": "Path A: Ranged",
+        "input": "I shoot my bow at the goblin.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "ranged"
+    },
+    {
+        "id": "A-08",
+        "category": "Path A: Ranged",
+        "input": "I throw a dagger at the archer.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "ranged"
+    },
+    {
+        "id": "A-09",
+        "category": "Path A: Ranged",
+        "input": "I blast the boss with magic.",
+        "expected_type": "FIXED",
+        "expected_command": "CAST"
+    },
+    {
+        "id": "A-10",
+        "category": "Path A: Ranged",
+        "input": "I fire an arrow from afar.",
+        "expected_type": "FIXED",
+        "expected_command": "ATTACK",
+        "expected_attack_type": "ranged"
+    },
+    {
+        "id": "A-11",
+        "category": "Path A: Movement",
+        "input": "I move from NEAR to MID.",
+        "expected_type": "FIXED",
+        "expected_command": "MOVE",
+        "expected_target": "MID"
+    },
+    {
+        "id": "A-12",
+        "category": "Path A: Movement",
+        "input": "I retreat to the FAR zone.",
+        "expected_type": "FIXED",
+        "expected_command": "MOVE",
+        "expected_target": "FAR"
+    },
+    {
+        "id": "A-13",
+        "category": "Path A: Movement",
+        "input": "I walk closer to the NEAR zone.",
+        "expected_type": "FIXED",
+        "expected_command": "MOVE",
+        "expected_target": "NEAR"
+    },
+    {
+        "id": "A-14",
+        "category": "Path A: Movement",
+        "input": "I dash to MID.",
+        "expected_type": "FIXED",
+        "expected_command": "MOVE",
+        "expected_target": "MID"
+    },
+    {
+        "id": "A-15",
+        "category": "Path A: Movement",
+        "input": "I change my position to FAR.",
+        "expected_type": "FIXED",
+        "expected_command": "MOVE",
+        "expected_target": "FAR"
+    },
+    {
+        "id": "A-16",
+        "category": "Path A: Items",
+        "input": "I drink my healing potion.",
+        "expected_type": "FIXED",
+        "expected_command": "USE"
+    },
+    {
+        "id": "A-17",
+        "category": "Path A: Items",
+        "input": "I eat the ration.",
+        "expected_type": "FIXED",
+        "expected_command": "USE"
+    },
+    {
+        "id": "A-18",
+        "category": "Path A: Items",
+        "input": "I use the bandage.",
+        "expected_type": "FIXED",
+        "expected_command": "USE"
+    },
+    {
+        "id": "A-19",
+        "category": "Path A: Items",
+        "input": "I throw the bomb.",
+        "expected_type": "FIXED",
+        "expected_command": "USE"
+    },
+    {
+        "id": "A-20",
+        "category": "Path A: Items",
+        "input": "I read the magic scroll.",
+        "expected_type": "FIXED",
+        "expected_command": "USE"
+    },
+    {
+        "id": "B-21",
+        "category": "Path B: Creative",
+        "input": "I kick the heavy table to block the arrow.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "PHYS"
+    },
+    {
+        "id": "B-22",
+        "category": "Path B: Creative",
+        "input": "I swing from the chandelier to kick him.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "PHYS"
+    },
+    {
+        "id": "B-23",
+        "category": "Path B: Creative",
+        "input": "I throw sand in his eyes.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "PHYS",
+        "expected_condition": "BLINDED"
+    },
+    {
+        "id": "B-24",
+        "category": "Path B: Creative",
+        "input": "I push the bookshelf onto the goblins.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "PHYS"
+    },
+    {
+        "id": "B-25",
+        "category": "Path B: Creative",
+        "input": "I slide between his legs and trip him.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "PHYS",
+        "expected_condition": "PRONE"
+    },
+    {
+        "id": "B-26",
+        "category": "Path B: Social",
+        "input": "I intimidate the bandit into surrendering.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "SOC"
+    },
+    {
+        "id": "B-27",
+        "category": "Path B: Social",
+        "input": "I bluff and yell that the city guard is here!",
+        "expected_type": "CREATIVE",
+        "expected_stat": "SOC"
+    },
+    {
+        "id": "B-28",
+        "category": "Path B: Social",
+        "input": "I try to persuade the mercenary to switch sides.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "SOC"
+    },
+    {
+        "id": "B-29",
+        "category": "Path B: Social",
+        "input": "I taunt the orc to make him angry.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "SOC"
+    },
+    {
+        "id": "B-30",
+        "category": "Path B: Social",
+        "input": "I insult the boss to distract him.",
+        "expected_type": "CREATIVE",
+        "expected_stat": "SOC"
+    },
+    {
+        "id": "B-31",
+        "category": "Path B: Improv",
+        "input": "I smash my glass bottle to distract the guard.",
+        "expected_type": "CREATIVE"
+    },
+    {
+        "id": "B-32",
+        "category": "Path B: Improv",
+        "input": "I use my rope to tie the door shut.",
+        "expected_type": "CREATIVE"
+    },
+    {
+        "id": "B-33",
+        "category": "Path B: Improv",
+        "input": "I light my torch and throw it at the oil spill.",
+        "expected_type": "CREATIVE"
+    },
+    {
+        "id": "B-34",
+        "category": "Path B: Improv",
+        "input": "I jam my dagger into the gear mechanism.",
+        "expected_type": "CREATIVE"
+    },
+    {
+        "id": "B-35",
+        "category": "Path B: Improv",
+        "input": "I wrap my cloak around his head to blind him.",
+        "expected_type": "CREATIVE",
+        "expected_condition": "BLINDED"
+    },
+    {
+        "id": "C-36",
+        "category": "Edge: Impossible",
+        "input": "I teleport to the moon instantly.",
+        "expected_type": "CREATIVE",
+        "expected_allowed": false
+    },
+    {
+        "id": "C-37",
+        "category": "Edge: Impossible",
+        "input": "I turn into a god and kill everyone.",
+        "expected_type": "CREATIVE",
+        "expected_allowed": false
+    },
+    {
+        "id": "C-38",
+        "category": "Edge: Impossible",
+        "input": "I drink the entire ocean.",
+        "expected_type": "CREATIVE",
+        "expected_allowed": false
+    },
+    {
+        "id": "C-39",
+        "category": "Edge: Impossible",
+        "input": "I punch a hole in the fabric of reality.",
+        "expected_type": "CREATIVE",
+        "expected_allowed": false
+    },
+    {
+        "id": "C-40",
+        "category": "Edge: Impossible",
+        "input": "I summon an army of 10,000 dragons.",
+        "expected_type": "CREATIVE",
+        "expected_allowed": false
+    },
+    {
+        "id": "C-41",
+        "category": "Edge: Rules",
+        "input": "I attack twice in one turn.",
+        "expected_engine_result": "DENY"
+    },
+    {
+        "id": "C-42",
+        "category": "Edge: Rules",
+        "input": "I drink a potion.",
+        "expected_engine_result": "DENY"
+    },
+    {
+        "id": "C-43",
+        "category": "Edge: Rules",
+        "input": "I move to FAR and then back to NEAR.",
+        "expected_engine_result": "DENY"
+    },
+    {
+        "id": "C-44",
+        "category": "Edge: Rules",
+        "input": "I attack the dragon.",
+        "expected_engine_result": "DENY"
+    },
+    {
+        "id": "C-45",
+        "category": "Edge: Rules",
+        "input": "I attack.",
+        "expected_engine_result": "DENY"
+    },
+    {
+        "id": "D-46",
+        "category": "System: AI",
+        "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+        "expected_system_check": "AI_ATTACK_LOWEST_HP"
+    },
+    {
+        "id": "D-47",
+        "category": "System: AI",
+        "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+        "expected_system_check": "AI_MOVE_CLOSER"
+    },
+    {
+        "id": "D-48",
+        "category": "System: Memory",
+        "input": "SYSTEM_TRIGGER_VICTORY",
+        "expected_system_check": "CONTEXT_COLLAPSE_FLUSH"
+    },
+    {
+        "id": "D-49",
+        "category": "System: Memory",
+        "input": "SYSTEM_TRIGGER_VICTORY",
+        "expected_system_check": "ANCHOR_SAVED"
+    },
+    {
+        "id": "D-50",
+        "category": "System: State",
+        "input": "SYSTEM_TRIGGER_VICTORY",
+        "expected_system_check": "INVENTORY_MERGED"
+    }
+]
