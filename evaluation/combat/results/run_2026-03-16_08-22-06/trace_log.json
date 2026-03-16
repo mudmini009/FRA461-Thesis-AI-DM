@@ -19,9 +19,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 9,
-                "damage": 0,
-                "state_mutated": "Damage 0"
+                "dice_rolled": 14,
+                "damage": 10,
+                "state_mutated": "Damage 10"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -54,7 +54,7 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 12,
+                "dice_rolled": 16,
                 "damage": 10,
                 "state_mutated": "Damage 10"
             },
@@ -89,9 +89,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 15,
-                "damage": 12,
-                "state_mutated": "Damage 12"
+                "dice_rolled": 8,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -124,9 +124,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 7,
-                "damage": 0,
-                "state_mutated": "Damage 0"
+                "dice_rolled": 16,
+                "damage": 10,
+                "state_mutated": "Damage 10"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -159,9 +159,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 17,
-                "damage": 9,
-                "state_mutated": "Damage 9"
+                "dice_rolled": 8,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -194,9 +194,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 9,
-                "damage": 0,
-                "state_mutated": "Damage 0"
+                "dice_rolled": 13,
+                "damage": 9,
+                "state_mutated": "Damage 9"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -229,9 +229,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 6,
-                "damage": 0,
-                "state_mutated": "Damage 0"
+                "dice_rolled": 14,
+                "damage": 13,
+                "state_mutated": "Damage 13"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -264,9 +264,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 7,
-                "damage": 0,
-                "state_mutated": "Damage 0"
+                "dice_rolled": 16,
+                "damage": 8,
+                "state_mutated": "Damage 8"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -299,9 +299,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 13,
-                "damage": 15,
-                "state_mutated": "Damage 15"
+                "dice_rolled": 10,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -334,9 +334,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 22,
-                "damage": 12,
-                "state_mutated": "Damage 12"
+                "dice_rolled": 8,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
                 "output": "Action successful!"
@@ -666,7 +666,7 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 10,
+                "dice_rolled": 6,
                 "damage": 0,
                 "state_mutated": "Damage 0"
             },
@@ -705,10 +705,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 23
+                "dice_rolled": 14
             },
             "dm_narrator": {
-                "output": "With a desperate heave, you slam the stout oak table into the path of the whistling shaft. Splinters fly as the arrow impacts, its deadly momentum deflected harmlessly by the sturdy wood, leaving you breathing a ragged sigh of relief."
+                "output": "With a desperate lunge, you slam the sturdy oak table into the path of the whistling arrow, the wood groaning as the projectile splinters harmlessly against its surface. The sharp \"thwack\" echoes in the sudden silence, the danger averted by your quick thinking and brute force."
             }
         },
         "metrics": {
@@ -742,10 +742,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 6
+                "dice_rolled": 16
             },
             "dm_narrator": {
-                "output": "You swing wildly, your grip slipping as the chandelier groans, and instead of connecting with the goblin, you plummet to the floor with a painful thud, the surprised creature scuttling away. Your momentum carries you into a tangle of dusty tapestries, leaving you winded and disoriented."
+                "output": "With a triumphant yell, you launch yourself from the ornate chandelier, your boot connecting squarely with the goblin's jaw, sending it sprawling into a pile of refuse. The metal fixture groans under your weight, but you land with a satisfying thud, the creature momentarily stunned."
             }
         },
         "metrics": {
@@ -779,10 +779,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 20
+                "dice_rolled": 6
             },
             "dm_narrator": {
-                "output": "With a flick of your wrist, a cloud of grit erupts, stinging your foe's eyes and eliciting a choked gasp as they reel back, momentarily blinded. You see your advantage, a fleeting window to press your attack before they can recover."
+                "output": "You fling a handful of grit, but the gust of wind whipping through the cavern carries it harmlessly past, leaving your foe blinking, but entirely unimpeded. Your attempt to blind them is met with a mocking chuckle as they advance, unimpressed."
             }
         },
         "metrics": {
@@ -816,10 +816,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 6
+                "dice_rolled": 17
             },
             "dm_narrator": {
-                "output": "You heave with all your might, but the ancient bookshelf groans and scrapes, ultimately refusing to budge, leaving the surprised goblins momentarily stunned before they let out a cackle. With a frustrated grunt, you find yourself face-to-face with a snarling goblin as the others quickly recover their wits."
+                "output": "With a mighty shove, you send the heavy oak bookshelf crashing down, the impact echoing as it crushes two goblins beneath its weight and sends the others scattering in panicked squeals. A cloud of dust erupts, momentarily obscuring the scene of your brutal efficiency."
             }
         },
         "metrics": {
@@ -848,15 +848,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "PHYS",
-                "assigned_dc": 14,
+                "assigned_dc": 10,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 19
+                "dice_rolled": 25
             },
             "dm_narrator": {
-                "output": "As you duck low, your shoulder slams into the goblin's knee, sending it sprawling with a surprised yelp. You land on your feet as the creature tumbles, its crude spear clattering uselessly away."
+                "output": "With a burst of agility, you duck low, your shoulder slamming into the goblin's knee as you sweep your leg out. The creature yelps, its balance completely broken, and it tumbles unceremoniously to the dusty floor."
             }
         },
         "metrics": {
@@ -885,15 +885,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "SOC",
-                "assigned_dc": 14,
+                "assigned_dc": 10,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 19
+                "dice_rolled": 17
             },
             "dm_narrator": {
-                "output": "Your eyes lock with the bandit's, and the raw threat in them makes him visibly flinch, his weapon clattering uselessly to the ground as he stumbles backward in a clear gesture of surrender. The fight drains from his face, replaced by a stark, desperate plea for mercy."
+                "output": "You unleash a guttural roar, your shadow falling over the trembling bandit as you advance, and he drops his weapon with a clatter, his eyes wide with terror. The fight drains from him instantly as he throws his hands up, a choked plea for mercy escaping his lips."
             }
         },
         "metrics": {
@@ -922,15 +922,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "SOC",
-                "assigned_dc": 10,
+                "assigned_dc": 14,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 21
+                "dice_rolled": 8
             },
             "dm_narrator": {
-                "output": "You bellow at the goblin, a roar that shakes the very stones of the cave, claiming the city guard is upon them. The creature's beady eyes widen in panic, its already meager courage dissolving like mist as it scrambles backward, convinced of its imminent doom."
+                "output": "You bellow about the approaching city guard, but the goblin merely cocks its head, a flicker of confusion, then amusement, crossing its beady eyes before it lunges with surprising speed. Your words, meant to cow it, seem to have only ignited its bloodlust."
             }
         },
         "metrics": {
@@ -1000,10 +1000,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 25
+                "dice_rolled": 6
             },
             "dm_narrator": {
-                "output": "You unleash a torrent of insults, each word a perfectly aimed barb that strikes deep into the creature's primal fury, causing its eyes to glow with a furious, red light. Its roar of pure rage echoes through the chamber, a clear sign that your taunts have successfully stoked the flames of its wrath."
+                "output": "You sneer and unleash a torrent of insults, but the hulking beast merely blinks, its vacant eyes showing no flicker of anger, only a dull, uncomprehending hunger. Your words fall on deaf ears as it lumbers forward, its massive footfalls shaking the very ground beneath you."
             }
         },
         "metrics": {
@@ -1037,10 +1037,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 19
+                "dice_rolled": 11
             },
             "dm_narrator": {
-                "output": "You unleash a string of biting insults, and the boss, momentarily stunned by your audacity, falters in his advance, giving your companions a precious opening. His enraged roar is your victory, for now."
+                "output": "You unleash a perfectly timed, scathing insult that hits the hulking beast right in its ego, making it roar in bewildered fury and momentarily forget its intended target. The brief, gaping window of distraction hangs in the air, begging to be exploited."
             }
         },
         "metrics": {
@@ -1069,15 +1069,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "PHYS",
-                "assigned_dc": 12,
+                "assigned_dc": 10,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 24
+                "dice_rolled": 18
             },
             "dm_narrator": {
-                "output": "You shatter the glass bottle with a sharp crack, the shards skittering across the floor as the creature's head snaps towards the sudden noise. For a crucial moment, its attention is diverted, its predatory gaze fixed on the glittering debris."
+                "output": "You shatter the glass bottle with a resounding crack, the shards scattering across the floor and momentarily drawing the creature's attention. In the sudden, sharp noise, you see your opening and prepare to advance."
             }
         },
         "metrics": {
@@ -1106,15 +1106,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "PHYS",
-                "assigned_dc": 8,
+                "assigned_dc": 10,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 25
+                "dice_rolled": 24
             },
             "dm_narrator": {
-                "output": "You yank the rope taut, its rough fibers biting into the sturdy oak as you loop it around the door and its frame, securing it with a knot that feels surprisingly solid. The heavy portal now groans against your efforts, resolutely refusing to budge, a testament to your successful, if crude, barricade."
+                "output": "You expertly loop and knot the rope, securing the heavy wooden door with a satisfying *thump*. The makeshift lock holds firm, a sturdy barrier against whatever might lie beyond."
             }
         },
         "metrics": {
@@ -1148,10 +1148,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 19
+                "dice_rolled": 24
             },
             "dm_narrator": {
-                "output": "With a flick of your flint, the torch ignites, and you hurl it into the slick, dark pool. A whoosh of triumphant flame erupts, consuming the spilled oil in a hungry, roaring inferno that briefly pushes back the oppressive gloom."
+                "output": "You toss the flaming torch, and it arcs through the air, landing squarely in the slick of oil. A whoosh of hungry flame erupts, consuming the spill in an instant and bathing the chamber in a blinding, terrifying inferno."
             }
         },
         "metrics": {
@@ -1185,10 +1185,10 @@
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 8
+                "dice_rolled": 17
             },
             "dm_narrator": {
-                "output": "You heave with all your might, but the dagger scrapes uselessly against the metal, jamming itself firmly in a non-critical groove before snapping clean off. The intricate gears whine in protest but continue their relentless turning, mocking your failed attempt to halt their progress."
+                "output": "With a sickening crunch, your dagger bites deep into the intricate workings of the gears, instantly jamming the mechanism with a shower of sparks and a grinding shriek. The heavy portcullis grinds to a halt, its descent arrested mere inches from your head."
             }
         },
         "metrics": {
@@ -1217,15 +1217,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "PHYS",
-                "assigned_dc": 10,
+                "assigned_dc": 13,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 9
+                "dice_rolled": 10
             },
             "dm_narrator": {
-                "output": "You yank your cloak forward, aiming to smother the goblin's vision, but the wily creature ducks just as you lunge, leaving you grasping at empty air as it hisses a curse. The fabric whips uselessly around its ears, and you stumble, momentarily off-balance, as the goblin's beady eyes fix on you with renewed malice."
+                "output": "You manage to snag the goblin's head with your cloak, but the slippery fabric twists free from its grasp, leaving the creature momentarily disoriented but far from blinded. It shakes its head, a guttural snarl escaping its lips as its beady eyes fix on you once more."
             }
         },
         "metrics": {
@@ -1253,7 +1253,7 @@
                 }
             },
             "action_arbiter": {
-                "assigned_stat": "PHYS",
+                "assigned_stat": null,
                 "assigned_dc": null,
                 "enum_returned": "DISALLOW"
             },
@@ -1362,7 +1362,7 @@
             },
             "action_arbiter": {
                 "assigned_stat": "PHYS",
-                "assigned_dc": null,
+                "assigned_dc": 15,
                 "enum_returned": "DISALLOW"
             },
             "rules_engine": {
@@ -1505,15 +1505,15 @@
             },
             "action_arbiter": {
                 "assigned_stat": "PHYS",
-                "assigned_dc": null,
+                "assigned_dc": 0,
                 "enum_returned": "STUNT"
             },
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 25
+                "dice_rolled": 17
             },
             "dm_narrator": {
-                "output": "You surge forward, the air rushing past your ears, only to find your intended destination just out of reach, forcing you to quickly retreat back to your starting position."
+                "output": "You surge forward into the perilous depths of the chamber, the air thick with an unseen threat, only to instinctively retreat back to the relative safety of the entrance."
             }
         },
         "metrics": {
@@ -1543,9 +1543,9 @@
             "action_arbiter": {},
             "rules_engine": {
                 "is_success": true,
-                "dice_rolled": 16,
-                "damage": 8,
-                "state_mutated": "Damage 8"
+                "dice_rolled": 6,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
                 "output": "Action successful!"

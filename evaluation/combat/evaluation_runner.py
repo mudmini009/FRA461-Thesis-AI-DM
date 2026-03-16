@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import csv
+from datetime import datetime
 from typing import Dict, Any, List
 from unittest.mock import patch
 from collections import deque
@@ -231,9 +232,14 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
 
 def main():
     scenario_path = os.path.join(project_root, "evaluation/combat/scenario_suite.json")
-    results_dir = os.path.join(project_root, "evaluation/combat/results")
-    if not os.path.exists(results_dir):
-         os.makedirs(results_dir)
+    results_root = os.path.join(project_root, "evaluation/combat/results")
+    if not os.path.exists(results_root):
+         os.makedirs(results_root)
+         
+    # Create timestamped subfolder
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    results_dir = os.path.join(results_root, f"run_{timestamp}")
+    os.makedirs(results_dir)
          
     with open(scenario_path, "r") as f:
          scenarios = json.load(f)
