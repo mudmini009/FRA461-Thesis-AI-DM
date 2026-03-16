@@ -37,6 +37,10 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
     """Executes a single FIXED action (Move or Attack)."""
     log_msg = None
     if action_type == 'MOVE':
+        if player.has_moved:
+            print(f"   ⚠️ {player.name} has already moved this turn!")
+            return False, f"{player.name} has already moved this turn."
+            
         target_zone_str = decision.get('target', decision.get('move_target', '')).upper()
         
         if not target_zone_str or target_zone_str not in ["NEAR", "MID", "FAR"]:
@@ -58,6 +62,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 return True, f"{player.name} is in the {target_zone.name} zone."
                 
             player.zone = target_zone
+            player.has_moved = True
             log_msg = f"{player.name} moved to the {target_zone.name} zone."
             print(f"   🏃 {log_msg}")
             return True, log_msg
@@ -67,6 +72,10 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
             return False, None
             
     elif action_type == 'ATTACK':
+        if player.has_acted:
+            print(f"   ⚠️ {player.name} has already taken an action this turn!")
+            return False, f"{player.name} has already taken an action this turn."
+            
         target_name = decision.get('target', decision.get('attack_target'))
         target = _find_target(target_name, enemies, settings=settings) if target_name else None
         
@@ -86,6 +95,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         roll_info = f"{raw_rolls} + {player.stats.get(Stat.PHYS, 0)} (Bonus)"
         
         if result.get('is_hit'):
+            player.has_acted = True
             outcome = "CRITICAL HIT" if result.get('is_crit') else "HIT"
             if result.get('is_crit'):
                  print(f"   🔥 CRITICAL HIT!")
@@ -107,8 +117,56 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 log_msg = f"{player.name} attacked {target.name}: MISS"
         
         return True, log_msg
+        
+    elif action_type == 'CAST':
+        if player.has_acted:
+            print(f"   ⚠️ {player.name} has already taken an action this turn!")
+            return False, f"{player.name} has already taken an action this turn."
+            
+        target_name = decision.get('target')
+        spell_name = decision.get('spell_name', 'Magic Missile')
+        target = _find_target(target_name, enemies, settings=settings) if target_name else None
+        
+        if not target:
+            active_enemies = [e for e in enemies if e.condition not in [Condition.DEAD, Condition.UNCONSCIOUS]]
+            if active_enemies:
+                target = active_enemies[0]
+            else:
+                print("   ⚠️ No active enemies to cast on!")
+                return False, None
+                
+        debug_print(f"   ✨ Casting {spell_name} on {target.name}...")
+        result = RulesEngine.resolve_spell(player, target, spell_name=spell_name)
+        
+        raw_rolls = result.get('raw_rolls', [result.get('roll', 0)])
+        roll_info = f"{raw_rolls} + {player.stats.get(Stat.MENT, 0)} (Bonus)"
+        
+        if result.get('is_hit'):
+            player.has_acted = True
+            outcome = "CRITICAL HIT" if result.get('is_crit') else "HIT"
+            if result.get('is_crit'):
+                 print(f"   🔥 CRITICAL HIT!")
+            else:
+                 print(f"   💥 HIT!")
+            
+            print(f"   🩸 Damage Dealt: {result.get('damage', 0)}")
+            print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
+            log_msg = f"{player.name} cast {spell_name} on {target.name}: {outcome} for {result.get('damage', 0)} damage."
+        else:
+            if result.get('message'):
+                print(f"   ⚠️ {result['message']}")
+                log_msg = f"{player.name} cast {spell_name} on {target.name}: FAILED ({result['message']})"
+            else:
+                print(f"   🛡️ MISS!")
+                log_msg = f"{player.name} cast {spell_name} on {target.name}: MISS"
+                
+        return True, log_msg
     
     elif action_type == 'USE':
+        if player.has_acted:
+            print(f"   ⚠️ {player.name} has already taken an action this turn!")
+            return False, f"{player.name} has already taken an action this turn."
+            
         target_item = decision.get('target')
         if not target_item:
             print(f"   ⚠️ Use what?")
@@ -140,19 +198,22 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         is_consumable = arbiter_result.get('is_consumable', False)
         effect_type = arbiter_result.get('effect_type', 'NONE')
         
+        player.has_acted = True
+        
         if is_consumable:
-            player.inventory.remove(found_item)
+            if found_item in player.inventory:
+                player.inventory.remove(found_item)
             msg = f"{player.name} used '{found_item}' (Consumed)."
             print(f"   🧪 [SYSTEM] {msg}")
             
             # Apply mechanical effect via RulesEngine using the AI's category
-            effect_result = RulesEngine.use_item(player, found_item, effect_type)
+            effect_result = RulesEngine.resolve_item(player, found_item, effect_type)
             print(f"   ✨ {effect_result['message']}")
             log_msg = f"{msg} Result: {effect_result['message']}"
             
         else:
             if effect_type != "NONE":
-                 effect_result = RulesEngine.use_item(player, found_item, effect_type)
+                 effect_result = RulesEngine.resolve_item(player, found_item, effect_type)
                  print(f"   ✨ {effect_result['message']}")
                  log_msg = f"{player.name} used '{found_item}'. Result: {effect_result['message']}"
             else:

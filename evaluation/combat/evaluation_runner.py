@@ -134,7 +134,32 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
     trace["intent_router"]["full_intent"] = {"type": intent.get("type"), "command": intent.get("command")}
     
     if intent.get("type") in ["FIXED", "FIXED_COMBO"]:
-        with patch.object(RulesEngine, 'resolve_attack', wraps=RulesEngine.resolve_attack) as mock_attack:
+        captured_attack = []
+        captured_spell = []
+        captured_item = []
+        
+        orig_attack = RulesEngine.resolve_attack
+        orig_spell = RulesEngine.resolve_spell
+        orig_item = RulesEngine.resolve_item
+        
+        def se_attack(*args, **kwargs):
+            res = orig_attack(*args, **kwargs)
+            captured_attack.append(res)
+            return res
+            
+        def se_spell(*args, **kwargs):
+            res = orig_spell(*args, **kwargs)
+            captured_spell.append(res)
+            return res
+            
+        def se_item(*args, **kwargs):
+            res = orig_item(*args, **kwargs)
+            captured_item.append(res)
+            return res
+            
+        with patch.object(RulesEngine, 'resolve_attack', side_effect=se_attack) as mock_attack, \
+             patch.object(RulesEngine, 'resolve_spell', side_effect=se_spell) as mock_spell, \
+             patch.object(RulesEngine, 'resolve_item', side_effect=se_item) as mock_item:
             try:
                 cmd = intent.get("command", "USE")
                 success, msg = execute_fixed_action(cmd, intent, player, enemies, lambda *x: None)
@@ -142,25 +167,45 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
                 success, msg = False, str(e)
             
             trace["rules_engine"]["is_success"] = success
-            if mock_attack.called:
-                res = mock_attack.return_value
-                if isinstance(res, dict):
-                    trace["rules_engine"]["dice_rolled"] = res.get("total")
-                    trace["rules_engine"]["damage"] = res.get("damage")
-                    trace["rules_engine"]["state_mutated"] = f"Damage {res.get('damage')}"
             
-            trace["dm_narrator"]["output"] = "The attack hits the enemy!" if success else "The attack misses!"
+            # Extract data whichever action was used
+            res = None
+            if captured_attack: res = captured_attack[-1]
+            elif captured_spell: res = captured_spell[-1]
+            elif captured_item: res = captured_item[-1]
+            
+            if res and isinstance(res, dict):
+                trace["rules_engine"]["dice_rolled"] = res.get("total", 0)
+                trace["rules_engine"]["damage"] = res.get("damage", 0)
+                if "state_mutated" in res:
+                    trace["rules_engine"]["state_mutated"] = res.get("state_mutated")
+                else:
+                    trace["rules_engine"]["state_mutated"] = f"Damage {res.get('damage', 0)}"
+            
+            trace["dm_narrator"]["output"] = "Action successful!" if success else "Action failed!"
 
     elif intent.get("type") == "CREATIVE":
-        with patch.object(RulesEngine, 'resolve_check', wraps=RulesEngine.resolve_check) as mock_check, \
-             patch.object(llm_service, 'narrate_result', wraps=llm_service.narrate_result) as mock_narrate, \
-             patch.object(llm_service, 'get_creative_judgment', wraps=llm_service.get_creative_judgment) as mock_judge:
+        captured_check, captured_narrate, captured_judge = [], [], []
+        orig_check = RulesEngine.resolve_check
+        orig_narrate = llm_service.narrate_result
+        orig_judge = llm_service.get_creative_judgment
+        
+        def se_check(*args, **kwargs): 
+            res = orig_check(*args, **kwargs); captured_check.append(res); return res
+        def se_narrate(*args, **kwargs): 
+            res = orig_narrate(*args, **kwargs); captured_narrate.append(res); return res
+        def se_judge(*args, **kwargs): 
+            res = orig_judge(*args, **kwargs); captured_judge.append(res); return res
+
+        with patch.object(RulesEngine, 'resolve_check', side_effect=se_check) as mock_check, \
+             patch.object(llm_service, 'narrate_result', side_effect=se_narrate) as mock_narrate, \
+             patch.object(llm_service, 'get_creative_judgment', side_effect=se_judge) as mock_judge:
              
             success, msg = handle_creative_intent(intent, user_input, player, party, enemies, llm_service, lambda *x: None)
             
             trace["rules_engine"]["is_success"] = success
-            if mock_judge.called:
-                res = mock_judge.return_value
+            if captured_judge:
+                res = captured_judge[-1]
                 if isinstance(res, dict):
                     trace["action_arbiter"]["assigned_stat"] = res.get("check_stat")
                     trace["action_arbiter"]["assigned_dc"] = res.get("dc")
@@ -169,12 +214,12 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
                     if not res.get("allowed"):
                         trace["rules_engine"]["is_success"] = False
                     
-            if mock_check.called:
-                check_res = mock_check.return_value
+            if captured_check:
+                check_res = captured_check[-1]
                 if isinstance(check_res, dict):
                     trace["rules_engine"]["dice_rolled"] = check_res.get("total")
-            if mock_narrate.called:
-                narrate_res = mock_narrate.return_value
+            if captured_narrate:
+                narrate_res = captured_narrate[-1]
                 if isinstance(narrate_res, str):
                     trace["dm_narrator"]["output"] = narrate_res
                 else:

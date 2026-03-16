@@ -51,6 +51,33 @@ class RulesEngine:
         return {"success": True, "message": f"Used '{item_name}'."}
 
     @staticmethod
+    def resolve_item(user: Character, item_name: str, effect_type: str) -> dict:
+        """
+        Wraps use_item to return a standard dictionary format compatible with the evaluation tracer.
+        """
+        if user.condition in [Condition.STUNNED, Condition.UNCONSCIOUS, Condition.DEAD]:
+            return {
+                'is_hit': False,
+                'message': f"{user.name} is {user.condition.name} and cannot use items!",
+                'roll': 0, 'total': 0, 'damage': 0, 'is_crit': False, 'disadvantage': False,
+                'state_mutated': None
+            }
+            
+        result = RulesEngine.use_item(user, item_name, effect_type)
+        return {
+            'is_hit': result['success'],
+            'roll': 0,
+            'total': 0,
+            'damage': 0,
+            'is_crit': False,
+            'disadvantage': False,
+            'message': result['message'],
+            'attacker_name': user.name,
+            'target_name': user.name,
+            'state_mutated': result['message']
+        }
+
+    @staticmethod
     def resolve_escape(player: Character, enemies: list) -> dict:
         """
         Resolves a FLEE action using contested 1d20 + PHYS rolls.
@@ -243,6 +270,70 @@ class RulesEngine:
             'message': None,
             'attacker_name': attacker.name,
             'target_name': target.name
+        }
+
+    @staticmethod
+    def resolve_spell(caster: Character, target: Character, spell_name: str) -> dict:
+        """
+        Resolves a basic spell attack, always using MENT stat, with no disadvantage for distance.
+        """
+        if caster.condition in [Condition.STUNNED, Condition.UNCONSCIOUS, Condition.DEAD]:
+            return {
+                'is_hit': False,
+                'message': f'{caster.name} is {caster.condition.name} and cannot cast spells!',
+                'roll': 0, 'total': 0, 'damage': 0, 'is_crit': False, 'disadvantage': False
+            }
+
+        if target.condition in [Condition.DEAD]:
+            return {
+                'is_hit': False,
+                'message': 'Target is already dead!',
+                'roll': 0, 'total': 0, 'damage': 0, 'is_crit': False, 'disadvantage': False
+            }
+
+        tactical_bonus = 0
+        if target.condition in [Condition.STUNNED, Condition.RESTRAINED, Condition.UNCONSCIOUS, Condition.BLINDED, Condition.PRONE]:
+            tactical_bonus += 5
+        
+        if caster.condition in [Condition.BLINDED, Condition.RESTRAINED]:
+            tactical_bonus -= 5
+
+        # Spells always use MENT and 1d10
+        stat_bonus = caster.stats.get(Stat.MENT, 0)
+        
+        hit_expression = f"1d20{stat_bonus + tactical_bonus:+}"
+        final_roll = roll(hit_expression)
+        
+        d20_roll = final_roll['rolls'][0]
+        attack_total = final_roll['total']
+        is_crit = final_roll['is_critical']
+        
+        is_hit = is_crit or (attack_total >= target.ac)
+
+        damage = 0
+        
+        if is_hit:
+            dice_count = 2 if is_crit else 1
+            dmg_expression = f"{dice_count}d10+{stat_bonus}"
+            damage_result = roll(dmg_expression)
+            
+            damage = damage_result['total']
+            if damage < 0: damage = 0
+            
+            target.take_damage(damage)
+        
+        return {
+            'is_hit': is_hit,
+            'roll': d20_roll,
+            'raw_rolls': final_roll['rolls'],
+            'total': attack_total,
+            'damage': damage,
+            'is_crit': is_crit,
+            'disadvantage': False,
+            'message': None,
+            'attacker_name': caster.name,
+            'target_name': target.name,
+            'spell_name': spell_name
         }
 
     @staticmethod

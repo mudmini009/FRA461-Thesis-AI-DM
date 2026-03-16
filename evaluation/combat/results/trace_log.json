@@ -18,10 +18,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 19,
+                "damage": 10,
+                "state_mutated": "Damage 10"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -50,10 +53,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 19,
+                "damage": 13,
+                "state_mutated": "Damage 13"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -82,10 +88,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 7,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -114,10 +123,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 9,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -146,10 +158,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 9,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -178,16 +193,19 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": false
+                "is_success": true,
+                "dice_rolled": 22,
+                "damage": 8,
+                "state_mutated": "Damage 8"
             },
             "dm_narrator": {
-                "output": "The attack misses!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
             "routing_correct": true,
             "grounding_correct": true,
-            "math_consistent": false,
+            "math_consistent": true,
             "narrative_present": true
         }
     },
@@ -210,10 +228,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 10,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -242,10 +263,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 15,
+                "damage": 11,
+                "state_mutated": "Damage 11"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -274,16 +298,19 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": false
+                "is_success": true,
+                "dice_rolled": 24,
+                "damage": 7,
+                "state_mutated": "Damage 7"
             },
             "dm_narrator": {
-                "output": "The attack misses!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
             "routing_correct": true,
             "grounding_correct": true,
-            "math_consistent": false,
+            "math_consistent": true,
             "narrative_present": true
         }
     },
@@ -306,10 +333,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 23,
+                "damage": 7,
+                "state_mutated": "Damage 7"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -341,7 +371,7 @@
                 "is_success": true
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -373,7 +403,7 @@
                 "is_success": true
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -405,7 +435,7 @@
                 "is_success": true
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -437,7 +467,7 @@
                 "is_success": true
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -469,7 +499,7 @@
                 "is_success": true
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -498,10 +528,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -530,10 +563,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -562,10 +598,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -597,7 +636,7 @@
                 "is_success": false
             },
             "dm_narrator": {
-                "output": "The attack misses!"
+                "output": "Action failed!"
             }
         },
         "metrics": {
@@ -626,16 +665,19 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": false
+                "is_success": true,
+                "dice_rolled": 20,
+                "damage": 6,
+                "state_mutated": "Damage 6"
             },
             "dm_narrator": {
-                "output": "The attack misses!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
             "routing_correct": true,
             "grounding_correct": true,
-            "math_consistent": false,
+            "math_consistent": true,
             "narrative_present": true
         }
     },
@@ -656,17 +698,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 11
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317855392'>"
+                "output": "With a desperate heave, you slam the heavy oak table forward, its sturdy legs scraping against the stone floor just as the arrow whistles through the air. The projectile strikes the wood with a sharp crack, splintering harmlessly as the table absorbs the impact and saves you from a painful sting."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -688,17 +735,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 13
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317998176'>"
+                "output": "Your acrobatic leap from the dusty chandelier falters, and your booted foot connects with empty air as the goblin scurries away, leaving you dangling precariously, a moment of embarrassing vulnerability."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -720,17 +772,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 21
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912318109024'>"
+                "output": "You scoop up a handful of gritty sand and fling it with all your might, a stinging cloud erupting directly into your foe's face. Their guttural cry is choked off as they recoil, momentarily blinded and disoriented by the sudden assault."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -752,17 +809,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 15
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912318069008'>"
+                "output": "With a mighty heave, you send the ancient, dust-laden bookshelf toppling forward, its heavy frame crashing down with a splintering roar, crushing the surprised goblins beneath its weight. A cloud of aged paper and wood splinters erupts, leaving you victorious amidst the wreckage."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -784,17 +846,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 25
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317954608'>"
+                "output": "With a burst of surprising agility, you duck low and shoot forward, your shoulder catching the goblin's shin just right. The creature lets out a surprised squawk as its legs buckle, sending it sprawling to the dusty floor with a clatter."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -816,17 +883,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 19
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912327988624'>"
+                "output": "Your guttural roar and the glint of your drawn weapon freeze the bandit mid-stride; his eyes widen in terror as he scrambles to drop his rusty blade, hands raised in a clear sign of surrender."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -848,17 +920,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 25
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317861776'>"
+                "output": "The hulking goblin, eyes wide with a mixture of fear and confusion at your booming pronouncements of the city guard, freezes mid-lunge, momentarily forgetting its intended attack. It scrambles back a step, a nervous gurgle escaping its throat as it scans the shadows for the nonexistent soldiers you've conjured."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -880,7 +957,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 15,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -890,7 +971,7 @@
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": false,
             "narrative_present": true
         }
@@ -912,17 +993,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 16
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912318371168'>"
+                "output": "You unleash a string of biting insults, and the creature's eyes flare with a primal fury, its roars escalating into a thunderous bellow as it charges towards you, driven by pure, unadulterated rage."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -944,17 +1030,22 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 13
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912318337392'>"
+                "output": "With a perfectly timed, venomous barb, you see the hulking brute momentarily falter, its enraged gaze flicking towards you, a split second of distraction that hangs in the air. The unexpected insult lands like a physical blow, momentarily stealing its focus from its intended target."
             }
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": true,
             "narrative_present": true
         }
@@ -976,12 +1067,17 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 11
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317987040'>"
+                "output": "The sharp *crack* of shattering glass echoes through the chamber, momentarily drawing the creature's attention as you seize the precious seconds to react."
             }
         },
         "metrics": {
@@ -1008,12 +1104,17 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 8,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 12
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317793216'>"
+                "output": "You expertly loop and knot the rope, securing the heavy wooden door with a satisfying thud. It won't be opening from the other side without considerable effort."
             }
         },
         "metrics": {
@@ -1040,12 +1141,17 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 18
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912318014752'>"
+                "output": "As the torch arcs through the air, you watch in grim satisfaction as it impacts the slick, dark pool. A hungry roar erupts as the oil ignites, flames leaping upwards and engulfing the immediate area in a terrifying, crackling inferno."
             }
         },
         "metrics": {
@@ -1072,12 +1178,17 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 14
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912317860384'>"
+                "output": "You jam the dagger deep into the whirring gears, and with a sickening shriek of metal, the mechanism seizes, grinding to a halt. Sparks fly as the entire contraption shudders to a violent, smoking end."
             }
         },
         "metrics": {
@@ -1104,12 +1215,17 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 13
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912318587328'>"
+                "output": "You surge forward, your cloak a dark blur, but the agile goblin ducks your grasp, the fabric sailing harmlessly over its pointed ears as it cackles, its beady eyes still fixed on you."
             }
         },
         "metrics": {
@@ -1136,7 +1252,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "LOGIC",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -1146,7 +1266,7 @@
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": false,
             "narrative_present": true
         }
@@ -1168,7 +1288,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -1178,7 +1302,7 @@
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": false,
             "narrative_present": true
         }
@@ -1200,7 +1324,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -1210,7 +1338,7 @@
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": false,
             "narrative_present": true
         }
@@ -1232,7 +1360,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -1242,7 +1374,7 @@
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": false,
             "narrative_present": true
         }
@@ -1264,7 +1396,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -1274,7 +1410,7 @@
         },
         "metrics": {
             "routing_correct": true,
-            "grounding_correct": false,
+            "grounding_correct": true,
             "math_consistent": false,
             "narrative_present": true
         }
@@ -1296,7 +1432,11 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
             "rules_engine": {
                 "is_success": false
             },
@@ -1330,10 +1470,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -1360,12 +1503,17 @@
                     "command": null
                 }
             },
-            "action_arbiter": {},
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "STUNT"
+            },
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 11
             },
             "dm_narrator": {
-                "output": "<MagicMock name='narrate_result()' id='133912327989200'>"
+                "output": "You sprint across the cavernous space, the echoes of your boots a fleeting moment of defiance against the oppressive silence, only to find yourself back where you started, the air thick with an unseen resistance. The ground beneath you seems to ripple for a second, a dizzying illusion that deposits you back at your original spot."
             }
         },
         "metrics": {
@@ -1394,10 +1542,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 8,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {
@@ -1426,10 +1577,13 @@
             },
             "action_arbiter": {},
             "rules_engine": {
-                "is_success": true
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Damage 0"
             },
             "dm_narrator": {
-                "output": "The attack hits the enemy!"
+                "output": "Action successful!"
             }
         },
         "metrics": {

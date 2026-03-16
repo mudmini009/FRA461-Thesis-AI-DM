@@ -30,6 +30,10 @@ class InitiativeQueue:
         self.queue = [char for char, _ in initiatives]
         self.current_index = 0
         
+        # Reset turn for the first actor
+        if self.queue:
+            self.queue[0].reset_turn()
+        
         print("\n🎲 --- INITIATIVE ORDER --- 🎲")
         for i, (char, roll) in enumerate(initiatives):
             print(f"{i+1}. {char.name} ({roll})")
@@ -59,6 +63,8 @@ class InitiativeQueue:
         next_actor = self.get_current_actor()
         if next_actor and next_actor.condition in [Condition.DEAD, Condition.UNCONSCIOUS]:
             self.advance_turn() # Recursively skip until we find someone awake
+        elif next_actor:
+            next_actor.reset_turn()
 
     def is_combat_over(self) -> bool:
         """

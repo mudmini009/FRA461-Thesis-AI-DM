@@ -35,6 +35,12 @@ class Character:
     zone: Zone = Zone.NEAR
     inventory: List[str] = field(default_factory=list)
     condition: Condition = Condition.NORMAL
+    has_acted: bool = False
+    has_moved: bool = False
+
+    def reset_turn(self):
+        self.has_acted = False
+        self.has_moved = False
 
     def take_damage(self, amount: int):
         self.hp -= amount
