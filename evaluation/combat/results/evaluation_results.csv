@@ -1,0 +1,52 @@
+Scenario_ID,Category,A_route_Pass,P_ground_Pass,S_sync_Pass,C_narr_Pass
+A-01,Path A: Melee,1,1,1,1
+A-02,Path A: Melee,1,1,1,1
+A-03,Path A: Melee,1,1,1,1
+A-04,Path A: Melee,1,1,1,1
+A-05,Path A: Melee,1,1,1,1
+A-06,Path A: Ranged,1,1,0,1
+A-07,Path A: Ranged,1,1,1,1
+A-08,Path A: Ranged,1,1,1,1
+A-09,Path A: Ranged,1,1,0,1
+A-10,Path A: Ranged,1,1,1,1
+A-11,Path A: Movement,1,1,1,1
+A-12,Path A: Movement,1,1,1,1
+A-13,Path A: Movement,1,1,1,1
+A-14,Path A: Movement,1,1,1,1
+A-15,Path A: Movement,1,1,1,1
+A-16,Path A: Items,1,1,1,1
+A-17,Path A: Items,1,1,1,1
+A-18,Path A: Items,1,1,1,1
+A-19,Path A: Items,1,1,0,1
+A-20,Path A: Items,1,1,0,1
+B-21,Path B: Creative,1,0,1,1
+B-22,Path B: Creative,1,0,1,1
+B-23,Path B: Creative,1,0,1,1
+B-24,Path B: Creative,1,0,1,1
+B-25,Path B: Creative,1,0,1,1
+B-26,Path B: Social,1,0,1,1
+B-27,Path B: Social,1,0,1,1
+B-28,Path B: Social,1,0,0,1
+B-29,Path B: Social,1,0,1,1
+B-30,Path B: Social,1,0,1,1
+B-31,Path B: Improv,1,1,1,1
+B-32,Path B: Improv,1,1,1,1
+B-33,Path B: Improv,1,1,1,1
+B-34,Path B: Improv,1,1,1,1
+B-35,Path B: Improv,1,1,1,1
+C-36,Edge: Impossible,1,0,0,1
+C-37,Edge: Impossible,1,0,0,1
+C-38,Edge: Impossible,1,0,0,1
+C-39,Edge: Impossible,1,0,0,1
+C-40,Edge: Impossible,1,0,0,1
+C-41,Edge: Rules,1,1,1,1
+C-42,Edge: Rules,1,1,0,1
+C-43,Edge: Rules,1,1,0,1
+C-44,Edge: Rules,1,1,0,1
+C-45,Edge: Rules,1,1,0,1
+D-46,System: AI,1,1,1,1
+D-47,System: AI,1,1,0,1
+D-48,System: Memory,1,1,1,1
+D-49,System: Memory,1,1,1,1
+D-50,System: State,1,1,1,1
+TOTAL_ACCURACY,,100%,70%,70%,100%

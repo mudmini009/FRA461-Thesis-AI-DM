@@ -131,7 +131,7 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
     
     trace["intent_router"]["predicted_path"] = intent.get("type", "UNKNOWN")
     trace["intent_router"]["is_match"] = (intent.get("type") == scenario.get("expected_type"))
-    trace["intent_router"]["full_intent"] = intent
+    trace["intent_router"]["full_intent"] = {"type": intent.get("type"), "command": intent.get("command")}
     
     if intent.get("type") in ["FIXED", "FIXED_COMBO"]:
         with patch.object(RulesEngine, 'resolve_attack', wraps=RulesEngine.resolve_attack) as mock_attack:
@@ -144,9 +144,10 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
             trace["rules_engine"]["is_success"] = success
             if mock_attack.called:
                 res = mock_attack.return_value
-                trace["rules_engine"]["dice_rolled"] = res.get("total")
-                trace["rules_engine"]["damage"] = res.get("damage")
-                trace["rules_engine"]["state_mutated"] = f"Damage {res.get('damage')}"
+                if isinstance(res, dict):
+                    trace["rules_engine"]["dice_rolled"] = res.get("total")
+                    trace["rules_engine"]["damage"] = res.get("damage")
+                    trace["rules_engine"]["state_mutated"] = f"Damage {res.get('damage')}"
             
             trace["dm_narrator"]["output"] = "The attack hits the enemy!" if success else "The attack misses!"
 
@@ -160,17 +161,24 @@ def run_single_scenario(scenario: Dict[str, Any]) -> dict:
             trace["rules_engine"]["is_success"] = success
             if mock_judge.called:
                 res = mock_judge.return_value
-                trace["action_arbiter"]["assigned_stat"] = res.get("check_stat")
-                trace["action_arbiter"]["assigned_dc"] = res.get("dc")
-                logic = "DISALLOW" if not res.get("allowed") else "STUNT"
-                trace["action_arbiter"]["enum_returned"] = logic
-                if not res.get("allowed"):
-                    trace["rules_engine"]["is_success"] = False
+                if isinstance(res, dict):
+                    trace["action_arbiter"]["assigned_stat"] = res.get("check_stat")
+                    trace["action_arbiter"]["assigned_dc"] = res.get("dc")
+                    logic = "DISALLOW" if not res.get("allowed") else "STUNT"
+                    trace["action_arbiter"]["enum_returned"] = logic
+                    if not res.get("allowed"):
+                        trace["rules_engine"]["is_success"] = False
                     
             if mock_check.called:
-                trace["rules_engine"]["dice_rolled"] = mock_check.return_value.get("total")
+                check_res = mock_check.return_value
+                if isinstance(check_res, dict):
+                    trace["rules_engine"]["dice_rolled"] = check_res.get("total")
             if mock_narrate.called:
-                trace["dm_narrator"]["output"] = mock_narrate.return_value
+                narrate_res = mock_narrate.return_value
+                if isinstance(narrate_res, str):
+                    trace["dm_narrator"]["output"] = narrate_res
+                else:
+                    trace["dm_narrator"]["output"] = str(narrate_res)
             else:
                 trace["dm_narrator"]["output"] = "The Arbiter denied the action."
 
@@ -222,7 +230,20 @@ def main():
          })
 
     with open(os.path.join(results_dir, "trace_log.json"), "w") as f:
-         json.dump(traces, f, indent=4)
+         try:
+             json.dump(traces, f, indent=4)
+         except TypeError as e:
+             def find_mocks(obj, path=""):
+                 if isinstance(obj, dict):
+                     for k, v in obj.items():
+                         find_mocks(v, path + f"[{repr(k)}]")
+                 elif isinstance(obj, list):
+                     for i, v in enumerate(obj):
+                         find_mocks(v, path + f"[{i}]")
+                 elif 'Mock' in str(type(obj)):
+                     print(f"Mock found at: {path}")
+             find_mocks(traces)
+             raise e
          
     with open(os.path.join(results_dir, "evaluation_results.csv"), "w", newline='') as f:
          writer = csv.DictWriter(f, fieldnames=flat_results[0].keys())
