@@ -2,8 +2,8 @@
   <h1>🏰 Agentic-DualPath-Core</h1>
   <p><i>A Multi-Agent Hybrid TTRPG Engine | FIBO Senior Thesis (2026)</i></p>
 
-  [![Project Status](https://img.shields.io/badge/Status-Phase_2_Complete-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
-  [![Architecture](https://img.shields.io/badge/Architecture-Multi--Agent_DualPath-orange?style=for-the-badge)](./ARCHITECTURE.md)
+  [![Project Status](https://img.shields.io/badge/Status-Phase_3_On_Going-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
+  [![Ruleset](https://img.shields.io/badge/Ruleset-Our_Lite_5e-blueviolet?style=for-the-badge)](./LITE_5E_RULES.md) 
   [![Model](https://img.shields.io/badge/AI-Gemini_2.5_Flash_Lite-blue?style=for-the-badge)](https://ai.google.dev/)
 </div>
 
