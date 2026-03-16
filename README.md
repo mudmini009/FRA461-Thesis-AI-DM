@@ -1,18 +1,17 @@
 <div align="center">
-  <h1>🏰 AI Dungeon Master</h1>
-  <p><i>FIBO Senior Project (2026)</i></p>
+  <h1>🏰 Agentic-DualPath-Core</h1>
+  <p><i>A Multi-Agent Hybrid TTRPG Engine | FIBO Senior Thesis (2026)</i></p>
 
-  [![Project Status](https://img.shields.io/badge/Status-Phase_3_On_Going-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
-  [![Ruleset](https://img.shields.io/badge/Ruleset-Our_Lite_5e-blueviolet?style=for-the-badge)](./LITE_5E_RULES.md)
+  [![Project Status](https://img.shields.io/badge/Status-Phase_2_Complete-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
+  [![Architecture](https://img.shields.io/badge/Architecture-Multi--Agent_DualPath-orange?style=for-the-badge)](./ARCHITECTURE.md)
   [![Model](https://img.shields.io/badge/AI-Gemini_2.5_Flash_Lite-blue?style=for-the-badge)](https://ai.google.dev/)
 </div>
 
 ---
 
-> **FIBO DEMO DAY SHOWCASE (Feb 20-21, 2026)**  
-> _Interactive AI-Powered Tabletop RPG Engine_
+> **FIBO PROGRESS 2 SHOWCASE** > _Next-Gen Agentic Orchestration for Tabletop RPGs_
 
-This project demonstrates a **Hybrid AI Game Master** that has shifted focus toward robust backend logic rather than heavy UI. It solves the "AI Hallucination" problem by utilizing a **Two-Path Architecture** that combines the narrative flexibility of Large Language Models (LLM) with the mechanical precision of a **Deterministic Python Rules Engine**. Through a seamless **Multi-Agent Handshake**, math and game state are kept strictly in Python while the AI handles creativity and immersive narration.
+This project features a **Multi-Agent Hybrid Architecture** designed to solve the "AI Hallucination" problem in TTRPGs. By implementing a **Two-Path Orchestrator**, the system autonomously routes player intent between a **Deterministic Python Rules Engine** (for mechanical precision) and an **LLM-based Creative Arbiter** (for improvisational logic). Through a rigorous **Multi-Agent Handshake**, the engine ensures that all game state mutations are grounded in hard-coded logic while maintaining the narrative flexibility of Large Language Models.
 
 ---
 
