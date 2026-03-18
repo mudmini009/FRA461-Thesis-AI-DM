@@ -1,0 +1,130 @@
+<mxGraphModel dx="1013" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Title -->
+    <mxCell id="title" value="Module Boundaries (Two-Path Architecture)" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=18;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="214" y="20" width="400" height="40" as="geometry" />
+    </mxCell>
+
+    <!-- Legend -->
+    <mxCell id="legend_box" value="Color Legend" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" parent="1" vertex="1">
+      <mxGeometry x="40" y="80" width="250" height="160" as="geometry" />
+    </mxCell>
+    <mxCell id="leg_green" value="AI Logic (LLM Agents)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="legend_box" vertex="1">
+      <mxGeometry x="10" y="30" width="230" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg_blue" value="Core Logic (Python Engine)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="legend_box" vertex="1">
+      <mxGeometry x="10" y="60" width="230" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg_red" value="Triggers / Game Loop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;" parent="legend_box" vertex="1">
+      <mxGeometry x="10" y="90" width="230" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="leg_black" value="Data / Memory Persistence" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="legend_box" vertex="1">
+      <mxGeometry x="10" y="120" width="230" height="20" as="geometry" />
+    </mxCell>
+
+    <!-- MAIN MODULES -->
+
+    <!-- 1. Input Module -->
+    <mxCell id="mod_input" value="1. Input Processing &amp; Routing Module" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#0D47A1;strokeColor=#1B5E20;strokeWidth=3;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="320" y="80" width="460" height="140" as="geometry" />
+    </mxCell>
+    <mxCell id="n_user_input" value="User Text Command" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="mod_input" vertex="1">
+      <mxGeometry x="30" y="60" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="n_router" value="Intent Router Agent&lt;br&gt;(Classification)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="mod_input" vertex="1">
+      <mxGeometry x="250" y="60" width="160" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="e_in" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;" parent="mod_input" source="n_user_input" target="n_router" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- 4. AI Orchestration Module -->
+    <mxCell id="mod_ai" value="4. AI Orchestration Module" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;fontStyle=1;strokeWidth=2" parent="1" vertex="1">
+      <mxGeometry x="40" y="270" width="340" height="260" as="geometry" />
+    </mxCell>
+    <mxCell id="n_arbiter" value="Action Arbiter Agent&lt;br&gt;(Creative Path Logic)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_ai" vertex="1">
+      <mxGeometry x="30" y="50" width="280" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="n_narrator" value="DM Narrator Agent&lt;br&gt;(Combat Description)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_ai" vertex="1">
+      <mxGeometry x="30" y="120" width="280" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="n_summarizer" value="Memory Summarizer Agent&lt;br&gt;(Context Collapse)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_ai" vertex="1">
+      <mxGeometry x="30" y="190" width="280" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- 2. Logic & Rules Module -->
+    <mxCell id="mod_logic" value="2. Logic &amp; Rules Engine Module" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1;strokeWidth=2" parent="1" vertex="1">
+      <mxGeometry x="440" y="270" width="340" height="260" as="geometry" />
+    </mxCell>
+    <mxCell id="n_fixed" value="Fixed Action Handlers&lt;br&gt;(Attack, Move, Cast, Items)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_logic" vertex="1">
+      <mxGeometry x="30" y="50" width="280" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="n_handshake" value="Python Rules Engine&lt;br&gt;(Final Math &amp; Verification)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_logic" vertex="1">
+      <mxGeometry x="30" y="120" width="280" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="n_enemy" value="Enemy AI Engine&lt;br&gt;(Deterministic Target Logic)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_logic" vertex="1">
+      <mxGeometry x="30" y="190" width="280" height="50" as="geometry" />
+    </mxCell>
+
+    <!-- 3. Data & Memory Module -->
+    <mxCell id="mod_data" value="3. Data &amp; Memory Layer Module" style="swimlane;whiteSpace=wrap;html=1;startSize=30;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;fontStyle=1;strokeWidth=2" parent="1" vertex="1">
+      <mxGeometry x="40" y="580" width="740" height="180" as="geometry" />
+    </mxCell>
+    <mxCell id="n_state" value="JSON State Persistence&lt;br&gt;(Game State, Condition, HP)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_data" vertex="1">
+      <mxGeometry x="30" y="50" width="250" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="n_cmem" value="Combat Memory Layer&lt;br&gt;(O(1) Deque, Short-term)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_data" vertex="1">
+      <mxGeometry x="320" y="50" width="180" height="100" as="geometry" />
+    </mxCell>
+    <mxCell id="n_smem" value="Story Memory Layer&lt;br&gt;(O(1) Deque, Long-term)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#ffffff;fontColor=#ffffff;" parent="mod_data" vertex="1">
+      <mxGeometry x="530" y="50" width="180" height="100" as="geometry" />
+    </mxCell>
+
+    <!-- Connections between modules -->
+    <mxCell id="e_router_arbiter" value="Path B" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;" parent="1" source="n_router" target="n_arbiter" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="650" y="240" />
+          <mxPoint x="170" y="240" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_router_fixed" value="Path A" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;" parent="1" source="n_router" target="n_fixed" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_arb_handshake" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;dashed=1" parent="1" source="n_arbiter" target="n_handshake" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_fix_handshake" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;" parent="1" source="n_fixed" target="n_handshake" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_hand_state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;" parent="1" source="n_handshake" target="n_state" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="610" y="550" />
+          <mxPoint x="195" y="550" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_hand_cmem" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;" parent="1" source="n_handshake" target="n_cmem" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e_cmem_narr" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;dashed=1" parent="1" source="n_cmem" target="n_narrator" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="450" y="415" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="e_cmem_sum" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#000000;endArrow=block;dashed=1" parent="1" source="n_cmem" target="n_summarizer" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="450" y="485" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+  </root>
+</mxGraphModel>

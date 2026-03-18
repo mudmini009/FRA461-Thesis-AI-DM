@@ -1,0 +1,39 @@
+<mxGraphModel dx="1013" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- Class: Character -->
+    <mxCell id="class_char" value="&lt;p style=&quot;margin:0px;margin-top:6px;text-align:center;&quot;&gt;&lt;b&gt;Character&lt;/b&gt; (Dataclass)&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;+ id: str&lt;br&gt;+ name: str&lt;br&gt;+ hp: int&lt;br&gt;+ max_hp: int&lt;br&gt;+ ac: int&lt;br&gt;+ stats: Dict[Stat, int]&lt;br&gt;+ condition: Condition&lt;br&gt;+ zone: Zone&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;+ take_damage(amount: int)&lt;br&gt;+ to_dict() -&amp;gt; Dict&lt;/p&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=top;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;rounded=1;shadow=1;" parent="1" vertex="1">
+      <mxGeometry x="80" y="240" width="260" height="240" as="geometry" />
+    </mxCell>
+
+    <!-- Class: RulesEngine -->
+    <mxCell id="class_rules" value="&lt;p style=&quot;margin:0px;margin-top:6px;text-align:center;&quot;&gt;&lt;b&gt;RulesEngine&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;/&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;+ resolve_attack(attacker, target)&lt;br&gt;+ resolve_check(actor, stat, dc)&lt;br&gt;+ resolve_item(user, item, effect)&lt;br&gt;+ resolve_spell(caster, target)&lt;/p&gt;" style="html=1;whiteSpace=wrap;align=left;verticalAlign=top;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;rounded=1;shadow=1;" parent="1" vertex="1">
+      <mxGeometry x="460" y="240" width="300" height="150" as="geometry" />
+    </mxCell>
+
+    <!-- Enums -->
+    <mxCell id="enum_cond" value="&lt;p style=&quot;margin:0px;margin-top:6px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;Enum&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Condition&lt;/p&gt;" style="html=1;whiteSpace=wrap;align=center;verticalAlign=top;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;rounded=1;shadow=1;" parent="1" vertex="1">
+      <mxGeometry x="80" y="100" width="120" height="60" as="geometry" />
+    </mxCell>
+    
+    <mxCell id="enum_stat" value="&lt;p style=&quot;margin:0px;margin-top:6px;text-align:center;&quot;&gt;&lt;b&gt;&amp;lt;&amp;lt;Enum&amp;gt;&amp;gt;&lt;/b&gt;&lt;br&gt;Stat&lt;/p&gt;" style="html=1;whiteSpace=wrap;align=center;verticalAlign=top;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;rounded=1;shadow=1;" parent="1" vertex="1">
+      <mxGeometry x="220" y="100" width="120" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- Relations -->
+    <mxCell id="rel_usage" value="&amp;lt;&amp;lt;uses / mutates&amp;gt;&amp;gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=open;endFill=1;dashed=1;labelBackgroundColor=#222222;fontColor=#ffffff;" parent="1" source="class_rules" target="class_char" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    
+    <mxCell id="rel_enum_cond" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=diamond;endFill=1;" parent="1" source="enum_cond" target="class_char" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    
+    <mxCell id="rel_enum_stat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=diamond;endFill=1;" parent="1" source="enum_stat" target="class_char" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+  </root>
+</mxGraphModel>
