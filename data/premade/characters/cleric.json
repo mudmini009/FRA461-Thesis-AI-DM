@@ -1,0 +1,8 @@
+{
+    "stats": {"PHYS": 1, "MENT": 2, "SOC": 1},
+    "max_hp": 18,
+    "hp": 18,
+    "ac": 18,
+    "inventory": ["Warhammer", "Plate Armor", "Shield", "Healing Potion"],
+    "lore": "A divine healer clad in plate armor, carrying a heavy warhammer and channeling the power of the gods."
+}

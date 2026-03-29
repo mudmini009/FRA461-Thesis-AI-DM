@@ -1,4 +1,6 @@
 import os
+import json
+import glob
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -55,13 +57,23 @@ def character_creation_menu() -> tuple[str, str]:
         print("Invalid choice. Try again.")
         
     if char_type == 'premade':
-        print("\nAvailable Classes: Fighter, Wizard, Rogue, Cleric, Ranger")
-        archetype = input("Choose your class: ").strip().lower()
-        return ('premade', archetype)
+        print("\nAvailable Pre-Made Templates:")
+        files = glob.glob("data/premade/characters/*.json")
+        for i, f in enumerate(files):
+            basename = os.path.basename(f).replace('.json', '')
+            print(f"{i+1}. {basename.capitalize()}")
+        
+        while True:
+            choice = input(f"Choose your class (1-{len(files)}): ").strip()
+            if choice.isdigit() and 1 <= int(choice) <= len(files):
+                selected_file = files[int(choice)-1]
+                return ('premade', selected_file)
+            print("Invalid choice. Try again.")
     else:
         print("\nDescribe your character (e.g., 'A frail but brilliant wizard looking for ancient knowledge').")
         bio = input("Bio: ").strip()
         return ('custom', bio)
+    return ('premade', 'fighter')
 
 def world_lore_menu() -> tuple[str, str]:
     draw_header("WORLD LORE")
@@ -72,7 +84,22 @@ def world_lore_menu() -> tuple[str, str]:
     while True:
         choice = input("Select an option (1-2): ").strip()
         if choice == '1':
-            return ('default', "")
+            print("\nAvailable Lore Templates:")
+            files = glob.glob("data/premade/lore/*.txt")
+            if not files:
+                print("No lore templates found. Returning to default.")
+                return ('default', "")
+            for i, f in enumerate(files):
+                basename = os.path.basename(f).replace('.txt', '').replace('_', ' ')
+                print(f"{i+1}. {basename.title()}")
+            
+            while True:
+                subchoice = input(f"Choose lore (1-{len(files)}): ").strip()
+                if subchoice.isdigit() and 1 <= int(subchoice) <= len(files):
+                    selected_file = files[int(subchoice)-1]
+                    return ('file', selected_file)
+                print("Invalid choice. Try again.")
+                
         if choice == '2':
             print("\nEnter a short concept (e.g., 'A grimdark floating city ruled by vampires').")
             concept = input("Concept: ").strip()

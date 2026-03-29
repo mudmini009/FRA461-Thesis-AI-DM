@@ -1,0 +1,8 @@
+{
+    "stats": {"PHYS": 3, "MENT": 0, "SOC": -1},
+    "max_hp": 20,
+    "hp": 20,
+    "ac": 16,
+    "inventory": ["Longsword", "Chainmail", "Healing Potion"],
+    "lore": "A battle-hardened warrior carrying a longsword and wearing heavy chainmail. Trained at the imperial academy."
+}

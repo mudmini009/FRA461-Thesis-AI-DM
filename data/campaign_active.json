@@ -1,72 +1,65 @@
 {
-    "party": [
-        {
-            "id": "p1",
-            "name": "Valen",
-            "role": "Fighter",
-            "hp": 18,
-            "max_hp": 24,
-            "ac": 16,
-            "stats": {
-                "PHYS": 3,
-                "MENT": 0,
-                "SOC": 1
-            },
-            "zone": "MID",
-            "inventory": [
-                "Longsword",
-                "Shield",
-                "Rope (50ft)",
-                "Torch"
-            ],
-            "condition": "NORMAL"
-        }
-    ],
-    "enemies": [
-        {
-            "id": "e1",
-            "name": "Grok the Crusher",
-            "role": "Monster",
-            "hp": 18,
-            "max_hp": 18,
-            "ac": 14,
-            "stats": {
-                "PHYS": 4,
-                "MENT": -2,
-                "SOC": -2
-            },
-            "zone": "MID",
-            "inventory": [
-                "Spiked Club",
-                "Rusty Chainmail"
-            ],
-            "condition": "NORMAL"
-        },
-        {
-            "id": "e2",
-            "name": "Snivel",
-            "role": "Monster",
-            "hp": 5,
-            "max_hp": 5,
-            "ac": 12,
-            "stats": {
-                "PHYS": 1,
-                "MENT": -1,
-                "SOC": -1
-            },
-            "zone": "MID",
-            "inventory": [
-                "Shortbow",
-                "Dagger"
-            ],
-            "condition": "NORMAL"
-        }
-    ],
-    "combat_memory": [
-        "Valen moved to the MID zone.",
-        "Valen attacked Snivel: MISS",
-        "Enemy phase: \ud83d\udc79 Snivel attacks Valen: HIT! for 6 damage",
-        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Grok the Crusher moves to the MID zone toward Valen. \ud83d\udc79 Grok the Crusher attacks Valen: MISS!"
-    ],
-    "story_memory": []
+  "party": [
+    {
+      "id": "p1",
+      "name": "Valen",
+      "role": "Fighter",
+      "hp": 24,
+      "max_hp": 24,
+      "ac": 16,
+      "stats": {
+        "PHYS": 3,
+        "MENT": 0,
+        "SOC": 1
+      },
+      "zone": "NEAR",
+      "inventory": [
+        "Longsword",
+        "Shield",
+        "Rope (50ft)",
+        "Torch"
+      ],
+      "condition": "NORMAL"
+    }
+  ],
+  "enemies": [
+    {
+      "id": "e1",
+      "name": "Grok the Crusher",
+      "role": "Monster",
+      "hp": 18,
+      "max_hp": 18,
+      "ac": 14,
+      "stats": {
+        "PHYS": 4,
+        "MENT": -2,
+        "SOC": -2
+      },
+      "zone": "NEAR",
+      "inventory": [
+        "Spiked Club",
+        "Rusty Chainmail"
+      ],
+      "condition": "NORMAL"
+    },
+    {
+      "id": "e2",
+      "name": "Snivel",
+      "role": "Monster",
+      "hp": 5,
+      "max_hp": 5,
+      "ac": 12,
+      "stats": {
+        "PHYS": 1,
+        "MENT": -1,
+        "SOC": -1
+      },
+      "zone": "MID",
+      "inventory": [
+        "Shortbow",
+        "Dagger"
+      ],
+      "condition": "NORMAL"
+    }
+  ]
 }

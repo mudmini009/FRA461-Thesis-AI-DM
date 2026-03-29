@@ -5,10 +5,12 @@ from src.ui.menu import main_menu, recap_menu, character_creation_menu, world_lo
 from src.services.data_manager import DataManager
 from src.services.llm_service import LLMService
 from src.models.character import Character, Stat, Zone, Condition
+import json
 
 BACKUP_FILE = "data/campaign_backup.json"
 ACTIVE_FILE = "data/campaign_active.json"
 LOG_FILE = "data/campaign_log.txt"
+BESTIARY_FILE = "data/bestiary.json"
 
 HARDCODED_ARCHETYPES = {
     "fighter": {"hp": 20, "max_hp": 20, "ac": 16, "stats": {Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: -1}, "inventory": ["healing potion", "sword"]},
@@ -40,8 +42,10 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     # 2. Character Creation
     char_mode, char_input = character_creation_menu()
     archetype = "fighter"
-    if char_mode == 'premade' and char_input in HARDCODED_ARCHETYPES:
-        archetype = str(char_input)
+    
+    if char_mode == 'premade' and os.path.exists(char_input):
+        char_file = char_input
+        archetype = os.path.basename(char_input).replace('.json', '')
     elif char_mode == 'custom':
         print("\n[System] Consulting LLM for Semantic Classification...")
         toon_out = llm_service.extract_character_stats(char_input)
@@ -50,34 +54,51 @@ def initialize_new_game(llm_service: LLMService) -> bool:
             parts = toon_out.split('|')
             for p in parts:
                 if p.startswith('archetype:'):
-                     identified = str(p.split(':')[1].strip().lower())
-                     if identified in HARDCODED_ARCHETYPES:
-                         archetype = identified
-    
+                     archetype = str(p.split(':')[1].strip().lower())
+        char_file = f"data/premade/characters/{archetype}.json"
+        
+    # Failsafe fallback if file doesn't exist
+    if not os.path.exists(char_file):
+        char_file = "data/premade/characters/fighter.json"
+        archetype = "fighter"
+        
+    with open(char_file, 'r', encoding='utf-8') as f:
+        base_stats = json.load(f)
+        
+    # Convert JSON string keys to Enum Stats
+    converted_stats = {}
+    for k, v in base_stats.get("stats", {}).items():
+        try:
+            converted_stats[Stat[k.upper()]] = v
+        except KeyError:
+            pass
+            
     player_name = get_character_name()
-    base_stats = HARDCODED_ARCHETYPES.get(archetype, HARDCODED_ARCHETYPES["fighter"])
     
     player = Character(
         id="player1",
         name=player_name,
         role=str(archetype).capitalize(),
-        hp=base_stats["hp"],
-        max_hp=base_stats["max_hp"],
-        ac=base_stats["ac"],
-        stats=base_stats["stats"],
+        hp=base_stats.get("hp", 20),
+        max_hp=base_stats.get("max_hp", 20),
+        ac=base_stats.get("ac", 10),
+        stats=converted_stats,
         zone=Zone.NEAR,
-        inventory=base_stats["inventory"],
+        inventory=base_stats.get("inventory", []),
         condition=Condition.NORMAL
     )
 
     # 3. World Lore
     lore_mode, lore_input = world_lore_menu()
+    world_lore = ""
     if lore_mode == 'custom':
         print("\n[System] Expanding World Lore...")
         world_lore = llm_service.expand_world_lore(lore_input)
-        # Save custom lore
         with open("data/world_lore_custom.txt", "w", encoding="utf-8") as f:
             f.write(world_lore)
+    elif lore_mode == 'file' and os.path.exists(lore_input):
+        with open(lore_input, 'r', encoding='utf-8') as f:
+            world_lore = f.read().strip()
     else:
         world_lore = DataManager.load_lore()
         
@@ -89,20 +110,37 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     prologue_text = prologue_data.get("prologue", "You enter the dungeon... prepare for battle!")
     enemy_tag = prologue_data.get("enemy_type", "goblin").lower()
     
-    if enemy_tag not in HARDCODED_BESTIARY:
-        enemy_tag = "goblin"
+    if not os.path.exists(BESTIARY_FILE):
+        print(f"❌ Error: {BESTIARY_FILE} missing! Creating minimal fallback...")
+        with open(BESTIARY_FILE, 'w') as f:
+            json.dump({"goblin": {"hp": 8, "max_hp": 8, "ac": 12, "stats": {"PHYS": 1, "MENT": -1, "SOC": 0}, "inventory": []}}, f)
+            
+    with open(BESTIARY_FILE, 'r', encoding='utf-8') as f:
+        bestiary = json.load(f)
         
-    enemy_stats = HARDCODED_BESTIARY[enemy_tag]
+    if enemy_tag not in bestiary:
+        enemy_tag = list(bestiary.keys())[0] if bestiary else "goblin"
+        
+    enemy_stats = bestiary.get(enemy_tag, {})
+    
+    # Convert enemy stats
+    converted_enemy_stats = {}
+    for k, v in enemy_stats.get("stats", {}).items():
+        try:
+            converted_enemy_stats[Stat[k.upper()]] = v
+        except KeyError:
+            pass
+            
     enemy = Character(
         id="e1",
-        name=enemy_tag.capitalize(),
+        name=str(enemy_tag).capitalize(),
         role="Enemy",
-        hp=enemy_stats["hp"],
-        max_hp=enemy_stats["max_hp"],
-        ac=enemy_stats["ac"],
-        stats=enemy_stats["stats"],
+        hp=enemy_stats.get("hp", 10),
+        max_hp=enemy_stats.get("max_hp", 10),
+        ac=enemy_stats.get("ac", 10),
+        stats=converted_enemy_stats,
         zone=Zone.NEAR,
-        inventory=enemy_stats["inventory"],
+        inventory=enemy_stats.get("inventory", []),
         condition=Condition.NORMAL
     )
     

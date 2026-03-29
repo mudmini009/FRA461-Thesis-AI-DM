@@ -1,0 +1,7 @@
+{
+    "goblin": {"hp": 8, "max_hp": 8, "ac": 12, "stats": {"PHYS": 1, "MENT": -1, "SOC": 0}, "inventory": ["dirty knife"]},
+    "bandit": {"hp": 12, "max_hp": 12, "ac": 11, "stats": {"PHYS": 2, "MENT": 0, "SOC": 1}, "inventory": ["healing potion", "iron sword"]},
+    "skeleton": {"hp": 10, "max_hp": 10, "ac": 13, "stats": {"PHYS": 1, "MENT": -2, "SOC": -2}, "inventory": ["rusty sword"]},
+    "wolf": {"hp": 11, "max_hp": 11, "ac": 13, "stats": {"PHYS": 2, "MENT": 1, "SOC": -2}, "inventory": []},
+    "cultist": {"hp": 9, "max_hp": 9, "ac": 11, "stats": {"PHYS": 0, "MENT": 2, "SOC": 1}, "inventory": ["dagger", "strange talisman"]}
+}

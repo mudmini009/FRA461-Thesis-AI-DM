@@ -1,0 +1,8 @@
+{
+    "stats": {"PHYS": -1, "MENT": 4, "SOC": 0},
+    "max_hp": 15,
+    "hp": 15,
+    "ac": 12,
+    "inventory": ["Staff", "Robes", "Mana Potion", "Spellbook"],
+    "lore": "A brilliant academic clothed in arcane robes, wielding a wooden staff and vast intellect to bend reality."
+}

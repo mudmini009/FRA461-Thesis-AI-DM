@@ -1,0 +1,8 @@
+{
+    "stats": {"PHYS": 2, "MENT": 1, "SOC": 1},
+    "max_hp": 20,
+    "hp": 20,
+    "ac": 16,
+    "inventory": ["Greatsword", "Chainmail", "Holy Symbol"],
+    "lore": "A devout holy warrior sworn to a sacred oath, wielding a massive greatsword and blessed magic."
+}
