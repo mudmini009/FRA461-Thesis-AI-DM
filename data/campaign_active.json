@@ -2,7 +2,7 @@
     "party": [
         {
             "id": "player1",
-            "name": "freken",
+            "name": "stick",
             "role": "Mage",
             "hp": 15,
             "max_hp": 15,

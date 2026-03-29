@@ -29,7 +29,7 @@ HARDCODED_BESTIARY = {
     "cultist": {"hp": 9, "max_hp": 9, "ac": 11, "stats": {Stat.PHYS: 0, Stat.MENT: 2, Stat.SOC: 1}, "inventory": ["dagger", "strange talisman"]}
 }
 
-def print_slow(text, delay=0.01):
+def print_slow(text, delay=0.005):
     for char in text:
         print(char, end='', flush=True)
         time.sleep(delay)
@@ -120,6 +120,9 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     prologue_data = llm_service.generate_prologue(toon_char, world_lore)
     
     prologue_text = prologue_data.get("prologue", "You enter the dungeon... prepare for battle!")
+    # Replace any placeholder the LLM may have left for the character name
+    for placeholder in ["[Character Name]", "[character name]", "[Name]", "[name]", "[PLAYER]"]:
+        prologue_text = prologue_text.replace(placeholder, player.name)
     enemy_tag = prologue_data.get("enemy_type", "goblin").lower()
     
     if not os.path.exists(BESTIARY_FILE):
@@ -159,6 +162,10 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     # 5. Save Initial State
     dm = DataManager(ACTIVE_FILE)
     dm.save_game(party=[player], enemies=[enemy], combat_memory=None, story_memory=None)
+    # Log the prologue so Continue can load it
+    DataManager.append_to_log("[PROLOGUE]")
+    DataManager.append_to_log(prologue_text.replace('\\n', '\n'))
+    DataManager.append_to_log("[END PROLOGUE]\n")
     
     # Narrate the prologue
     os.system('cls' if os.name == 'nt' else 'clear')

@@ -1,0 +1,8 @@
+[PROLOGUE]
+The air in the ancient library hung thick with the scent of decaying parchment and forgotten knowledge. Dust motes danced in the single shaft of moonlight piercing the gloom, illuminating the intricate carvings on the towering shelves. You, stick, a scholar whose intellect far outstripped his physical prowess, traced a sigil on a crumbling tome, the arcane energies within humming against your fingertips. The Severing had left its mark on Aethelgard, twisting the land and its inhabitants, but here, amidst these hallowed halls, the echoes of true magic still resonated, a beacon in the encroaching darkness. A sudden, guttural snarl shattered the silence, a sound utterly alien to the quietude of scholarship.
+
+Your head snapped up, your wooden staff instinctively rising. The moonlight glinted off something sharp and crude in the shadows at the far end of the hall. A hulking silhouette detached itself from the darkness, its eyes burning with a feral hunger. The Ruin-Born, twisted by the very energies that scarred the world, were not known for their appreciation of learning, nor for their subtlety. It lunged, a rusted cleaver held high, its ragged breath a foul stench that filled the air.
+
+enemy_type:ruin-born brute
+[END PROLOGUE]
+
