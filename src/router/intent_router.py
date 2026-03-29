@@ -60,7 +60,7 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Move (running, walking, tactical movement, disengaging)
         - Standard Item Use (drinking potion, equipping armor, eating food, lighting torch)
         - Flee / Escape (running away from combat)
-        - Combo (doing a Move AND an Attack/Flee in the same sentence)
+        - Combo (doing ONE Move AND ONE Action in the same sentence)
         
         PATH B (CREATIVE ACTION) - Narrative & Improv:
         The input is complex, narrative, social, or uses items in non-standard ways.
@@ -68,6 +68,7 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Social (persuading, intimidating, lying, flirting, talking)
         - Investigation (examining runes, searching for traps, listening at doors)
         - Unorthodox Item Use (e.g., "I pour the oil on the floor to make him slip")
+        - Greedy Multi-Action: If a player attempts to do an impossible amount of actions (more than 1 move and 1 action, like attacking 3 times or using 2 items), route it to CREATIVE so the Arbiter can organically reject it.
         
         OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
         For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.

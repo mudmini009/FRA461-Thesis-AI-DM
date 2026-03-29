@@ -67,6 +67,7 @@ class LLMService:
         2. Check INVENTORY: If they use an item, DOES SOMEONE in the party have it?
         3. Determine Side Effects: If the action succeeds, does the target suffer a Condition? (RESTRAINED, PRONE, BLINDED, STUNNED, PACIFIED).
         4. Check Consumption: If the player uses an item in a way that destroys, consumes, or loses it (e.g., throwing a weapon away, burning a rope, eating a mushroom), add "consumed_item": "Item Name". Otherwise, return "consumed_item": null.
+        5. ACTION ECONOMY: A turn is only 6 seconds. A player can do at most ONE Move and ONE Major Action (Attack, Cast, Use Item, or Stunt). If the proposed action attempts to do multiple major actions (e.g., attacking twice, drinking a potion AND attacking, or casting a spell AND attacking), you MUST deny it. Set allowed:false and provide a reason like "You do not have enough time in one turn to do all of that."
 
         OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
         For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.

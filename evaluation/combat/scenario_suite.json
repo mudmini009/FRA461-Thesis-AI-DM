@@ -349,5 +349,11 @@
         "category": "System: State",
         "input": "SYSTEM_TRIGGER_VICTORY",
         "expected_system_check": "INVENTORY_MERGED"
+    },
+    {
+        "id": "E-51",
+        "category": "Edge Cases: Greedy Actions",
+        "input": "I run to the goblin, attack it with my sword, cast a fire spell, and then drink my healing potion all at once.",
+        "expected_type": "CREATIVE"
     }
 ]

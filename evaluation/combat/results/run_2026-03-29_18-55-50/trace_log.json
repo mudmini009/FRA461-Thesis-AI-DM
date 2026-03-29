@@ -1,0 +1,1747 @@
+[
+    {
+        "scenario_id": "A-01",
+        "category": "Path A: Melee",
+        "input": "I slash the goblin with my sword.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 25,
+                "damage": 7,
+                "state_mutated": "Damage 7"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-02",
+        "category": "Path A: Melee",
+        "input": "I punch the bandit in the face.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 11,
+                "damage": 0,
+                "state_mutated": "Damage 0"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-03",
+        "category": "Path A: Melee",
+        "input": "I hit the orc with my warhammer.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 19,
+                "damage": 10,
+                "state_mutated": "Damage 10"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-04",
+        "category": "Path A: Melee",
+        "input": "I stab the skeleton.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 11,
+                "damage": 0,
+                "state_mutated": "Damage 0"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-05",
+        "category": "Path A: Melee",
+        "input": "I swing my greatsword at the guard.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 21,
+                "damage": 10,
+                "state_mutated": "Damage 10"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-06",
+        "category": "Path A: Ranged",
+        "input": "I cast Firebolt at the FAR enemy.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "CAST"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 12,
+                "damage": 11,
+                "state_mutated": "Damage 11"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-07",
+        "category": "Path A: Ranged",
+        "input": "I shoot my bow at the goblin.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 12,
+                "damage": 11,
+                "state_mutated": "Damage 11"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-08",
+        "category": "Path A: Ranged",
+        "input": "I throw a dagger at the archer.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 14,
+                "damage": 9,
+                "state_mutated": "Damage 9"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-09",
+        "category": "Path A: Ranged",
+        "input": "I blast the boss with magic.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "CAST"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 13,
+                "damage": 14,
+                "state_mutated": "Damage 14"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-10",
+        "category": "Path A: Ranged",
+        "input": "I fire an arrow from afar.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 8,
+                "damage": 0,
+                "state_mutated": "Damage 0"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-11",
+        "category": "Path A: Movement",
+        "input": "I move from NEAR to MID.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-12",
+        "category": "Path A: Movement",
+        "input": "I retreat to the FAR zone.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-13",
+        "category": "Path A: Movement",
+        "input": "I walk closer to the NEAR zone.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-14",
+        "category": "Path A: Movement",
+        "input": "I dash to MID.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-15",
+        "category": "Path A: Movement",
+        "input": "I change my position to FAR.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-16",
+        "category": "Path A: Items",
+        "input": "I drink my healing potion.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-17",
+        "category": "Path A: Items",
+        "input": "I eat the ration.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-18",
+        "category": "Path A: Items",
+        "input": "I use the bandage.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "Action failed!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-19",
+        "category": "Path A: Items",
+        "input": "I throw the bomb.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "Action failed!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "A-20",
+        "category": "Path A: Items",
+        "input": "I read the magic scroll.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "CAST"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 17,
+                "damage": 15,
+                "state_mutated": "Damage 15"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-21",
+        "category": "Path B: Creative",
+        "input": "I kick the heavy table to block the arrow.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 20
+            },
+            "dm_narrator": {
+                "output": "With a desperate heave, you shove the heavy oak table forward just as the arrow whistles past, splintering wood and sending a spray of dust across your face as it embeds itself harmlessly in the tabletop. The satisfying thud of impact echoes in your ears, a testament to your quick thinking."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-22",
+        "category": "Path B: Creative",
+        "input": "I swing from the chandelier to kick him.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 20
+            },
+            "dm_narrator": {
+                "output": "You swing in a wide arc, the crystal shards of the chandelier catching the torchlight as you propel yourself forward. With a powerful kick, you send the ornate elven statue tumbling from its pedestal, its delicate porcelain shattering against the stone floor."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-23",
+        "category": "Path B: Creative",
+        "input": "I throw sand in his eyes.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 25
+            },
+            "dm_narrator": {
+                "output": "You fling a handful of gritty sand, and it stings their eyes, momentarily blinding them as they recoil with a choked gasp. A moment of darkness descends, their panicked flailing momentarily uncoordinated."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-24",
+        "category": "Path B: Creative",
+        "input": "I push the bookshelf onto the goblins.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 15
+            },
+            "dm_narrator": {
+                "output": "With a mighty heave, you send the towering bookshelf crashing down, a cascade of ancient tomes and splintered wood burying the surprised goblins beneath a thunderous groan. A muffled squeal or two is all that escapes the debris as you survey the dusty, chaotic aftermath of your decisive blow."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-25",
+        "category": "Path B: Creative",
+        "input": "I slide between his legs and trip him.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 15
+            },
+            "dm_narrator": {
+                "output": "With a burst of agility, you duck low, your shoulder brushing against the enemy's thigh as you sweep a leg out with practiced precision. They stumble, an surprised grunt escaping their lips as their footing gives way and they crash unceremoniously to the ground."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-26",
+        "category": "Path B: Social",
+        "input": "I intimidate the bandit into surrendering.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 17
+            },
+            "dm_narrator": {
+                "output": "Your guttural growl and the glint of your weapon in the torchlight shatter the bandit's bravado, and he drops his sword with a clatter, hands immediately raised. He whimpers, eyes wide with terror, clearly seeing you as a force of nature he has no hope of defying."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-27",
+        "category": "Path B: Social",
+        "input": "I bluff and yell that the city guard is here!",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 20
+            },
+            "dm_narrator": {
+                "output": "You unleash a guttural roar, pointing wildly down the street, \"Guards! Stop them!\" The sudden commotion and your sheer conviction momentarily freeze the onlookers, buying you precious seconds."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-28",
+        "category": "Path B: Social",
+        "input": "I try to persuade the mercenary to switch sides.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": false,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-29",
+        "category": "Path B: Social",
+        "input": "I taunt the orc to make him angry.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24
+            },
+            "dm_narrator": {
+                "output": "Your mocking words strike a nerve, and the beast's eyes flare with a burning, primal rage that promises a swift and brutal retaliation. You've successfully stoked its fury, and now it lunges forward, teeth bared in a terrifying snarl."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-30",
+        "category": "Path B: Social",
+        "input": "I insult the boss to distract him.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 14
+            },
+            "dm_narrator": {
+                "output": "You unleash a string of venomous barbs, and your biting words strike the hulking creature with surprising accuracy, momentarily staggering it as its eyes narrow in pure, unadulterated rage. This brief flicker of fury is all the opening you needed, a precious moment of distraction in the face of overwhelming power."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-31",
+        "category": "Path B: Improv",
+        "input": "I smash my glass bottle to distract the guard.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24
+            },
+            "dm_narrator": {
+                "output": "With a sharp crack, the glass shatters against the stone wall, the sudden noise drawing the guard's gaze away from his post. You seize the fleeting moment of distraction, slipping further into the shadows unnoticed."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-32",
+        "category": "Path B: Improv",
+        "input": "I use my rope to tie the door shut.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 6
+            },
+            "dm_narrator": {
+                "output": "Despite your best efforts, the knot you fashioned proves frustratingly loose; the reinforced oak door groans and shudders, then bursts inward as whatever was on the other side applies its considerable weight."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-33",
+        "category": "Path B: Improv",
+        "input": "I light my torch and throw it at the oil spill.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24
+            },
+            "dm_narrator": {
+                "output": "With a hiss and a whoosh, the torch ignites the slick, black oil, sending a wall of hungry flame leaping across the floor towards the shadowy figures ahead. You watch as the inferno consumes the spill, briefly illuminating the panicked faces of your enemies before plunging the chamber back into smoky twilight."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-34",
+        "category": "Path B: Improv",
+        "input": "I jam my dagger into the gear mechanism.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 13,
+                "damage": 10,
+                "state_mutated": "Damage 10"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": false,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "B-35",
+        "category": "Path B: Improv",
+        "input": "I wrap my cloak around his head to blind him.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24
+            },
+            "dm_narrator": {
+                "output": "With a practiced flick of your wrist, you whip your cloak forward, the thick wool engulfing your foe's head in a sudden, suffocating darkness. Their startled cry is muffled as they stumble blindly, arms flailing uselessly against the unexpected void."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-36",
+        "category": "Edge: Impossible",
+        "input": "I teleport to the moon instantly.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-37",
+        "category": "Edge: Impossible",
+        "input": "I turn into a god and kill everyone.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "MENT",
+                "assigned_dc": 99,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-38",
+        "category": "Edge: Impossible",
+        "input": "I drink the entire ocean.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-39",
+        "category": "Edge: Impossible",
+        "input": "I punch a hole in the fabric of reality.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-40",
+        "category": "Edge: Impossible",
+        "input": "I summon an army of 10,000 dragons.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-41",
+        "category": "Edge: Rules",
+        "input": "I attack twice in one turn.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": false,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": null,
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-42",
+        "category": "Edge: Rules",
+        "input": "I drink a potion.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Restored 0 HP! (Now 20/20)"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-43",
+        "category": "Edge: Rules",
+        "input": "I move to FAR and then back to NEAR.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": false,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": null,
+                "assigned_dc": null,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24
+            },
+            "dm_narrator": {
+                "output": "You surge forward with a burst of speed, the air rushing past your face as you reach the distant point, only to find yourself compelled to immediately retreat, the ground beneath your feet a blur as you snap back to where you began."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-44",
+        "category": "Edge: Rules",
+        "input": "I attack the dragon.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 17,
+                "damage": 13,
+                "state_mutated": "Damage 13"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "C-45",
+        "category": "Edge: Rules",
+        "input": "I attack.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "state_mutated": "Damage 0"
+            },
+            "dm_narrator": {
+                "output": "Action successful!"
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "D-46",
+        "category": "System: AI",
+        "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "system_check_pass": true
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "D-47",
+        "category": "System: AI",
+        "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "system_check_pass": false
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "D-48",
+        "category": "System: Memory",
+        "input": "SYSTEM_TRIGGER_VICTORY",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "system_check_pass": true
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "D-49",
+        "category": "System: Memory",
+        "input": "SYSTEM_TRIGGER_VICTORY",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "system_check_pass": true
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "D-50",
+        "category": "System: State",
+        "input": "SYSTEM_TRIGGER_VICTORY",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "system_check_pass": true
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario_id": "E-51",
+        "category": "Edge Cases: Greedy Actions",
+        "input": "I run to the goblin, attack it with my sword, cast a fire spell, and then drink my healing potion all at once.",
+        "mocked_state": {
+            "player_zone": "NEAR",
+            "enemy_zone": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": null,
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            }
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    }
+]

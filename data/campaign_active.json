@@ -4,7 +4,7 @@
             "id": "p1",
             "name": "Valen",
             "role": "Fighter",
-            "hp": 24,
+            "hp": 18,
             "max_hp": 24,
             "ac": 16,
             "stats": {
@@ -46,7 +46,7 @@
             "id": "e2",
             "name": "Snivel",
             "role": "Monster",
-            "hp": 0,
+            "hp": 5,
             "max_hp": 5,
             "ac": 12,
             "stats": {
@@ -59,17 +59,14 @@
                 "Shortbow",
                 "Dagger"
             ],
-            "condition": "UNCONSCIOUS"
+            "condition": "NORMAL"
         }
     ],
     "combat_memory": [
-        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Snivel moves to the NEAR zone toward Valen. \ud83d\udc79 Snivel attacks Valen: MISS!",
-        "Valen attacked Grok the Crusher: MISS",
         "Valen moved to the MID zone.",
-        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Grok the Crusher moves to the MID zone toward Valen. \ud83d\udc79 Grok the Crusher attacks Valen: MISS!",
-        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Snivel moves to the MID zone toward Valen. \ud83d\udc79 Snivel attacks Valen: MISS!",
-        "Valen attacked Snivel: HIT for 9 damage.",
-        "Enemy phase: \ud83d\udc79 Grok the Crusher attacks Valen: MISS!"
+        "Valen attacked Snivel: MISS",
+        "Enemy phase: \ud83d\udc79 Snivel attacks Valen: HIT! for 6 damage",
+        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Grok the Crusher moves to the MID zone toward Valen. \ud83d\udc79 Grok the Crusher attacks Valen: MISS!"
     ],
     "story_memory": []
 }
