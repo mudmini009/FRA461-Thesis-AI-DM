@@ -1,8 +1,13 @@
 {
-    "stats": {"PHYS": 2, "MENT": 1, "SOC": 1},
-    "max_hp": 20,
+    "id": "player1",
+    "name": "Placeholder",
+    "role": "Paladin",
     "hp": 20,
+    "max_hp": 20,
     "ac": 16,
+    "stats": {"PHYS": 2, "MENT": 1, "SOC": 1},
+    "zone": "NEAR",
     "inventory": ["Greatsword", "Chainmail", "Holy Symbol"],
+    "condition": "NORMAL",
     "lore": "A devout holy warrior sworn to a sacred oath, wielding a massive greatsword and blessed magic."
 }

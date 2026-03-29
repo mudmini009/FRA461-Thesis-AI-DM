@@ -1,8 +1,13 @@
 {
-    "stats": {"PHYS": 1, "MENT": 2, "SOC": 1},
-    "max_hp": 18,
+    "id": "player1",
+    "name": "Placeholder",
+    "role": "Cleric",
     "hp": 18,
+    "max_hp": 18,
     "ac": 18,
+    "stats": {"PHYS": 1, "MENT": 2, "SOC": 1},
+    "zone": "NEAR",
     "inventory": ["Warhammer", "Plate Armor", "Shield", "Healing Potion"],
+    "condition": "NORMAL",
     "lore": "A divine healer clad in plate armor, carrying a heavy warhammer and channeling the power of the gods."
 }

@@ -1,8 +1,13 @@
 {
-    "stats": {"PHYS": -1, "MENT": 4, "SOC": 0},
-    "max_hp": 15,
+    "id": "player1",
+    "name": "Placeholder",
+    "role": "Mage",
     "hp": 15,
+    "max_hp": 15,
     "ac": 12,
+    "stats": {"PHYS": -1, "MENT": 4, "SOC": 0},
+    "zone": "NEAR",
     "inventory": ["Staff", "Robes", "Mana Potion", "Spellbook"],
+    "condition": "NORMAL",
     "lore": "A brilliant academic clothed in arcane robes, wielding a wooden staff and vast intellect to bend reality."
 }

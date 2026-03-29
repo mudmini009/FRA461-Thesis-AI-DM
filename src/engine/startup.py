@@ -11,6 +11,7 @@ BACKUP_FILE = "data/campaign_backup.json"
 ACTIVE_FILE = "data/campaign_active.json"
 LOG_FILE = "data/campaign_log.txt"
 BESTIARY_FILE = "data/bestiary.json"
+ACTIVE_LORE_FILE = "data/world_lore.txt"
 
 HARDCODED_ARCHETYPES = {
     "fighter": {"hp": 20, "max_hp": 20, "ac": 16, "stats": {Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: -1}, "inventory": ["healing potion", "sword"]},
@@ -76,16 +77,16 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     player_name = get_character_name()
     
     player = Character(
-        id="player1",
+        id=base_stats.get("id", "player1"),
         name=player_name,
-        role=str(archetype).capitalize(),
+        role=base_stats.get("role", str(archetype).capitalize()),
         hp=base_stats.get("hp", 20),
         max_hp=base_stats.get("max_hp", 20),
         ac=base_stats.get("ac", 10),
         stats=converted_stats,
-        zone=Zone.NEAR,
+        zone=Zone[base_stats.get("zone", "NEAR").upper()],
         inventory=base_stats.get("inventory", []),
-        condition=Condition.NORMAL
+        condition=Condition[base_stats.get("condition", "NORMAL").upper()]
     )
 
     # 3. World Lore
@@ -94,13 +95,23 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     if lore_mode == 'custom':
         print("\n[System] Expanding World Lore...")
         world_lore = llm_service.expand_world_lore(lore_input)
-        with open("data/world_lore_custom.txt", "w", encoding="utf-8") as f:
+        with open(ACTIVE_LORE_FILE, "w", encoding="utf-8") as f:
             f.write(world_lore)
     elif lore_mode == 'file' and os.path.exists(lore_input):
         with open(lore_input, 'r', encoding='utf-8') as f:
             world_lore = f.read().strip()
+        with open(ACTIVE_LORE_FILE, "w", encoding="utf-8") as f:
+            f.write(world_lore)
     else:
-        world_lore = DataManager.load_lore()
+        # Fallback to default if no file selected
+        try:
+             with open("data/premade/lore/classic_fantasy.txt", 'r', encoding='utf-8') as f:
+                 world_lore = f.read().strip()
+        except:
+             world_lore = "A generic dark fantasy world filled with dangerous monsters."
+             
+        with open(ACTIVE_LORE_FILE, "w", encoding="utf-8") as f:
+             f.write(world_lore)
         
     # 4. Prologue Generation
     print("\n[System] Generating Prologue (Cold Open)...")
@@ -139,7 +150,7 @@ def initialize_new_game(llm_service: LLMService) -> bool:
         max_hp=enemy_stats.get("max_hp", 10),
         ac=enemy_stats.get("ac", 10),
         stats=converted_enemy_stats,
-        zone=Zone.NEAR,
+        zone=Zone.FAR,
         inventory=enemy_stats.get("inventory", []),
         condition=Condition.NORMAL
     )
