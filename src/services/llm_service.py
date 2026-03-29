@@ -216,3 +216,98 @@ class LLMService:
             return response.text.strip()
         except Exception as e:
             return "The party emerged victorious from a brutal battle."
+
+    def generate_recap(self, log_lines: List[str]) -> str:
+        """
+        Safely slices the last 50 lines of the campaign log to prevent Context Window overflow,
+        then generates a 'Previously on...' narrative recap.
+        """
+        recent_log = "\n".join(log_lines[-50:])
+        prompt = f"""
+        You are the Narrator of an ongoing TTRPG campaign.
+        Read the following recent events from the campaign log and write a short, dramatic "Previously on..." recap (3-4 sentences max).
+        
+        RECENT LOG:
+        {recent_log}
+        """
+        try:
+            response = self.narrator_model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            return "Previously on our adventure... (Recap generation failed)."
+
+    def extract_character_stats(self, bio: str) -> str:
+        """
+        Takes a custom bio and outputs symbolic tags in TOON format.
+        The Python engine then strictly maps these tags to a balanced stat block, preventing AI stat hallucination.
+        """
+        prompt = f"""
+        You are a Semantic Classifier for a TTRPG character creator.
+        Read the following player biography and classify them into a strict Archetype and a Primary Focus stat.
+        
+        Valid Archetypes: fighter, wizard, rogue, cleric, ranger
+        Valid Focus Stats: PHYS (Physical/Strength), MENT (Mental/Magic), SOC (Social/Charisma)
+
+        BIOGRAPHY:
+        "{bio}"
+
+        OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
+        Example: archetype:wizard|focus:MENT
+        You MUST NOT output JSON or any other text.
+        """
+        try:
+             response = self.model.generate_content(prompt)
+             return response.text.strip()
+        except Exception as e:
+             return "archetype:fighter|focus:PHYS" 
+
+    def expand_world_lore(self, concept: str) -> str:
+        """Takes a short world concept and expands it into rich setting detail."""
+        prompt = f"""
+        You are an expert worldbuilder for a dark fantasy/adventure TTRPG.
+        Expand the following core concept into a 2-paragraph immersive World Lore document.
+        Set the tone, describe the environment, and mention at least one looming threat.
+        
+        CONCEPT: "{concept}"
+        """
+        try:
+            response = self.narrator_model.generate_content(prompt)
+            return response.text.strip()
+        except Exception as e:
+            return "A dark and perilous world awaits. Danger lurks in every shadow."
+
+    def generate_prologue(self, character_toon: str, world_lore: str) -> Dict[str, str]:
+        """
+        Generates a narrative "Cold Open" and outputs a symbolic enemy tag.
+        Python intercepts this tag and provisions the mechanical Enemy TOON from a hardcoded template.
+        """
+        prompt = f"""
+        You are the Dungeon Master starting a new campaign.
+        Read the Character Details and World Lore, then generate a thrilling "Cold Open" prologue (2-3 paragraphs).
+        The prologue MUST end by dropping the player immediately into a combat encounter against ONE enemy type.
+
+        CHARACTER:
+        {character_toon}
+
+        WORLD LORE:
+        {world_lore}
+
+        Valid Enemy Types (Choose the most thematic one): goblin, bandit, skeleton, wolf, cultist
+
+        OUTPUT FORMAT:
+        Return a TOON string with two keys:
+        - prologue: The narrative text
+        - enemy_type: The chosen enemy tag
+        
+        Example: prologue:You wake up in a dark cave... A goblin attacks!|enemy_type:goblin
+        """
+        try:
+             response = self.model.generate_content(prompt)
+             data = TOONConverter.decode(response.text.strip())
+             if "prologue" not in data: data["prologue"] = "You begin your journey, but danger approaches..."
+             if "enemy_type" not in data: data["enemy_type"] = "goblin"
+             # Clean up the output to prevent broken strings
+             data["enemy_type"] = data["enemy_type"].lower().strip()
+             return data
+        except Exception as e:
+             return {"prologue": "You awaken in a dark dungeon. An enemy approaches!", "enemy_type": "goblin"}

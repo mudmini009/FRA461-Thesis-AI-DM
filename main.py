@@ -7,10 +7,8 @@ import shutil
 sys.path.append(os.getcwd())
 
 from src.engine.game_loop import start_combat_loop
+from src.engine.startup import run_startup, ACTIVE_FILE
 from src.services.data_manager import DataManager
-
-BACKUP_FILE = "data/campaign_backup.json"
-ACTIVE_FILE = "data/campaign_active.json"
 
 BANNER = r"""
   ___ _____   ___  _   _ _  _  ___ ___ ___  _  _   __  __   _   ___ _____ ___ ___ 
@@ -20,19 +18,6 @@ BANNER = r"""
                 AI DUNGEON MASTER (PHASE 3: MAIN PRODUCTION)
 """
 
-NARRATIVE = [
-    "The air grows cold as you step through the crumbling stone archway.",
-    "Legends speak of an ancient artifact hidden deep within these forgotten catacombs.",
-    "Shadows dance along the walls, cast by the flickering light of your torch.",
-    "Suddenly, you hear the scraping of bone against stone and a low, guttural growl.",
-    "A massive, undead guardian blocks your path. It raises a rusted weapon. Prepare for battle!"
-]
-
-def print_slow(text, delay=0.01):
-    for char in text:
-        print(char, end='', flush=True)
-        time.sleep(delay)
-    print()
 
 def check_api_setup():
     """First-Time Boot Wizard: Ensures API key exists before crashing."""
@@ -70,28 +55,12 @@ def main():
         print(BANNER)
         print("⚠️  Type 'RESTART' at any time to reset the game.")
         print("-" * 50)
-        
-        # 1. Reset Data
-        try:
-            shutil.copy(BACKUP_FILE, ACTIVE_FILE)
-            DataManager.clear_log()
-            print("[SYSTEM] 💾 Game Data Reset Successfully. Ready for adventure.")
-        except FileNotFoundError:
-            print(f"❌ Error: Backup file {BACKUP_FILE} not found!")
-            time.sleep(5)
-            continue
+        # 1. Run Pre-Game Flow (Menu & Setup)
+        ready = run_startup()
+        if not ready:
+            print("\n👋 Exiting Game...")
+            break
             
-        print("-" * 50)
-        time.sleep(0.3)
-        
-        # 2. Play Narrative
-        for line in NARRATIVE:
-            print_slow(f"📜 {line}")
-            time.sleep(0.5)
-            
-        print("\n[PRESS ENTER TO START COMBAT]")
-        input()
-        
         # 3. Launch Game Loop
         result = start_combat_loop(data_path=ACTIVE_FILE)
         
@@ -104,7 +73,7 @@ def main():
             time.sleep(1)
             continue
         elif result == "VICTORY":
-            print("\n🎉 Congratulations! You have conquered the guardian!")
+            print("\n🎉 Congratulations! You have conquered the enemies!")
             time.sleep(5)
         elif result == "DEFEAT":
             print("\n💀 Your journey ends here. Better luck next time, hero.")
