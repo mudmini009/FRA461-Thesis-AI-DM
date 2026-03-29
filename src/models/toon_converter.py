@@ -72,7 +72,7 @@ class TOONConverter:
                 continue
                 
             key, val = pair.split(':', 1)
-            key = key.strip().strip('"').strip("'")
+            key = key.strip().strip('"').strip("'").lower()
             val = val.strip().strip('"').strip("'")
             
             # Handle Nulls

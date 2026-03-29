@@ -292,14 +292,12 @@ class LLMService:
         WORLD LORE:
         {world_lore}
 
-        Valid Enemy Types (Choose the most thematic one): goblin, bandit, skeleton, wolf, cultist
-
-        OUTPUT FORMAT:
-        Return a TOON string with two keys:
-        - prologue: The narrative text
-        - enemy_type: The chosen enemy tag
+        OUTPUT FORMAT (STRICT TOON SYNTAX):
+        You MUST return exactly ONE single line of text.
+        You MUST separate keys using the '|' character. 
+        You MUST NOT use actual line breaks (newlines). If you want to format multiple paragraphs, use the literal string '\\n' for line breaks.
         
-        Example: prologue:You wake up in a dark cave... A goblin attacks!|enemy_type:goblin
+        Example: prologue:First paragraph.\\n\\nSecond paragraph.|enemy_type:goblin
         """
         try:
              response = self.model.generate_content(prompt)

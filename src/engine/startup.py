@@ -115,7 +115,8 @@ def initialize_new_game(llm_service: LLMService) -> bool:
         
     # 4. Prologue Generation
     print("\n[System] Generating Prologue (Cold Open)...")
-    toon_char = f"name:{player.name}|class:{player.role}|hp:{player.hp}/{player.max_hp}"
+    char_lore = base_stats.get("lore", "A brave adventurer seeking glory and gold.")
+    toon_char = f"Name: {player.name}\nClass: {player.role}\nBackground: {char_lore}\nStats: {player.stats}"
     prologue_data = llm_service.generate_prologue(toon_char, world_lore)
     
     prologue_text = prologue_data.get("prologue", "You enter the dungeon... prepare for battle!")
@@ -162,7 +163,7 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     # Narrate the prologue
     os.system('cls' if os.name == 'nt' else 'clear')
     print("=" * 50)
-    print_slow(prologue_text, 0.02)
+    print_slow(prologue_text.replace('\\n', '\n'), 0.02)
     print("=" * 50)
     print("\n[PRESS ENTER TO START COMBAT]")
     input()
