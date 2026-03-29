@@ -29,11 +29,17 @@ HARDCODED_BESTIARY = {
     "cultist": {"hp": 9, "max_hp": 9, "ac": 11, "stats": {Stat.PHYS: 0, Stat.MENT: 2, Stat.SOC: 1}, "inventory": ["dagger", "strange talisman"]}
 }
 
-def print_slow(text, delay=0.005):
-    for char in text:
-        print(char, end='', flush=True)
-        time.sleep(delay)
-    print()
+def print_slow(text, delay=0.005, cinematic=True):
+    """Prints text character-by-character if cinematic is True (default).
+    Set cinematic=False (via settings.json engine.cinematic_print) for instant output.
+    """
+    if cinematic:
+        for char in text:
+            print(char, end='', flush=True)
+            time.sleep(delay)
+        print()
+    else:
+        print(text)
 
 def initialize_new_game(llm_service: LLMService) -> bool:
     # 1. Reset state
@@ -168,9 +174,17 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     DataManager.append_to_log("[END PROLOGUE]\n")
     
     # Narrate the prologue
+    # Load cinematic setting from settings.json (default ON)
+    try:
+        with open("data/settings.json", "r", encoding="utf-8") as f:
+            _s = json.load(f)
+        cinematic = _s.get("engine", {}).get("cinematic_print", True)
+    except:
+        cinematic = True
+
     os.system('cls' if os.name == 'nt' else 'clear')
     print("=" * 50)
-    print_slow(prologue_text.replace('\\n', '\n'), 0.02)
+    print_slow(prologue_text.replace('\\n', '\n'), delay=0.005, cinematic=cinematic)
     print("=" * 50)
     print("\n[PRESS ENTER TO START COMBAT]")
     input()
