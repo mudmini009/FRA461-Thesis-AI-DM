@@ -301,11 +301,19 @@ class LLMService:
         """
         try:
              response = self.model.generate_content(prompt)
-             data = TOONConverter.decode(response.text.strip())
+             raw_text = response.text.strip()
+             # Hack for Gemini Flash Lite ignoring the prologue tag
+             if not raw_text.lower().startswith("prologue:"):
+                 raw_text = "prologue:" + raw_text
+             
+             data = TOONConverter.decode(raw_text)
              if "prologue" not in data: data["prologue"] = "You begin your journey, but danger approaches..."
              if "enemy_type" not in data: data["enemy_type"] = "goblin"
              # Clean up the output to prevent broken strings
              data["enemy_type"] = data["enemy_type"].lower().strip()
              return data
         except Exception as e:
+             import traceback
+             with open("data/error_log.txt", "w") as f:
+                 f.write(traceback.format_exc())
              return {"prologue": "You awaken in a dark dungeon. An enemy approaches!", "enemy_type": "goblin"}
