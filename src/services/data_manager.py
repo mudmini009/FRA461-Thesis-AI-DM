@@ -12,7 +12,7 @@ class DataManager:
     Responsibility: Read JSON, Convert Types (Strings -> Enums), Return Objects.
     """
     
-    def __init__(self, data_path: str = "data/campaign.json"):
+    def __init__(self, data_path: str = "data/active/campaign_active.json"):
         self.data_path = data_path
 
     def load_game(self, settings: Optional[Dict[str, Any]] = None) -> Tuple[List[Character], List[Character], Deque[str], Deque[str]]:
@@ -71,7 +71,7 @@ class DataManager:
             print(f"❌ Error saving game data: {e}")
 
     @staticmethod
-    def append_to_log(text: str, log_path: str = "data/campaign_log.txt"):
+    def append_to_log(text: str, log_path: str = "data/active/campaign_log.txt"):
         """Appends a single line of narrative/action history to the continuous campaign log."""
         try:
             with open(log_path, 'a', encoding="utf-8") as f:
@@ -80,7 +80,7 @@ class DataManager:
             print(f"   ⚠️ Warning: Could not write to campaign log: {e}")
 
     @staticmethod
-    def clear_log(log_path: str = "data/campaign_log.txt"):
+    def clear_log(log_path: str = "data/active/campaign_log.txt"):
         """Erases the continuous campaign log when starting a New Game/Resetting."""
         try:
             # Overwrite the file with emptiness
@@ -90,7 +90,7 @@ class DataManager:
             pass
 
     @staticmethod
-    def load_settings(filepath: str = "data/settings.json") -> Dict[str, Any]:
+    def load_settings(filepath: str = "data/config/settings.json") -> Dict[str, Any]:
         """Loads configuration from JSON, with safe fallback defaults."""
         defaults = {
             "memory": {"max_combat_events": 10, "max_story_events": 5},
@@ -121,7 +121,7 @@ class DataManager:
             return defaults
 
     @staticmethod
-    def load_lore(filepath: str = "data/world_lore.txt") -> str:
+    def load_lore(filepath: str = "data/active/world_lore.txt") -> str:
         """Loads world building text for the LLM narrator."""
         try:
             with open(filepath, 'r') as f:

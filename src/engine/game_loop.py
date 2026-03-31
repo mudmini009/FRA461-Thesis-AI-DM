@@ -16,7 +16,7 @@ def debug_print(*args, **kwargs):
     if DEBUG_MODE:
         print(*args, **kwargs)
 
-def start_combat_loop(data_path: str = "data/campaign.json") -> str:
+def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> str:
     """
     Main Combat Loop.
     Returns: "RESTART", "VICTORY", "DEFEAT", or "EXIT".

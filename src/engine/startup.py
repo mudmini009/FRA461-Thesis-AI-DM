@@ -7,11 +7,10 @@ from src.services.llm_service import LLMService
 from src.models.character import Character, Stat, Zone, Condition
 import json
 
-BACKUP_FILE = "data/campaign_backup.json"
-ACTIVE_FILE = "data/campaign_active.json"
-LOG_FILE = "data/campaign_log.txt"
-BESTIARY_FILE = "data/bestiary.json"
-ACTIVE_LORE_FILE = "data/world_lore.txt"
+ACTIVE_FILE = "data/active/campaign_active.json"
+LOG_FILE = "data/active/campaign_log.txt"
+BESTIARY_FILE = "data/config/bestiary.json"
+ACTIVE_LORE_FILE = "data/active/world_lore.txt"
 
 HARDCODED_ARCHETYPES = {
     "fighter": {"hp": 20, "max_hp": 20, "ac": 16, "stats": {Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: -1}, "inventory": ["healing potion", "sword"]},
@@ -43,7 +42,6 @@ def print_slow(text, delay=0.005, cinematic=True):
 
 def initialize_new_game(llm_service: LLMService) -> bool:
     # 1. Reset state
-    shutil.copy(BACKUP_FILE, ACTIVE_FILE)
     DataManager.clear_log()
     
     # 2. Character Creation
@@ -176,7 +174,7 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     # Narrate the prologue
     # Load cinematic setting from settings.json (default ON)
     try:
-        with open("data/settings.json", "r", encoding="utf-8") as f:
+        with open("data/config/settings.json", "r", encoding="utf-8") as f:
             _s = json.load(f)
         cinematic = _s.get("engine", {}).get("cinematic_print", True)
     except:

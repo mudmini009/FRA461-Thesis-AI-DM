@@ -27,7 +27,7 @@
             "id": "e1",
             "name": "Goblin",
             "role": "Enemy",
-            "hp": 8,
+            "hp": 7,
             "max_hp": 8,
             "ac": 12,
             "stats": {

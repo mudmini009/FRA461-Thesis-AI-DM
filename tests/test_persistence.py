@@ -10,7 +10,7 @@ from src.services.data_manager import DataManager
 def test():
     print("1. Loading Data...")
     dm = DataManager()
-    party, enemies = dm.load_game()
+    party, enemies, _, _ = dm.load_game()
     
     target = enemies[0] # Grok
     initial_hp = target.hp
@@ -24,7 +24,7 @@ def test():
     dm.save_game(party, enemies)
     
     print("4. verifying File Content...")
-    with open("data/campaign.json", 'r') as f:
+    with open("data/active/campaign_active.json", 'r') as f:
         data = json.load(f)
         saved_hp = data['enemies'][0]['hp']
         print(f"   Saved HP in File: {saved_hp}")
