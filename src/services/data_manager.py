@@ -91,34 +91,49 @@ class DataManager:
 
     @staticmethod
     def load_settings(filepath: str = "data/config/settings.json") -> Dict[str, Any]:
-        """Loads configuration from JSON, with safe fallback defaults."""
+        """Loads configuration from JSON. If missing, clones from backup or uses defaults."""
+        backup_path = "data/config/settings_backup.json"
         defaults = {
             "memory": {"max_combat_events": 10, "max_story_events": 5},
             "engine": {"debug_mode": False, "default_dc": 10, "fuzzy_match_cutoff": 0.4},
             "llm": {"arbiter_model": "gemini-2.5-flash-lite", "narrator_model": "gemini-2.5-flash-lite", "arbiter_temperature": 0.3, "narrator_temperature": 0.7}
         }
         
+        # 1. Self-Healing: If settings.json is missing, try to clone from backup
+        if not os.path.exists(filepath):
+            if os.path.exists(backup_path):
+                print(f"🔧 Settings missing. Cloning from {backup_path}...")
+                try:
+                    import shutil
+                    shutil.copy2(backup_path, filepath)
+                except Exception as e:
+                    print(f"⚠️ Warning: Could not clone settings backup: {e}")
+            else:
+                # Absolute fallback: Create from hardcoded defaults
+                print(f"🔨 No settings and no backup found. Regenerating defaults...")
+                try:
+                    with open(filepath, 'w') as f:
+                        json.dump(defaults, f, indent=4)
+                except Exception as e:
+                    print(f"⚠️ Warning: Could not create default settings: {e}")
+
+        # 2. Load the file
         settings = {}
         try:
-            if os.path.exists(filepath):
-                with open(filepath, 'r') as f:
-                    user_settings = json.load(f)
-                
-                # Merge defaults with user settings
-                for category, options in defaults.items():
-                    settings[category] = options.copy()
-                    if category in user_settings and isinstance(user_settings[category], dict):
-                        settings[category].update(user_settings[category])
-            else:
-                settings = defaults.copy()
-                with open(filepath, 'w') as f:
-                    json.dump(settings, f, indent=4)
-                    
-            return settings
+            with open(filepath, 'r') as f:
+                user_settings = json.load(f)
             
+            # Merge defaults with user settings to ensure missing keys stay valid
+            for category, options in defaults.items():
+                settings[category] = options.copy()
+                if category in user_settings and isinstance(user_settings[category], dict):
+                    settings[category].update(user_settings[category])
+                    
         except Exception as e:
-            print(f"   ⚠️ Error loading settings: {e}. Using defaults.")
-            return defaults
+            print(f"⚠️ Error reading {filepath}: {e}. Using defaults.")
+            settings = defaults
+            
+        return settings
 
     @staticmethod
     def load_lore(filepath: str = "data/active/world_lore.txt") -> str:

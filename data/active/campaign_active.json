@@ -32,7 +32,7 @@
             "id": "e1",
             "name": "Goblin",
             "role": "Enemy",
-            "hp": 8,
+            "hp": 5,
             "max_hp": 8,
             "ac": 12,
             "stats": {
@@ -42,14 +42,12 @@
             },
             "zone": "MID",
             "inventory": [],
-            "condition": "PACIFIED",
+            "condition": "NORMAL",
             "lore": "",
             "title": "",
             "stat_justification": ""
         }
     ],
     "combat_memory": [],
-    "story_memory": [
-        "The goblin, momentarily pacified by a sharp insult about its mother, was swiftly dealt with."
-    ]
+    "story_memory": []
 }

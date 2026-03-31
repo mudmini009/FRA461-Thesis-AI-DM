@@ -1,8 +1,11 @@
 import os
-import shutil
-import time
 import glob
+import time
 from src.ui.menu import main_menu, recap_menu
+from src.ui.character_sheet import (
+    clear_screen, print_slow,
+    render_character_sheet, render_world_lore_preview,
+)
 from src.services.data_manager import DataManager
 from src.services.llm_service import LLMService
 from src.models.character import Character, Stat, Zone, Condition
@@ -37,24 +40,10 @@ HARDCODED_BESTIARY = {
 }
 
 
-# ─────────────────────────────────────────────────────────────
-#  UTILITY HELPERS
-# ─────────────────────────────────────────────────────────────
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
 
-def print_slow(text, delay=0.005, cinematic=True):
-    """Prints text character-by-character if cinematic is True (default).
-    Set cinematic=False (via settings.json engine.cinematic_print) for instant output.
-    """
-    if cinematic:
-        for char in text:
-            print(char, end='', flush=True)
-            time.sleep(delay)
-        print()
-    else:
-        print(text)
-
+# ─────────────────────────────────────────────────────────────
+#  INTERNAL LOGIC HELPERS  (not rendering — stay in startup.py)
+# ─────────────────────────────────────────────────────────────
 def _load_cinematic_setting() -> bool:
     try:
         with open("data/config/settings.json", "r", encoding="utf-8") as f:
@@ -62,21 +51,12 @@ def _load_cinematic_setting() -> bool:
     except:
         return True
 
-def _stat_label(stat: Stat, value: int) -> str:
-    sign = "+" if value >= 0 else ""
-    return f"{stat.name} {sign}{value}"
-
-def _render_stat_block(archetype_data: dict) -> str:
-    parts = [_stat_label(s, v) for s, v in archetype_data["stats"].items()]
-    return "  |  ".join(parts)
-
 def _load_archetype_math(archetype: str) -> dict:
     """Always returns safe, hardcoded math. First tries premade JSON, falls back to HARDCODED_ARCHETYPES."""
     json_path = f"{PREMADE_CHAR_DIR}/{archetype}.json"
     if os.path.exists(json_path):
         with open(json_path, "r", encoding="utf-8") as f:
             raw = json.load(f)
-        # Convert string stat keys -> Stat Enums
         converted = {}
         for k, v in raw.get("stats", {}).items():
             try:
@@ -85,90 +65,10 @@ def _load_archetype_math(archetype: str) -> dict:
                 pass
         raw["stats"] = converted
         return raw
-    # Fallback
     return HARDCODED_ARCHETYPES.get(archetype, HARDCODED_ARCHETYPES["fighter"])
 
 
-# ─────────────────────────────────────────────────────────────
-#  CHARACTER SHEET RENDERER
-# ─────────────────────────────────────────────────────────────
-def _render_character_sheet(
-    name: str,
-    archetype: str,
-    math: dict,
-    title: str = "",
-    lore: str = "",
-    stat_justification: str = "",
-    flavor_trinkets: list = []
-):
-    clear_screen()
-    display_class = f"{archetype.capitalize()}"
-    if title:
-        display_class += f"  ·  \"{title}\""
 
-    print("=" * 58)
-    print(f"   CHARACTER SHEET — {name.upper()}")
-    print("=" * 58)
-    print(f"   Class    : {display_class}")
-    print(f"   HP       : {math['hp']} / {math['max_hp']}")
-    print(f"   AC       : {math['ac']}")
-    print(f"   Stats    : {_render_stat_block(math)}")
-    print("-" * 58)
-
-    # Stat Justification (Destiny Mapping)
-    if stat_justification:
-        print("   ✦ Destiny:")
-        # word-wrap to 52 chars
-        words = stat_justification.split()
-        line, lines = "", []
-        for w in words:
-            if len(line) + len(w) + 1 <= 52:
-                line = (line + " " + w).strip()
-            else:
-                lines.append(line)
-                line = w
-        if line:
-            lines.append(line)
-        for l in lines:
-            print(f"     {l}")
-        print()
-
-    print("   [ INVENTORY ]")
-    print(f"   Gear     : {', '.join(math.get('inventory', []))}")
-    if flavor_trinkets:
-        print(f"   Trinkets : {', '.join(flavor_trinkets)}")
-    print()
-
-    # Lore
-    if lore:
-        print("   [ BACKSTORY ]")
-        words = lore.split()
-        line, lines = "", []
-        for w in words:
-            if len(line) + len(w) + 1 <= 52:
-                line = (line + " " + w).strip()
-            else:
-                lines.append(line)
-                line = w
-        if line:
-            lines.append(line)
-        for l in lines:
-            print(f"   {l}")
-    print("=" * 58)
-
-
-# ─────────────────────────────────────────────────────────────
-#  WORLD LORE RENDERER
-# ─────────────────────────────────────────────────────────────
-def _render_world_lore_preview(lore_text: str):
-    clear_screen()
-    print("=" * 58)
-    print("   WORLD LORE PREVIEW")
-    print("=" * 58)
-    print()
-    print(lore_text)
-    print()
-    print("=" * 58)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -201,7 +101,7 @@ def _select_premade_character() -> tuple:
             base_stats = json.load(f)
 
         math = _load_archetype_math(archetype)
-        _render_character_sheet(
+        render_character_sheet(
             name="Your Hero",
             archetype=archetype,
             math=math,
@@ -253,7 +153,7 @@ def _generate_custom_character(llm_service: LLMService) -> tuple:
         raw_trinkets = profile.get("flavor_trinkets", "")
         trinkets = [t.strip() for t in raw_trinkets.split(",") if t.strip()] if raw_trinkets else []
 
-        _render_character_sheet(
+        render_character_sheet(
             name=profile.get("name", "Hero"),
             archetype=archetype,
             math=math,
@@ -341,7 +241,7 @@ def _select_premade_lore() -> str:
         with open(selected, "r", encoding="utf-8") as f:
             lore_text = f.read().strip()
 
-        _render_world_lore_preview(lore_text)
+        render_world_lore_preview(lore_text)
         print("   [1] Use this world")
         print("   [2] Back to world list")
         confirm = input("\n   Choice: ").strip()
@@ -367,7 +267,7 @@ def _generate_custom_lore(llm_service: LLMService) -> str:
         print("\n   ✦ The Worldbuilder is at work...")
         lore_text = llm_service.expand_world_lore(concept, edit_instructions)
 
-        _render_world_lore_preview(lore_text)
+        render_world_lore_preview(lore_text)
         print("   [1] Accept this world")
         print("   [2] Reroll (same concept)")
         print("   [3] Refine (add instructions)")

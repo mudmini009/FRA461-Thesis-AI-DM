@@ -108,45 +108,65 @@ AI_Dungeon_Master/
 │   ├── phase2_demo/         # Old FIBO lab scripts and demo JSONs
 │   ├── references/          # Academic research papers and references
 │   └── old_docs/            # Past presentations and progress reports
-├── demo_day.py              # [LAUNCHER] Interactive combat prototype entry point
-├── main.py                  # Simulation entry point
+├── main.py                  # [ENTRY] Full game entry point
 ├── LITE_5E_RULES.md         # [RULES] The formal "Lite 5e" rulebook for the AI and Player
 ├── ARCHITECTURE.md          # [DOCS] High-level system design overview
 ├── requirements.txt         # [DEPS] Project dependencies
 ├── src/
-│   ├── engine/              # [ORCHESTRATOR] The Main Simulation Loop
+│   ├── agents/              # [AGENTS] Specialized LLM agents (post-refactor)
+│   │   ├── base.py          # BaseLLMProvider – shared API setup & model init
+│   │   ├── arbiter_agent.py # ArbiterAgent – action validation & item categorization
+│   │   ├── narrator_agent.py# NarratorAgent – combat narration & outcome description
+│   │   ├── campaign_agent.py# CampaignAgent – recap & cold-open prologue generation
+│   │   └── character_agent.py# CharacterAgent – Zero-Hallucination character & world lore 
+│   ├── engine/              # [ORCHESTRATOR] Pre-game flow & main combat loop
+│   │   ├── startup.py       # Pre-game flow: character creation, lore, prologue
 │   │   └── game_loop.py     # Handles turn queue and execution flow
-│   ├── ui/                  # [DASHBOARD] CLI Presentation
-│   │   └── dashboard.py     # Renders HP, ASCII targets, and zones
+│   ├── ui/                  # [CLI] Presentation layer
+│   │   ├── character_sheet.py # Character Sheet & World Lore TUI renderers
+│   │   ├── dashboard.py     # Renders HP, ASCII targets, and zones
+│   │   └── menu.py          # Main menu, recap menu
 │   ├── router/              # [THE BRAIN] Intent Classification & Action Logic
-│   │   ├── intent_router.py # Pure LLM interface (JSON output only)
-│   │   └── intents.py       # Action execution handlers (MOVE/ATTACK)
+│   │   ├── intent_router.py # Two-path router (FIXED vs CREATIVE)
+│   │   └── intents.py       # Action execution handlers (MOVE/ATTACK/USE)
 │   ├── logic/               # [CALCULATOR] Pure Python Mechanics
+│   │   ├── rules_engine.py  # Dice, DC checks, damage math
+│   │   ├── combat_manager.py# Initiative queue
+│   │   ├── enemy_ai.py      # Enemy turn logic
+│   │   ├── dice_roller.py   # Dice rolling utilities
+│   │   └── abilities.py     # Ability definitions
 │   ├── models/              # [STATE] Single Source of Truth
-│   │   ├── character.py     # Data classes for HP, Stats, Zones, and Conditions
+│   │   ├── character.py     # Character dataclass (stats, lore, conditions)
 │   │   ├── game_state.py    # Global state container
-│   │   └── toon_converter.py# Object-to-String serializer for minimal token usage
+│   │   └── toon_converter.py# TOON serializer for minimal token usage
 │   └── services/            # [IO] External APIs & Persistence
-│       ├── llm_service.py   # Gemini API integration for Arbitration and Narration
+│       ├── llm_service.py   # Backward-compatible façade over src/agents/
 │       ├── data_manager.py  # JSON save/load system
 │       └── rag_service.py   # RAG/Context preparation
-├── data/                    # [DATA] Game state persistence
-│   ├── campaign_backup.json # Clean state for resets
-│   ├── campaign_active.json # Current live session data
-│   ├── campaign_log.txt     # [STORY] Continuous transcript of all player/DM actions
-│   ├── settings_backup.json # Reference file of the original safe default settings
-│   ├── settings.json        # [CONFIG] Editable JSON for backend parameters
-│   └── world_lore.txt       # [LORE] Static RAG context for the Narrator
-├── evaluation/              # [QA] Automated functional testing and verification suite
-│   └── combat/              # Two-Path Architecture combat testing
-│       ├── evaluation_runner.py  # Validation script with unittest.mock patching
-│       ├── scenario_suite.json   # 50 JSON scenarios covering routing, grounding, and syncing
-│       └── results/              # Auto-generated timestamped trace logs (.json) and metrics (.csv)
-└── tests/                   # [QA] Unit tests for Rules Engine
-    ├── test_rules.py        # Pytest verifying Rule Adherence
-    ├── test_mock.py         # Sandbox patch testing
-    └── test_wraps.py        # Sandbox wraps testing
+├── data/
+│   ├── active/              # Live session data (written during gameplay)
+│   │   ├── campaign_active.json  # Current save state
+│   │   ├── campaign_log.txt      # Continuous transcript
+│   │   └── world_lore.txt        # Active world context for the Narrator
+│   ├── config/              # Engine configuration (edited by user)
+│   │   ├── settings.json         # Editable engine parameters
+│   │   ├── settings_backup.json  # Safe default settings fallback
+│   │   └── bestiary.json         # Enemy stat templates
+│   └── premade/             # Hand-crafted selection templates
+│       ├── characters/      # Premade class JSON files (fighter, mage, rogue…)
+│       └── lore/            # Premade world lore .txt files
+├── archive/progress_2/      # Deprecated files from pre-Phase-3 (kept for history)
+├── evaluation/              # [QA] Evaluation & regression suite
+│   └── combat/
+│       ├── evaluation_runner.py  # 50-scenario regression runner
+│       ├── scenario_suite.json   # Structured test scenarios
+│       └── results/              # Auto-generated trace logs and metrics CSV
+└── tests/                   # [QA] Unit tests
+    ├── test_rules.py        # RulesEngine pytest coverage
+    ├── test_persistence.py  # DataManager save/load parity
+    └── test_*.py            # Other scenario and module tests
 ```
+
 
 ---
 
