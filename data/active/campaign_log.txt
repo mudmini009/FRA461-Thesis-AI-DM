@@ -1,8 +1,16 @@
 [PROLOGUE]
-The air in the ancient library hung thick with the scent of decaying parchment and forgotten knowledge. Dust motes danced in the single shaft of moonlight piercing the gloom, illuminating the intricate carvings on the towering shelves. You, stick, a scholar whose intellect far outstripped his physical prowess, traced a sigil on a crumbling tome, the arcane energies within humming against your fingertips. The Severing had left its mark on Aethelgard, twisting the land and its inhabitants, but here, amidst these hallowed halls, the echoes of true magic still resonated, a beacon in the encroaching darkness. A sudden, guttural snarl shattered the silence, a sound utterly alien to the quietude of scholarship.
+The perpetual twilight of the City of Shattered Glass offered little solace, its oppressive gloom a constant reminder of the rot festering beneath the gleaming spires. You, Malakor, the Hidden Archmage, felt the tremor of imbalance not in the grand machinations of the Blood Barons, but in the foul miasma rising from the Sludge. A whisper of corrupted magic, a discordant note in the symphony of shadows you commanded, drew you from your solitary studies. The air, thick with the stench of decay and desperation, clung to your robes as you descended, the cobblestones slick with an unseen, viscous fluid.
 
-Your head snapped up, your wooden staff instinctively rising. The moonlight glinted off something sharp and crude in the shadows at the far end of the hall. A hulking silhouette detached itself from the darkness, its eyes burning with a feral hunger. The Ruin-Born, twisted by the very energies that scarred the world, were not known for their appreciation of learning, nor for their subtlety. It lunged, a rusted cleaver held high, its ragged breath a foul stench that filled the air.
+Your arcane senses, honed by years of communion with the abyss, prickled with an immediate threat. A guttural snarl echoed from the narrow alley ahead, a sound that spoke of hunger and mutation. The very shadows seemed to writhe, coalescing into a grotesque form that lunged from the darkness, its eyes burning with a feral, unholy light.
 
-enemy_type:ruin-born brute
+enemy_type: Sewer Mutant
 [END PROLOGUE]
+
+   [SYSTEM] 🏃 👹 Goblin moves to the MID zone toward nigga the shitdog.
+[DM] (Goblin's Turn) A hunched, guttural goblin scuttles forward, its beady eyes fixed on you with malice. It lurches into the middle ground, a foul stench preceding its every step as it prepares to close the distance.
+
+[nigga the shitdog] i fuck her mom
+   [SYSTEM] nigga the shitdog attempted: Player attempts to insult an enemy's mother.. Result: PASSED (DC 10) | Goblin is now PACIFIED!
+
+[STORY SUMMARY] The goblin, momentarily pacified by a sharp insult about its mother, was swiftly dealt with.
 

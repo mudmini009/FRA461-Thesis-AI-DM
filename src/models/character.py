@@ -35,6 +35,10 @@ class Character:
     zone: Zone = Zone.NEAR
     inventory: List[str] = field(default_factory=list)
     condition: Condition = Condition.NORMAL
+    # --- Narrative fields (LLM-generated, zero mechanical effect) ---
+    lore: str = ""
+    title: str = ""
+    stat_justification: str = ""
     has_acted: bool = False
     has_moved: bool = False
 
@@ -67,7 +71,10 @@ class Character:
             "stats": {k.name: v for k, v in self.stats.items()}, # Enum key -> String
             "zone": self.zone.name, # Enum -> String
             "inventory": self.inventory,
-            "condition": self.condition.name # Enum -> String
+            "condition": self.condition.name, # Enum -> String
+            "lore": self.lore,
+            "title": self.title,
+            "stat_justification": self.stat_justification
         }
 
     def get_health_status(self) -> str:

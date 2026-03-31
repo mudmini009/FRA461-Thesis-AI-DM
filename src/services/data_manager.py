@@ -170,7 +170,10 @@ class DataManager:
             stats=converted_stats,
             zone=zone_enum,
             inventory=data.get("inventory", []),
-            condition=Condition.NORMAL # Default to normal on load
+            condition=Condition.NORMAL, # Default to normal on load
+            lore=data.get("lore", ""),
+            title=data.get("title", ""),
+            stat_justification=data.get("stat_justification", "")
         )
 
 if __name__ == "__main__":

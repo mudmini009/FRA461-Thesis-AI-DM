@@ -185,7 +185,16 @@ def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> st
                     
                     # Context for Narrator (Health Status and short-term memory)
                     toon_context = TOONConverter.convert(party, enemies)
-                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, combat_memory=combat_memory, story_memory=story_memory, world_lore=world_lore)
+                    # Build persistent player lore context so the Narrator remembers who the player IS
+                    player_context = ""
+                    if party:
+                        p = party[0]
+                        if p.title:
+                            player_context += f"\nPLAYER TITLE: {p.title}"
+                        if p.lore:
+                            player_context += f"\nPLAYER BACKSTORY: {p.lore}"
+                    combined_lore = (world_lore + player_context).strip()
+                    narration = llm_service.narrate_combat_round(full_event_log, toon_context, combat_memory=combat_memory, story_memory=story_memory, world_lore=combined_lore)
                     
                     print(f"   🗣️  DM: \"{narration}\"")
                     

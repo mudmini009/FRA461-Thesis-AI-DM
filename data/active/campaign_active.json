@@ -2,7 +2,7 @@
     "party": [
         {
             "id": "player1",
-            "name": "stick",
+            "name": "nigga the shitdog",
             "role": "Mage",
             "hp": 15,
             "max_hp": 15,
@@ -17,9 +17,14 @@
                 "Staff",
                 "Robes",
                 "Mana Potion",
-                "Spellbook"
+                "Spellbook",
+                "A shard of obsidian that hums with latent energy; A tattered grimoire bound in shadow-silk",
+                "dirty knife"
             ],
-            "condition": "NORMAL"
+            "condition": "NORMAL",
+            "lore": "Whispers speak of Malakor; a colossal figure who dwells in forgotten places, weaving arcane energies from the very fabric of shadow. His immense power is a closely guarded secret, honed in solitude and fueled by an insatiable thirst for forbidden knowledge. He emerges only when the balance of darkness is threatened, a silent guardian of the abyss.",
+            "title": "The Hidden Archmage",
+            "stat_justification": "Your mastery of arcane arts and hidden knowledge marks you as a Mage."
         }
     ],
     "enemies": [
@@ -27,7 +32,7 @@
             "id": "e1",
             "name": "Goblin",
             "role": "Enemy",
-            "hp": 7,
+            "hp": 8,
             "max_hp": 8,
             "ac": 12,
             "stats": {
@@ -35,13 +40,16 @@
                 "MENT": -1,
                 "SOC": 0
             },
-            "zone": "FAR",
-            "inventory": [
-                "dirty knife"
-            ],
-            "condition": "NORMAL"
+            "zone": "MID",
+            "inventory": [],
+            "condition": "PACIFIED",
+            "lore": "",
+            "title": "",
+            "stat_justification": ""
         }
     ],
     "combat_memory": [],
-    "story_memory": []
+    "story_memory": [
+        "The goblin, momentarily pacified by a sharp insult about its mother, was swiftly dealt with."
+    ]
 }
