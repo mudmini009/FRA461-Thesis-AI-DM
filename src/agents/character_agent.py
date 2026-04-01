@@ -38,16 +38,17 @@ BIOGRAPHY:
 
 RULES:
 1. Choose the single BEST archetype_tag from the valid list above.
-2. If a name is not in the bio, invent a fitting one.
-3. lore must be 2-3 immersive sentences expanding the bio into a full backstory.
-4. stat_justification must be ONE sentence explaining WHY this archetype matches the bio (e.g. 'Your raw battlefield experience marks you as a Fighter...'). DO NOT mention numbers.
-5. dynamic_title is a short evocative nickname (e.g. 'The Iron-Armed Vanguard', 'The Blind Monk'). Max 5 words.
-6. flavor_trinkets are 1-2 unique narrative items fitting the bio (e.g. 'Scratched mercenary insignia', 'A folded letter never sent'). These are PURELY COSMETIC — no game effect.
+2. Generate a suggested 'name' field — this is ONLY shown as a suggestion on the naming screen. The player will confirm or override it.
+3. CRITICAL — lore MUST be written WITHOUT using any specific name. Use descriptors like "this wanderer", "the warrior", "they", or their title instead. The lore will be shown BEFORE the player locks in a name, so baking a name into it will cause a mismatch.
+4. lore must be 2-3 immersive sentences expanding the bio into a rich backstory. No character names in this field.
+5. stat_justification must be ONE sentence explaining WHY this archetype matches the bio. DO NOT mention numbers.
+6. dynamic_title is a short evocative nickname (e.g. 'The Iron-Armed Vanguard', 'The Blind Monk'). Max 5 words.
+7. flavor_trinkets are 1-2 unique narrative items fitting the bio (e.g. 'Scratched mercenary insignia', 'A folded letter never sent'). These are PURELY COSMETIC — no game effect.
 
 OUTPUT FORMAT (TOON SYNTAX - 1 STRICT LINE, pipe-separated):
-archetype_tag:fighter|name:Jax|dynamic_title:The Iron-Armed Vanguard|lore:A cynical mercenary...|stat_justification:Your battlefield scars mark you as a Fighter.|flavor_trinkets:Scratched insignia,Lucky hexagonal coin
+archetype_tag:fighter|name:Jax|dynamic_title:The Iron-Armed Vanguard|lore:A cynical mercenary cast adrift after the shadow wars; they fight not for glory but for coin and quiet.|stat_justification:Your battlefield scars mark you as a Fighter.|flavor_trinkets:Scratched insignia,Lucky hexagonal coin
 
-CRITICAL: Use a 1 line. No JSON. No line breaks. Replace any commas inside field values with semicolons. Separate trinkets with a comma.
+CRITICAL: Output exactly 1 line. No JSON. No line breaks. Replace any commas inside field values with semicolons. Separate trinkets with a comma.
 """
         try:
             response = self.model.generate_content(prompt)

@@ -1,0 +1,21 @@
+[PROLOGUE]
+The air in the forgotten grotto, a sanctuary untouched by the metallic decay of KMUTT, hummed with an ancient power. Starryminary, the Ancient Weaver, traced sigils in the dust with a finger that glowed with faint, cerulean light. Centuries had passed like fleeting dreams, her ageless beauty a silent testament to the profound, forgotten magic that flowed through her veins. The whispers of epochs past, a symphony of lost knowledge, granted her an understanding of the arcane that few living souls could even comprehend. Yet, a discordant note had begun to intrude upon her solitude, a tremor of corrupted energy that spoke of the encroaching Digital Blight. It was a foulness that even the deep earth could not fully contain, a metallic stench seeping into the very fabric of reality. A sudden, jarring clatter echoed from the grotto's entrance, shattering the tranquility. A hulking, rusted automaton, its optical sensors burning with malevolent crimson light, lurched into view, its metallic limbs grinding with unnatural speed.
+[END PROLOGUE]
+
+   [SYSTEM] 🏃 👹 Goblin moves to the MID zone toward starryminary.
+[DM] (Goblin's Turn) The goblin, its guttural snarl echoing in the oppressive air, scrambles across the grimy floor. It lunges from the MID zone, closing the distance with surprising speed, its beady eyes fixed on you.
+
+[starryminary] i attack goblin
+   [SYSTEM] starryminary attacked Goblin: FAILED (Target is out of melee range!)
+   [SYSTEM] 🏃 👹 Goblin moves to the NEAR zone toward starryminary.
+   [SYSTEM] 👹 Goblin attacks starryminary: HIT! for 2 damage
+[DM] (Goblin's Turn) The Goblin lunges, its rusty blade glinting in the dim light as it closes the distance. A sharp pain lances through you as the crude weapon bites into your flesh, drawing a gasp from your lips.
+
+   [SYSTEM] 👹 Goblin attacks starryminary: MISS!
+[DM] (Goblin's Turn) The wiry goblin lunges, its rusted blade a blur of motion, but you deftly sidestep the clumsy swipe. The foul creature stumbles, its momentum carrying it past you.
+
+[starryminary] i attack
+   [SYSTEM] starryminary attacked Goblin: MISS
+   [SYSTEM] 👹 Goblin attacks starryminary: HIT! for 7 damage
+[DM] (Goblin's Turn) The goblin's rusty blade scrapes against your robes, a jarring clang echoing in the oppressive silence. You feel a sharp, burning pain as it finds its mark, a chilling testament to the creature's ferocity.
+

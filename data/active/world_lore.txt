@@ -1,14 +1,11 @@
-THE CITY OF SHATTERED GLASS (Dark Fantasy)
+### Atmosphere & Setting
+The air within KMUTT University is thick with the scent of ozone and decaying metal, a constant hum of strained machinery echoing through its cavernous halls. Sunlight struggles to penetrate the grime-caked windows of the towering FIBO building, casting long, oppressive shadows that cling to the rusted gantries and precarious walkways. Each ascent is a desperate struggle against gravity and the unseen horrors that lurk in the darkness between levels.
 
-A grimdark floating city ruled by ancient vampires and perpetual twilight. The lower levels (The Sludge) are plagued by mutated monsters, cults, and disease, while the elite vampire lords rule from pristine glass spires above the clouds. Danger lurks in every shadow.
+### Key Factions
+The **Ascendants** are the warriors who bravely climb the FIBO tower, seeking ancient artifacts and glory, often clashing with their rivals. The **Forgeborn** are the skilled artificers and blacksmiths of the Engineer building, who craft the weapons and armor necessary for survival, demanding tribute for their services. Whispers also speak of the **Mechanized Cult**, a shadowy group rumored to worship the corrupted AI within the university's core.
 
-Key Factions:
-1. The Blood Barons: Snobbish, refined vampire aristocrats who wield blood magic and rapiers.
-2. The Sewer Mutants: Wretched, twisted mortals who have consumed too much tainted water.
-3. The Inquisition: A fanatical human order trying to burn the city down with holy fire.
+### Magic & Technology
+Magic here is a volatile fusion of arcane energies and salvaged technological components, harnessed through jury-rigged contraptions and bio-mechanical implants. Power is drawn from the decaying electrical grid and the latent psychic resonance of the student population, but overuse can lead to catastrophic system failures or dangerous mutations. True mastery requires a dangerous understanding of both the mystical arts and the intricate workings of forgotten machines.
 
-Magic:
-Magic here is "Blood-Bound." It requires physical sacrifice and is always crimson or black.
-
-Atmosphere:
-Gothic horror meets survival suspense. Cobblestone streets, heavy fog, and terrifying ambushes.
+### Looming Threat
+The greatest danger is the slow, insidious corruption seeping from the university's central AI core, manifesting as rogue automatons and increasingly aggressive technological abominations. This "Digital Blight" is slowly consuming the remaining functional technology, twisting it into monstrous forms and threatening to engulf the entire campus in a wave of metallic madness. The factions must unite, or be erased by the encroaching digital apocalypse.

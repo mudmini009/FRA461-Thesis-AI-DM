@@ -2,9 +2,9 @@
     "party": [
         {
             "id": "player1",
-            "name": "nigga the shitdog",
+            "name": "starryminary",
             "role": "Mage",
-            "hp": 15,
+            "hp": 6,
             "max_hp": 15,
             "ac": 12,
             "stats": {
@@ -18,13 +18,12 @@
                 "Robes",
                 "Mana Potion",
                 "Spellbook",
-                "A shard of obsidian that hums with latent energy; A tattered grimoire bound in shadow-silk",
-                "dirty knife"
+                "A petrified raven's feather; A shard of obsidian that hums with residual energy"
             ],
             "condition": "NORMAL",
-            "lore": "Whispers speak of Malakor; a colossal figure who dwells in forgotten places, weaving arcane energies from the very fabric of shadow. His immense power is a closely guarded secret, honed in solitude and fueled by an insatiable thirst for forbidden knowledge. He emerges only when the balance of darkness is threatened, a silent guardian of the abyss.",
-            "title": "The Hidden Archmage",
-            "stat_justification": "Your mastery of arcane arts and hidden knowledge marks you as a Mage."
+            "lore": "For centuries; this ancient one has resided in a hidden grotto; her ageless beauty a veil for the profound and forgotten magic that flows through her. The whispers of epochs past grant them an understanding of the arcane that few can comprehend.",
+            "title": "The Ancient Weaver",
+            "stat_justification": "The deep connection to ancient magic and hidden truths points to a Mage archetype."
         }
     ],
     "enemies": [
@@ -32,7 +31,7 @@
             "id": "e1",
             "name": "Goblin",
             "role": "Enemy",
-            "hp": 5,
+            "hp": 8,
             "max_hp": 8,
             "ac": 12,
             "stats": {
@@ -40,14 +39,23 @@
                 "MENT": -1,
                 "SOC": 0
             },
-            "zone": "MID",
-            "inventory": [],
+            "zone": "NEAR",
+            "inventory": [
+                "dirty knife"
+            ],
             "condition": "NORMAL",
             "lore": "",
             "title": "",
             "stat_justification": ""
         }
     ],
-    "combat_memory": [],
+    "combat_memory": [
+        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Goblin moves to the MID zone toward starryminary.",
+        "starryminary attacked Goblin: FAILED (Target is out of melee range!)",
+        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Goblin moves to the NEAR zone toward starryminary. \ud83d\udc79 Goblin attacks starryminary: HIT! for 2 damage",
+        "Enemy phase: \ud83d\udc79 Goblin attacks starryminary: MISS!",
+        "starryminary attacked Goblin: MISS",
+        "Enemy phase: \ud83d\udc79 Goblin attacks starryminary: HIT! for 7 damage"
+    ],
     "story_memory": []
 }

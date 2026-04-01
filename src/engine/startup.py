@@ -88,9 +88,12 @@ def _select_premade_character() -> tuple:
         for i, f in enumerate(files):
             name = os.path.basename(f).replace(".json", "").capitalize()
             print(f"   {i+1}. {name}")
+        print("   0. Back")
         print("=" * 58)
 
         choice = input("Choose a class (number): ").strip()
+        if choice == "0":
+            return None, "fighter"
         if not choice.isdigit() or not (1 <= int(choice) <= len(files)):
             continue
 
@@ -232,8 +235,11 @@ def _select_premade_lore() -> str:
         for i, f in enumerate(files):
             name = os.path.basename(f).replace(".txt", "").replace("_", " ").title()
             print(f"   {i+1}. {name}")
+        print("   0. Back")
         print("=" * 58)
         choice = input("   Choose world (number): ").strip()
+        if choice == "0":
+            return ""
         if not choice.isdigit() or not (1 <= int(choice) <= len(files)):
             continue
 
@@ -315,29 +321,25 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     DataManager.clear_log()
 
     # ── STEP 1: CHARACTER CREATION ────────────────────────────
-    clear_screen()
-    print("=" * 58)
-    print("   CHARACTER CREATION")
-    print("=" * 58)
-    print("   1. Choose a Premade Class")
-    print("   2. Describe a Custom Character (AI Crafts Your Destiny)")
-    print("=" * 58)
-    char_choice = ""
-    while char_choice not in ["1", "2"]:
-        char_choice = input("   Choice: ").strip()
+    while True:
+        clear_screen()
+        print("=" * 58)
+        print("   CHARACTER CREATION")
+        print("=" * 58)
+        print("   1. Choose a Premade Class")
+        print("   2. Describe a Custom Character (AI Crafts Your Destiny)")
+        print("=" * 58)
+        char_choice = ""
+        while char_choice not in ["1", "2"]:
+            char_choice = input("   Choice: ").strip()
 
-    narrative_profile = {}
-    if char_choice == "1":
-        base_stats, archetype = _select_premade_character()
-        if not base_stats:
-            base_stats, archetype = {}, "fighter"
-    else:
-        base_stats, archetype, narrative_profile = _generate_custom_character(llm_service)
-        if not base_stats:  # User cancelled -> fall back to premade
+        narrative_profile = {}
+        if char_choice == "1":
             base_stats, archetype = _select_premade_character()
-            if not base_stats:
-                base_stats, archetype = {}, "fighter"
-            narrative_profile = {}
+            if base_stats: break # Success
+        else:
+            base_stats, archetype, narrative_profile = _generate_custom_character(llm_service)
+            if base_stats: break # Success
 
     # Ensure archetype math is always loaded from safe source
     math = _load_archetype_math(archetype)
@@ -377,7 +379,7 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     )
 
     # ── STEP 4: FINAL CHARACTER SHEET CONFIRMATION ────────────
-    _render_character_sheet(
+    render_character_sheet(
         name=player.name,
         archetype=archetype,
         math=math,
@@ -388,7 +390,7 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     )
     print()
     print("   ✦ Your character is ready.")
-    input("   [Press Enter to choose your world...]")
+    input("   [Press Enter to choose your world...")
 
     # ── STEP 5: WORLD LORE ────────────────────────────────────
     world_lore = _select_world_lore(llm_service)
