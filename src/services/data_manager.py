@@ -11,6 +11,7 @@ class DataManager:
     Service to handle data loading and persistence for the AI Dungeon Master.
     Responsibility: Read JSON, Convert Types (Strings -> Enums), Return Objects.
     """
+    _log_buffer: List[str] = []
     
     def __init__(self, data_path: str = "data/active/campaign_active.json"):
         self.data_path = data_path
@@ -66,26 +67,43 @@ class DataManager:
         try:
             with open(self.data_path, 'w') as f:
                 json.dump(data, f, indent=4)
-            # print("💾 Game Saved.") # Optional log
+                f.flush()
+                os.fsync(f.fileno())
+            
+            # Atomic Sync: Flush log text alongside JSON state
+            DataManager.flush_log()
         except Exception as e:
             print(f"❌ Error saving game data: {e}")
 
     @staticmethod
     def append_to_log(text: str, log_path: str = "data/active/campaign_log.txt"):
-        """Appends a single line of narrative/action history to the continuous campaign log."""
+        """Buffers a single line of narrative history to be atomically written during the next save."""
+        DataManager._log_buffer.append(text)
+
+    @staticmethod
+    def flush_log(log_path: str = "data/active/campaign_log.txt"):
+        """Atomically appends buffered logs to disk and forces OS sync to prevent parity desync."""
+        if not DataManager._log_buffer:
+            return
         try:
             with open(log_path, 'a', encoding="utf-8") as f:
-                f.write(text + "\n")
+                for text in DataManager._log_buffer:
+                    f.write(text + "\n")
+                f.flush()
+                os.fsync(f.fileno())
+            DataManager._log_buffer.clear()
         except Exception as e:
             print(f"   ⚠️ Warning: Could not write to campaign log: {e}")
 
     @staticmethod
     def clear_log(log_path: str = "data/active/campaign_log.txt"):
         """Erases the continuous campaign log when starting a New Game/Resetting."""
+        DataManager._log_buffer.clear()
         try:
-            # Overwrite the file with emptiness
             with open(log_path, 'w', encoding="utf-8") as f:
                 f.write("")
+                f.flush()
+                os.fsync(f.fileno())
         except Exception as e:
             pass
 

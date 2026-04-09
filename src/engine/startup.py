@@ -453,10 +453,10 @@ def initialize_new_game(llm_service: LLMService) -> bool:
 
     # ── STEP 8: SAVE STATE ────────────────────────────────────
     dm = DataManager(ACTIVE_FILE)
-    dm.save_game(party=[player], enemies=[enemy], combat_memory=None, story_memory=None)
     DataManager.append_to_log("[PROLOGUE]")
     DataManager.append_to_log(prologue_text.replace('\\n', '\n'))
     DataManager.append_to_log("[END PROLOGUE]\n")
+    dm.save_game(party=[player], enemies=[enemy], combat_memory=None, story_memory=None)
 
     # ── STEP 9: NARRATE THE PROLOGUE ─────────────────────────
     cinematic = _load_cinematic_setting()
