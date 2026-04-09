@@ -21,6 +21,7 @@
                 "A petrified raven's feather; A shard of obsidian that hums with residual energy"
             ],
             "condition": "NORMAL",
+            "abilities": [],
             "lore": "For centuries; this ancient one has resided in a hidden grotto; her ageless beauty a veil for the profound and forgotten magic that flows through her. The whispers of epochs past grant them an understanding of the arcane that few can comprehend.",
             "title": "The Ancient Weaver",
             "stat_justification": "The deep connection to ancient magic and hidden truths points to a Mage archetype."
@@ -31,7 +32,7 @@
             "id": "e1",
             "name": "Goblin",
             "role": "Enemy",
-            "hp": 6,
+            "hp": 5,
             "max_hp": 8,
             "ac": 12,
             "stats": {
@@ -44,11 +45,21 @@
                 "dirty knife"
             ],
             "condition": "NORMAL",
+            "abilities": [],
             "lore": "",
             "title": "",
             "stat_justification": ""
         }
     ],
     "combat_memory": [],
-    "story_memory": []
+    "story_memory": [],
+    "global_state": {
+        "time": {
+            "day": 1,
+            "hour": 8,
+            "phase": "Morning"
+        },
+        "turn_counter": 0,
+        "is_in_combat": true
+    }
 }

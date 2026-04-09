@@ -4,7 +4,7 @@ import sys
 sys.path.append(os.getcwd()) # Ensure root is in path for standalone execution
 from typing import Tuple, List, Dict, Any, Deque, Optional
 from collections import deque
-from src.models.character import Character, Stat, Zone, Condition
+from src.models.character import Character, Stat, Zone, Condition, Ability, RechargeType
 
 class DataManager:
     """
@@ -16,10 +16,10 @@ class DataManager:
     def __init__(self, data_path: str = "data/active/campaign_active.json"):
         self.data_path = data_path
 
-    def load_game(self, settings: Optional[Dict[str, Any]] = None) -> Tuple[List[Character], List[Character], Deque[str], Deque[str]]:
+    def load_game(self, settings: Optional[Dict[str, Any]] = None) -> Tuple[List[Character], List[Character], Deque[str], Deque[str], Dict[str, Any]]:
         """
         Loads the game state from the JSON file.
-        Returns: (party_list, enemies_list, combat_memory_deque, story_memory_deque)
+        Returns: (party_list, enemies_list, combat_memory_deque, story_memory_deque, global_state)
         """
         if not settings:
             settings = self.load_settings()
@@ -46,22 +46,35 @@ class DataManager:
             combat_memory = deque(combat_data, maxlen=max_combat)
             story_memory = deque(story_data, maxlen=max_story)
             
-            return party, enemies, combat_memory, story_memory
+            # Global State Migration (Safe Default if old save)
+            global_state = data.get("global_state", {
+                "time": {"day": 1, "hour": 8, "phase": "Morning"},
+                "turn_counter": 0,
+                "is_in_combat": True
+            })
+            
+            return party, enemies, combat_memory, story_memory, global_state
             
         except Exception as e:
             print(f"❌ Error loading game data: {e}")
-            return [], [], deque(maxlen=max_combat), deque(maxlen=max_story)
+            safe_global = {"time": {"day": 1, "hour": 8, "phase": "Morning"}, "turn_counter": 0, "is_in_combat": True}
+            return [], [], deque(maxlen=max_combat), deque(maxlen=max_story), safe_global
             
-    def save_game(self, party: List[Character], enemies: List[Character], combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None):
+    def save_game(self, party: List[Character], enemies: List[Character], combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None, global_state: Optional[Dict[str, Any]] = None):
         """
         Saves the current game state to the JSON file.
-        Overwrites existing data.
+        Overwrites existing data. Global state is written atomically.
         """
         data = {
             "party": [p.to_dict() for p in party],
             "enemies": [e.to_dict() for e in enemies],
             "combat_memory": list(combat_memory) if combat_memory else [],
-            "story_memory": list(story_memory) if story_memory else []
+            "story_memory": list(story_memory) if story_memory else [],
+            "global_state": global_state if global_state else {
+                "time": {"day": 1, "hour": 8, "phase": "Morning"},
+                "turn_counter": 0,
+                "is_in_combat": True
+            }
         }
         
         try:
@@ -192,7 +205,22 @@ class DataManager:
         except KeyError:
             zone_enum = Zone.NEAR # Default fallback
 
-        # 3. Create Object
+        # 3. Handle Abilities Migration securely
+        raw_abilities = data.get("abilities", [])
+        parsed_abilities = []
+        for a_data in raw_abilities:
+            try:
+                rt = RechargeType(a_data.get("recharge_type", "short_rest"))
+            except ValueError:
+                rt = RechargeType.SHORT_REST
+            parsed_abilities.append(Ability(
+                name=a_data.get("name", "Unknown Ability"),
+                recharge_type=rt,
+                max_uses=a_data.get("max_uses", 1),
+                current_uses=a_data.get("current_uses", 1)
+            ))
+
+        # 4. Create Object
         return Character(
             id=data.get("id", "unknown"),
             name=data.get("name", "Unknown"),
@@ -204,6 +232,7 @@ class DataManager:
             zone=zone_enum,
             inventory=data.get("inventory", []),
             condition=Condition.NORMAL, # Default to normal on load
+            abilities=parsed_abilities,
             lore=data.get("lore", ""),
             title=data.get("title", ""),
             stat_justification=data.get("stat_justification", "")
@@ -212,6 +241,7 @@ class DataManager:
 if __name__ == "__main__":
     # Test Block
     dm = DataManager()
-    p, e, cm, sm = dm.load_game()
+    p, e, cm, sm, gs = dm.load_game()
     print(f"Loaded {len(p)} players and {len(e)} enemies. Memory events: {len(cm)}")
+    print(f"Global State: {gs}")
     if p: print(f"Player 1: {p[0]}")

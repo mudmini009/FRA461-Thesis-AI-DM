@@ -10,7 +10,7 @@ from src.services.data_manager import DataManager
 def test():
     print("1. Loading Data...")
     dm = DataManager()
-    party, enemies, _, _ = dm.load_game()
+    party, enemies, _, _, global_state = dm.load_game()
     
     target = enemies[0] # Grok
     initial_hp = target.hp

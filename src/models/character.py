@@ -14,7 +14,6 @@ class Zone(Enum):
 
 class Condition(Enum):
     NORMAL = "NORMAL"
-    # INJURED = "INJURED"  <-- REMOVED per validaton request
     UNCONSCIOUS = "UNCONSCIOUS"
     DEAD = "DEAD"
     RESTRAINED = "RESTRAINED"
@@ -22,6 +21,26 @@ class Condition(Enum):
     BLINDED = "BLINDED"
     STUNNED = "STUNNED"
     PACIFIED = "PACIFIED"
+
+class RechargeType(Enum):
+    SHORT_REST = "short_rest"
+    LONG_REST = "long_rest"
+
+@dataclass
+class Ability:
+    name: str
+    recharge_type: RechargeType
+    max_uses: int
+    current_uses: int
+
+    def to_dict(self) -> Dict[str, any]:
+        return {
+            "name": self.name,
+            "recharge_type": self.recharge_type.value,
+            "max_uses": self.max_uses,
+            "current_uses": self.current_uses
+        }
+
 
 @dataclass
 class Character:
@@ -35,6 +54,7 @@ class Character:
     zone: Zone = Zone.NEAR
     inventory: List[str] = field(default_factory=list)
     condition: Condition = Condition.NORMAL
+    abilities: List[Ability] = field(default_factory=list)
     # --- Narrative fields (LLM-generated, zero mechanical effect) ---
     lore: str = ""
     title: str = ""
@@ -72,9 +92,10 @@ class Character:
             "zone": self.zone.name, # Enum -> String
             "inventory": self.inventory,
             "condition": self.condition.name, # Enum -> String
-            "lore": self.lore,
-            "title": self.title,
-            "stat_justification": self.stat_justification
+            "abilities": [a.to_dict() for a in getattr(self, 'abilities', [])],
+            "lore": getattr(self, 'lore', ""),
+            "title": getattr(self, 'title', ""),
+            "stat_justification": getattr(self, 'stat_justification', "")
         }
 
     def get_health_status(self) -> str:

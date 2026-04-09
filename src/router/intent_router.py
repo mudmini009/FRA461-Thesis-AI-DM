@@ -58,8 +58,8 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         - Attack (hitting, shooting, slashing, unarmed strike)
         - Cast Spell (magic, cantrips, scrolls)
         - Move (running, walking, tactical movement, disengaging)
-        - Standard Item Use (drinking potion, equipping armor, eating food, lighting torch)
         - Flee / Escape (running away from combat)
+        - Rest / Sleep (taking a short rest, long rest, sleeping)
         - Combo (doing ONE Move AND ONE Action in the same sentence)
         
         PATH B (CREATIVE ACTION) - Narrative & Improv:
@@ -73,8 +73,9 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
         For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.
         
-        For Path A (Single Action): type:FIXED|command:ATTACK | CAST | MOVE | USE | FLEE|target:e1|attack_type:melee
+        For Path A (Single Action): type:FIXED|command:ATTACK | CAST | MOVE | USE | FLEE | REST|target:e1|attack_type:melee
           - If command is MOVE, "target" MUST be exactly NEAR, MID, or FAR.
+          - If command is REST, "target" MUST be short_rest or long_rest.
           - Example: type:FIXED|command:MOVE|target:MID|attack_type:null
           
         For Path A (Combo Action): type:FIXED_COMBO|move_target:MID|attack_target:e1|attack_type:ranged|action_order:[MOVE,ATTACK]
