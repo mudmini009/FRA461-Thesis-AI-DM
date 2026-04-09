@@ -19,3 +19,4 @@ The air in the forgotten grotto, a sanctuary untouched by the metallic decay of 
    [SYSTEM] 👹 Goblin attacks starryminary: HIT! for 7 damage
 [DM] (Goblin's Turn) The goblin's rusty blade scrapes against your robes, a jarring clang echoing in the oppressive silence. You feel a sharp, burning pain as it finds its mark, a chilling testament to the creature's ferocity.
 
+[starryminary] attack again

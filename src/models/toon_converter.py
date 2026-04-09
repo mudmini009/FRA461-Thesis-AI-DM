@@ -16,10 +16,10 @@ class TOONConverter:
         toon_output = []
         
         # --- 1. CONVERT PLAYERS ---
-        # TOON Format: players[N]{id,name,role,hp,zone,phys,ment,soc,items}:
+        # TOON Format: players[N]{id,name,role,hp,zone,phys,ment,soc,title,lore,items}:
         if players:
             # Header with Length [N] and Fields {x,y,z}
-            header = f"players[{len(players)}]{{id,name,role,hp,zone,phys,ment,soc,items}}:"
+            header = f"players[{len(players)}]{{id,name,role,hp,zone,phys,ment,soc,title,lore,items}}:"
             toon_output.append(header)
             
             for p in players:
@@ -31,8 +31,12 @@ class TOONConverter:
                 ment = f"{p.stats.get(Stat.MENT, 0):+d}"
                 soc =  f"{p.stats.get(Stat.SOC, 0):+d}"
                 
+                # Clean narrative fields to prevent CSV breakage
+                clean_title = p.title.replace(',', ';') if p.title else "None"
+                clean_lore = p.lore.replace(',', ';').replace('\n', ' ') if p.lore else "None"
+                
                 # CSV-style Row
-                line = f"  {p.id},{p.name},{p.role},{p.hp}/{p.max_hp},{p.zone.name},{phys},{ment},{soc},{items}"
+                line = f"  {p.id},{p.name},{p.role},{p.hp}/{p.max_hp},{p.zone.name},{phys},{ment},{soc},{clean_title},{clean_lore},{items}"
                 toon_output.append(line)
             
             toon_output.append("") # Spacer

@@ -49,10 +49,11 @@ class ArbiterAgent(BaseLLMProvider):
         
         RULES:
         1. Check PHYS/LOGIC: Is this action possible?
-        2. Check INVENTORY: If they use an item, DOES SOMEONE in the party have it?
-        3. Determine Side Effects: If the action succeeds, does the target suffer a Condition? (RESTRAINED, PRONE, BLINDED, STUNNED, PACIFIED).
-        4. Check Consumption: If the player uses an item in a way that destroys, consumes, or loses it (e.g., throwing a weapon away, burning a rope, eating a mushroom), add "consumed_item": "Item Name". Otherwise, return "consumed_item": null.
-        5. ACTION ECONOMY: A turn is only 6 seconds. A player can do at most ONE Move and ONE Major Action (Attack, Cast, Use Item, or Stunt). If the proposed action attempts to do multiple major actions (e.g., attacking twice, drinking a potion AND attacking, or casting a spell AND attacking), you MUST deny it. Set allowed:false and provide a reason like "You do not have enough time in one turn to do all of that."
+        2. LORE SYNERGY (CRITICAL): Read the active player's "Title" and "Lore". If their narrative background gives them a logical advantage for this specific action (e.g., a "Blind Monk" using hearing to track, or a "Thief" picking a lock), you MUST lower the DC significantly (e.g., lower by 3 to 5 points) or grant an automatic success. Briefly mention this synergy in your "reason".
+        3. Check INVENTORY: If they use an item, DOES SOMEONE in the party have it?
+        4. Determine Side Effects: If the action succeeds, does the target suffer a Condition? (RESTRAINED, PRONE, BLINDED, STUNNED, PACIFIED).
+        5. Check Consumption: If the player uses an item in a way that destroys, consumes, or loses it (e.g., throwing a weapon away, burning a rope, eating a mushroom), add "consumed_item": "Item Name". Otherwise, return "consumed_item": null.
+        6. ACTION ECONOMY: A turn is only 6 seconds. A player can do at most ONE Move and ONE Major Action. If they attempt multiple major actions, set allowed:false.
 
         OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
         For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.

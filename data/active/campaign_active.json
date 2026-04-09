@@ -31,7 +31,7 @@
             "id": "e1",
             "name": "Goblin",
             "role": "Enemy",
-            "hp": 8,
+            "hp": 7,
             "max_hp": 8,
             "ac": 12,
             "stats": {
@@ -49,13 +49,6 @@
             "stat_justification": ""
         }
     ],
-    "combat_memory": [
-        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Goblin moves to the MID zone toward starryminary.",
-        "starryminary attacked Goblin: FAILED (Target is out of melee range!)",
-        "Enemy phase: \ud83c\udfc3 \ud83d\udc79 Goblin moves to the NEAR zone toward starryminary. \ud83d\udc79 Goblin attacks starryminary: HIT! for 2 damage",
-        "Enemy phase: \ud83d\udc79 Goblin attacks starryminary: MISS!",
-        "starryminary attacked Goblin: MISS",
-        "Enemy phase: \ud83d\udc79 Goblin attacks starryminary: HIT! for 7 damage"
-    ],
+    "combat_memory": [],
     "story_memory": []
 }
