@@ -57,6 +57,7 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         The input matches a standard rule-based action found in a game menu.
         - Attack (hitting, shooting, slashing, unarmed strike)
         - Cast Spell (magic, cantrips, scrolls)
+        - Class Ability (e.g., using Second Wind, Praying)
         - Move (running, walking, tactical movement, disengaging)
         - Flee / Escape (running away from combat)
         - Rest / Sleep (taking a short rest, long rest, sleeping)
@@ -73,14 +74,16 @@ def classify_intent(user_input: str, toon_context: str) -> dict:
         OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
         For this performance upgrade, you MUST NOT output JSON. You must output a single line of pipe-separated key:value pairs.
         
-        For Path A (Single Action): type:FIXED|command:ATTACK | CAST | MOVE | USE | FLEE | REST|target:e1|attack_type:melee
+        For Path A (Single Action): type:FIXED|command:ATTACK | CAST | ABILITY | MOVE | USE | FLEE | REST|target:e1|attack_type:melee
           - If command is MOVE, "target" MUST be exactly NEAR, MID, or FAR.
           - If command is REST, "target" MUST be short_rest or long_rest.
-          - Example: type:FIXED|command:MOVE|target:MID|attack_type:null
+          - If combining an ability with an attack (like Smite), output: type:FIXED|command:ATTACK|target:e1|attack_type:melee|ability_name:Smite
+          - If using a standalone ability (like Second Wind or Pray), output: type:FIXED|command:ABILITY|target:player1|ability_name:Second Wind
           
         For Path A (Combo Action): type:FIXED_COMBO|move_target:MID|attack_target:e1|attack_type:ranged|action_order:[MOVE,ATTACK]
         
         For Path B: type:CREATIVE|description:short summary of intent
+          - If the user is casting free-form magic that consumes an ability charge (like Mage Spells), append consume_ability. Example: type:CREATIVE|description:I build an ice wall|consume_ability:Spells
         """
     )
 

@@ -12,14 +12,20 @@ class TOONConverter:
     """
     
     @staticmethod
-    def convert(players: List[Character], enemies: List[Character]) -> str:
+    def convert(players: List[Character], enemies: List[Character], global_state: Dict[str, Any] = None) -> str:
         toon_output = []
         
-        # --- 1. CONVERT PLAYERS ---
+        # --- 0. CONVERT GLOBAL STATE ---
+        # TOON Format: world{day,hour,phase,turn,combat}:
+        if global_state:
+            time_data = global_state.get("time", {})
+            header = "world{day,hour,phase,turn,combat}:"
+            line = f"  {time_data.get('day', 1)},{time_data.get('hour', 8)},{time_data.get('phase', 'Morning')},{global_state.get('turn_counter', 0)},{global_state.get('is_in_combat', True)}"
+            toon_output.extend([header, line, ""])
         # TOON Format: players[N]{id,name,role,hp,zone,phys,ment,soc,title,lore,items}:
         if players:
             # Header with Length [N] and Fields {x,y,z}
-            header = f"players[{len(players)}]{{id,name,role,hp,zone,phys,ment,soc,title,lore,items}}:"
+            header = f"players[{len(players)}]{{id,name,role,hp,zone,phys,ment,soc,title,abilities,items}}:"
             toon_output.append(header)
             
             for p in players:
@@ -33,10 +39,13 @@ class TOONConverter:
                 
                 # Clean narrative fields to prevent CSV breakage
                 clean_title = p.title.replace(',', ';') if p.title else "None"
-                clean_lore = p.lore.replace(',', ';').replace('\n', ' ') if p.lore else "None"
+                
+                # Abilities: [Name(Current/Max)|...]
+                abs_list = [f"{a.name}({a.current_uses}/{a.max_uses})" for a in p.abilities]
+                abilities_str = f"[{'|'.join(abs_list)}]" if abs_list else "[]"
                 
                 # CSV-style Row
-                line = f"  {p.id},{p.name},{p.role},{p.hp}/{p.max_hp},{p.zone.name},{phys},{ment},{soc},{clean_title},{clean_lore},{items}"
+                line = f"  {p.id},{p.name},{p.role},{p.hp}/{p.max_hp},{p.zone.name},{phys},{ment},{soc},{clean_title},{abilities_str},{items}"
                 toon_output.append(line)
             
             toon_output.append("") # Spacer

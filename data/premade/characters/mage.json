@@ -5,9 +5,17 @@
     "hp": 15,
     "max_hp": 15,
     "ac": 12,
-    "stats": {"PHYS": -1, "MENT": 4, "SOC": 0},
-    "zone": "NEAR",
-    "inventory": ["Staff", "Robes", "Mana Potion", "Spellbook"],
+    "stats": {"PHYS": 0, "MENT": 4, "SOC": 0},
+    "zone": "FAR",
+    "inventory": ["Quarterstaff", "Robes", "Spellbook"],
     "condition": "NORMAL",
-    "lore": "A brilliant academic clothed in arcane robes, wielding a wooden staff and vast intellect to bend reality."
+    "abilities": [
+        {
+            "name": "Spells",
+            "recharge_type": "long_rest",
+            "max_uses": 2,
+            "current_uses": 2
+        }
+    ],
+    "lore": "An academic spellcaster draped in arcane robes, throwing free-form magic from afar."
 }

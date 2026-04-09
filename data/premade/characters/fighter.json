@@ -9,5 +9,13 @@
     "zone": "NEAR",
     "inventory": ["Longsword", "Chainmail", "Healing Potion"],
     "condition": "NORMAL",
+    "abilities": [
+        {
+            "name": "Second Wind",
+            "recharge_type": "short_rest",
+            "max_uses": 1,
+            "current_uses": 1
+        }
+    ],
     "lore": "A battle-hardened warrior carrying a longsword and wearing heavy chainmail. Trained at the imperial academy."
 }

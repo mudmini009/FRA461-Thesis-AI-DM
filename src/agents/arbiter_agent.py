@@ -21,12 +21,13 @@ class ArbiterAgent(BaseLLMProvider):
         action_description: str,
         combat_memory: Optional[Deque[str]] = None,
         story_memory: Optional[Deque[str]] = None,
+        global_state: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         """
         Acts as the Arbiter/Referee.
         Decides if an action is possible based on Party Inventory and Logic.
         """
-        toon_context = TOONConverter.convert(party_state, enemies_state)
+        toon_context = TOONConverter.convert(party_state, enemies_state, global_state)
 
         memory_context = ""
         if story_memory:
@@ -38,7 +39,10 @@ class ArbiterAgent(BaseLLMProvider):
         You are the ARBITER (Game Referee) for a TTRPG.
         Your job is to validate a CREATIVE ACTION proposed by a player.
         
-        Note: Game State is provided in TOON format (players[N]{{fields}}: row, row). Inventory items are pipe-separated | within brackets.
+        Note: Game State is provided in TOON format (world{{fields}}: row, players[N]{{fields}}: row). 
+        - The "world" header contains absolute time (Day, Hour, Phase) and combat status.
+        - Inventory items are pipe-separated | within brackets.
+        - Ability charges are shown as Name(Current/Max) within brackets.
         
         GAME STATE (TOON Format):
         {toon_context}

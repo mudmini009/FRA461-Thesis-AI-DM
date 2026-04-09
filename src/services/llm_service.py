@@ -41,10 +41,12 @@ class LLMService:
         action_description: str,
         combat_memory: Optional[Deque[str]] = None,
         story_memory: Optional[Deque[str]] = None,
+        global_state: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         return self._arbiter.get_creative_judgment(
             party_state, enemies_state, active_player,
-            action_description, combat_memory, story_memory
+            action_description, combat_memory, story_memory,
+            global_state=global_state
         )
 
     def categorize_item(self, item_name: str) -> Dict[str, Any]:

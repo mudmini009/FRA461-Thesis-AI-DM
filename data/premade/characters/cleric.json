@@ -5,9 +5,17 @@
     "hp": 18,
     "max_hp": 18,
     "ac": 18,
-    "stats": {"PHYS": 1, "MENT": 2, "SOC": 1},
+    "stats": {"PHYS": 1, "MENT": 3, "SOC": 0},
     "zone": "NEAR",
-    "inventory": ["Warhammer", "Plate Armor", "Shield", "Healing Potion"],
+    "inventory": ["Warhammer", "Plate", "Shield", "Holy Symbol"],
     "condition": "NORMAL",
-    "lore": "A divine healer clad in plate armor, carrying a heavy warhammer and channeling the power of the gods."
+    "abilities": [
+        {
+            "name": "Pray",
+            "recharge_type": "short_rest",
+            "max_uses": 99,
+            "current_uses": 99
+        }
+    ],
+    "lore": "A divine healer clad in heavy plate armor, wielding a warhammer and channeling the power of their deity."
 }

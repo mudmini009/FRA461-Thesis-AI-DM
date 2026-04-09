@@ -9,5 +9,19 @@
     "zone": "NEAR",
     "inventory": ["Greatsword", "Chainmail", "Holy Symbol"],
     "condition": "NORMAL",
+    "abilities": [
+        {
+            "name": "Smite",
+            "recharge_type": "long_rest",
+            "max_uses": 2,
+            "current_uses": 2
+        },
+        {
+            "name": "Lay on Hands",
+            "recharge_type": "long_rest",
+            "max_uses": 1,
+            "current_uses": 1
+        }
+    ],
     "lore": "A devout holy warrior sworn to a sacred oath, wielding a massive greatsword and blessed magic."
 }

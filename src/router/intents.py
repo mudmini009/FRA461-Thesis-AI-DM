@@ -34,8 +34,31 @@ def _find_target(target_name_or_id: str, enemies: List[Character], settings: Opt
     return None
 
 def execute_fixed_action(action_type: str, decision: dict, player: Character, enemies: List[Character], debug_print, settings: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
-    """Executes a single FIXED action (Move or Attack)."""
+    """Executes a single FIXED action (Move, Attack, Cast, Ability)."""
     log_msg = None
+
+    # --- ABILITY PRE-EXECUTION GUARD ---
+    ability_name = decision.get('ability_name')
+    if ability_name:
+        ability_found = False
+        for ability in player.abilities:
+            if ability.name.lower() == ability_name.lower():
+                ability_found = True
+                if ability.current_uses <= 0:
+                    msg = f"⚠️ You have no uses of {ability.name} left! You need a {ability.recharge_type.value.replace('_', ' ')}."
+                    print(f"   {msg}")
+                    return False, msg
+                # Decrement charge natively
+                ability.current_uses -= 1
+                debug_print(f"   🎟️ Consumed 1 charge of {ability.name}. ({ability.current_uses}/{ability.max_uses} left)")
+                break
+        
+        if not ability_found:
+             # The LLM hallucinated an ability they don't have, OR the user typed an invalid ability
+             msg = f"⚠️ {player.name} does not have the ability: {ability_name}."
+             print(f"   {msg}")
+             return False, msg
+    # -----------------------------------
     if action_type == 'MOVE':
         if player.has_moved:
             print(f"   ⚠️ {player.name} has already moved this turn!")
@@ -89,7 +112,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
 
         debug_print(f"   ⚔️  Executing Attack Sequence against {target.name}...")
         attack_type = decision.get('attack_type', 'melee')
-        result = RulesEngine.resolve_attack(player, target, attack_type=attack_type)
+        result = RulesEngine.resolve_attack(player, target, attack_type=attack_type, ability_name=ability_name)
         
         raw_rolls = result.get('raw_rolls', [result.get('roll', 0)])
         roll_info = f"{raw_rolls} + {player.stats.get(Stat.PHYS, 0)} (Bonus)"
@@ -116,6 +139,31 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 debug_print(f"      (Rolled {roll_info} = {result.get('total', 0)} vs AC {target.ac})")
                 log_msg = f"{player.name} attacked {target.name}: MISS"
         
+        return True, log_msg
+        
+    elif action_type == 'ABILITY':
+        if player.has_acted:
+            print(f"   ⚠️ {player.name} has already taken an action this turn!")
+            return False, f"{player.name} has already taken an action this turn."
+            
+        target_name = decision.get('target', player.name) # Self by default
+        # The ability_name was previously verified in the pre-guard above
+        
+        target = _find_target(target_name, enemies, settings=settings) if target_name else player
+        if not target and target_name.lower() in player.name.lower():
+            target = player
+            
+        debug_print(f"   ✨ Using {ability_name} on {target.name if target else 'No target'}...")
+        result = RulesEngine.resolve_ability(player, target, ability_name=ability_name)
+        
+        if result.get('is_hit'):
+            player.has_acted = True
+            print(f"   ✨ {result.get('message', 'Ability used!')}")
+            log_msg = f"{player.name} used {ability_name}: {result.get('message')}"
+        else:
+            print(f"   ⚠️ {result.get('message', 'Ability failed.')}")
+            log_msg = f"{player.name} failed to use {ability_name}: {result.get('message')}"
+            
         return True, log_msg
         
     elif action_type == 'CAST':
@@ -226,12 +274,12 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         print(f"   ⚙️ Processing {action_type}... (To be implemented)")
         return False, None
 
-def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None, settings: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
+def handle_creative_intent(decision: dict, user_input: str, player: Character, party: List[Character], enemies: List[Character], llm_service: LLMService, debug_print, combat_memory: Optional[Deque[str]] = None, story_memory: Optional[Deque[str]] = None, settings: Optional[Dict[str, Any]] = None, global_state: Optional[Dict[str, Any]] = None) -> Tuple[bool, Optional[str]]:
     """Handles Path B (Creative) logic and side effects."""
     description = decision.get('description', user_input)
     debug_print(f"   🤔 Arbiter Judging: '{description}'")
     
-    judgment = llm_service.get_creative_judgment(party, enemies, player, description, combat_memory=combat_memory, story_memory=story_memory)
+    judgment = llm_service.get_creative_judgment(party, enemies, player, description, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
     
     if judgment.get('allowed'):
         debug_print(f"   ✅ Allowed! Reason: {judgment.get('reason')}")

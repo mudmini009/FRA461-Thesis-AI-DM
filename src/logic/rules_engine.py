@@ -137,7 +137,7 @@ class RulesEngine:
         }
 
     @staticmethod
-    def resolve_attack(attacker: Character, target: Character, attack_type: str = 'melee') -> dict:
+    def resolve_attack(attacker: Character, target: Character, attack_type: str = 'melee', ability_name: str = None) -> dict:
         # Step 1: Validate Attacker & Target
         if attacker.condition in [Condition.STUNNED, Condition.UNCONSCIOUS, Condition.DEAD]:
             return {
@@ -252,7 +252,11 @@ class RulesEngine:
             damage_result = roll(dmg_expression)
             
             damage = damage_result['total']
-            damage_details = damage_result
+            
+            if ability_name and ability_name.lower() == "smite":
+                smite_dmg = roll("2d8")['total']
+                damage += smite_dmg
+                print(f"   ☄️ [DIVINE SMITE] Deals an extra {smite_dmg} radiant damage!")
             
             if damage < 0:
                 damage = 0
@@ -271,6 +275,61 @@ class RulesEngine:
             'attacker_name': attacker.name,
             'target_name': target.name
         }
+
+    @staticmethod
+    def resolve_ability(user: Character, target: Character, ability_name: str) -> dict:
+        """
+        Resolves deterministic standalone class abilities like Second Wind, Pray, Lay on Hands.
+        """
+        if user.condition in [Condition.STUNNED, Condition.UNCONSCIOUS, Condition.DEAD]:
+            return {
+                'is_hit': False,
+                'message': f'{user.name} is {user.condition.name} and cannot use abilities!'
+            }
+
+        ability_name = ability_name.lower()
+
+        if ability_name == "second wind":
+            # Heals HP 1d10 + 1
+            heal = roll("1d10")['total'] + 1
+            old_hp = user.hp
+            user.hp = min(user.hp + heal, user.max_hp)
+            actual_heal = user.hp - old_hp
+            return {'is_hit': True, 'message': f"Second Wind restores {actual_heal} HP!"}
+            
+        elif ability_name == "lay on hands":
+            # Heals HP 1d8 + MENT
+            heal = roll("1d8")['total'] + user.stats.get(Stat.MENT, 0)
+            heal = max(1, heal)
+            old_hp = target.hp
+            target.hp = min(target.hp + heal, target.max_hp)
+            actual_heal = target.hp - old_hp
+            return {'is_hit': True, 'message': f"Lay on Hands restores {actual_heal} HP to {target.name}!"}
+            
+        elif ability_name == "pray":
+            # Roll MENT vs DC 13
+            ment_mod = user.stats.get(Stat.MENT, 0)
+            pray_roll = roll(f"1d20+{ment_mod}")['total']
+            if pray_roll >= 13:
+                # Success -> Does target feel like friendly or enemy?
+                # Check if target is in the same party. For now, assume player targets enemy means damage.
+                # If target == user, heal.
+                amount = roll("1d8")['total'] + ment_mod
+                amount = max(1, amount)
+                if getattr(target, 'role', '') in ["Fighter", "Paladin", "Cleric", "Mage"] or target == user:
+                    # Ally -> Heal
+                    old_hp = target.hp
+                    target.hp = min(target.hp + amount, target.max_hp)
+                    actual_heal = target.hp - old_hp
+                    return {'is_hit': True, 'message': f"Pray succeeded! Restored {actual_heal} HP to {target.name}."}
+                else:
+                    # Enemy -> Damage
+                    target.take_damage(amount)
+                    return {'is_hit': True, 'message': f"Pray succeeded! Dealt {amount} radiant damage to {target.name}."}
+            else:
+                return {'is_hit': False, 'message': f"Pray failed! Rolled {pray_roll} vs DC 13."}
+                
+        return {'is_hit': False, 'message': f"Unknown ability '{ability_name}' resolved."}
 
     @staticmethod
     def resolve_spell(caster: Character, target: Character, spell_name: str) -> dict:

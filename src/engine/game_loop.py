@@ -83,7 +83,7 @@ def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> st
                 print("   Thinking...", end="\r", flush=True) # Loading effect
                 
                 # 1. ROUTER: Decide Intent
-                current_toon_state = TOONConverter.convert(party, enemies)
+                current_toon_state = TOONConverter.convert(party, enemies, global_state)
                 decision = classify_intent(user_input, current_toon_state)
                 
                 # Clear loading line
@@ -162,7 +162,29 @@ def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> st
 
                 # 3. PATH B: CREATIVE (The AI Arbiter)
                 elif decision.get('type') == 'CREATIVE':
-                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, combat_memory=combat_memory, story_memory=story_memory, settings=settings)
+                    # --- CREATIVE ABILITY GUARD ---
+                    consume_name = decision.get('consume_ability')
+                    if consume_name:
+                        ability_found = False
+                        for ability in current_actor.abilities:
+                            if ability.name.lower() == consume_name.lower():
+                                ability_found = True
+                                if ability.current_uses <= 0:
+                                    msg = f"⚠️ You have no uses of {ability.name} left! You need a {ability.recharge_type.value.replace('_', ' ')}."
+                                    print(f"   {msg}")
+                                    continue # Skip enemy turn, restart prompt loop
+                                # Decrement charge natively
+                                ability.current_uses -= 1
+                                debug_print(f"   🎟️ Consumed 1 charge of {ability.name}. ({ability.current_uses}/{ability.max_uses} left)")
+                                break
+                        
+                        if not ability_found:
+                             # The LLM hallucinated an ability they don't have, OR the user typed an invalid ability
+                             msg = f"⚠️ {current_actor.name} does not have the ability: {consume_name}."
+                             print(f"   {msg}")
+                             continue # Skip enemy turn, restart prompt loop
+                    # ------------------------------
+                    success, log_msg = handle_creative_intent(decision, user_input, current_actor, party, enemies, llm_service, debug_print, combat_memory=combat_memory, story_memory=story_memory, settings=settings, global_state=global_state)
                     if not success:
                         continue # Skip enemy turn if action is denied
                     elif log_msg:
@@ -193,7 +215,7 @@ def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> st
                     print(f"   thinking...", end="\r")
                     
                     # Context for Narrator (Health Status and short-term memory)
-                    toon_context = TOONConverter.convert(party, enemies)
+                    toon_context = TOONConverter.convert(party, enemies, global_state)
                     # Build persistent player lore context so the Narrator remembers who the player IS
                     player_context = ""
                     if party:
