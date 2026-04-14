@@ -98,5 +98,5 @@ class LLMService:
     def narrate_node_cleared(self, node: dict, world_lore: str = "") -> str:
         return self._narrator.narrate_node_cleared(node, world_lore)
 
-    def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None) -> str:
-        return self._narrator.narrate_hub_welcome(player_name, world_lore, story_memory)
+    def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None, prologue_text: str = "") -> str:
+        return self._narrator.narrate_hub_welcome(player_name, world_lore, story_memory, prologue_text)

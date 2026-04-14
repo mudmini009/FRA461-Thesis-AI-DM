@@ -235,33 +235,48 @@ class NarratorAgent(BaseLLMProvider):
         except Exception as e:
             return f"The last enemy falls. The room is yours now. Silence returns to {node.get('name', 'the chamber')}."
 
-    def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None) -> str:
+    def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None, prologue_text: str = "") -> str:
         """
         Generates a welcome/re-entry narration for the Hub.
         Used both for new arrivals and returning adventurers.
+
+        prologue_text: If provided (new game), it is injected as grounding context so the
+        narrator references the actual journey just described, preventing hallucination.
         """
         lore_context = f"\nWORLD LORE:\n{world_lore}\n" if world_lore else ""
-        memory_context = ""
-        if story_memory and len(story_memory) > 0:
-            memory_context = "\nADVENTURER'S RECENT HISTORY:\n" + "\n".join(f"- {e}" for e in list(story_memory)) + "\n"
-            context_note = "They are RETURNING to the guild after recent adventures."
+
+        # Build context block based on what we know about this character's history
+        if prologue_text:
+            # New arrival: we have the exact prologue — use it as grounding truth
+            history_context = f"\nTHE JOURNEY THAT LED HERE (from the opening prologue):\n{prologue_text}\n"
+            context_note = (
+                "The player has JUST arrived at the Guild. They survived the journey described above."
+                " Your welcome MUST reference specific details from that journey — do NOT invent new events."
+                " The tone is relief mixed with guarded optimism. They made it."
+            )
+        elif story_memory and len(story_memory) > 0:
+            history_context = "\nADVENTURER'S RECENT HISTORY:\n" + "\n".join(f"- {e}" for e in list(story_memory)) + "\n"
+            context_note = "They are RETURNING to the guild after recent adventures. Reference what they've been through."
         else:
-            context_note = "They are arriving at the guild for the first time."
+            history_context = ""
+            context_note = "They are arriving at the guild for the first time with no known history yet."
 
         prompt = f"""
-        You are the Dungeon Master narrating the player's arrival at the Adventurer's Guild.
-        {lore_context}{memory_context}
+        You are the Dungeon Master narrating the moment a player steps through the doors of the Adventurer's Guild.
+        {lore_context}{history_context}
         Player: {player_name}
-        {context_note}
+        Situation: {context_note}
 
         INSTRUCTIONS:
-        1. 2-3 sentences. Evoke the warmth and safety of the guild versus the dangers outside.
-        2. If the player has a story history, reference their recent deeds briefly.
-        3. End by hinting at the Quest Board and the adventures waiting.
-        4. Second person. No mechanical terms.
+        1. Write 2-3 sentences in second person ("You step inside...", "The warmth...").
+        2. Describe the immediate sensory contrast: warm Guild interior vs. the dangerous world outside.
+        3. CRITICAL: If a prologue journey was provided above, you MUST naturally reference those specific events
+           (the peril, the atmosphere, the close call). Do NOT invent new events or locations not in the prologue.
+        4. End by gesturing toward the Quest Board — adventure still awaits, just on your terms now.
+        5. No mechanical terms. Second person. Present tense.
         """
         try:
             response = self.narrator_model.generate_content(prompt)
             return response.text.strip()
         except Exception as e:
-            return f"The Guildhall doors swing open to welcome you, {player_name}. The hearth crackles. Adventure awaits on the Quest Board."
+            return f"The Guildhall doors swing open to welcome you, {player_name}. The hearth crackles against the cold outside. The Quest Board beckons."

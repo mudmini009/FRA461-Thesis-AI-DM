@@ -33,13 +33,13 @@ class CampaignAgent(BaseLLMProvider):
 
     def generate_prologue(self, character_toon: str, world_lore: str) -> Dict[str, str]:
         """
-        Generates a narrative "Cold Open" and outputs a symbolic enemy tag.
-        Python intercepts this tag and provisions the mechanical Enemy TOON from a hardcoded template.
+        Generates a narrative 'Cold Open' that ends with the player arriving at
+        the Adventurer's Guild. Python saves the result to story_memory so the
+        hub narrator can reference it directly.
         """
         prompt = f"""
         You are the Dungeon Master starting a new campaign.
-        Read the Character Details and World Lore, then generate a thrilling "Cold Open" prologue (2-3 paragraphs).
-        The prologue MUST end by dropping the player immediately into a combat encounter against ONE enemy type.
+        Write an atmospheric "Cold Open" prologue in 3 beats.
 
         CHARACTER:
         {character_toon}
@@ -47,12 +47,18 @@ class CampaignAgent(BaseLLMProvider):
         WORLD LORE:
         {world_lore}
 
-        OUTPUT FORMAT (STRICT TOON SYNTAX):
-        You MUST return exactly ONE single line of text.
-        You MUST separate keys using the '|' character. 
-        You MUST NOT use actual line breaks (newlines). If you want to format multiple paragraphs, use the literal string '\\n' for line breaks.
-        
-        Example: prologue:First paragraph.\\n\\nSecond paragraph.|enemy_type:goblin
+        THE THREE BEATS (follow this structure exactly):
+        BEAT 1 (World Introduction): 1-2 sentences. Paint the atmosphere of the world.
+        BEAT 2 (The Peril): 1-2 sentences. The character faces or narrowly escapes a danger on their way through the city.
+        BEAT 3 (Arrival — MANDATORY): The character SURVIVES and arrives at the Adventurer's Guild.
+          Your final 1-2 sentences MUST describe the character pushing open the heavy wooden doors
+          of the Adventurer's Guild and stepping inside. This is NOT optional.
+          Do NOT end on a cliffhanger. Do NOT end in the middle of a fight. The journey ENDS at the Guild.
+
+        OUTPUT FORMAT (STRICT):
+        One single line. Keys separated by '|'. No real newlines — use '\\n' for paragraph breaks.
+        Example: prologue:Beat 1 text.\\n\\nBeat 2 text.\\n\\nBeat 3 ending at guild.|enemy_type:goblin
+        (enemy_type is a placeholder for the world's main threat. It is NOT used in this scene.)
         """
         try:
             response = self.model.generate_content(prompt)

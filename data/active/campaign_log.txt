@@ -1,22 +1,8 @@
 [PROLOGUE]
-The air in the forgotten grotto, a sanctuary untouched by the metallic decay of KMUTT, hummed with an ancient power. Starryminary, the Ancient Weaver, traced sigils in the dust with a finger that glowed with faint, cerulean light. Centuries had passed like fleeting dreams, her ageless beauty a silent testament to the profound, forgotten magic that flowed through her veins. The whispers of epochs past, a symphony of lost knowledge, granted her an understanding of the arcane that few living souls could even comprehend. Yet, a discordant note had begun to intrude upon her solitude, a tremor of corrupted energy that spoke of the encroaching Digital Blight. It was a foulness that even the deep earth could not fully contain, a metallic stench seeping into the very fabric of reality. A sudden, jarring clatter echoed from the grotto's entrance, shattering the tranquility. A hulking, rusted automaton, its optical sensors burning with malevolent crimson light, lurched into view, its metallic limbs grinding with unnatural speed.
+The perpetual twilight of Shattered Glass clung to you like a shroud, the stench of decay and something metallic, like old blood, filling your nostrils. Your arcane robes, once pristine, now bore the grime of the Sludge, a testament to your relentless pursuit of forbidden knowledge. The whispers of the city, a symphony of desperation and dread, were your constant companions, but tonight, a new sound cut through the din – a guttural snarl, too close for comfort. You clutched your spell components, the crimson glow of your nascent incantation a stark contrast to the oppressive gloom.
+
+A hulking shape detached itself from the shadows, its skin a mottled, sickly green, eyes burning with a primal hunger. The tainted waters of the Sludge had clearly been generous with their gifts, twisting this unfortunate soul into a grotesque mockery of life. It lunged, a crude, sharpened bone clutched in its clawed hand, its breath a foul miasma.
 [END PROLOGUE]
 
-   [SYSTEM] 🏃 👹 Goblin moves to the MID zone toward starryminary.
-[DM] (Goblin's Turn) The goblin, its guttural snarl echoing in the oppressive air, scrambles across the grimy floor. It lunges from the MID zone, closing the distance with surprising speed, its beady eyes fixed on you.
+[HUB] The heavy, fog-choked air of the Sludge finally gives way to the surprisingly warm, flickering lamplight of the Adventurer's Guild. The scent of stale ale and roasted meat, a stark contrast to the reek of decay you've grown accustomed to, fills your lungs. After your recent, *bloody* encounter with the cultists near the Sunken Docks, the sight of other, relatively clean adventurers sharing stories at the bar is a welcome, if temporary, reprieve. A large, battered board near the entrance is plastered with parchment, each promising coin, glory, and perhaps a chance to escape the perpetual twilight.
 
-[starryminary] i attack goblin
-   [SYSTEM] starryminary attacked Goblin: FAILED (Target is out of melee range!)
-   [SYSTEM] 🏃 👹 Goblin moves to the NEAR zone toward starryminary.
-   [SYSTEM] 👹 Goblin attacks starryminary: HIT! for 2 damage
-[DM] (Goblin's Turn) The Goblin lunges, its rusty blade glinting in the dim light as it closes the distance. A sharp pain lances through you as the crude weapon bites into your flesh, drawing a gasp from your lips.
-
-   [SYSTEM] 👹 Goblin attacks starryminary: MISS!
-[DM] (Goblin's Turn) The wiry goblin lunges, its rusted blade a blur of motion, but you deftly sidestep the clumsy swipe. The foul creature stumbles, its momentum carrying it past you.
-
-[starryminary] i attack
-   [SYSTEM] starryminary attacked Goblin: MISS
-   [SYSTEM] 👹 Goblin attacks starryminary: HIT! for 7 damage
-[DM] (Goblin's Turn) The goblin's rusty blade scrapes against your robes, a jarring clang echoing in the oppressive silence. You feel a sharp, burning pain as it finds its mark, a chilling testament to the creature's ferocity.
-
-[starryminary] attack again

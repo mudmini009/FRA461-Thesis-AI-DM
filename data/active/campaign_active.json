@@ -2,55 +2,30 @@
     "party": [
         {
             "id": "player1",
-            "name": "starryminary",
+            "name": "nigga black shit",
             "role": "Mage",
-            "hp": 6,
+            "hp": 15,
             "max_hp": 15,
             "ac": 12,
             "stats": {
-                "PHYS": -1,
+                "PHYS": 0,
                 "MENT": 4,
                 "SOC": 0
             },
             "zone": "NEAR",
             "inventory": [
-                "Staff",
+                "Quarterstaff",
                 "Robes",
-                "Mana Potion",
-                "Spellbook",
-                "A petrified raven's feather; A shard of obsidian that hums with residual energy"
+                "Spellbook"
             ],
             "condition": "NORMAL",
             "abilities": [],
-            "lore": "For centuries; this ancient one has resided in a hidden grotto; her ageless beauty a veil for the profound and forgotten magic that flows through her. The whispers of epochs past grant them an understanding of the arcane that few can comprehend.",
-            "title": "The Ancient Weaver",
-            "stat_justification": "The deep connection to ancient magic and hidden truths points to a Mage archetype."
-        }
-    ],
-    "enemies": [
-        {
-            "id": "e1",
-            "name": "Goblin",
-            "role": "Enemy",
-            "hp": 3,
-            "max_hp": 8,
-            "ac": 12,
-            "stats": {
-                "PHYS": 1,
-                "MENT": -1,
-                "SOC": 0
-            },
-            "zone": "NEAR",
-            "inventory": [
-                "dirty knife"
-            ],
-            "condition": "NORMAL",
-            "abilities": [],
-            "lore": "",
+            "lore": "An academic spellcaster draped in arcane robes, throwing free-form magic from afar.",
             "title": "",
             "stat_justification": ""
         }
     ],
+    "enemies": [],
     "combat_memory": [],
     "story_memory": [],
     "global_state": {
@@ -60,6 +35,9 @@
             "phase": "Morning"
         },
         "turn_counter": 0,
-        "is_in_combat": true
+        "is_in_combat": false,
+        "current_phase": "HUB",
+        "current_quest_id": "hub",
+        "current_node_id": "hub_main"
     }
 }

@@ -413,58 +413,39 @@ def initialize_new_game(llm_service: LLMService) -> bool:
     toon_char = f"Name: {player.name}\nClass: {player.role}\nTitle: {title_str}\nBackground: {lore_str or 'A brave adventurer.'}\nStats: {player.stats}"
     prologue_data = llm_service.generate_prologue(toon_char, world_lore)
 
-    prologue_text = prologue_data.get("prologue", "You enter the dungeon... prepare for battle!")
+    prologue_text = prologue_data.get("prologue", "The city stretches before you, full of danger and promise. The Adventurer's Guild awaits.")
     for placeholder in ["[Character Name]", "[character name]", "[Name]", "[name]", "[PLAYER]"]:
         prologue_text = prologue_text.replace(placeholder, player.name)
+    # Strip any stray 'enemy_type:...' lines the LLM leaks into prologue text
+    prologue_lines = [l for l in prologue_text.splitlines() if not l.strip().lower().startswith("enemy_type")]
+    prologue_text = "\n".join(prologue_lines).strip()
 
-    enemy_tag = prologue_data.get("enemy_type", "goblin").lower()
-
-    # ── STEP 7: ENEMY PROVISIONING ────────────────────────────
-    if not os.path.exists(BESTIARY_FILE):
-        with open(BESTIARY_FILE, "w") as f:
-            json.dump({"goblin": {"hp": 8, "max_hp": 8, "ac": 12, "stats": {"PHYS": 1, "MENT": -1, "SOC": 0}, "inventory": []}}, f)
-
-    with open(BESTIARY_FILE, "r", encoding="utf-8") as f:
-        bestiary = json.load(f)
-
-    if enemy_tag not in bestiary:
-        enemy_tag = list(bestiary.keys())[0] if bestiary else "goblin"
-
-    enemy_stats = bestiary.get(enemy_tag, {})
-    converted_enemy_stats = {}
-    for k, v in enemy_stats.get("stats", {}).items():
-        try:
-            converted_enemy_stats[Stat[k.upper()]] = v
-        except KeyError:
-            pass
-
-    enemy = Character(
-        id="e1",
-        name=str(enemy_tag).capitalize(),
-        role="Enemy",
-        hp=enemy_stats.get("hp", 10),
-        max_hp=enemy_stats.get("max_hp", 10),
-        ac=enemy_stats.get("ac", 10),
-        stats=converted_enemy_stats,
-        zone=Zone.FAR,
-        inventory=enemy_stats.get("inventory", []),
-        condition=Condition.NORMAL
-    )
-
-    # ── STEP 8: SAVE STATE ────────────────────────────────────
+    # ── STEP 7: SAVE STATE (no enemy — enemies are injected by quest nodes) ──
+    from collections import deque
+    hub_global_state = {
+        "time": {"day": 1, "hour": 8, "phase": "Morning"},
+        "turn_counter": 0,
+        "is_in_combat": False,
+        "current_phase": "HUB",
+        "current_quest_id": "hub",
+        "current_node_id": "hub_main",
+    }
+    # Store prologue as first story_memory entry so start_hub_loop() can
+    # pass it directly to narrate_hub_welcome() as grounding context.
+    bootstrap_memory = deque([f"[PROLOGUE] {prologue_text}"], maxlen=20)
     dm = DataManager(ACTIVE_FILE)
     DataManager.append_to_log("[PROLOGUE]")
     DataManager.append_to_log(prologue_text.replace('\\n', '\n'))
     DataManager.append_to_log("[END PROLOGUE]\n")
-    dm.save_game(party=[player], enemies=[enemy], combat_memory=None, story_memory=None)
+    dm.save_game(party=[player], enemies=[], combat_memory=None, story_memory=bootstrap_memory, global_state=hub_global_state)
 
-    # ── STEP 9: NARRATE THE PROLOGUE ─────────────────────────
+    # ── STEP 8: NARRATE THE PROLOGUE ─────────────────────────
     cinematic = _load_cinematic_setting()
     clear_screen()
     print("=" * 50)
     print_slow(prologue_text.replace('\\n', '\n'), delay=0.005, cinematic=cinematic)
     print("=" * 50)
-    print("\n[PRESS ENTER TO START COMBAT]")
+    print("\n[PRESS ENTER TO ENTER THE GUILD]")
     input()
     return True
 

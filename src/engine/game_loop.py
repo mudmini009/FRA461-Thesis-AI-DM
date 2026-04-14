@@ -674,7 +674,16 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
     global_state["is_in_combat"] = False
 
     print("   Generating Guild welcome...", end="\r")
-    welcome = llm_service.narrate_hub_welcome(player.name, world_lore, story_memory)
+    # Extract prologue from story_memory if this is a fresh arrival from character creation.
+    # The prologue is stored as the first entry prefixed with '[PROLOGUE] '.
+    prologue_text = ""
+    if story_memory:
+        for entry in list(story_memory):
+            if str(entry).startswith("[PROLOGUE] "):
+                prologue_text = str(entry)[len("[PROLOGUE] "):].strip()
+                break
+
+    welcome = llm_service.narrate_hub_welcome(player.name, world_lore, story_memory, prologue_text)
     print(" " * 35, end="\r")
     print(f"\n   🗣️  DM: \"{welcome}\"\n")
     DataManager.append_to_log(f"[HUB] {welcome}\n")
