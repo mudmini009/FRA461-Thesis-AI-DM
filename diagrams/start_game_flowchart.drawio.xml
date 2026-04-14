@@ -18,16 +18,16 @@
       <mxGeometry x="280" y="360" width="120" height="60" as="geometry" />
     </mxCell>
     <mxCell id="world_dec" value="World Lore Setup" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
-      <mxGeometry x="150" y="460" width="140" height="80" as="geometry" />
+      <mxGeometry x="150" y="620" width="140" height="80" as="geometry" />
     </mxCell>
     <mxCell id="world_pre" value="Select Existing Lore&lt;br&gt;(Load world_lore.txt)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
-      <mxGeometry x="40" y="580" width="120" height="60" as="geometry" />
+      <mxGeometry x="40" y="740" width="120" height="60" as="geometry" />
     </mxCell>
     <mxCell id="world_cus" value="Write Concept&lt;br&gt;&lt;b&gt;[LLM Expands Lore]&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
-      <mxGeometry x="280" y="580" width="120" height="60" as="geometry" />
+      <mxGeometry x="280" y="740" width="120" height="60" as="geometry" />
     </mxCell>
     <mxCell id="init_new" value="Initialize New Session State" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
-      <mxGeometry x="140" y="700" width="160" height="50" as="geometry" />
+      <mxGeometry x="140" y="860" width="160" height="50" as="geometry" />
     </mxCell>
     <mxCell id="load_data" value="Load State&lt;br&gt;(Char, Lore, Campaign, Log)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
       <mxGeometry x="540" y="250" width="160" height="60" as="geometry" />
@@ -36,16 +36,16 @@
       <mxGeometry x="550" y="360" width="140" height="80" as="geometry" />
     </mxCell>
     <mxCell id="sum_yes" value="&lt;b&gt;[LLM Recap Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Previously on...&quot;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
-      <mxGeometry x="440" y="480" width="160" height="60" as="geometry" />
+      <mxGeometry x="440" y="640" width="160" height="60" as="geometry" />
     </mxCell>
     <mxCell id="sum_no" value="Load raw chat/history&lt;br&gt;directly into memory" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
-      <mxGeometry x="640" y="480" width="140" height="60" as="geometry" />
+      <mxGeometry x="640" y="640" width="140" height="60" as="geometry" />
     </mxCell>
     <mxCell id="prologue" value="&lt;b&gt;[LLM Prologue Agent]&lt;/b&gt;&lt;br&gt;Generates &quot;Cold Open&quot; from Stats/Lore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
-      <mxGeometry x="140" y="800" width="160" height="60" as="geometry" />
+      <mxGeometry x="140" y="960" width="160" height="60" as="geometry" />
     </mxCell>
     <mxCell id="enter_game" value="Main Game Loop&lt;br&gt;(Wait for Input /restart /quit)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
-      <mxGeometry x="334" y="920" width="160" height="80" as="geometry" />
+      <mxGeometry x="334" y="1080" width="160" height="80" as="geometry" />
     </mxCell>
     <mxCell id="e_start_menu" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="start" target="menu" edge="1">
       <mxGeometry relative="1" as="geometry" />
@@ -62,22 +62,6 @@
     <mxCell id="e_char_cus" value="Custom" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="char_dec" target="char_cus" edge="1">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
-    <mxCell id="e_char_pre_w" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_pre" target="world_dec" edge="1">
-      <mxGeometry relative="1" as="geometry">
-        <Array as="points">
-          <mxPoint x="100" y="440" />
-          <mxPoint x="220" y="440" />
-        </Array>
-      </mxGeometry>
-    </mxCell>
-    <mxCell id="e_char_cus_w" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_cus" target="world_dec" edge="1">
-      <mxGeometry relative="1" as="geometry">
-        <Array as="points">
-          <mxPoint x="340" y="440" />
-          <mxPoint x="220" y="440" />
-        </Array>
-      </mxGeometry>
-    </mxCell>
     <mxCell id="e_world_pre" value="Pre-made" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="world_dec" target="world_pre" edge="1">
       <mxGeometry relative="1" as="geometry" />
     </mxCell>
@@ -87,16 +71,16 @@
     <mxCell id="e_world_pre_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="world_pre" target="init_new" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="100" y="670" />
-          <mxPoint x="220" y="670" />
+          <mxPoint x="100" y="830" />
+          <mxPoint x="220" y="830" />
         </Array>
       </mxGeometry>
     </mxCell>
     <mxCell id="e_world_cus_i" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="world_cus" target="init_new" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="340" y="670" />
-          <mxPoint x="220" y="670" />
+          <mxPoint x="340" y="830" />
+          <mxPoint x="220" y="830" />
         </Array>
       </mxGeometry>
     </mxCell>
@@ -106,8 +90,8 @@
     <mxCell id="e_prologue_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="prologue" target="enter_game" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="220" y="960" />
-          <mxPoint x="334" y="960" />
+          <mxPoint x="220" y="1120" />
+          <mxPoint x="334" y="1120" />
         </Array>
       </mxGeometry>
     </mxCell>
@@ -117,34 +101,34 @@
     <mxCell id="e_ask_yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="ask_sum" target="sum_yes" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="520" y="460" />
-          <mxPoint x="520" y="460" />
+          <mxPoint x="520" y="620" />
+          <mxPoint x="520" y="620" />
         </Array>
       </mxGeometry>
     </mxCell>
     <mxCell id="e_ask_no" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="ask_sum" target="sum_no" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="710" y="460" />
-          <mxPoint x="710" y="460" />
+          <mxPoint x="710" y="620" />
+          <mxPoint x="710" y="620" />
         </Array>
       </mxGeometry>
     </mxCell>
     <mxCell id="e_sum_yes_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_yes" target="enter_game" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="520" y="890" />
-          <mxPoint x="414" y="890" />
+          <mxPoint x="520" y="1050" />
+          <mxPoint x="414" y="1050" />
         </Array>
       </mxGeometry>
     </mxCell>
     <mxCell id="e_sum_no_game" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="sum_no" target="enter_game" edge="1">
       <mxGeometry relative="1" as="geometry">
         <Array as="points">
-          <mxPoint x="710" y="890" />
-          <mxPoint x="414" y="890" />
+          <mxPoint x="710" y="1050" />
+          <mxPoint x="414" y="1050" />
         </Array>
       </mxGeometry>
     </mxCell>
-  </root>
+  <mxCell id="hybrid_handshake" value="Hybrid Handshake&lt;br&gt;AI generates archetype_tag&lt;br&gt;Python loads hardcoded stats" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1"><mxGeometry x="280" y="440" width="160" height="60" as="geometry" /></mxCell><mxCell id="confirm_loop" value="Interactive Confirmation&lt;br&gt;Loop (Accept/Reroll/Edit)" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1"><mxGeometry x="150" y="520" width="160" height="80" as="geometry" /></mxCell><mxCell id="e_char_cus_h" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_cus" target="hybrid_handshake" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell><mxCell id="e_h_conf" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="hybrid_handshake" target="confirm_loop" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="360" y="560" /><mxPoint x="230" y="560" /></Array></mxGeometry></mxCell><mxCell id="e_char_pre_c" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="char_pre" target="confirm_loop" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="100" y="560" /><mxPoint x="230" y="560" /></Array></mxGeometry></mxCell><mxCell id="e_conf_accept" value="Accept" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="confirm_loop" target="world_dec" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell><mxCell id="e_conf_reroll" value="Reroll/Edit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="confirm_loop" target="char_dec" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="100" y="560" /><mxPoint x="100" y="280" /></Array></mxGeometry></mxCell></root>
 </mxGraphModel>
