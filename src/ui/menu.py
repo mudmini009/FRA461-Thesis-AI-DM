@@ -13,16 +13,18 @@ def draw_header(title: str):
 
 def main_menu() -> str:
     draw_header("MAIN MENU")
-    print("1. New Game")
-    print("2. Continue")
-    print("3. Exit")
+    print("1. Start New Campaign    (Hub → Quest Board → Dungeon)")
+    print("2. Continue Campaign     (Resume from your last save)")
+    print("3. Quick Battle          (Dev mode: skip Hub, fight now)")
+    print("4. Exit")
     print("-" * 50)
-    
+
     while True:
-        choice = input("Select an option (1-3): ").strip()
+        choice = input("Select an option (1-4): ").strip()
         if choice == '1': return 'new'
         if choice == '2': return 'continue'
-        if choice == '3': return 'exit'
+        if choice == '3': return 'quick_battle'
+        if choice == '4': return 'exit'
         print("Invalid choice. Try again.")
     return 'exit'
 

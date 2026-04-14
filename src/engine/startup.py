@@ -507,21 +507,34 @@ def run_continue_flow(llm_service: LLMService) -> bool:
 # ─────────────────────────────────────────────────────────────
 #  ENTRY POINT
 # ─────────────────────────────────────────────────────────────
-def run_startup() -> bool:
+def run_startup() -> tuple:
+    """
+    Main entry point for the pre-game flow.
+    Returns: (ready: bool, mode: str)
+      mode can be: 'hub' | 'continue' | 'quick_battle'
+    """
     try:
         llm = LLMService()
     except Exception as e:
         print(f"Error loading LLM: {e}")
-        return False
+        return False, "exit"
 
     while True:
         choice = main_menu()
         if choice == "new":
             if initialize_new_game(llm):
-                return True
+                return True, "hub"
         elif choice == "continue":
             if run_continue_flow(llm):
-                return True
+                return True, "continue"
+        elif choice == "quick_battle":
+            # Quick battle: just ensure there's a valid save, then return dev mode
+            if not os.path.exists(ACTIVE_FILE):
+                print("\n⚠️  No save file found for Quick Battle. Starting a new game first...")
+                if initialize_new_game(llm):
+                    return True, "quick_battle"
+            else:
+                return True, "quick_battle"
         elif choice == "exit":
-            return False
-    return False
+            return False, "exit"
+    return False, "exit"

@@ -84,3 +84,19 @@ class LLMService:
 
     def expand_world_lore(self, concept: str, edit_instructions: str = "") -> str:
         return self._character.expand_world_lore(concept, edit_instructions)
+
+    # ─── Exploration Narrator ────────────────────────────────────
+    def narrate_room_entry(self, node: dict, world_lore: str = "", story_memory=None) -> str:
+        return self._narrator.narrate_room_entry(node, world_lore, story_memory)
+
+    def narrate_exploration_look(self, node: dict, world_lore: str = "") -> str:
+        return self._narrator.narrate_exploration_look(node, world_lore)
+
+    def narrate_encounter_start(self, node: dict, enemy_name: str, world_lore: str = "") -> str:
+        return self._narrator.narrate_encounter_start(node, enemy_name, world_lore)
+
+    def narrate_node_cleared(self, node: dict, world_lore: str = "") -> str:
+        return self._narrator.narrate_node_cleared(node, world_lore)
+
+    def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None) -> str:
+        return self._narrator.narrate_hub_welcome(player_name, world_lore, story_memory)

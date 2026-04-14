@@ -6,7 +6,7 @@ import shutil
 # Ensure we can import from src
 sys.path.append(os.getcwd())
 
-from src.engine.game_loop import start_combat_loop
+from src.engine.game_loop import start_combat_loop, start_hub_loop
 from src.engine.startup import run_startup, ACTIVE_FILE
 from src.services.data_manager import DataManager
 
@@ -49,22 +49,29 @@ def check_api_setup():
 
 def main():
     check_api_setup()
-    
+
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         print(BANNER)
-        print("⚠️  Type 'RESTART' at any time to reset the game.")
+        print("\u26a0️  Type 'QUIT' at any time to save and exit.")
         print("-" * 50)
-        # 1. Run Pre-Game Flow (Menu & Setup)
-        ready = run_startup()
+
+        # 1. Run Pre-Game Flow (menu + character creation)
+        ready, mode = run_startup()
         if not ready:
             print("\n👋 Exiting Game...")
             break
-            
-        # 3. Launch Game Loop
-        result = start_combat_loop(data_path=ACTIVE_FILE)
-        
-        # 4. Handle End Game
+
+        # 2. Route based on selected mode
+        if mode == "quick_battle":
+            # Quick Battle: bypass Hub, drop directly into combat (dev shortcut)
+            print("\n🔥 [QUICK BATTLE] Launching direct combat...")
+            result = start_combat_loop(data_path=ACTIVE_FILE)
+        else:
+            # Default: New Campaign or Continue → Hub Loop
+            result = start_hub_loop(data_path=ACTIVE_FILE)
+
+        # 3. Handle End State
         if result == "EXIT":
             print("\n👋 Exiting Game...")
             break
@@ -73,13 +80,13 @@ def main():
             time.sleep(1)
             continue
         elif result == "VICTORY":
-            print("\n🎉 Congratulations! You have conquered the enemies!")
+            print("\n🎉 Congratulations! You have conquered the dungeon!")
             time.sleep(5)
         elif result == "DEFEAT":
             print("\n💀 Your journey ends here. Better luck next time, hero.")
             time.sleep(5)
-            
-        print("\nResetting for next adventure...")
+
+        print("\nReturning to main menu...")
         time.sleep(2)
 
 if __name__ == "__main__":

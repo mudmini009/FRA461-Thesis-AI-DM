@@ -1,5 +1,6 @@
 import os
-from src.models.character import Condition
+import json
+from src.models.character import Condition, Character, Stat, Zone
 from src.services.llm_service import LLMService
 from src.services.data_manager import DataManager
 from src.models.toon_converter import TOONConverter
@@ -9,6 +10,14 @@ from src.ui.dashboard import render_dashboard
 from src.router.intent_router import classify_intent
 from src.router.intents import execute_fixed_action, handle_creative_intent
 from src.logic.rules_engine import RulesEngine
+from src.logic.time_manager import TimeManager
+from src.services.quest_loader import QuestLoader
+from src.router.exploration_router import (
+    classify_exploration_intent,
+    get_rest_rejection_message,
+    get_move_rejection_message,
+)
+from src.ui.exploration_ui import render_exploration_dashboard, render_hub_dashboard
 
 DEBUG_MODE = False
 
@@ -290,3 +299,480 @@ def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> st
 
 if __name__ == "__main__":
     start_combat_loop()
+
+
+# =============================================================================
+#  EXPLORATION LOOP  (Point-Crawl Engine)
+#  Wraps start_combat_loop() — does NOT modify it.
+# =============================================================================
+
+def _inject_enemy_from_bestiary(
+    enemy_tag: str,
+    enemy_index: int = 1,
+    bestiary_path: str = "data/config/bestiary.json",
+) -> "Character | None":
+    """
+    Loads enemy stats from bestiary.json and returns a fresh Character object.
+    Pure Python — no LLM.
+    """
+    try:
+        with open(bestiary_path, "r", encoding="utf-8") as f:
+            bestiary = json.load(f)
+    except Exception as e:
+        print(f"   ❌ Could not load bestiary: {e}")
+        return None
+
+    tag = enemy_tag.lower().strip()
+    if tag not in bestiary:
+        tag = list(bestiary.keys())[0]  # fallback to first entry
+        print(f"   ⚠️  Enemy tag '{enemy_tag}' not found. Falling back to '{tag}'.")
+
+    raw = bestiary[tag]
+    converted_stats = {}
+    for k, v in raw.get("stats", {}).items():
+        try:
+            converted_stats[Stat[k.upper()]] = v
+        except KeyError:
+            pass
+
+    return Character(
+        id=f"e{enemy_index}",
+        name=tag.replace("_", " ").title(),
+        role="Enemy",
+        hp=raw.get("hp", 10),
+        max_hp=raw.get("max_hp", 10),
+        ac=raw.get("ac", 10),
+        stats=converted_stats,
+        zone=Zone.FAR,
+        inventory=raw.get("inventory", []),
+        condition=Condition.NORMAL,
+    )
+
+
+def start_exploration_loop(
+    data_path: str = "data/active/campaign_active.json",
+    quest_id: str = "sample_dungeon",
+    starting_node_id: str = None,
+) -> str:
+    """
+    Point-Crawl Exploration Loop.
+
+    Handles MOVE, LOOK, REST, STATUS, INVENTORY, QUIT commands
+    via pure-Python guardrails. LLM is only called for narration
+    AFTER a command passes. Combat is delegated entirely to the
+    existing start_combat_loop() with zero modifications.
+
+    Returns: 'VICTORY' | 'DEFEAT' | 'EXIT' | 'HUB'
+    """
+    # ── Load Game State ────────────────────────────────────────
+    data_manager = DataManager(data_path)
+    settings = data_manager.load_settings()
+    world_lore = data_manager.load_lore()
+    party, enemies, combat_memory, story_memory, global_state = data_manager.load_game(settings=settings)
+
+    if not party:
+        print(f"   ❌ No party data found.")
+        return "EXIT"
+
+    try:
+        llm_service = LLMService(settings=settings)
+    except Exception as e:
+        print(f"   ❌ LLM Service failed: {e}")
+        return "EXIT"
+
+    # ── Load Quest ─────────────────────────────────────────────
+    quest_data = QuestLoader.load_quest(quest_id)
+    if not quest_data:
+        print(f"   ❌ Quest '{quest_id}' could not be loaded.")
+        return "HUB"
+
+    # Resolve starting node
+    current_node_id = starting_node_id or global_state.get("current_node_id") or QuestLoader.get_entrance_node_id(quest_data)
+    global_state["current_quest_id"] = quest_id
+    global_state["current_node_id"] = current_node_id
+    global_state["current_phase"] = "EXPLORATION"
+    global_state["is_in_combat"] = False
+
+    quest_name = quest_data.get("name", quest_id)
+    player = party[0]
+
+    print(f"\n{'='*52}")
+    print(f"  🗺️  ENTERING: {quest_name}")
+    print(f"{'='*52}")
+
+    # Narrate initial room entry on load
+    current_node = QuestLoader.get_node(quest_data, current_node_id)
+    if current_node and not current_node.get("visited", False):
+        # First ever entry — lore reveal
+        QuestLoader.append_lore(current_node.get("lore_fragment"))
+        QuestLoader.mark_visited(quest_data, current_node_id)
+        QuestLoader.save_quest(quest_id, quest_data)
+        world_lore = data_manager.load_lore()  # Reload after appending
+
+    if current_node:
+        print("   Generating room description...")
+        narration = llm_service.narrate_room_entry(current_node, world_lore, story_memory)
+        print(f"\n   🗣️  DM: \"{narration}\"\n")
+        DataManager.append_to_log(f"[EXPLORATION] Entered: {current_node.get('name')}\n[DM] {narration}\n")
+
+    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+    # ── Main Exploration Loop ───────────────────────────────────
+    while True:
+        try:
+            # Reload node on each iteration (may have changed after combat)
+            current_node = QuestLoader.get_node(quest_data, global_state["current_node_id"])
+            if not current_node:
+                print(f"   ❌ Node '{global_state['current_node_id']}' not found in quest data.")
+                return "EXIT"
+
+            # ── HUD ──────────────────────────────────────────────
+            render_exploration_dashboard(party, current_node, global_state, quest_name)
+            print(f"   Action > ", end="", flush=True)
+            user_input = input()
+
+            if not user_input.strip():
+                continue
+
+            DataManager.append_to_log(f"[{player.name}] {user_input}")
+
+            # ── Classify (Zero LLM) ───────────────────────────────
+            intent = classify_exploration_intent(user_input)
+            intent_type = intent["type"]
+
+            # ─── QUIT ────────────────────────────────────────────
+            if intent_type == "QUIT" or user_input.lower() in ["exit", "quit", "q"]:
+                data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                return "EXIT"
+
+            # ─── RETURN TO HUB ───────────────────────────────────
+            if intent_type == "EXIT_HUB" or user_input.lower() in ["hub", "return to guild", "leave"]:
+                # Only allow leaving from the entrance node
+                entrance = QuestLoader.get_entrance_node_id(quest_data)
+                if global_state["current_node_id"] == entrance:
+                    print("   🏠 [SYSTEM] You head back to the Adventurer's Guild.")
+                    global_state["current_phase"] = "HUB"
+                    global_state["current_quest_id"] = "hub"
+                    global_state["current_node_id"] = "hub_main"
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                    return "HUB"
+                else:
+                    print("   🛑 [SYSTEM] You can't leave from here — find your way back to the entrance first.")
+                    continue
+
+            # ─── LOOK / INSPECT ──────────────────────────────────
+            elif intent_type == "LOOK":
+                print("   Describing the room...", end="\r")
+                # Reload world lore in case lore was appended since last look
+                world_lore = data_manager.load_lore()
+                narration = llm_service.narrate_exploration_look(current_node, world_lore)
+                print(" " * 30, end="\r")
+                print(f"\n   🗣️  DM: \"{narration}\"\n")
+                DataManager.append_to_log(f"[LOOK] {narration}")
+
+            # ─── REST ────────────────────────────────────────────
+            elif intent_type == "REST":
+                rejection = get_rest_rejection_message(current_node)
+                if rejection:
+                    print(f"   {rejection}")
+                    DataManager.append_to_log(f"[SYSTEM] REST blocked: {rejection}")
+                else:
+                    rest_log = TimeManager.apply_short_rest(party, global_state)
+                    print(f"   💤 [SYSTEM] {rest_log}")
+                    DataManager.append_to_log(f"[SYSTEM] {rest_log}")
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+            # ─── STATUS ──────────────────────────────────────────
+            elif intent_type == "STATUS":
+                print(f"\n   👤 {player.name} [{player.role}]")
+                print(f"      HP: {player.hp}/{player.max_hp}")
+                print(f"      AC: {player.ac}")
+                if player.abilities:
+                    for a in player.abilities:
+                        print(f"      {a.name}: {a.current_uses}/{a.max_uses} charges")
+                if player.inventory:
+                    print(f"      Inventory: {', '.join(player.inventory)}")
+
+            # ─── INVENTORY ───────────────────────────────────────
+            elif intent_type == "INVENTORY":
+                if player.inventory:
+                    print(f"   🎒 {player.name}'s Inventory: {', '.join(player.inventory)}")
+                else:
+                    print(f"   🎒 Your inventory is empty.")
+
+            # ─── MOVE ────────────────────────────────────────────
+            elif intent_type == "MOVE":
+                raw_target = intent.get("raw_target", "").strip()
+                if not raw_target:
+                    print("   ⚠️  Where do you want to go? Name a destination.")
+                    continue
+
+                # Python guardrail: resolve target against connected_to
+                target_node_id = QuestLoader.resolve_move_target(raw_target, current_node, quest_data)
+
+                if not target_node_id:
+                    # REJECTION — no LLM burn
+                    rejection_msg = get_move_rejection_message(raw_target, current_node)
+                    print(f"   {rejection_msg}")
+                    DataManager.append_to_log(f"[SYSTEM] Invalid MOVE blocked: '{raw_target}'")
+                    continue
+
+                # ✅ Valid move — update state
+                new_node = QuestLoader.get_node(quest_data, target_node_id)
+                if not new_node:
+                    print(f"   ❌ [SYSTEM] Node data missing for '{target_node_id}'.")
+                    continue
+
+                global_state["current_node_id"] = target_node_id
+                print(f"   🚶 [SYSTEM] Moving to: {new_node['name']}...")
+
+                # ── Step 1: Lore reveal (FIRST, before anything else) ──
+                if not new_node.get("visited", False):
+                    QuestLoader.append_lore(new_node.get("lore_fragment"))
+                    QuestLoader.mark_visited(quest_data, target_node_id)
+                    QuestLoader.save_quest(quest_id, quest_data)
+                    world_lore = data_manager.load_lore()  # Reload enriched lore
+
+                # ── Step 2: Room narration ──────────────────────────
+                print("   Narrating...", end="\r")
+                room_narration = llm_service.narrate_room_entry(new_node, world_lore, story_memory)
+                print(" " * 20, end="\r")
+                print(f"\n   🗣️  DM: \"{room_narration}\"\n")
+                DataManager.append_to_log(f"[MOVE] -> {new_node['name']}\n[DM] {room_narration}\n")
+
+                # ── Step 3: Combat bridge check ─────────────────────
+                event_type = new_node.get("event_type", "safe")
+                is_combat_node = event_type in ("combat", "boss")
+                is_uncleared = not new_node.get("cleared", True)
+
+                if is_combat_node and is_uncleared:
+                    enemy_tag = new_node.get("enemy_tag", "goblin")
+                    enemy_name = enemy_tag.replace("_", " ").title()
+
+                    # Generate Initiative / Cold Open narration
+                    print("   Generating encounter...", end="\r")
+                    encounter_narration = llm_service.narrate_encounter_start(new_node, enemy_name, world_lore)
+                    print(" " * 30, end="\r")
+                    print(f"   ⚔️  DM: \"{encounter_narration}\"\n")
+                    DataManager.append_to_log(f"[ENCOUNTER] {enemy_name} in {new_node['name']}\n[DM] {encounter_narration}\n")
+
+                    # Inject enemy into enemies list
+                    injected_enemy = _inject_enemy_from_bestiary(enemy_tag)
+                    if injected_enemy:
+                        enemies = [injected_enemy]
+                    else:
+                        print("   ⚠️  No valid enemy found — skipping combat.")
+                        continue
+
+                    # Shift phase to COMBAT
+                    global_state["current_phase"] = "COMBAT"
+                    global_state["is_in_combat"] = True
+
+                    # Atomic save before handing to combat loop
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+                    # ── Handoff to existing Combat Loop (UNTOUCHED) ────
+                    print(f"\n{'⚔️ '*26}")
+                    combat_result = start_combat_loop(data_path=data_path)
+                    print(f"{'⚔️ '*26}\n")
+
+                    # Reload state after combat (combat loop saves its own data)
+                    party, enemies, combat_memory, story_memory, global_state = data_manager.load_game(settings=settings)
+                    # Re-inject exploration phase keys (combat loop doesn't know about them)
+                    global_state["current_phase"] = "EXPLORATION"
+                    global_state["is_in_combat"] = False
+                    global_state["current_node_id"] = target_node_id
+                    global_state["current_quest_id"] = quest_id
+
+                    # ── Handle Combat Resolution ────────────────────
+                    if combat_result == "VICTORY":
+                        # cleared is ONLY set here, exclusively after combat victory
+                        QuestLoader.mark_cleared(quest_data, target_node_id)
+                        QuestLoader.save_quest(quest_id, quest_data)
+
+                        # Post-combat narration
+                        world_lore = data_manager.load_lore()
+                        print("   Narrating aftermath...", end="\r")
+                        cleared_narration = llm_service.narrate_node_cleared(new_node, world_lore)
+                        print(" " * 30, end="\r")
+                        print(f"\n   🗣️  DM: \"{cleared_narration}\"\n")
+                        DataManager.append_to_log(f"[CLEARED] {new_node['name']}\n[DM] {cleared_narration}\n")
+
+                        data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+                        # Check full quest completion
+                        if QuestLoader.is_quest_complete(quest_data):
+                            print(f"\n{'🏆'*26}")
+                            print(f"  QUEST COMPLETE: {quest_name}")
+                            print(f"{'🏆'*26}")
+                            data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                            return "VICTORY"
+
+                    elif combat_result == "DEFEAT":
+                        data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                        return "DEFEAT"
+
+                    elif combat_result == "EXIT":
+                        data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                        return "EXIT"
+
+                    # RESTART: stay in exploration loop, fresh state
+                    elif combat_result == "RESTART":
+                        party, enemies, combat_memory, story_memory, global_state = data_manager.load_game(settings=settings)
+                        global_state["current_phase"] = "EXPLORATION"
+                        global_state["is_in_combat"] = False
+                        global_state["current_node_id"] = target_node_id
+                        global_state["current_quest_id"] = quest_id
+
+                else:
+                    # Non-combat node — just save position
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+            # ─── UNKNOWN ─────────────────────────────────────────
+            else:
+                print("   🤔 [SYSTEM] That's not something you can do here. Try: LOOK, MOVE [destination], REST, STATUS, INVENTORY, or QUIT.")
+
+        except KeyboardInterrupt:
+            print("\n   Saving and shutting down...")
+            data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+            return "EXIT"
+
+    return "EXIT"
+
+
+def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
+    """
+    Hub Loop — The Adventurer's Guild safe zone.
+
+    Presents quest board, rest, status, and quick battle options.
+    Delegates to start_exploration_loop() for quests
+    and start_combat_loop() directly for Quick Battle.
+
+    Returns: 'EXIT' | 'DEFEAT'
+    """
+    data_manager = DataManager(data_path)
+    settings = data_manager.load_settings()
+    world_lore = data_manager.load_lore()
+    party, enemies, combat_memory, story_memory, global_state = data_manager.load_game(settings=settings)
+
+    if not party:
+        print("   ❌ No character found. Please start a New Game.")
+        return "EXIT"
+
+    try:
+        llm_service = LLMService(settings=settings)
+    except Exception as e:
+        print(f"   ❌ LLM Service failed: {e}")
+        return "EXIT"
+
+    player = party[0]
+
+    # ── Hub Welcome Narration ──────────────────────────────────
+    global_state["current_phase"] = "HUB"
+    global_state["current_quest_id"] = "hub"
+    global_state["current_node_id"] = "hub_main"
+    global_state["is_in_combat"] = False
+
+    print("   Generating Guild welcome...", end="\r")
+    welcome = llm_service.narrate_hub_welcome(player.name, world_lore, story_memory)
+    print(" " * 35, end="\r")
+    print(f"\n   🗣️  DM: \"{welcome}\"\n")
+    DataManager.append_to_log(f"[HUB] {welcome}\n")
+    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+    # ── Hub Loop ───────────────────────────────────────────────
+    while True:
+        try:
+            # Reload to pick up any changes from sub-loops
+            party, enemies, combat_memory, story_memory, global_state = data_manager.load_game(settings=settings)
+            world_lore = data_manager.load_lore()
+            player = party[0] if party else player
+
+            available_quests = QuestLoader.list_available_quests()
+            render_hub_dashboard(party, global_state, available_quests)
+
+            print("   Action > ", end="", flush=True)
+            user_input = input().strip()
+
+            if not user_input:
+                continue
+
+            lower = user_input.lower()
+            DataManager.append_to_log(f"[{player.name}] (Hub) {user_input}")
+
+            # ── Quit ──────────────────────────────────────────
+            if lower in ["quit", "exit", "q"]:
+                data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                return "EXIT"
+
+            # ── Rest (Long Rest in Hub) ────────────────────────
+            elif any(kw in lower for kw in ["rest", "sleep", "camp"]):
+                rest_log = TimeManager.apply_long_rest(party, global_state)
+                print(f"   💤 [SYSTEM] {rest_log}")
+                DataManager.append_to_log(f"[SYSTEM] {rest_log}")
+                data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+            # ── Status ────────────────────────────────────────
+            elif any(kw in lower for kw in ["status", "character", "sheet", "stats"]):
+                print(f"\n   👤 {player.name} [{player.role}]")
+                print(f"      HP: {player.hp}/{player.max_hp}  |  AC: {player.ac}")
+                if player.abilities:
+                    for a in player.abilities:
+                        print(f"      {a.name}: {a.current_uses}/{a.max_uses} charges")
+                if player.inventory:
+                    print(f"      Inventory: {', '.join(player.inventory)}")
+
+            # ── Inventory ─────────────────────────────────────
+            elif any(kw in lower for kw in ["inventory", "items", "bag", "pack"]):
+                if player.inventory:
+                    print(f"   🎒 {player.name}'s Inventory: {', '.join(player.inventory)}")
+                else:
+                    print("   🎒 Your inventory is empty.")
+
+            # ── Quest Board ───────────────────────────────────
+            elif any(kw in lower for kw in ["quest", "board", "job", "mission", "bounty"]):
+                if not available_quests:
+                    print("   📋 No quests available right now.")
+                    continue
+                print("\n   📋 QUEST BOARD:")
+                for i, q in enumerate(available_quests, 1):
+                    print(f"      [{i}] {q['name']}")
+                    print(f"          {q.get('description', '')}")
+                print(f"      [0] Cancel")
+
+                choice = input("\n   Choose quest (number): ").strip()
+                if not choice.isdigit():
+                    continue
+                choice_int = int(choice)
+                if choice_int == 0 or choice_int > len(available_quests):
+                    continue
+
+                chosen = available_quests[choice_int - 1]
+                chosen_id = chosen["id"]
+                print(f"\n   ✦ Accepting quest: {chosen['name']}")
+                DataManager.append_to_log(f"[QUEST ACCEPTED] {chosen['name']}")
+
+                # Launch exploration loop
+                result = start_exploration_loop(
+                    data_path=data_path,
+                    quest_id=chosen_id,
+                    starting_node_id=None,  # Use quest entrance
+                )
+
+                if result == "EXIT":
+                    return "EXIT"
+                elif result == "DEFEAT":
+                    return "DEFEAT"
+                elif result == "VICTORY":
+                    print("\n   🎉 Quest complete! Welcome back to the Guild.")
+                # else HUB: just fall back to hub loop naturally
+
+            else:
+                print("   🤔 [HUB] Try: QUEST BOARD | REST | STATUS | INVENTORY | QUIT")
+
+        except KeyboardInterrupt:
+            print("\n   Saving and shutting down...")
+            data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+            return "EXIT"
+
+    return "EXIT"

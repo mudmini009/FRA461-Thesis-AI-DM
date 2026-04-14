@@ -52,6 +52,15 @@ class DataManager:
                 "turn_counter": 0,
                 "is_in_combat": True
             })
+            # Exploration state migration: inject missing keys so old saves
+            # don't crash. Old saves had is_in_combat=True, so they drop into
+            # COMBAT phase — preserving all previous test behavior.
+            if "current_phase" not in global_state:
+                global_state["current_phase"] = "COMBAT" if global_state.get("is_in_combat", True) else "HUB"
+            if "current_quest_id" not in global_state:
+                global_state["current_quest_id"] = None
+            if "current_node_id" not in global_state:
+                global_state["current_node_id"] = None
             
             return party, enemies, combat_memory, story_memory, global_state
             

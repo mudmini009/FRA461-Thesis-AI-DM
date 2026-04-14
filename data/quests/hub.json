@@ -1,0 +1,19 @@
+{
+    "quest_id": "hub",
+    "name": "The Adventurer's Guild",
+    "nodes": {
+        "hub_main": {
+            "node_id": "hub_main",
+            "name": "The Guildhall",
+            "base_description": "The Adventurer's Guild is a sprawling, torch-lit hall that smells of roasted boar, spilled ale, and ambition. Rough-hewn oak tables are scattered with maps, contracts, and the occasional dropped coin. A massive stone hearth crackles at the far wall. The Quest Board looms near the entrance, pinned with bounties, bounty maps, and pleas for help. The barkeep, a scarred dwarf named Bragen, polishes a tankard and eyes you with a professional wariness. You are safe here. This is where adventures begin — and where they are mourned.",
+            "connected_to": [],
+            "event_type": "hub",
+            "visited": true,
+            "cleared": true,
+            "enemy_tag": null,
+            "lore_fragment": null,
+            "available_quests": ["sample_dungeon"]
+        }
+    },
+    "entrance_node": "hub_main"
+}
