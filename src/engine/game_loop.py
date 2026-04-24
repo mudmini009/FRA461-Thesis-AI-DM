@@ -383,11 +383,25 @@ def start_exploration_loop(
     # ── Load Quest ─────────────────────────────────────────────
     quest_data = QuestLoader.load_quest(quest_id)
     if not quest_data:
-        print(f"   ❌ Quest '{quest_id}' could not be loaded.")
+        print(f"   \u274c Quest '{quest_id}' could not be loaded.")
         return "HUB"
 
-    # Resolve starting node
-    current_node_id = starting_node_id or global_state.get("current_node_id") or QuestLoader.get_entrance_node_id(quest_data)
+    # Template-vs-Instance: overlay saved progress on top of the clean template.
+    # New Game  → load_quest_state returns None → fresh template (all visited=False)
+    # Continue  → load_quest_state returns saved copy → resumes with progress intact
+    saved_instance = data_manager.load_quest_state(quest_id)
+    if saved_instance:
+        quest_data = saved_instance
+
+    # Resolve starting node.
+    # Only reuse a saved node position if it belongs to THIS quest.
+    # If the player is arriving from the hub (different quest_id), always use the entrance.
+    saved_node = (
+        global_state.get("current_node_id")
+        if global_state.get("current_quest_id") == quest_id
+        else None
+    )
+    current_node_id = starting_node_id or saved_node or QuestLoader.get_entrance_node_id(quest_data)
     global_state["current_quest_id"] = quest_id
     global_state["current_node_id"] = current_node_id
     global_state["current_phase"] = "EXPLORATION"
@@ -406,7 +420,7 @@ def start_exploration_loop(
         # First ever entry — lore reveal
         QuestLoader.append_lore(current_node.get("lore_fragment"))
         QuestLoader.mark_visited(quest_data, current_node_id)
-        QuestLoader.save_quest(quest_id, quest_data)
+        data_manager.save_quest_state(quest_id, quest_data)  # Instance save, not template
         world_lore = data_manager.load_lore()  # Reload after appending
 
     if current_node:
@@ -530,7 +544,7 @@ def start_exploration_loop(
                 if not new_node.get("visited", False):
                     QuestLoader.append_lore(new_node.get("lore_fragment"))
                     QuestLoader.mark_visited(quest_data, target_node_id)
-                    QuestLoader.save_quest(quest_id, quest_data)
+                    data_manager.save_quest_state(quest_id, quest_data)  # Instance save, not template
                     world_lore = data_manager.load_lore()  # Reload enriched lore
 
                 # ── Step 2: Room narration ──────────────────────────
@@ -588,7 +602,7 @@ def start_exploration_loop(
                     if combat_result == "VICTORY":
                         # cleared is ONLY set here, exclusively after combat victory
                         QuestLoader.mark_cleared(quest_data, target_node_id)
-                        QuestLoader.save_quest(quest_id, quest_data)
+                        data_manager.save_quest_state(quest_id, quest_data)  # Instance save, not template
 
                         # Post-combat narration
                         world_lore = data_manager.load_lore()

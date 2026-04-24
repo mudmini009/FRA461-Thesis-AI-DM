@@ -1,0 +1,240 @@
+<mxGraphModel dx="1200" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="1653" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+
+    <!-- LEGEND -->
+    <mxCell id="legend_bg" value="Color Legend" style="swimlane;whiteSpace=wrap;html=1;fillColor=#37474F;fontColor=#ffffff;strokeColor=#263238;" parent="1" vertex="1" />
+    <mxGeometry x="20" y="20" width="220" height="200" as="geometry" />
+    <mxCell id="leg1" value="LLM Process (Generative)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;fontColor=#ffffff;strokeColor=#1B5E20;" parent="legend_bg" vertex="1"><mxGeometry x="10" y="30" width="200" height="30" as="geometry" /></mxCell>
+    <mxCell id="leg2" value="Python Mechanics / Deterministic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;fontColor=#ffffff;strokeColor=#0D47A1;fontStyle=1" parent="legend_bg" vertex="1"><mxGeometry x="10" y="70" width="200" height="30" as="geometry" /></mxCell>
+    <mxCell id="leg3" value="State Loop / Game Phase" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;fontColor=#ffffff;strokeColor=#B71C1C;fontStyle=1" parent="legend_bg" vertex="1"><mxGeometry x="10" y="110" width="200" height="30" as="geometry" /></mxCell>
+    <mxCell id="leg4" value="System Action / Decision" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;fontColor=#ffffff;strokeColor=#263238;" parent="legend_bg" vertex="1"><mxGeometry x="10" y="150" width="200" height="40" as="geometry" /></mxCell>
+
+    <!-- HUB LOOP -->
+    <mxCell id="hub_loop" value="HUB Phase&lt;br&gt;(Wait for Input)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="500" y="40" width="160" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="quest_board" value="Select Quest from Board" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="520" y="160" width="120" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="load_quest" value="Load Quest Data &amp; Overlay Instance State&lt;br&gt;(DataManager &amp; QuestLoader)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="460" y="260" width="240" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="exp_loop" value="EXPLORATION LOOP&lt;br&gt;Current Node Active" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="500" y="370" width="160" height="80" as="geometry" />
+    </mxCell>
+
+    <!-- NODE ENTRY / LORE -->
+    <mxCell id="check_visited" value="Is Node&lt;br&gt;Visited?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="510" y="490" width="140" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="append_lore" value="Mark Visited, Append Lore Fragment to world_lore.txt &amp; Save Quest Instance state" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="220" y="500" width="220" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="narrate_room" value="&lt;b&gt;[LLM Narrator Agent]&lt;/b&gt;&lt;br&gt;Narrate Room Entry via Base Desc &amp; World Lore" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="480" y="610" width="200" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- INPUT -->
+    <mxCell id="wait_input" value="Render HUD &amp; Wait for User Input" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="500" y="710" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="classify" value="Classify Intent&lt;br&gt;(Zero-LLM Python Matcher)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="500" y="810" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- NON-MOVE ACTIONS -->
+    <mxCell id="intent_other" value="STATUS, INFO, LOOK, REST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="760" y="810" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="resolve_other" value="Process Action (Heal, Describe, Display HUD) &amp; Return to Input" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="760" y="710" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- MOVE INTENT -->
+    <mxCell id="intent_move" value="MOVE Intent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="270" y="810" width="120" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="resolve_move" value="Python target resolution against 'connected_to' IDs/names" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="230" y="910" width="200" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="valid_move" value="Target Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="260" y="1010" width="140" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="reject_move" value="Reject Move (Cannot go there)&lt;br&gt;NO LLM COST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="20" y="1020" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- VALID MOVE SUCCESS -->
+    <mxCell id="event_type" value="Check 'event_type'&lt;br&gt;and 'cleared' flag" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="250" y="1130" width="160" height="90" as="geometry" />
+    </mxCell>
+
+    <!-- SAFE / CLEARED -->
+    <mxCell id="safe_route" value="Safe Node / Already Cleared&lt;br&gt;Update Node ID" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="500" y="1145" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- COMBAT ROUTE -->
+    <mxCell id="combat_narrate" value="&lt;b&gt;[LLM Narrator Agent]&lt;/b&gt;&lt;br&gt;Narrate Initiative / Ambush" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="20" y="1250" width="180" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="combat_engine" value="COMBAT ENGINE LOOP&lt;br&gt;(Read-only wrapper)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="30" y="1350" width="160" height="80" as="geometry" />
+    </mxCell>
+
+    <mxCell id="combat_victory" value="Set cleared=True &amp; Save Instance State" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="30" y="1470" width="160" height="60" as="geometry" />
+    </mxCell>
+
+    <mxCell id="cleared_narrate" value="&lt;b&gt;[LLM Narrator Agent]&lt;/b&gt;&lt;br&gt;Narrate Area Cleared / Aftermath" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;strokeColor=#1B5E20;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="20" y="1570" width="180" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- EDGES -->
+    <mxCell id="e_hub_quest" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="hub_loop" target="quest_board" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_quest_load" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="quest_board" target="load_quest" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    
+    <mxCell id="e_load_exp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="load_quest" target="exp_loop" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_exp_vis" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="exp_loop" target="check_visited" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_vis_false" value="False (New Area)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="check_visited" target="append_lore" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_lore_nar" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="append_lore" target="narrate_room" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="330" y="640" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="e_vis_true" value="True" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="check_visited" target="narrate_room" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_nar_inp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="narrate_room" target="wait_input" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_inp_cls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="wait_input" target="classify" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Branch Action -->
+    <mxCell id="e_cls_oth" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="classify" target="intent_other" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    
+    <mxCell id="e_oth_res" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_other" target="resolve_other" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    
+    <mxCell id="e_res_inp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="resolve_other" target="wait_input" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="840" y="690" />
+          <mxPoint x="580" y="690" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <!-- Branch Move -->
+    <mxCell id="e_cls_mov" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="classify" target="intent_move" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_mov_req" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_move" target="resolve_move" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_res_val" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="resolve_move" target="valid_move" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_val_no" value="No/Invalid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="valid_move" target="reject_move" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_rej_inp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="reject_move" target="wait_input" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="100" y="690" />
+          <mxPoint x="580" y="690" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="e_val_yes" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="valid_move" target="event_type" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <!-- Event branches -->
+    <mxCell id="e_evt_safe" value="Safe OR Boss/Combat Cleared" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="event_type" target="safe_route" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_safe_exp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="safe_route" target="exp_loop" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="710" y="1175" />
+          <mxPoint x="710" y="410" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="e_evt_com" value="Uncleared Combat/Boss Node" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="event_type" target="combat_narrate" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="330" y="1280" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+    <mxCell id="e_comn_come" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="combat_narrate" target="combat_engine" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_come_vicy" value="Victory" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="combat_engine" target="combat_victory" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_vicy_clen" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="combat_victory" target="cleared_narrate" edge="1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+
+    <mxCell id="e_clen_safe" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="cleared_narrate" target="safe_route" edge="1">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="110" y="1660" />
+          <mxPoint x="940" y="1660" />
+          <mxPoint x="940" y="1175" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+
+  </root>
+</mxGraphModel>

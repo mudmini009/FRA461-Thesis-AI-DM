@@ -1,11 +1,15 @@
 """
-QuestLoader — pure Python service for reading and writing point-crawl quest data.
+QuestLoader — pure Python service for reading point-crawl quest data.
 
 Responsibilities:
-  - Load/save quest node graphs from data/quests/{quest_id}.json
+  - Load quest node graph templates from data/quests/{quest_id}.json  [READ-ONLY]
   - Resolve nodes by ID
   - Mark nodes as visited (lore gate) or cleared (combat resolution)
   - Append lore fragments to world_lore.txt (no LLM, pure file I/O)
+
+ARCHITECTURE NOTE — Template vs. Instance:
+  data/quests/*.json  = READ-ONLY master templates. Never written during gameplay.
+  campaign_active.json (quest_states) = Player's live progress. Written via DataManager.
 
 No LLM calls, no Character objects. This layer is purely mechanical.
 """
@@ -41,17 +45,18 @@ class QuestLoader:
     @staticmethod
     def save_quest(quest_id: str, quest_data: dict):
         """
-        Atomically writes the quest graph back to disk.
-        Called after marking visited/cleared to prevent state desync.
+        ⚠️  DEPRECATED — DO NOT USE IN GAMEPLAY CODE.
+        Quest templates in data/quests/ are READ-ONLY.
+        Use DataManager.save_quest_state() instead to persist player progress
+        into the campaign save file, leaving the master template untouched.
         """
-        path = os.path.join(QUEST_DIR, f"{quest_id}.json")
-        try:
-            with open(path, "w", encoding="utf-8") as f:
-                json.dump(quest_data, f, indent=4, ensure_ascii=False)
-                f.flush()
-                os.fsync(f.fileno())
-        except Exception as e:
-            print(f"❌ Error saving quest '{quest_id}': {e}")
+        import warnings
+        warnings.warn(
+            "QuestLoader.save_quest() is deprecated. "
+            "Use DataManager.save_quest_state() to preserve template integrity.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     @staticmethod
     def list_available_quests() -> list:

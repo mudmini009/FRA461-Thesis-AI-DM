@@ -2,32 +2,34 @@
     "party": [
         {
             "id": "player1",
-            "name": "nigga black shit",
-            "role": "Mage",
-            "hp": 15,
-            "max_hp": 15,
-            "ac": 12,
+            "name": "sdfs",
+            "role": "Fighter",
+            "hp": 20,
+            "max_hp": 20,
+            "ac": 16,
             "stats": {
-                "PHYS": 0,
-                "MENT": 4,
-                "SOC": 0
+                "PHYS": 3,
+                "MENT": 0,
+                "SOC": -1
             },
             "zone": "NEAR",
             "inventory": [
-                "Quarterstaff",
-                "Robes",
-                "Spellbook"
+                "Longsword",
+                "Chainmail",
+                "Healing Potion"
             ],
             "condition": "NORMAL",
             "abilities": [],
-            "lore": "An academic spellcaster draped in arcane robes, throwing free-form magic from afar.",
+            "lore": "A battle-hardened warrior carrying a longsword and wearing heavy chainmail. Trained at the imperial academy.",
             "title": "",
             "stat_justification": ""
         }
     ],
     "enemies": [],
     "combat_memory": [],
-    "story_memory": [],
+    "story_memory": [
+        "[PROLOGUE] The perpetual twilight of Shattered Glass bled crimson and bruised purple across the sky, a city built on ambition and decay, where the air itself tasted of old blood and desperation.\\n\\nA guttural shriek tore through the fog, followed by the skittering of too many limbs, but sdfs's training held, his longsword a blur as he parried a clawed appendage before shoving the mutated horror back into the suffocating gloom.\\n\\nWith a final, ragged breath, sdfs pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside."
+    ],
     "global_state": {
         "time": {
             "day": 1,
@@ -36,8 +38,9 @@
         },
         "turn_counter": 0,
         "is_in_combat": false,
-        "current_phase": "HUB",
-        "current_quest_id": "hub",
-        "current_node_id": "hub_main"
-    }
+        "current_phase": "EXPLORATION",
+        "current_quest_id": "sample_dungeon",
+        "current_node_id": "node_01"
+    },
+    "quest_states": {}
 }

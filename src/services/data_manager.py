@@ -73,7 +73,18 @@ class DataManager:
         """
         Saves the current game state to the JSON file.
         Overwrites existing data. Global state is written atomically.
+        NOTE: Does NOT touch quest_states — use save_quest_state() for that.
         """
+        # Preserve any existing quest_states so they aren't wiped on every save
+        existing_quest_states = {}
+        try:
+            if os.path.exists(self.data_path):
+                with open(self.data_path, 'r') as f:
+                    existing = json.load(f)
+                existing_quest_states = existing.get("quest_states", {})
+        except Exception:
+            pass
+
         data = {
             "party": [p.to_dict() for p in party],
             "enemies": [e.to_dict() for e in enemies],
@@ -83,19 +94,51 @@ class DataManager:
                 "time": {"day": 1, "hour": 8, "phase": "Morning"},
                 "turn_counter": 0,
                 "is_in_combat": True
-            }
+            },
+            "quest_states": existing_quest_states,
         }
-        
+
         try:
             with open(self.data_path, 'w') as f:
                 json.dump(data, f, indent=4)
                 f.flush()
                 os.fsync(f.fileno())
-            
+
             # Atomic Sync: Flush log text alongside JSON state
             DataManager.flush_log()
         except Exception as e:
-            print(f"❌ Error saving game data: {e}")
+            print(f"\u274c Error saving game data: {e}")
+
+    def save_quest_state(self, quest_id: str, quest_data: dict) -> None:
+        """
+        Template-vs-Instance Pattern: Saves live quest progress (visited/cleared flags)
+        into the campaign save file, leaving the master template in data/quests/ untouched.
+        """
+        try:
+            with open(self.data_path, 'r') as f:
+                data = json.load(f)
+            if "quest_states" not in data:
+                data["quest_states"] = {}
+            data["quest_states"][quest_id] = quest_data
+            with open(self.data_path, 'w') as f:
+                json.dump(data, f, indent=4)
+                f.flush()
+                os.fsync(f.fileno())
+        except Exception as e:
+            print(f"\u274c Error saving quest state: {e}")
+
+    def load_quest_state(self, quest_id: str) -> dict:
+        """
+        Loads saved quest progress for a specific quest from the campaign save file.
+        Returns None if no saved state exists (e.g., New Game = fresh template).
+        """
+        try:
+            with open(self.data_path, 'r') as f:
+                data = json.load(f)
+            return data.get("quest_states", {}).get(quest_id, None)
+        except Exception:
+            return None
+
 
     @staticmethod
     def append_to_log(text: str, log_path: str = "data/active/campaign_log.txt"):

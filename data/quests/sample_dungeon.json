@@ -8,7 +8,9 @@
             "node_id": "node_01",
             "name": "Mine Entrance",
             "base_description": "You stand before the gaping maw of the Smuggler's Mine. A rusted iron sign, long since defaced by claw marks, once read 'Keldrath Co. — Authorized Personnel Only.' The air is damp and thick with the smell of mud and something older, something rotten. Dripping water echoes in the dark. To your left, a collapsed ore cart lies on its side, its wheels stripped. The only way forward is the Main Shaft, a dark tunnel yawning open straight ahead.",
-            "connected_to": ["node_02"],
+            "connected_to": [
+                "node_02"
+            ],
             "event_type": "safe",
             "visited": false,
             "cleared": true,
@@ -19,7 +21,11 @@
             "node_id": "node_02",
             "name": "Main Shaft",
             "base_description": "The main tunnel is wide enough for three men abreast, the walls reinforced with rotten timber beams that groan underfoot. Ancient torches hang in iron brackets, their oil long since spent. A cold draft flows from deeper in — something breathes in the dark below. The path splits ahead: a rusted iron gate, nearly wrenched off its hinges, blocks access to the Storage Bay to the east. To the north, the tunnel continues toward the sounds of distant voices. The Entrance lies back the way you came.",
-            "connected_to": ["node_01", "node_03", "node_04"],
+            "connected_to": [
+                "node_01",
+                "node_03",
+                "node_04"
+            ],
             "event_type": "puzzle",
             "visited": false,
             "cleared": true,
@@ -30,7 +36,9 @@
             "node_id": "node_03",
             "name": "Storage Bay",
             "base_description": "The Storage Bay reeks of stolen goods: sacks of grain, crates of weapons, and barrels stamped with Guild insignia that was clearly meant for legitimate merchants. Sloppy handwriting on a wall details crude inventory tallies in what you recognize as Goblin script. Hooks on the wall hold rope, torches, and a set of lockpicks that someone dropped in a hurry. The room is quiet now, but recently disturbed. Clawed boot prints lead back toward the Ambush Chamber. The only exit back is through the broken gate.",
-            "connected_to": ["node_02"],
+            "connected_to": [
+                "node_02"
+            ],
             "event_type": "safe",
             "visited": false,
             "cleared": true,
@@ -41,7 +49,10 @@
             "node_id": "node_04",
             "name": "Ambush Chamber",
             "base_description": "Torches blaze to life along the walls the instant you step through the threshold — a crude tripwire mechanism. The chamber opens into a wide, low-ceilinged cavern. Crates are stacked into impromptu barricades. A screech rips through the air. Goblin Ambushers melt out of the shadows, blades drawn, yellow eyes gleaming with malice. The exit back to the Main Shaft is behind you. A reinforced door at the far end, marked with a crude skull, leads deeper. But first — you will have to fight.",
-            "connected_to": ["node_02", "node_05"],
+            "connected_to": [
+                "node_02",
+                "node_05"
+            ],
             "event_type": "combat",
             "visited": false,
             "cleared": false,
@@ -52,7 +63,9 @@
             "node_id": "node_05",
             "name": "The Boss's Den",
             "base_description": "The air here is thick with incense and the acrid tang of alchemy. A crude throne made from smashed crates sits at the centre of the room. Mounted on the wall: a detailed map of the King's Road, with red marks at every ambush site. The floor is scorched in a wide circle — dark ritual markings. On the throne, reclining with contemptuous ease, sits the Mine Boss: a towering cultist in patched iron armour, his eyes reflecting the torchlight with an unnatural orange glow. He smiles when he sees you. He knew you were coming.",
-            "connected_to": ["node_04"],
+            "connected_to": [
+                "node_04"
+            ],
             "event_type": "boss",
             "visited": false,
             "cleared": false,
