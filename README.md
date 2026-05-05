@@ -172,69 +172,23 @@ AI_Dungeon_Master/
 
 ## 🧩 Architectural Philosophy
 
-The system is built as a **"Stateless Symbolic Machine"** to ensure 100% mechanical consistency.
+The system is built as a **"Stateless Symbolic Machine"** utilizing a **Hybrid-Arbitrated Two-Path System** to ensure 100% mechanical consistency while maintaining narrative freedom.
 
-1.  **Rule-First Decisioning:** If an action matches a standard game mechanic (Attack, Move, Item), the AI is bypassed for the calculation. The Python engine handles the math.
-2.  **Symbolic Grounding:** When the AI allows a creative action (e.g., "I pull the rug"), it must return a **Symbolic Side Effect** (e.g., `target_condition: PRONE`). The Python engine then applies this to the live model.
-3.  **TOON Serialization:** Uses a custom compact format for game state to reduce LLM token usage by up to 50%, ensuring faster response times and lower costs.
+1.  **Rule-First Decisioning (Path A):** If an action matches a standard game mechanic (Attack, Move, Item), the AI is bypassed for the calculation. The Python engine handles the math deterministically.
+2.  **Symbolic Grounding (Path B):** When the AI allows a creative action (e.g., "I pull the rug"), it must return a **Symbolic Side Effect** (e.g., `target_condition: PRONE`). The Python engine then applies this to the live model.
+3.  **TOON Serialization:** Uses a custom compact format (Token-Oriented Object Notation) for game state to reduce LLM token usage by up to 50%, ensuring faster response times and lower costs.
+
+*(Note: Earlier extensive architectural drafts have been preserved in the `archive/` folder).*
 
 ---
 
 ## ☑️ Development Progress
 
-**💾 Data & State Management**
-- [x] External JSON State Persistence: Game state (Party & Enemies) is loaded and saved dynamically via `data/campaign.json` using the `DataManager`, avoiding hardcoded stats.
-- [x] Bidirectional TOON Serialization (Token-Oriented Object Notation): A custom serialization pipeline (`TOONConverter`) drastically reduces API overhead. State is compressed into TOON before sending to the Arbiter. Furthermore, all LLM API outputs (including Intent Routers and Arbiter logic) are explicitly forced via system prompts to return 1-line TOON (`key:value|key:value`), completely eliminating verbose JSON outputs. This achieves ~50% total token reduction and lower latency.
-- [x] Decoupled Health vs. Tactical Conditions: The `Character` model strictly separates Health Status (e.g., Unscathed, Bloodied, Critical) from Tactical Conditions (Enum: `NORMAL`, `STUNNED`, `BLINDED`), ensuring narrative damage doesn't overwrite mechanical penalties.
-- [x] Dual-Stream Memory & Context Collapse (State-Dependent Pruning): Upgraded the sliding window into a two-tier system: `combat_memory` (`maxlen=10`) and `story_memory` (`maxlen=5`), both fully configurable via `settings.json`. Implemented an automatic interception hook on `VICTORY` or `FLEE` states that feeds the raw combat logs to an LLM Summarizer. The AI compresses the mathematical battle into a single narrative sentence, pushes it to `story_memory`, and flushes the combat queue, preventing token bloat.
-- [x] Static Lore Injection (Static RAG): Implemented a fail-safe retrieval system that loads world-building context from `data/world_lore.txt`. This allows for instant "World Flavor" shifts without code changes. The engine handles missing lore files with a hardcoded fallback.
-- [x] Robust Backend Configuration (`settings.json`): Abstracted hardcoded variables into an open-source-friendly JSON config file. Exposes core engine parameters and LLM API settings. Built a bulletproof boot sequence in `DataManager` with Python fallbacks to repair missing config files.
-- [x] Persistent Campaign Journal (System Log): Implemented an append-only logging system that permanently records every player input and AI output in real-time to a local file. Includes an auto-reset mechanism triggered during new game boots, creating a parseable script for future save/load summarization.
+> [!NOTE]
+> The full architectural breakdown and progression log has grown significantly. 
+> Please see the dedicated [**FEATURE_TRACKER.md**](FEATURE_TRACKER.md) for a comprehensive list of all technical guardrails, agent architectures, and game mechanics implemented in the AI Dungeon Master.
 
-**🧠 The Intent Router (Two-Path Architecture)**
-- [x] Path A (Fixed Rules Routing): Standard RPG mechanics (Attack, Move) bypass the LLM for calculation, sending the action directly to the Python `RulesEngine` to mathematically guarantee zero AI hallucinations.
-- [x] Path B (Creative Improv Routing): Complex user prompts are intelligently routed to the `LLMService` (Arbiter), which judges logical feasibility, assigns a DC (Difficulty Class), and automatically outputs a Symbolic Side Effect (e.g., `BLINDED`).
-- [x] Dynamic Action Sequencing (`FIXED_COMBO`): The LLM parses multi-step user intents and extracts an `action_order` array. The game engine dynamically executes the sequence exactly as the user typed it.
-- [x] Action Fairness & Multi-Agent Economy Guard: The engine strictly enforces a 5e-style action economy by tracking `has_acted` and `has_moved` flags on the `Character` model, refreshed via `reset_turn()`. If an Arbiter denies a creative request, the turn is refunded. However, invalid mechanical requests (e.g., double-attacks, out-of-range moves) are deterministically denied and the turn consumed, ensuring the AI cannot be exploited or cheat.
 
-**⚔️ Combat & Rules Engine**
-- [x] Stateless Rules Engine (`RulesEngine`): Pure Python math logic handles all 1d20 dice rolls, AC (Armor Class) checks, Critical Hit doubling logic, and Stat modifiers (PHYS/MENT/SOC). [Newly Expanded] Integrated `resolve_spell` which utilizes the MENT stat and a native 1d10 damage system, and `resolve_item` which wraps consumable logic into standardized dictionary outputs for perfect evaluation tracing.
-- [x] Individual Rolling Initiative Queue: Upgraded from legacy "Side vs. Side" turns to a granular, individual turn order. Every combatant rolls 1d20 + PHYS at the start of combat. The loop acts seamlessly, prompting players, triggering EnemyAI, bypassing DEAD characters, and incrementing rounds.
-- [x] 3-Tier Intelligent Target Selection: LLM ID Extraction identifies the exact hidden ID (Tier 1). Fuzzy Spell Matching utilizes `difflib.get_close_matches` to catch typos (Tier 2). Auto-Fallback defaults to the first active enemy to prevent wasted inputs (Tier 3).
-- [x] Enemy AI Tactics (`EnemyAI`): A lightweight AI that targets the nearest valid opponent and executes a single turn, narrating the sequence automatically on its turn.
-- [x] Mechanical Status Effects: Conditions have actual engine consequences. `STUNNED` characters forfeit their turn, while `BLINDED` triggers disadvantage mechanics inside the `RulesEngine`.
-
-**🏃 Spatial & Movement Mechanics (Zones)**
-- [x] Tactical Zone Tracking: Grid-less combat utilizing distinct range zones (`NEAR`, `MID`, `FAR`).
-- [x] Range Penalties: Using melee weapons outside `NEAR` range automatically triggers "Out of Range" failures, forcing tactical positioning.
-- [x] Movement Enforcement (1-Zone Rule): The engine prevents teleportation, restricting movement to exactly 1 adjacent zone per turn and resolving incorrect distance requests.
-- [x] AI Gap-Closing: Melee-equipped enemies are programmed to automatically spend their turn moving one zone closer if they are out of range of the player.
-
-**🖥️ UI & Narrative Generation**
-- [x] LLM Generative Narration: The system translates raw, calculated Python logs into immersive, D&D-style second-person narration.
-- [x] Immersive CLI Dashboard: A cleanly formatted terminal UI that hides raw enemy HP numbers to prevent metagaming, displaying visual health descriptors and exact player stats instead.
-- [x] Developer Debug Mode: A toggle command that exposes the raw LLM JSON outputs, parsed intents, and true Python math logs to prove the system works.
-- [x] Demo Day Launcher (`demo_day.py`): A dedicated, crash-resistant script with ASCII art, an interactive command loop, and an auto-reset function (`restart`) to cleanly restore state.
-- [x] "Idiot-Proof" Onboarding (QoL): An automated boot sequence that intercepts missing `GEMINI_API_KEY` errors, prompts the user via CLI, and generates the `.env` file to prevent crashes.
-
-**🎒 Item & Inventory Mechanics**
-- [x] Symbolic Disposable Items (Path B): Complex narrative item usage is routed to the Arbiter. If the AI determines the item is destroyed, it returns a `consumed_item` key, prompting the engine to `.pop()` it from the inventory.
-- [x] Automated Victory Looting (Auto-Loot): Upon triggering the `VICTORY` state, the engine extracts item strings from defeated enemies, transfers them to the player, empties enemy pockets, saves the game, and prints a formatted UI summary.
-- [x] Hardcoded Consumable Logic (Path A - Mechanics): Standard items bypass the LLM entirely to guarantee zero hallucinations via an `ITEM_EFFECTS` dictionary. `HEAL` items restore HP, `CURE` items revert status conditions, and `DAMAGE` items apply fixed mechanical damage. [Enhanced Security] The `USE` command performs a secure inventory verification, asserting the item's existence in `player.inventory` before executing `.remove()`, neutralizing hallucinated item usage.
-
-**🗣️ Narrative State Transitions**
-- [x] Diplomacy & Pacification (Path B): Players can dynamically talk their way out of fights. The LLM Arbiter can assign a `PACIFIED` status. The EnemyAI recognizes this, forfeits its turn, and the game loop correctly counts them as "defeated" to trigger a `VICTORY`.
-- [x] Tactical Fleeing Mechanics (Path A): The Intent Router parses "flee" commands as FIXED actions. The `RulesEngine` resolves a contested 1d20 + PHYS check. Enemies receive a Proximity Penalty bonus to their roll based on Zone distance (+5 if Same Zone, +2 if Adjacent). A successful player roll exits combat, while failures rightfully consume the turn.
-
-**🧪 Automated Evaluation & Verification**
-- [x] 50-Scenario Functional Stress Test: Developed a comprehensive `evaluation_runner.py` that utilizes `unittest.mock` to patch internal engine methods and capture a deep-dive `trace_log.json`.
-- [x] Grounded Result Metrics: Following the implementation of Permission Guardrails and expanded resolvers, the system achieved a 100% Grounding Precision ($P_{ground}$) and 76% State Synchronization ($S_{sync}$), proving the multi-agent "Handshake" is mathematically reliable.
-
-**🚧 Future Work / Missing Features**
-- **Narrative State Transitions:**
-    - [ ]  **World Exploration Mode:** Disabling Initiative and transitioning to a free-form RAG exploration state.
-    - [ ]  **Lore Expansion:** Populating `world_lore.txt` with more complex situational data to further ground the AI's creative narration.
-    - [ ]  **Optional Story Summarizer (Load Feature):** Utilizing the newly built Campaign Log to let the LLM generate a "Previously on..." summary when players load a saved game.
 
 ---
 
