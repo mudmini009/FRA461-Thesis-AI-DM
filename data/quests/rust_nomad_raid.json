@@ -1,0 +1,16 @@
+{
+    "quest_id": "rust_nomad_raid",
+    "name": "Rust Nomad Raid",
+    "description": "A vital supply caravan en route from the surface has been ambushed. The Rust Nomads are known for their brutal efficiency.",
+    "entrance_node": "node_01",
+    "nodes": {},
+    "_meta": {
+        "generated": true,
+        "theme": "bandits",
+        "enemy_tags": [
+            "bandit",
+            "goblin_ambusher"
+        ],
+        "num_nodes": 3
+    }
+}

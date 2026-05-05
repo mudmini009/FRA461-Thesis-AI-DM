@@ -1,0 +1,95 @@
+{
+    "quest_id": "whispering_gears",
+    "name": "The Whispering Gears",
+    "description": "A section of the lower city's ventilation system has gone silent. Engineers suspect a rogue cult and their disturbing rituals.",
+    "entrance_node": "node_01",
+    "nodes": {
+        "node_01": {
+            "node_id": "node_01",
+            "name": "Ventilation Access Shaft",
+            "base_description": "A cold, metallic shaft descends into darkness. The air is thick with the smell of ozone and decay. Faint grinding sounds echo from below.",
+            "connected_to": [
+                "node_02",
+                "node_03"
+            ],
+            "event_type": "safe",
+            "visited": false,
+            "cleared": true,
+            "lore_fragment": "The Sky-Cities are not built, but grown. Ancient, colossal machines form their foundations, their gears turning with a life of their own. The Static Mist is their lifeblood, and their slow decay is our doom.",
+            "grants_item": null,
+            "required_item": null
+        },
+        "node_02": {
+            "node_id": "node_02",
+            "name": "The Grinding Chamber",
+            "base_description": "Massive, rusted gears dominate this chamber, still turning with a deafening groan. The floor is slick with an oily residue. Strange symbols are etched into the metal.",
+            "connected_to": [
+                "node_01",
+                "node_04"
+            ],
+            "event_type": "combat",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "The Whispering Cog believes the machinery is divine. They perform rituals to appease the 'Great Grinder,' hoping to hasten its awakening and usher in a new age of mechanical enlightenment.",
+            "grants_item": null,
+            "required_item": null,
+            "enemy_name": "Cog-Driven Cultist",
+            "enemy_archetype": "minion",
+            "enemy_attack_flavor": "Whirls a rusty wrench with cultic fervor.",
+            "enemy_tag": "cultist"
+        },
+        "node_03": {
+            "node_id": "node_03",
+            "name": "The Static Conduit",
+            "base_description": "A narrow passage where the air crackles with raw energy. Wires hang precariously, sparking intermittently. A large, locked grate blocks further progress.",
+            "connected_to": [
+                "node_01",
+                "node_05"
+            ],
+            "event_type": "puzzle",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "Technomancy is a dangerous art. The Static Mist can grant immense power, but prolonged exposure warps the mind and body, leading to 'Static Sickness' or the dreaded 'Haywiring' of one's very being.",
+            "grants_item": "Static Key",
+            "required_item": null,
+            "puzzle_obstacle": "A heavy grate secured by a complex, sparking lock. The lock is humming with residual static energy.",
+            "puzzle_base_dc": 14
+        },
+        "node_04": {
+            "node_id": "node_04",
+            "name": "The Scavenger's Nest",
+            "base_description": "A small alcove filled with discarded parts and crude tools. The stench of unwashed bodies hangs heavy in the air. A hulking figure guards the entrance to the next area.",
+            "connected_to": [
+                "node_02"
+            ],
+            "event_type": "combat",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "Goblins, once common pests, have adapted to the lower city's decay. They scavenge for anything useful, often falling prey to the cultists or becoming their unwilling servants.",
+            "grants_item": null,
+            "required_item": null,
+            "enemy_name": "Rust-Eaten Goblin Brute",
+            "enemy_archetype": "brute",
+            "enemy_attack_flavor": "Swings a massive, crudely fashioned hammer.",
+            "enemy_tag": "goblin"
+        },
+        "node_05": {
+            "node_id": "node_05",
+            "name": "The Heart of the Machine",
+            "base_description": "This vast chamber houses a colossal, pulsating mechanism. The air is thick with the hum of latent power and the chanting of cultists. At the center, a robed figure directs the ritual.",
+            "connected_to": [
+                "node_03"
+            ],
+            "event_type": "boss",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "The cult believes that by feeding the ancient machinery with energy and sacrifice, they can awaken its true purpose, a purpose that may involve the destruction of the Sky-Cities and the liberation of the surface.",
+            "grants_item": null,
+            "required_item": "Static Key",
+            "enemy_name": "The Gear-Priest",
+            "enemy_archetype": "boss",
+            "enemy_attack_flavor": "Channels raw static energy through a corrupted cog.",
+            "enemy_tag": "cultist"
+        }
+    }
+}

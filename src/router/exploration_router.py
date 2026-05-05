@@ -1,23 +1,39 @@
 """
-ExplorationRouter — pure Python command classifier for EXPLORATION phase.
+ExplorationRouter — Hybrid command classifier for EXPLORATION phase.
 
-Zero LLM tokens are burned here. All routing is done via keyword matching.
-The LLM is only called AFTER the Python guardrail passes, for narration only.
+Architecture:
+  1. Regex-first (Zero Token Cost): Simple commands like LOOK, REST, QUIT,
+     INVENTORY, STATUS are resolved instantly via pure Python keyword matching.
+  2. LLM Fallback (Smart): When the regex returns UNKNOWN, the player's
+     natural-language sentence is sent to Flash Lite for semantic classification.
+     This lets players type "I'll carefully climb down toward the Grinding Chamber"
+     instead of rigid "MOVE node_02".
+  3. Puzzle Context: If we're in an active puzzle node and the input is still
+     UNKNOWN after both passes, it's reclassified as PUZZLE_ATTEMPT.
 
 Intent Classifications:
-  MOVE       — player wants to travel to a connected node
-  LOOK       — player wants to examine the current room
-  REST       — player wants to short-rest
-  QUEST_BOARD — player wants to see available quests (hub only)
-  STATUS     — player wants to see their character sheet
-  INVENTORY  — player wants to see their inventory
-  EXIT_HUB   — player wants to leave back to hub
-  QUIT       — player wants to exit the game
+  MOVE           — player wants to travel to a connected node
+  LOOK           — player wants to examine the current room
+  REST           — player wants to short-rest
+  QUEST_BOARD    — player wants to see available quests (hub only)
+  STATUS         — player wants to see their character sheet
+  INVENTORY      — player wants to see their inventory
+  EXIT_HUB       — player wants to leave back to hub
+  QUIT           — player wants to exit the game
   PUZZLE_ATTEMPT — player is trying to solve a puzzle creatively
-  UNKNOWN    — fallback, no LLM burn
+  UNKNOWN        — truly unrecognizable input (after both regex AND LLM)
 """
+import os
 import re
-from typing import Optional
+from typing import Optional, Dict, Any, List
+
+import google.generativeai as genai
+from dotenv import load_dotenv
+
+from src.models.toon_converter import TOONConverter
+
+load_dotenv()
+
 
 # ─── Keyword Pattern Sets ──────────────────────────────────────────────────────
 
@@ -123,6 +139,157 @@ def classify_exploration_intent_in_context(user_input: str, current_node: dict) 
             return {"type": "PUZZLE_ATTEMPT", "raw_target": user_input.strip()}
 
     return result
+
+
+# ─── LLM-Backed Smart Classification ──────────────────────────────────────────
+
+_EXPLORATION_INTENT_MODEL = "gemini-2.5-flash-lite"
+
+_EXPLORATION_SYSTEM_PROMPT = """\
+You are a command classifier for a dungeon exploration RPG.
+Your ONLY job is to classify the player's input into ONE exploration intent.
+
+VALID INTENT TYPES:
+  MOVE           — player wants to travel / go / walk / climb / descend to a location
+  LOOK           — player wants to examine, inspect, or observe something
+  REST           — player wants to rest, sleep, camp, or take a break
+  STATUS         — player wants to see their character stats or health
+  INVENTORY      — player wants to check their items / bag / gear
+  EXIT_HUB       — player wants to leave the dungeon / return to the guild
+  QUIT           — player wants to exit the game entirely
+  UNKNOWN        — input is truly unrecognizable or nonsensical
+
+RULES:
+1. If the player mentions ANY movement verb (go, walk, climb, descend, head, sneak, crawl, push, run, advance, proceed, enter, step) AND references a location, classify as MOVE.
+2. For MOVE, extract the destination name as the "target" value. Match it to the closest AVAILABLE EXIT listed below.
+3. If the player just wants to look/examine/inspect, classify as LOOK.
+4. If the input is clearly conversational or creative problem-solving (not movement), classify as UNKNOWN so the game can route it elsewhere.
+
+OUTPUT FORMAT (STRICT — 1 line, pipe-separated TOON):
+  type:MOVE|target:The Grinding Chamber
+  type:LOOK|target:the strange runes
+  type:REST|target:
+  type:STATUS|target:
+  type:UNKNOWN|target:
+"""
+
+
+def _llm_classify_exploration(user_input: str, available_exits: List[str],
+                               settings: Optional[Dict[str, Any]] = None) -> Optional[dict]:
+    """
+    Sends the player's natural-language input to Flash Lite for intent classification.
+    Returns a parsed dict {"type": ..., "raw_target": ...} or None on failure.
+
+    This is the LLM "second pass" — only called when regex returns UNKNOWN.
+    """
+    api_key = os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        return None
+
+    try:
+        genai.configure(api_key=api_key)
+
+        model_name = _EXPLORATION_INTENT_MODEL
+        if settings:
+            model_name = settings.get("llm", {}).get("arbiter_model", model_name)
+
+        generation_config = {
+            "temperature": 0.1,
+            "response_mime_type": "text/plain",
+        }
+
+        model = genai.GenerativeModel(
+            model_name=model_name,
+            generation_config=generation_config,
+            system_instruction=_EXPLORATION_SYSTEM_PROMPT,
+        )
+
+        exits_str = ", ".join(available_exits) if available_exits else "none"
+        prompt = (
+            f"AVAILABLE EXITS FROM THIS ROOM: [{exits_str}]\n\n"
+            f"PLAYER INPUT:\n{user_input}"
+        )
+
+        response = model.generate_content(prompt)
+        text = response.text.strip()
+
+        # Parse TOON response
+        parsed = TOONConverter.decode(text)
+        intent_type = parsed.get("type", "UNKNOWN").upper()
+
+        # Validate: only accept known types
+        valid_types = {"MOVE", "LOOK", "REST", "STATUS", "INVENTORY", "EXIT_HUB", "QUIT", "UNKNOWN"}
+        if intent_type not in valid_types:
+            return None
+
+        raw_target = parsed.get("target", "")
+        return {"type": intent_type, "raw_target": raw_target}
+
+    except Exception:
+        # LLM failed — return None so caller falls back to regex result
+        return None
+
+
+def classify_exploration_intent_smart(
+    user_input: str,
+    current_node: dict,
+    quest_data: Optional[dict] = None,
+    settings: Optional[Dict[str, Any]] = None,
+) -> dict:
+    """
+    Hybrid Smart Exploration Router.
+
+    Architecture:
+      Pass 1 (Regex — Zero Tokens): Try pure Python keyword matching first.
+              If regex confidently identifies the intent, return immediately.
+      Pass 2 (LLM — Smart): If regex returns UNKNOWN, send the input to
+              Flash Lite for semantic classification. The LLM receives the
+              list of available exits so it can resolve natural-language
+              destinations like "the Grinding Chamber" → node name.
+      Pass 3 (Puzzle Context): If still UNKNOWN and we're in a puzzle node,
+              reclassify as PUZZLE_ATTEMPT.
+
+    Falls back gracefully to regex-only if:
+      - smart_exploration_router is disabled in settings.json
+      - LLM call fails for any reason
+      - API key is missing
+    """
+    # ── Pass 1: Regex (always runs first — zero cost) ──────────
+    result = classify_exploration_intent(user_input)
+
+    if result["type"] != "UNKNOWN":
+        # Regex got a confident match — skip LLM entirely
+        return result
+
+    # ── Pass 2: LLM Smart Classification ──────────────────────
+    smart_enabled = True
+    if settings:
+        smart_enabled = settings.get("exploration", {}).get("smart_exploration_router", True)
+
+    if smart_enabled and quest_data:
+        # Build available exit names for the LLM prompt
+        from src.services.quest_loader import QuestLoader
+        connected_ids = current_node.get("connected_to", [])
+        available_exits = []
+        for nid in connected_ids:
+            node = QuestLoader.get_node(quest_data, nid)
+            if node:
+                available_exits.append(node.get("name", nid))
+
+        llm_result = _llm_classify_exploration(user_input, available_exits, settings)
+        if llm_result and llm_result["type"] != "UNKNOWN":
+            return llm_result
+
+    # ── Pass 3: Puzzle Context Reclassification ───────────────
+    event_type = current_node.get("event_type", "safe")
+    is_puzzle = event_type == "puzzle"
+    is_uncleared = not current_node.get("cleared", True)
+    if is_puzzle and is_uncleared:
+        return {"type": "PUZZLE_ATTEMPT", "raw_target": user_input.strip()}
+
+    # ── Final fallback: UNKNOWN ───────────────────────────────
+    return result
+
 
 
 def get_rest_rejection_message(node: dict) -> Optional[str]:

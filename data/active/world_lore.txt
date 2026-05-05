@@ -1,14 +1,15 @@
-THE WORLD OF AETHELgard
+### Atmosphere & Setting
+The world of Aethel is a perpetual twilight, choked by the omnipresent Static Mist that hums with latent energy and paints the sky in iridescent, unsettling hues. The air itself feels heavy, crackling with unseen power, while the groaning symphony of decaying brass and grinding gears forms a constant, oppressive soundscape. Survival is a daily struggle against the rust, the decay, and the ever-present threat of the surface below.
 
-Aethelgard is a dark, gritty fantasy realm where magic is rare, dangerous, and often misunderstood. The world is recovering from a cataclysmic event known as "The Severing" which tore the sky open and rained strange crystals onto the land.
+### Key Factions
+The **Sky-Cities Accord** is a fragile alliance of the major floating metropolises, each governed by powerful Guilds of Engineers and Artificers, constantly vying for resources and technological supremacy. Below them, the **Rust Nomads** are hardy survivors who traverse the surface in heavily armored land-crawlers, scavenging for parts and knowledge amidst the dangerous Brass Jungles. The **Whispering Cog** represents a more enigmatic force, a cult that worships the ancient machinery, believing it holds forgotten divine power and seeking to reawaken its slumbering will.
 
-Key Factions:
-1. The Iron Vanguard: A militaristic human order that uses black-powder weapons and heavy steel armor. They despise magic.
-2. The Whisper Elves: Nomadic, secretive elves who dwell in the deep forests. They are known for their deadly poisons and stealth.
-3. The Ruin-Born (Orcs/Goblins): Mutated creatures that thrive in the scarred wastelands left by The Severing. They are savage, unpredictable, and often use rusted, scavenged weapons.
+### Magic & Technology
+Magic and technology are inextricably linked, both fueled by the Static Mist. "Technomancy" is the art of channeling this energy through intricate clockwork devices and imbued metals, allowing for feats that blur the line between the arcane and the mechanical, often at the cost of sanity or physical corruption from exposure. Uncontrolled exposure can lead to "Static Sickness," a debilitating condition that warps both mind and body, or catastrophic "Haywiring" of any complex mechanism.
 
-Magic:
-Spells require physical components (blood, rare herbs, crystals). Casting is exhausting and visually spectacular (purple lightning, green fire).
+### Looming Threat
+The greatest danger is the slow, inevitable collapse of the Sky-Cities as their ancient foundations corrode and the Static Mist grows more volatile, threatening to plunge them into the predatory Swarms below. Simultaneously, whispers from the Rust Nomads speak of the Brass Jungles actively growing, the ancient machinery stirring with a malevolent sentience, hinting at a cataclysmic awakening that could consume all life.
 
-Atmosphere:
-The tone is grim, suspenseful, and dangerous. Combat is deadly and physical. Weapons are heavy, armor gets dented, and exhaustion is real.
+The Sky-Cities are not built, but grown. Ancient, colossal machines form their foundations, their gears turning with a life of their own. The Static Mist is their lifeblood, and their slow decay is our doom.
+
+The Whispering Cog believes the machinery is divine. They perform rituals to appease the 'Great Grinder,' hoping to hasten its awakening and usher in a new age of mechanical enlightenment.

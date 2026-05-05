@@ -5,7 +5,7 @@
 
     <!-- LEGEND -->
     <mxCell id="legend_bg" value="Color Legend" style="swimlane;whiteSpace=wrap;html=1;fillColor=#37474F;fontColor=#ffffff;strokeColor=#263238;" parent="1" vertex="1">
-      <mxGeometry x="20" y="20" width="220" height="280" as="geometry" />
+      <mxGeometry x="20" y="20" width="220" height="320" as="geometry" />
     </mxCell>
     <mxCell id="leg1" value="LLM Process (Generative)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;fontColor=#ffffff;strokeColor=#1B5E20;" parent="legend_bg" vertex="1"><mxGeometry x="10" y="30" width="200" height="30" as="geometry" /></mxCell>
     <mxCell id="leg2" value="Python Mechanics / Deterministic" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;fontColor=#ffffff;strokeColor=#0D47A1;fontStyle=1" parent="legend_bg" vertex="1"><mxGeometry x="10" y="70" width="200" height="30" as="geometry" /></mxCell>
@@ -13,6 +13,7 @@
     <mxCell id="leg4" value="System Action / Decision" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;fontColor=#ffffff;strokeColor=#263238;" parent="legend_bg" vertex="1"><mxGeometry x="10" y="150" width="200" height="40" as="geometry" /></mxCell>
     <mxCell id="leg5" value="Procedural Generation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;fontColor=#ffffff;strokeColor=#E65100;fontStyle=1" parent="legend_bg" vertex="1"><mxGeometry x="10" y="200" width="200" height="30" as="geometry" /></mxCell>
     <mxCell id="leg6" value="NEW: Puzzle / Bestiary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;fontColor=#ffffff;strokeColor=#6A1B9A;fontStyle=1" parent="legend_bg" vertex="1"><mxGeometry x="10" y="240" width="200" height="30" as="geometry" /></mxCell>
+    <mxCell id="leg7" value="NEW: Smart Exploration Router" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00838F;fontColor=#ffffff;strokeColor=#00838F;fontStyle=1" parent="legend_bg" vertex="1"><mxGeometry x="10" y="280" width="200" height="30" as="geometry" /></mxCell>
 
     <!-- HUB LOOP -->
     <mxCell id="hub_loop" value="HUB Phase&lt;br&gt;(Adventurer's Guild)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
@@ -53,14 +54,26 @@
       <mxGeometry x="480" y="590" width="160" height="70" as="geometry" />
     </mxCell>
 
-    <!-- INPUT + CLASSIFY -->
+    <!-- INPUT + HYBRID CLASSIFY -->
     <mxCell id="wait_input" value="Render HUD &amp; Wait Input" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
       <mxGeometry x="480" y="700" width="160" height="40" as="geometry" />
     </mxCell>
 
-    <mxCell id="classify" value="Context-Aware&lt;br&gt;Intent Classifier&lt;br&gt;(Zero-LLM Python)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+    <!-- PASS 1: REGEX (always first) -->
+    <mxCell id="classify_regex" value="Pass 1: Regex&lt;br&gt;Classifier&lt;br&gt;(Zero LLM — Python)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
       <mxGeometry x="480" y="780" width="160" height="50" as="geometry" />
     </mxCell>
+
+    <!-- REGEX RESULT DECISION -->
+    <mxCell id="regex_result" value="Regex found&lt;br&gt;a match?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+      <mxGeometry x="500" y="865" width="120" height="60" as="geometry" />
+    </mxCell>
+
+    <!-- PASS 2: LLM SMART CLASSIFIER (only for UNKNOWN) -->
+    <mxCell id="classify_llm" value="Pass 2: LLM Smart&lt;br&gt;Intent Classifier&lt;br&gt;(Flash Lite + Exit Names)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00838F;strokeColor=#00838F;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+      <mxGeometry x="250" y="860" width="190" height="55" as="geometry" />
+    </mxCell>
+
 
     <!-- INTENT BRANCHES -->
     <mxCell id="intent_other" value="STATUS / LOOK / REST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
@@ -153,10 +166,13 @@
     <mxCell id="e8" value="Pre-made" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="quest_board" target="load_quest" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="680" y="315" /><mxPoint x="680" y="520" /></Array></mxGeometry></mxCell>
     <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="load_quest" target="exp_loop" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
     <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="exp_loop" target="wait_input" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="wait_input" target="classify" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
-    <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="classify" target="intent_other" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="wait_input" target="classify_regex" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e11b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="classify_regex" target="regex_result" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e12" value="Yes (MOVE/LOOK/...)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="regex_result" target="intent_other" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e12b" value="UNKNOWN" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00838F;fontColor=#00838F;endArrow=block;strokeWidth=2;" parent="1" source="regex_result" target="classify_llm" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e12c" value="Resolved" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00838F;fontColor=#00838F;endArrow=block;strokeWidth=2;" parent="1" source="classify_llm" target="intent_move" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="345" y="960" /></Array></mxGeometry></mxCell>
     <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_other" target="wait_input" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="870" y="810" /><mxPoint x="870" y="720" /></Array></mxGeometry></mxCell>
-    <mxCell id="e14" value="MOVE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="classify" target="intent_move" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="e14" value="MOVE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="regex_result" target="intent_move" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
     <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_move" target="item_gate" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
     <mxCell id="e16" value="Missing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="item_gate" target="item_blocked" edge="1"><mxGeometry relative="1" as="geometry" /></mxCell>
     <mxCell id="e17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="item_blocked" target="wait_input" edge="1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="870" y="975" /><mxPoint x="870" y="720" /></Array></mxGeometry></mxCell>

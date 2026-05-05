@@ -17,6 +17,7 @@ from src.services.quest_loader import QuestLoader
 from src.router.exploration_router import (
     classify_exploration_intent,
     classify_exploration_intent_in_context,
+    classify_exploration_intent_smart,
     get_rest_rejection_message,
     get_move_rejection_message,
 )
@@ -453,8 +454,8 @@ def start_exploration_loop(
 
             DataManager.append_to_log(f"[{player.name}] {user_input}")
 
-            # ── Classify (Zero LLM — context-aware for puzzle nodes) ────
-            intent = classify_exploration_intent_in_context(user_input, current_node)
+            # ── Classify (Hybrid: Regex first, LLM fallback for UNKNOWN) ────
+            intent = classify_exploration_intent_smart(user_input, current_node, quest_data=quest_data, settings=settings)
             intent_type = intent["type"]
 
             # ─── QUIT ────────────────────────────────────────────
@@ -582,7 +583,8 @@ def start_exploration_loop(
                 # ── Puzzle node: show obstacle, DON'T auto-resolve ───
                 if is_puzzle_node and is_uncleared:
                     obstacle = new_node.get("puzzle_obstacle", "An obstacle blocks your path.")
-                    base_dc = new_node.get("puzzle_base_dc", 14)
+                    default_puzzle_dc = settings.get("exploration", {}).get("default_puzzle_dc", 14)
+                    base_dc = new_node.get("puzzle_base_dc", default_puzzle_dc)
                     print(f"\n   🧩 PUZZLE — \"{obstacle}\"")
                     print(f"   💡 Describe how you solve it. (DC {base_dc})")
                     DataManager.append_to_log(f"[PUZZLE] Encountered: {obstacle}")
@@ -689,7 +691,8 @@ def start_exploration_loop(
             # ─── PUZZLE ATTEMPT ───────────────────────────────────
             elif intent_type == "PUZZLE_ATTEMPT":
                 puzzle_obstacle = current_node.get("puzzle_obstacle", "An obstacle blocks your path.")
-                base_dc = current_node.get("puzzle_base_dc", 14)
+                default_puzzle_dc = settings.get("exploration", {}).get("default_puzzle_dc", 14)
+                base_dc = current_node.get("puzzle_base_dc", default_puzzle_dc)
                 action_desc = intent.get("raw_target", user_input)
 
                 print("   🎲 [SYSTEM] The Arbiter evaluates your approach...", end="\r")
@@ -819,8 +822,11 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
             available_quests = QuestLoader.list_available_quests()
 
             # ── Auto-generate quest board if below threshold ──────────
-            if len(available_quests) < 3:
-                needed = 3 - len(available_quests)
+            exploration_cfg = settings.get("exploration", {})
+            quest_board_size = exploration_cfg.get("quest_board_size", 3)
+            auto_generate = exploration_cfg.get("auto_generate_quests", True)
+            if auto_generate and len(available_quests) < quest_board_size:
+                needed = quest_board_size - len(available_quests)
                 print(f"   \u2728 [SYSTEM] Generating {needed} new quest(s) for the board...", end="\r")
                 try:
                     character_toon = TOONConverter.convert([player], [])

@@ -9,6 +9,13 @@
         "fuzzy_match_cutoff": 0.4,
         "cinematic_print": true
     },
+    "exploration": {
+        "quest_board_size": 3,
+        "default_puzzle_dc": 14,
+        "auto_generate_quests": true,
+        "max_quest_gen_retries": 2,
+        "smart_exploration_router": true
+    },
     "llm": {
         "arbiter_model": "gemini-2.5-flash-lite",
         "narrator_model": "gemini-2.5-flash-lite",

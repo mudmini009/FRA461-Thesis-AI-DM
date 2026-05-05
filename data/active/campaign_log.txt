@@ -1,10 +1,45 @@
 [PROLOGUE]
-The sky above Aethelgard bled a perpetual twilight, a constant reminder of the Severing that had scarred the land and birthed a world of grit and shadow.
+The perpetual twilight of Aethel bled through the Static Mist, painting the sky in sickly, iridescent hues as the groaning symphony of decaying brass and grinding gears echoed through the decaying city.
 
-A rusted blade, swung by a Ruin-Born brute, whistled past your helm, the clang of your warhammer deflecting a second, desperate lunge.
+A sudden, violent shudder sent a cascade of rusted plating raining down from above, forcing Kaelen to shove their loyal mechanical wolf, Cog, forward, its metallic paws skittering on the slick, oil-stained cobblestones as a chunk of metal narrowly missed them.
 
-With a final, weary heave, you push open the heavy wooden doors of the Adventurer's Guild, the scent of stale ale and desperation washing over you.
+With a final, desperate heave, Kaelen pushed open the heavy, groaning wooden doors of the Adventurer's Guild, stepping inside to the relative quiet and the faint scent of stale ale and desperation.
 [END PROLOGUE]
 
-[HUB] You step inside, the heavy wooden doors groaning shut behind you, muffling the chilling wind and the distant, guttural cries that still echo in your mind from that Ruin-Born's rusted blade. The immediate warmth of the Adventurer's Guild is a stark, welcome contrast to the perpetual twilight and the desperate struggle that just brought you here, a wave of stale ale and woodsmoke washing over you. Your gaze drifts, finding a moment of respite before it's drawn to the weathered parchment pinned to the bustling Quest Board, a silent promise of challenges yet to be faced, but faced from within these walls.
+[HUB] You step inside, the heavy doors groaning shut behind you, muffling the oppressive symphony of the city and the unsettling shimmer of the Static Mist. The air inside is blessedly still, carrying the faint, comforting scent of stale ale, a stark contrast to the biting wind and the near-miss of falling debris that had accompanied your desperate arrival. A wave of relief washes over you, a testament to the journey just survived, as your eyes fall upon the perpetually busy Quest Board, a beacon of opportunity in this world of decay.
+
+[Kaelen] (Hub) 3
+[Kaelen] (Hub) quest board
+[QUEST ACCEPTED] The Whispering Gears
+[EXPLORATION] Entered: Ventilation Access Shaft
+[DM] You step through the groaning doorway, and the oppressive sounds of the city outside are immediately replaced by a chilling, metallic hum. The air in this new space is sharp with the tang of ozone and the cloying scent of decay, a stark contrast to the stale ale you left behind. Before you, a cold, metallic shaft plunges into an inky blackness, and from its depths, you can faintly hear the unsettling rhythm of grinding gears, a sound that speaks of unseen mechanisms at work.
+
+[Kaelen] I'll use my PHYS +3 to carefully climb/scale down toward node_02, keeping my sword ready and Sparky right on my heels. Let's see what's making that noise.
+[Kaelen] MOVE node_02
+[MOVE] -> The Grinding Chamber
+[DM] You push through the heavy doors, the groan of ancient metal a familiar, yet still unsettling, greeting. Before you lies the Grinding Chamber, a cavernous space dominated by colossal, rusted gears that churn and grind with a deafening, relentless roar. The air hangs thick with the cloying scent of oil and decay, the floor beneath your feet slick with a treacherous, iridescent sheen, and strange, angular symbols are etched into the very metal of the grinding mechanisms, pulsing with a faint, internal light.
+
+[ENCOUNTER] Cog-Driven Cultist in The Grinding Chamber
+[DM] The air crackles, not with the usual hum of the Static Mist, but with a sudden, sharp energy. The groaning of the colossal gears around you intensifies, a deafening roar that seems to vibrate through your very bones. As the massive teeth grind past, a figure detaches itself from the shadows cast by the churning metal, their movements jerky and unnatural.
+
+A Cog-Driven Cultist, their face obscured by a crude mask of interlocking brass plates, lunges from behind a colossal, rust-eaten cog. Their tattered robes are stained with oil, and a wickedly sharp wrench glints in their hand, augmented with sparking wires that snake from their wrist. They move with a disturbing, almost synchronized rhythm, their eyes – visible through narrow slits – burning with fanatical fervor.
+
+More figures begin to emerge from the gloom, their forms silhouetted against the pulsing glow of the chamber's arcane machinery, their chanting a low, guttural drone that mixes with the grinding of the gears. The oily floor seems to shimmer with an unseen threat.
+
+The battle begins — what do you do?
+
+[Kaelen] ATTACK Cog-Driven Cultist
+   [SYSTEM] Kaelen attacked Cog-Driven Cultist: MISS
+   [SYSTEM] 👹 Cog-Driven Cultist attacks Kaelen: MISS!
+[DM] (Cog-Driven Cultist's Turn) A guttural snarl erupts from the Cog-Driven Cultist as it lunges, its rusted blade a blur in the dim light. You deftly sidestep the clumsy attack, the clanking metal whistling past your ear.
+
+[Kaelen] I'm going for a focused lunge with my longsword to show this guy that "The Gear-Driven Guardian" doesn't miss twice!
+   [SYSTEM] Kaelen attacked Cog-Driven Cultist: MISS
+   [SYSTEM] 👹 Cog-Driven Cultist attacks Kaelen: HIT! for 6 damage
+[DM] (Cog-Driven Cultist's Turn) The Cog-Driven Cultist lunges, its rusted blade a blur against the perpetual twilight. You feel a searing pain as the metal bites deep into your side, a sickening crunch of your armor protesting the impact. The world swims for a moment as the cultist's guttural war cry echoes in your ears.
+
+[Kaelen] ATTACK Cog-Driven Cultist
+   [SYSTEM] Kaelen attacked Cog-Driven Cultist: MISS
+   [SYSTEM] 👹 Cog-Driven Cultist attacks Kaelen: MISS!
+[DM] (Cog-Driven Cultist's Turn) The cultist lunges, their rusted blade whistling through the heavy, mist-laden air. You sidestep the clumsy thrust, the sharp clang of metal on metal echoing as their weapon scrapes harmlessly against your chainmail.
 
