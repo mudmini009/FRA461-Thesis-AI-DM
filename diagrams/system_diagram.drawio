@@ -500,7 +500,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="wDJDri4nNNCPA6nFl-BA" name="resolve_attack">
-        <mxGraphModel dx="719" dy="596" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1300" math="0" shadow="0">
+        <mxGraphModel dx="742" dy="393" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="1300" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -608,12 +608,12 @@
         </mxGraphModel>
     </diagram>
     <diagram id="g42gaagTiGX86BFYsz2Q" name="Exploration">
-        <mxGraphModel dx="605" dy="455" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="2400" math="0" shadow="0">
+        <mxGraphModel dx="2473" dy="1310" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="2400" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="legend_bg" value="Color Legend" style="swimlane;whiteSpace=wrap;html=1;fillColor=#37474F;fontColor=#ffffff;strokeColor=#263238;" parent="1" vertex="1">
-                    <mxGeometry x="20" y="20" width="220" height="280" as="geometry"/>
+                    <mxGeometry x="20" y="20" width="220" height="320" as="geometry"/>
                 </mxCell>
                 <mxCell id="leg1" value="LLM Process (Generative)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1B5E20;fontColor=#ffffff;strokeColor=#1B5E20;" parent="legend_bg" vertex="1">
                     <mxGeometry x="10" y="30" width="200" height="30" as="geometry"/>
@@ -632,6 +632,9 @@
                 </mxCell>
                 <mxCell id="leg6" value="NEW: Puzzle / Bestiary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6A1B9A;fontColor=#ffffff;strokeColor=#6A1B9A;fontStyle=1" parent="legend_bg" vertex="1">
                     <mxGeometry x="10" y="240" width="200" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="leg7" value="NEW: Smart Exploration Router" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00838F;fontColor=#ffffff;strokeColor=#00838F;fontStyle=1" parent="legend_bg" vertex="1">
+                    <mxGeometry x="10" y="280" width="200" height="30" as="geometry"/>
                 </mxCell>
                 <mxCell id="hub_loop" value="HUB Phase&lt;br&gt;(Adventurer's Guild)" style="ellipse;whiteSpace=wrap;html=1;fillColor=#B71C1C;strokeColor=#B71C1C;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="460" y="40" width="200" height="80" as="geometry"/>
@@ -660,8 +663,14 @@
                 <mxCell id="wait_input" value="Render HUD &amp; Wait Input" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="480" y="700" width="160" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="classify" value="Context-Aware&lt;br&gt;Intent Classifier&lt;br&gt;(Zero-LLM Python)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                <mxCell id="classify_regex" value="Pass 1: Regex&lt;br&gt;Classifier&lt;br&gt;(Zero LLM — Python)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0D47A1;strokeColor=#0D47A1;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="480" y="780" width="160" height="50" as="geometry"/>
+                </mxCell>
+                <mxCell id="regex_result" value="Regex found&lt;br&gt;a match?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#37474F;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
+                    <mxGeometry x="500" y="865" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="classify_llm" value="Pass 2: LLM Smart&lt;br&gt;Intent Classifier&lt;br&gt;(Flash Lite + Exit Names)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#00838F;strokeColor=#00838F;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+                    <mxGeometry x="250" y="860" width="190" height="55" as="geometry"/>
                 </mxCell>
                 <mxCell id="intent_other" value="STATUS / LOOK / REST" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
                     <mxGeometry x="730" y="790" width="140" height="40" as="geometry"/>
@@ -760,11 +769,24 @@
                 <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="exp_loop" target="wait_input" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="wait_input" target="classify" edge="1">
+                <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="wait_input" target="classify_regex" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
-                <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="classify" target="intent_other" edge="1">
+                <mxCell id="e11b" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="classify_regex" target="regex_result" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12" value="Yes (MOVE/LOOK/...)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="regex_result" target="intent_other" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12b" value="UNKNOWN" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00838F;fontColor=#00838F;endArrow=block;strokeWidth=2;" parent="1" source="regex_result" target="classify_llm" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="e12c" value="Resolved" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#00838F;fontColor=#00838F;endArrow=block;strokeWidth=2;" parent="1" source="classify_llm" target="intent_move" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="345" y="960"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_other" target="wait_input" edge="1">
                     <mxGeometry relative="1" as="geometry">
@@ -774,7 +796,7 @@
                         </Array>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="e14" value="MOVE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="classify" target="intent_move" edge="1">
+                <mxCell id="e14" value="MOVE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="regex_result" target="intent_move" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
                 <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_move" target="item_gate" edge="1">
