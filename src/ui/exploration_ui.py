@@ -92,6 +92,13 @@ def render_exploration_dashboard(
     else:
         print(f"  🚪 Exits: None — you are at a dead end.")
 
+    # ── Puzzle Status (if in an active puzzle node) ────────
+    if event_type == "puzzle" and not node.get("cleared", True):
+        obstacle = node.get("puzzle_obstacle", "An obstacle blocks your path.")
+        base_dc = node.get("puzzle_base_dc", 14)
+        print(f"  🧩 Puzzle: \"{obstacle}\"  (DC {base_dc})")
+        print(f"  💡 Describe your creative solution to proceed!")
+
     print("─" * 52)
 
 

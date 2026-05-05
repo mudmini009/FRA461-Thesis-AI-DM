@@ -320,6 +320,19 @@ def _get_character_name(suggested_name: str = "") -> str:
 def initialize_new_game(llm_service: LLMService) -> bool:
     DataManager.clear_log()
 
+    # ── STEP 0: CLEAN UP OLD GENERATED QUESTS ─────────────────
+    # Remove any generated quest files from previous playthroughs
+    # so the board starts fresh. Protected files are preserved.
+    _KEEP_QUESTS = {"sample_dungeon.json", "hub.json", "_fallback_template.json"}
+    quest_dir = "data/quests"
+    if os.path.exists(quest_dir):
+        for fname in os.listdir(quest_dir):
+            if fname.endswith(".json") and fname not in _KEEP_QUESTS and not fname.startswith("_"):
+                try:
+                    os.remove(os.path.join(quest_dir, fname))
+                except Exception:
+                    pass
+
     # ── STEP 1: CHARACTER CREATION ────────────────────────────
     while True:
         clear_screen()

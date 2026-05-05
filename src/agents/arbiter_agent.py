@@ -7,7 +7,7 @@ Methods:
 """
 from typing import List, Dict, Any, Deque, Optional
 from src.agents.base import BaseLLMProvider
-from src.models.character import Character
+from src.models.character import Character, Stat
 from src.models.toon_converter import TOONConverter
 
 
@@ -120,3 +120,103 @@ class ArbiterAgent(BaseLLMProvider):
 
         except Exception:
             return {"is_consumable": False, "effect_type": "NONE"}
+
+    def judge_puzzle_attempt(
+        self,
+        player: Character,
+        puzzle_obstacle: str,
+        base_dc: int,
+        action_description: str,
+        world_lore: str = "",
+        story_memory=None,
+    ) -> Dict[str, Any]:
+        """
+        Evaluates a creative puzzle solution using the same Arbiter logic
+        used for combat creative actions.
+
+        The Arbiter judges:
+          - Is the solution physically/logically possible?
+          - Does the player's class/lore give them a synergy advantage?
+          - What stat should be checked? What's the modified DC?
+
+        Returns:
+            {
+                "allowed": bool,
+                "check_stat": "PHYS" | "MENT" | "SOC",
+                "modified_dc": int,
+                "reason": str,
+            }
+        """
+        memory_context = ""
+        if story_memory:
+            memory_context = "\nSTORY CONTEXT:\n" + "\n".join(
+                [f"- {m}" for m in list(story_memory)[-5:]]
+            )
+
+        prompt = f"""You are the ARBITER (Game Referee) for a TTRPG exploration puzzle.
+A player has encountered an OBSTACLE and is proposing a creative solution.
+Your job is to judge whether the approach is logical and determine the difficulty.
+
+PLAYER INFO:
+- Name: {player.name}
+- Class: {player.role}
+- Title: {getattr(player, 'title', 'Adventurer')}
+- Background: {getattr(player, 'lore', 'A brave adventurer.')}
+- Stats: PHYS={player.stats.get(Stat.PHYS, 0)}, MENT={player.stats.get(Stat.MENT, 0)}, SOC={player.stats.get(Stat.SOC, 0)}
+- Inventory: {', '.join(player.inventory) if player.inventory else 'Empty'}
+
+WORLD LORE:
+{world_lore[:500]}
+{memory_context}
+
+PUZZLE OBSTACLE: "{puzzle_obstacle}"
+BASE DIFFICULTY (DC): {base_dc}
+PLAYER'S PROPOSED SOLUTION: "{action_description}"
+
+RULES:
+1. LOGIC CHECK: Is this solution physically/logically possible given the obstacle?
+   - If completely nonsensical (e.g., "I fly" when they can't fly), set allowed:false.
+   - If reasonable but difficult, set allowed:true with a high DC.
+2. LORE SYNERGY (CRITICAL): If the player's class, title, lore, or inventory gives them
+   a logical advantage for THIS specific solution, LOWER the DC significantly (by 3-6 points).
+   Example: A Mage using wind magic vs a gas cloud → lower DC from 14 to 8.
+   Example: A Fighter trying to punch through a stone wall → keep DC high.
+3. STAT SELECTION: Choose which stat (PHYS, MENT, or SOC) best fits the approach.
+   - Physical solutions (breaking, climbing, jumping) → PHYS
+   - Mental solutions (magic, puzzles, mechanisms) → MENT
+   - Social solutions (negotiation, deception, performance) → SOC
+4. DC RANGE: Modified DC must be between 5 (very easy) and 20 (nearly impossible).
+
+OUTPUT FORMAT (TOON SYNTAX ONLY - 1 LINE STRICT):
+allowed:true|check_stat:MENT|modified_dc:10|reason:Wind magic directly counters gas cloud. Mage synergy lowers DC."""
+
+        try:
+            response = self.model.generate_content(prompt)
+            data = TOONConverter.decode(response.text.strip())
+
+            # Enforce defaults and type safety
+            if "allowed" not in data:
+                data["allowed"] = True
+            if "check_stat" not in data:
+                data["check_stat"] = "PHYS"
+            if "modified_dc" not in data:
+                data["modified_dc"] = base_dc
+            if "reason" not in data:
+                data["reason"] = "The Arbiter considers your approach."
+
+            # Clamp DC to valid range
+            try:
+                data["modified_dc"] = max(5, min(20, int(data["modified_dc"])))
+            except (ValueError, TypeError):
+                data["modified_dc"] = base_dc
+
+            return data
+
+        except Exception as e:
+            # Fallback: allow the attempt with original DC
+            return {
+                "allowed": True,
+                "check_stat": "PHYS",
+                "modified_dc": base_dc,
+                "reason": f"Arbiter unavailable, using base DC. ({str(e)[:50]})",
+            }

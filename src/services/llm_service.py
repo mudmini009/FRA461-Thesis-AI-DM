@@ -17,6 +17,8 @@ from src.agents.arbiter_agent import ArbiterAgent
 from src.agents.narrator_agent import NarratorAgent
 from src.agents.campaign_agent import CampaignAgent
 from src.agents.character_agent import CharacterAgent
+from src.agents.quest_architect_agent import QuestArchitectAgent
+from src.agents.quest_cartographer_agent import QuestCartographerAgent
 
 
 class LLMService:
@@ -31,6 +33,8 @@ class LLMService:
         self._narrator = NarratorAgent(settings=settings)
         self._campaign = CampaignAgent(settings=settings)
         self._character = CharacterAgent(settings=settings)
+        self._quest_architect = QuestArchitectAgent(settings=settings)
+        self._quest_cartographer = QuestCartographerAgent(settings=settings)
 
     # ─── Arbiter ─────────────────────────────────────────────
     def get_creative_judgment(
@@ -100,3 +104,25 @@ class LLMService:
 
     def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None, prologue_text: str = "") -> str:
         return self._narrator.narrate_hub_welcome(player_name, world_lore, story_memory, prologue_text)
+
+    # ─── Quest Generation ───────────────────────────────────
+    def generate_quest_board(self, character_toon: str, world_lore: str, bestiary_tags: List[str],
+                             num_quests: int = 3, existing_quest_ids: List[str] = None) -> List[Dict[str, Any]]:
+        return self._quest_architect.generate_quest_board(
+            character_toon, world_lore, bestiary_tags, num_quests, existing_quest_ids
+        )
+
+    def generate_quest_map(self, quest_summary: Dict[str, Any], world_lore: str,
+                           bestiary_tags: List[str]) -> Dict[str, Any]:
+        return self._quest_cartographer.generate_quest_map(
+            quest_summary, world_lore, bestiary_tags
+        )
+
+    # ─── Puzzle Judgment ────────────────────────────────────
+    def judge_puzzle_attempt(self, player, puzzle_obstacle: str, base_dc: int,
+                             action_description: str, world_lore: str = "",
+                             story_memory=None) -> Dict[str, Any]:
+        return self._arbiter.judge_puzzle_attempt(
+            player, puzzle_obstacle, base_dc, action_description,
+            world_lore, story_memory
+        )

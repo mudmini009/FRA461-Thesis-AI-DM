@@ -58,17 +58,22 @@ class QuestLoader:
             stacklevel=2,
         )
 
+    # ─── Protected file prefixes ─────────────────────────────
+    # Files starting with '_' are internal templates (e.g., _fallback_template.json)
+    # and are excluded from the quest board listing.
+    _PROTECTED_QUESTS = {"hub", "sample_dungeon"}  # Never auto-deleted
+
     @staticmethod
     def list_available_quests() -> list:
         """
-        Returns a list of (quest_id, quest_name) tuples for all quests
-        in the quests directory, excluding the hub.
+        Returns a list of quest dicts for all quests in the quests directory,
+        excluding the hub and internal templates (prefixed with '_').
         """
         quests = []
         if not os.path.exists(QUEST_DIR):
             return quests
         for filename in sorted(os.listdir(QUEST_DIR)):
-            if filename.endswith(".json") and filename != "hub.json":
+            if filename.endswith(".json") and filename != "hub.json" and not filename.startswith("_"):
                 quest_id = filename.replace(".json", "")
                 try:
                     path = os.path.join(QUEST_DIR, filename)
@@ -82,6 +87,53 @@ class QuestLoader:
                 except Exception:
                     pass
         return quests
+
+    @staticmethod
+    def count_available_quests() -> int:
+        """Returns the count of non-hub, non-internal quests."""
+        return len(QuestLoader.list_available_quests())
+
+    @staticmethod
+    def save_generated_quest(quest_id: str, quest_data: dict):
+        """
+        Writes a procedurally generated quest to data/quests/{quest_id}.json.
+        These files are disposable templates — they can be deleted on completion.
+        """
+        os.makedirs(QUEST_DIR, exist_ok=True)
+        path = os.path.join(QUEST_DIR, f"{quest_id}.json")
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(quest_data, f, indent=4, ensure_ascii=False)
+                f.flush()
+                os.fsync(f.fileno())
+        except Exception as e:
+            print(f"\u274c Error saving generated quest '{quest_id}': {e}")
+
+    @staticmethod
+    def delete_quest(quest_id: str):
+        """
+        Removes a completed quest file from data/quests/.
+        Protected quests (hub, sample_dungeon) cannot be deleted.
+        """
+        if quest_id in QuestLoader._PROTECTED_QUESTS:
+            return  # Never delete tutorial or hub
+        path = os.path.join(QUEST_DIR, f"{quest_id}.json")
+        try:
+            if os.path.exists(path):
+                os.remove(path)
+        except Exception as e:
+            print(f"\u274c Error deleting quest '{quest_id}': {e}")
+
+    @staticmethod
+    def list_bestiary_tags() -> list:
+        """Returns a list of all enemy tags available in the bestiary."""
+        bestiary_path = os.path.join("data", "config", "bestiary.json")
+        try:
+            with open(bestiary_path, "r", encoding="utf-8") as f:
+                return list(json.load(f).keys())
+        except Exception:
+            return ["goblin"]
+
 
     # ─── Node Access ──────────────────────────────────────────
 

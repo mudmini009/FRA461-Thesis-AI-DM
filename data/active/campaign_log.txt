@@ -1,22 +1,10 @@
 [PROLOGUE]
-The perpetual twilight of Shattered Glass bled crimson and bruised purple across the sky, a city built on ambition and decay, where the air itself tasted of old blood and desperation.
+The sky above Aethelgard bled a perpetual twilight, a constant reminder of the Severing that had scarred the land and birthed a world of grit and shadow.
 
-A guttural shriek tore through the fog, followed by the skittering of too many limbs, but sdfs's training held, his longsword a blur as he parried a clawed appendage before shoving the mutated horror back into the suffocating gloom.
+A rusted blade, swung by a Ruin-Born brute, whistled past your helm, the clang of your warhammer deflecting a second, desperate lunge.
 
-With a final, ragged breath, sdfs pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside.
+With a final, weary heave, you push open the heavy wooden doors of the Adventurer's Guild, the scent of stale ale and desperation washing over you.
 [END PROLOGUE]
 
-[HUB] You step inside the Adventurer's Guild, the heavy wooden doors groaning shut behind you, muffling the distant, unsettling sounds of the perpetual twilight. The air within is thick with the comforting scent of stale ale and woodsmoke, a stark, blessed contrast to the chilling fog and the gnashing maw of the mutated horror you just faced. A wave of relief washes over you, a fleeting moment of respite from the skittering claws and suffocating gloom, as your eyes fall upon the worn, blood-stained tapestry of the quest board, promising challenges you can now choose to face.
-
-[sdfs] (Hub) status
-[sdfs] (Hub) status
-[sdfs] (Hub) inventory
-[sdfs] (Hub) questboard
-[QUEST ACCEPTED] Bounty: The Smuggler's Mine
-[HUB] You step inside, the heavy oak doors groaning shut behind you, muffling the distant, guttural shrieks and the skittering you so recently escaped. The air within is thick with the comforting, if slightly stale, scent of old wood, pipe smoke, and something vaguely metallic, a stark, welcome contrast to the damp, blood-tinged fog clinging to the cobblestones outside. For a moment, the phantom sting of a clawed appendage against your longsword is forgotten in the sudden, blessed stillness. Before you, a crowded board beckons, a patchwork of parchment promising challenges, but for now, the Guild's relative safety is reward enough.
-
-[sdfs] (Hub) quest board
-[QUEST ACCEPTED] Bounty: The Smuggler's Mine
-[EXPLORATION] Entered: Mine Entrance
-[DM] You push open the heavy, groaning doors and step into the Mine Entrance. The air immediately chills, heavy with the cloying scent of damp earth and a deeper, unsettling rot that prickles at the back of your throat. Before you, the Smuggler's Mine yawns like a wound in the earth, its darkness absolute, broken only by the ceaseless, echoing drip of unseen water.
+[HUB] You step inside, the heavy wooden doors groaning shut behind you, muffling the chilling wind and the distant, guttural cries that still echo in your mind from that Ruin-Born's rusted blade. The immediate warmth of the Adventurer's Guild is a stark, welcome contrast to the perpetual twilight and the desperate struggle that just brought you here, a wave of stale ale and woodsmoke washing over you. Your gaze drifts, finding a moment of respite before it's drawn to the weathered parchment pinned to the bustling Quest Board, a silent promise of challenges yet to be faced, but faced from within these walls.
 

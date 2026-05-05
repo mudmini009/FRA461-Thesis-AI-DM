@@ -2,25 +2,26 @@
     "party": [
         {
             "id": "player1",
-            "name": "sdfs",
-            "role": "Fighter",
-            "hp": 20,
-            "max_hp": 20,
-            "ac": 16,
+            "name": "1",
+            "role": "Cleric",
+            "hp": 18,
+            "max_hp": 18,
+            "ac": 18,
             "stats": {
-                "PHYS": 3,
-                "MENT": 0,
-                "SOC": -1
+                "PHYS": 1,
+                "MENT": 3,
+                "SOC": 0
             },
             "zone": "NEAR",
             "inventory": [
-                "Longsword",
-                "Chainmail",
-                "Healing Potion"
+                "Warhammer",
+                "Plate",
+                "Shield",
+                "Holy Symbol"
             ],
             "condition": "NORMAL",
             "abilities": [],
-            "lore": "A battle-hardened warrior carrying a longsword and wearing heavy chainmail. Trained at the imperial academy.",
+            "lore": "A divine healer clad in heavy plate armor, wielding a warhammer and channeling the power of their deity.",
             "title": "",
             "stat_justification": ""
         }
@@ -28,7 +29,7 @@
     "enemies": [],
     "combat_memory": [],
     "story_memory": [
-        "[PROLOGUE] The perpetual twilight of Shattered Glass bled crimson and bruised purple across the sky, a city built on ambition and decay, where the air itself tasted of old blood and desperation.\\n\\nA guttural shriek tore through the fog, followed by the skittering of too many limbs, but sdfs's training held, his longsword a blur as he parried a clawed appendage before shoving the mutated horror back into the suffocating gloom.\\n\\nWith a final, ragged breath, sdfs pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside."
+        "[PROLOGUE] The sky above Aethelgard bled a perpetual twilight, a constant reminder of the Severing that had scarred the land and birthed a world of grit and shadow.\\n\\nA rusted blade, swung by a Ruin-Born brute, whistled past your helm, the clang of your warhammer deflecting a second, desperate lunge.\\n\\nWith a final, weary heave, you push open the heavy wooden doors of the Adventurer's Guild, the scent of stale ale and desperation washing over you."
     ],
     "global_state": {
         "time": {
@@ -38,9 +39,162 @@
         },
         "turn_counter": 0,
         "is_in_combat": false,
-        "current_phase": "EXPLORATION",
-        "current_quest_id": "sample_dungeon",
-        "current_node_id": "node_01"
+        "current_phase": "HUB",
+        "current_quest_id": "hub",
+        "current_node_id": "hub_main"
     },
-    "quest_states": {}
+    "quest_states": {
+        "sample_dungeon": {
+            "quest_id": "sample_dungeon",
+            "name": "Bounty: The Smuggler's Mine",
+            "description": "A gang of goblin ambushers has taken over an abandoned mine on the outskirts of the city, using it to stash stolen goods. The Guild is offering a bounty for clearing them out and retrieving the stolen cargo.",
+            "entrance_node": "node_01",
+            "nodes": {
+                "node_01": {
+                    "node_id": "node_01",
+                    "name": "Mine Entrance",
+                    "base_description": "You stand before the gaping maw of the Smuggler's Mine. A rusted iron sign, long since defaced by claw marks, once read 'Keldrath Co. \u2014 Authorized Personnel Only.' The air is damp and thick with the smell of mud and something older, something rotten. Dripping water echoes in the dark. To your left, a collapsed ore cart lies on its side, its wheels stripped. The only way forward is the Main Shaft, a dark tunnel yawning open straight ahead.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### The Smuggler's Mine\nOnce a legitimate iron mine operated by the Keldrath Company, the Smuggler's Mine was abandoned a decade ago when the veins ran dry. Rumour has it the company's foreman was found dead at the bottom of Shaft Three under mysterious circumstances. Since then, opportunists have used the tunnels as a black-market waypoint, and something older may have moved in long before the goblins arrived."
+                },
+                "node_02": {
+                    "node_id": "node_02",
+                    "name": "Main Shaft",
+                    "base_description": "The main tunnel is wide enough for three men abreast, the walls reinforced with rotten timber beams that groan underfoot. Ancient torches hang in iron brackets, their oil long since spent. A cold draft flows from deeper in \u2014 something breathes in the dark below. The path splits ahead: a rusted iron gate, nearly wrenched off its hinges, blocks access to the Storage Bay to the east. To the north, the tunnel continues toward the sounds of distant voices. The Entrance lies back the way you came.",
+                    "connected_to": [
+                        "node_01",
+                        "node_03",
+                        "node_04"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### The Iron Gate\nThe gate bears the emblem of a coiled serpent biting its own tail \u2014 the same sigil found on three other 'abandoned' mine sites across the kingdom. Whatever the Keldrath Company was really doing here, they wanted certain things very well guarded."
+                },
+                "node_03": {
+                    "node_id": "node_03",
+                    "name": "Storage Bay",
+                    "base_description": "The Storage Bay reeks of stolen goods: sacks of grain, crates of weapons, and barrels stamped with Guild insignia that was clearly meant for legitimate merchants. Sloppy handwriting on a wall details crude inventory tallies in what you recognize as Goblin script. Hooks on the wall hold rope, torches, and a set of lockpicks that someone dropped in a hurry. The room is quiet now, but recently disturbed. Clawed boot prints lead back toward the Ambush Chamber. The only exit back is through the broken gate.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### The Stolen Cargo\nThe Guild markings on the barrels confirm it: three of these shipments were reported hijacked on the King's Road over the past month. Someone organized is running this operation \u2014 goblins alone are not capable of this level of logistics. There is a handler deeper in the mine."
+                },
+                "node_04": {
+                    "node_id": "node_04",
+                    "name": "Ambush Chamber",
+                    "base_description": "Torches blaze to life along the walls the instant you step through the threshold \u2014 a crude tripwire mechanism. The chamber opens into a wide, low-ceilinged cavern. Crates are stacked into impromptu barricades. A screech rips through the air. Goblin Ambushers melt out of the shadows, blades drawn, yellow eyes gleaming with malice. The exit back to the Main Shaft is behind you. A reinforced door at the far end, marked with a crude skull, leads deeper. But first \u2014 you will have to fight.",
+                    "connected_to": [
+                        "node_02",
+                        "node_05"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "enemy_tag": "goblin_ambusher",
+                    "lore_fragment": "### The Ambushers\nThese are no ordinary scavengers. The goblins here are disciplined, organized, and equipped with stolen Guild-issue weapons. Someone trained them. Their leader, a scarred brute the others call 'Skrix,' takes orders from something that hasn't shown its face yet."
+                },
+                "node_05": {
+                    "node_id": "node_05",
+                    "name": "The Boss's Den",
+                    "base_description": "The air here is thick with incense and the acrid tang of alchemy. A crude throne made from smashed crates sits at the centre of the room. Mounted on the wall: a detailed map of the King's Road, with red marks at every ambush site. The floor is scorched in a wide circle \u2014 dark ritual markings. On the throne, reclining with contemptuous ease, sits the Mine Boss: a towering cultist in patched iron armour, his eyes reflecting the torchlight with an unnatural orange glow. He smiles when he sees you. He knew you were coming.",
+                    "connected_to": [
+                        "node_04"
+                    ],
+                    "event_type": "boss",
+                    "visited": false,
+                    "cleared": false,
+                    "enemy_tag": "mine_boss",
+                    "lore_fragment": "### The Mechanized Cult Connection\nThe ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal \u2014 he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected."
+                }
+            }
+        },
+        "whispering_woods_raid": {
+            "quest_id": "whispering_woods_raid",
+            "name": "Whispering Woods Raid",
+            "description": "A caravan carrying vital supplies for the Iron Vanguard has been ambushed deep within the Whisper Elves' territory. Recover what remains.",
+            "entrance_node": "node_01",
+            "nodes": {
+                "node_01": {
+                    "node_id": "node_01",
+                    "name": "Forest Clearing",
+                    "base_description": "You stand at the edge of a blood-soaked clearing. The remnants of an Iron Vanguard caravan are scattered amongst the ancient trees. Broken wagons, splintered wood, and the chilling silence of death hang heavy in the air. The scent of pine is now mingled with the metallic tang of blood. A narrow, overgrown path leads deeper into the woods.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### The Whisper Elves' Domain\nThese woods have always been the domain of the Whisper Elves. They are fiercely territorial and possess an intimate knowledge of the forest, using its natural defenses to their advantage. Few dare to trespass, and fewer still return to tell the tale."
+                },
+                "node_02": {
+                    "node_id": "node_02",
+                    "name": "Ambush Point",
+                    "base_description": "The path opens into a denser part of the forest. Twisted roots form natural pitfalls, and the canopy above is so thick that only dappled sunlight pierces through. Crude tripwires are strung between trees, and the shadows seem to writhe with unseen movement. The air is thick with tension, and the rustling of leaves sounds like whispers. The path continues ahead, and a less-traveled trail branches off to the side.",
+                    "connected_to": [
+                        "node_01",
+                        "node_03",
+                        "node_04"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "enemy_tag": "goblin_ambusher",
+                    "lore_fragment": "### Goblin Tactics\nThe Ruin-Born, particularly the goblins, are known for their opportunistic ambushes. They utilize the terrain to their advantage, setting traps and using the element of surprise to overwhelm their prey. This clearing shows signs of their crude, yet effective, methods."
+                },
+                "node_03": {
+                    "node_id": "node_03",
+                    "name": "Scavenger's Cache",
+                    "base_description": "Hidden behind a thicket of thorny bushes, you discover a small, makeshift camp. Rusted weapons, torn scraps of cloth, and gnawed bones litter the ground. A few discarded sacks contain pilfered goods from the caravan \u2013 mostly dried rations and some dented metal plating. The air here is rank with the smell of unwashed bodies and stale ale. The only way out is back to the Ambush Point.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "safe",
+                    "visited": false,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### Bandit Scum\nWhile the Whisper Elves are the primary inhabitants of these woods, opportunistic bandits and Ruin-Born often use their territory as a hunting ground. They prey on the weak and the unwary, leaving behind only ruin and despair. These scavengers likely took advantage of the chaos."
+                },
+                "node_04": {
+                    "node_id": "node_04",
+                    "name": "The Whispering Grove",
+                    "base_description": "You enter a clearing dominated by a massive, ancient tree whose branches twist like skeletal fingers towards the sky. Strange, luminescent fungi grow on its bark, casting an eerie glow. The air here is unnaturally still, and a faint, almost imperceptible whispering can be heard, seemingly emanating from the tree itself. At the base of the tree, a figure clad in dark leather and adorned with poisoned darts stands guard. They are clearly not alone in this sacred place.",
+                    "connected_to": [
+                        "node_02",
+                        "node_05"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "enemy_tag": "bandit",
+                    "lore_fragment": "### The Grove's Secret\nThis grove is said to be a place of power for the Whisper Elves, where they commune with the spirits of the forest. The presence of bandits here suggests a deeper corruption, or perhaps a desperate alliance. The whispering might be the voices of the forest itself, warning intruders."
+                },
+                "node_05": {
+                    "node_id": "node_05",
+                    "name": "The Elven Chieftain's Lair",
+                    "base_description": "Deep within the grove, you find a hidden alcove carved into the roots of the ancient tree. The air is thick with the scent of exotic herbs and potent poisons. Scattered around are vials, alchemical equipment, and a collection of intricately carved bone totems. Before you stands the Chieftain, a lithe figure with eyes that gleam with ancient malice and a bow strung with what looks like dried sinew. They are the architect of this ambush, and they will defend their territory with deadly precision.",
+                    "connected_to": [
+                        "node_04"
+                    ],
+                    "event_type": "boss",
+                    "visited": false,
+                    "cleared": false,
+                    "enemy_tag": "bandit",
+                    "lore_fragment": "### The Poisoned Arrow\nThe Whisper Elves are masters of poison, their knowledge passed down through generations. Their arrows can fell the mightiest warriors, and their brews can incapacitate even the most resilient foes. This Chieftain is the embodiment of their deadly art, a true threat to any who dare to disturb their peace."
+                }
+            }
+        }
+    }
 }

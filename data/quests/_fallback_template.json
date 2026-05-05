@@ -1,0 +1,41 @@
+{
+    "quest_id": "_fallback",
+    "name": "Clear the Cellar",
+    "description": "Something has been scratching at the floorboards beneath the Guild. Time to investigate.",
+    "entrance_node": "node_01",
+    "nodes": {
+        "node_01": {
+            "node_id": "node_01",
+            "name": "Cellar Stairs",
+            "base_description": "Creaky wooden stairs descend into a cold, damp cellar beneath the Guild. Cobwebs drape across the walls, and the faint sound of scratching echoes from deeper within. The only exit is to continue forward into the darkness.",
+            "connected_to": ["node_02"],
+            "event_type": "safe",
+            "visited": false,
+            "cleared": true,
+            "enemy_tag": null,
+            "lore_fragment": "### The Guild Cellar\nBuilt long before the current Guild took over the building, this cellar was originally a wine storage for a noble family. Strange markings on the foundation stones suggest the building predates even the city itself."
+        },
+        "node_02": {
+            "name": "Storage Room",
+            "node_id": "node_02",
+            "base_description": "Barrels and crates are stacked haphazardly against the walls. Several have been gnawed open, their contents scattered. Something has been feeding down here. The scratching is louder now, coming from the chamber ahead.",
+            "connected_to": ["node_01", "node_03"],
+            "event_type": "combat",
+            "visited": false,
+            "cleared": false,
+            "enemy_tag": "goblin",
+            "lore_fragment": "### The Infestation\nThe scratch marks on the crates are too large for normal vermin. Whatever has made a home down here is bold enough to raid Guild supplies, and organized enough to drag food back to a nest."
+        },
+        "node_03": {
+            "name": "The Nest",
+            "node_id": "node_03",
+            "base_description": "The final chamber opens into a wider space. The floor is littered with bones and refuse. In the center, a crude nest of rags and stolen cloth holds the den mother of whatever has been terrorizing the cellar. It rises to face you.",
+            "connected_to": ["node_02"],
+            "event_type": "boss",
+            "visited": false,
+            "cleared": false,
+            "enemy_tag": "wolf",
+            "lore_fragment": "### The Den Mother\nThis creature has been here far longer than anyone suspected. The bones in the nest are not just animal — a Guild badge from a missing adventurer lies half-buried in the refuse."
+        }
+    }
+}

@@ -1,11 +1,13 @@
 import os
 import json
+import random
 from src.models.character import Condition, Character, Stat, Zone
 from src.services.llm_service import LLMService
 from src.services.data_manager import DataManager
 from src.models.toon_converter import TOONConverter
 from src.logic.combat_manager import InitiativeQueue
 from src.logic.enemy_ai import EnemyAI
+from src.logic.enemy_factory import EnemyFactory
 from src.ui.dashboard import render_dashboard
 from src.router.intent_router import classify_intent
 from src.router.intents import execute_fixed_action, handle_creative_intent
@@ -14,6 +16,7 @@ from src.logic.time_manager import TimeManager
 from src.services.quest_loader import QuestLoader
 from src.router.exploration_router import (
     classify_exploration_intent,
+    classify_exploration_intent_in_context,
     get_rest_rejection_message,
     get_move_rejection_message,
 )
@@ -450,8 +453,8 @@ def start_exploration_loop(
 
             DataManager.append_to_log(f"[{player.name}] {user_input}")
 
-            # ── Classify (Zero LLM) ───────────────────────────────
-            intent = classify_exploration_intent(user_input)
+            # ── Classify (Zero LLM — context-aware for puzzle nodes) ────
+            intent = classify_exploration_intent_in_context(user_input, current_node)
             intent_type = intent["type"]
 
             # ─── QUIT ────────────────────────────────────────────
@@ -531,6 +534,14 @@ def start_exploration_loop(
                     DataManager.append_to_log(f"[SYSTEM] Invalid MOVE blocked: '{raw_target}'")
                     continue
 
+                # ── Item Gating: required_item check ─────────────────
+                target_node_data = QuestLoader.get_node(quest_data, target_node_id)
+                required_item = (target_node_data or {}).get("required_item")
+                if required_item and required_item not in (player.inventory or []):
+                    print(f"   🔒 [SYSTEM] This path requires '{required_item}'. Check your inventory.")
+                    DataManager.append_to_log(f"[SYSTEM] MOVE blocked: missing '{required_item}'")
+                    continue
+
                 # ✅ Valid move — update state
                 new_node = QuestLoader.get_node(quest_data, target_node_id)
                 if not new_node:
@@ -540,12 +551,20 @@ def start_exploration_loop(
                 global_state["current_node_id"] = target_node_id
                 print(f"   🚶 [SYSTEM] Moving to: {new_node['name']}...")
 
-                # ── Step 1: Lore reveal (FIRST, before anything else) ──
+                # ── Step 1: Lore reveal + item pickup (FIRST, before anything else) ──
                 if not new_node.get("visited", False):
                     QuestLoader.append_lore(new_node.get("lore_fragment"))
                     QuestLoader.mark_visited(quest_data, target_node_id)
                     data_manager.save_quest_state(quest_id, quest_data)  # Instance save, not template
                     world_lore = data_manager.load_lore()  # Reload enriched lore
+
+                    # grants_item: auto-pickup on first visit
+                    granted = new_node.get("grants_item")
+                    if granted and granted not in (player.inventory or []):
+                        player.inventory = player.inventory or []
+                        player.inventory.append(granted)
+                        print(f"   🎁 [SYSTEM] You found: {granted}")
+                        DataManager.append_to_log(f"[ITEM] Found: {granted}")
 
                 # ── Step 2: Room narration ──────────────────────────
                 print("   Narrating...", end="\r")
@@ -554,24 +573,49 @@ def start_exploration_loop(
                 print(f"\n   🗣️  DM: \"{room_narration}\"\n")
                 DataManager.append_to_log(f"[MOVE] -> {new_node['name']}\n[DM] {room_narration}\n")
 
-                # ── Step 3: Combat bridge check ─────────────────────
+                # ── Step 3: Event bridge check ───────────────────────
                 event_type = new_node.get("event_type", "safe")
                 is_combat_node = event_type in ("combat", "boss")
+                is_puzzle_node = event_type == "puzzle"
                 is_uncleared = not new_node.get("cleared", True)
 
-                if is_combat_node and is_uncleared:
+                # ── Puzzle node: show obstacle, DON'T auto-resolve ───
+                if is_puzzle_node and is_uncleared:
+                    obstacle = new_node.get("puzzle_obstacle", "An obstacle blocks your path.")
+                    base_dc = new_node.get("puzzle_base_dc", 14)
+                    print(f"\n   🧩 PUZZLE — \"{obstacle}\"")
+                    print(f"   💡 Describe how you solve it. (DC {base_dc})")
+                    DataManager.append_to_log(f"[PUZZLE] Encountered: {obstacle}")
+
+                elif is_combat_node and is_uncleared:
+                    # ── Dynamic enemy via EnemyFactory (new path) ─────
+                    enemy_name_from_node = new_node.get("enemy_name")
+                    enemy_archetype = new_node.get("enemy_archetype")
+                    enemy_attack_flavor = new_node.get("enemy_attack_flavor", "attacks")
                     enemy_tag = new_node.get("enemy_tag", "goblin")
-                    enemy_name = enemy_tag.replace("_", " ").title()
+
+                    if enemy_name_from_node and enemy_archetype:
+                        # New path: EnemyFactory (dynamic scaling)
+                        display_name = enemy_name_from_node
+                        injected_enemy = EnemyFactory.create(
+                            archetype=enemy_archetype,
+                            player=player,
+                            enemy_name=enemy_name_from_node,
+                            attack_flavor=enemy_attack_flavor,
+                        )
+                    else:
+                        # Legacy path: bestiary.json (backward compat for sample_dungeon)
+                        display_name = enemy_tag.replace("_", " ").title()
+                        injected_enemy = _inject_enemy_from_bestiary(enemy_tag)
 
                     # Generate Initiative / Cold Open narration
                     print("   Generating encounter...", end="\r")
-                    encounter_narration = llm_service.narrate_encounter_start(new_node, enemy_name, world_lore)
+                    encounter_narration = llm_service.narrate_encounter_start(new_node, display_name, world_lore)
                     print(" " * 30, end="\r")
                     print(f"   ⚔️  DM: \"{encounter_narration}\"\n")
-                    DataManager.append_to_log(f"[ENCOUNTER] {enemy_name} in {new_node['name']}\n[DM] {encounter_narration}\n")
+                    DataManager.append_to_log(f"[ENCOUNTER] {display_name} in {new_node['name']}\n[DM] {encounter_narration}\n")
 
                     # Inject enemy into enemies list
-                    injected_enemy = _inject_enemy_from_bestiary(enemy_tag)
                     if injected_enemy:
                         enemies = [injected_enemy]
                     else:
@@ -639,7 +683,68 @@ def start_exploration_loop(
                         global_state["current_quest_id"] = quest_id
 
                 else:
-                    # Non-combat node — just save position
+                    # Non-combat / cleared node — just save position
+                    data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+
+            # ─── PUZZLE ATTEMPT ───────────────────────────────────
+            elif intent_type == "PUZZLE_ATTEMPT":
+                puzzle_obstacle = current_node.get("puzzle_obstacle", "An obstacle blocks your path.")
+                base_dc = current_node.get("puzzle_base_dc", 14)
+                action_desc = intent.get("raw_target", user_input)
+
+                print("   🎲 [SYSTEM] The Arbiter evaluates your approach...", end="\r")
+                world_lore = data_manager.load_lore()
+                judgment = llm_service.judge_puzzle_attempt(
+                    player, puzzle_obstacle, base_dc, action_desc,
+                    world_lore, story_memory
+                )
+                print(" " * 50, end="\r")
+
+                allowed = str(judgment.get("allowed", "true")).lower() in ("true", "1", "yes")
+                reason = judgment.get("reason", "")
+                check_stat = judgment.get("check_stat", "PHYS").upper()
+                modified_dc = int(judgment.get("modified_dc", base_dc))
+
+                if not allowed:
+                    print(f"   ❌ [ARBITER] {reason}")
+                    print(f"   💡 Try a different approach!")
+                    DataManager.append_to_log(f"[PUZZLE] Attempt rejected: {action_desc} — {reason}")
+                else:
+                    # Roll the dice: 1d20 + stat modifier
+                    stat_key = Stat.PHYS
+                    if check_stat == "MENT":
+                        stat_key = Stat.MENT
+                    elif check_stat == "SOC":
+                        stat_key = Stat.SOC
+
+                    modifier = player.stats.get(stat_key, 0)
+                    roll = random.randint(1, 20)
+                    total = roll + modifier
+
+                    print(f"\n   🎯 [ARBITER] \"{reason}\"")
+                    print(f"   🎲 Roll: d20({roll}) + {check_stat}({modifier}) = {total}  vs  DC {modified_dc}")
+
+                    if total >= modified_dc:
+                        print(f"   ✅ SUCCESS! You overcome the obstacle!")
+                        QuestLoader.mark_cleared(quest_data, current_node.get("node_id", global_state["current_node_id"]))
+                        data_manager.save_quest_state(quest_id, quest_data)
+
+                        # Narrate success
+                        narration = llm_service.narrate_node_cleared(current_node, world_lore)
+                        print(f"\n   🗣️  DM: \"{narration}\"\n")
+                        DataManager.append_to_log(f"[PUZZLE SOLVED] {action_desc} (Roll:{total} vs DC:{modified_dc})\n[DM] {narration}")
+
+                        # Check full quest completion
+                        if QuestLoader.is_quest_complete(quest_data):
+                            print(f"\n{'🏆'*26}")
+                            print(f"  QUEST COMPLETE: {quest_name}")
+                            print(f"{'🏆'*26}")
+                            data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
+                            return "VICTORY"
+                    else:
+                        print(f"   ❌ FAILED. The obstacle remains. Try a different approach!")
+                        DataManager.append_to_log(f"[PUZZLE FAILED] {action_desc} (Roll:{total} vs DC:{modified_dc})")
+
                     data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
 
             # ─── UNKNOWN ─────────────────────────────────────────
@@ -712,6 +817,41 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
             player = party[0] if party else player
 
             available_quests = QuestLoader.list_available_quests()
+
+            # ── Auto-generate quest board if below threshold ──────────
+            if len(available_quests) < 3:
+                needed = 3 - len(available_quests)
+                print(f"   \u2728 [SYSTEM] Generating {needed} new quest(s) for the board...", end="\r")
+                try:
+                    character_toon = TOONConverter.convert([player], [])
+                    bestiary_tags = QuestLoader.list_bestiary_tags()
+                    existing_ids = [q["id"] for q in available_quests]
+                    new_quests = llm_service.generate_quest_board(
+                        character_toon, world_lore, bestiary_tags,
+                        num_quests=needed, existing_quest_ids=existing_ids,
+                    )
+                    for nq in new_quests:
+                        # Save a stub quest file so it appears on the board.
+                        # The full map is generated on-demand when selected.
+                        stub = {
+                            "quest_id": nq["quest_id"],
+                            "name": nq["name"],
+                            "description": nq["description"],
+                            "entrance_node": "node_01",
+                            "nodes": {},
+                            "_meta": {
+                                "generated": True,
+                                "theme": nq.get("theme", ""),
+                                "enemy_tags": nq.get("enemy_tags", []),
+                                "num_nodes": nq.get("num_nodes", 4),
+                            },
+                        }
+                        QuestLoader.save_generated_quest(nq["quest_id"], stub)
+                    available_quests = QuestLoader.list_available_quests()
+                    print(" " * 60, end="\r")
+                except Exception as e:
+                    print(f"   \u26a0\ufe0f Quest board generation error: {e}")
+
             render_hub_dashboard(party, global_state, available_quests)
 
             print("   Action > ", end="", flush=True)
@@ -752,14 +892,15 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
                 else:
                     print("   🎒 Your inventory is empty.")
 
-            # ── Quest Board ───────────────────────────────────
+            # ── Quest Board ───────────────────────────────────────
             elif any(kw in lower for kw in ["quest", "board", "job", "mission", "bounty"]):
                 if not available_quests:
                     print("   📋 No quests available right now.")
                     continue
                 print("\n   📋 QUEST BOARD:")
                 for i, q in enumerate(available_quests, 1):
-                    print(f"      [{i}] {q['name']}")
+                    tag = "\u2b50 Pre-made" if q["id"] == "sample_dungeon" else "\u2728 Generated"
+                    print(f"      [{i}] {q['name']}  ({tag})")
                     print(f"          {q.get('description', '')}")
                 print(f"      [0] Cancel")
 
@@ -775,6 +916,33 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
                 print(f"\n   ✦ Accepting quest: {chosen['name']}")
                 DataManager.append_to_log(f"[QUEST ACCEPTED] {chosen['name']}")
 
+                # ── Generate map on-demand for procedural quests ──────
+                quest_file = QuestLoader.load_quest(chosen_id)
+                is_stub = not quest_file.get("nodes") if quest_file else True
+
+                if is_stub:
+                    # This is a generated quest stub — build the full map now
+                    meta = quest_file.get("_meta", {}) if quest_file else {}
+                    quest_summary = {
+                        "quest_id": chosen_id,
+                        "name": chosen["name"],
+                        "description": chosen.get("description", ""),
+                        "enemy_tags": meta.get("enemy_tags", ["goblin"]),
+                        "num_nodes": meta.get("num_nodes", 4),
+                        "theme": meta.get("theme", "adventure"),
+                    }
+                    print("   🗺️  [SYSTEM] Generating dungeon map...", end="\r")
+                    try:
+                        bestiary_tags = QuestLoader.list_bestiary_tags()
+                        full_map = llm_service.generate_quest_map(
+                            quest_summary, world_lore, bestiary_tags
+                        )
+                        QuestLoader.save_generated_quest(chosen_id, full_map)
+                        print(" " * 50, end="\r")
+                    except Exception as e:
+                        print(f"   \u274c Map generation failed: {e}")
+                        continue
+
                 # Launch exploration loop
                 result = start_exploration_loop(
                     data_path=data_path,
@@ -788,6 +956,9 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
                     return "DEFEAT"
                 elif result == "VICTORY":
                     print("\n   🎉 Quest complete! Welcome back to the Guild.")
+                    # Remove completed quest (protected quests are guarded internally)
+                    QuestLoader.delete_quest(chosen_id)
+                    DataManager.append_to_log(f"[QUEST COMPLETE] {chosen['name']}")
                 # else HUB: just fall back to hub loop naturally
 
             else:

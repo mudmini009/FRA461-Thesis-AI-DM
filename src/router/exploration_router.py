@@ -13,6 +13,7 @@ Intent Classifications:
   INVENTORY  — player wants to see their inventory
   EXIT_HUB   — player wants to leave back to hub
   QUIT       — player wants to exit the game
+  PUZZLE_ATTEMPT — player is trying to solve a puzzle creatively
   UNKNOWN    — fallback, no LLM burn
 """
 import re
@@ -99,6 +100,29 @@ def classify_exploration_intent(user_input: str) -> dict:
         return {"type": "EXIT_HUB", "raw_target": ""}
 
     return {"type": "UNKNOWN", "raw_target": text}
+
+
+def classify_exploration_intent_in_context(user_input: str, current_node: dict) -> dict:
+    """
+    Context-aware wrapper around classify_exploration_intent.
+
+    If we're in an uncleared puzzle node and the input doesn't match
+    any standard command, classify it as PUZZLE_ATTEMPT instead of UNKNOWN.
+    This lets the player type creative solutions like:
+      "I freeze the water to make an ice bridge"
+    and have them routed to the Arbiter.
+    """
+    result = classify_exploration_intent(user_input)
+
+    # If UNKNOWN and we're in an active puzzle, reclassify
+    if result["type"] == "UNKNOWN":
+        event_type = current_node.get("event_type", "safe")
+        is_puzzle = event_type == "puzzle"
+        is_uncleared = not current_node.get("cleared", True)
+        if is_puzzle and is_uncleared:
+            return {"type": "PUZZLE_ATTEMPT", "raw_target": user_input.strip()}
+
+    return result
 
 
 def get_rest_rejection_message(node: dict) -> Optional[str]:
