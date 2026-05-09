@@ -54,7 +54,7 @@ _QUEST_BOARD_KEYWORDS = re.compile(
     re.IGNORECASE
 )
 _STATUS_KEYWORDS = re.compile(
-    r"\b(status|sheet|character|stats|abilities|health|hp|inventory)\b",
+    r"\b(status|sheet|character|stats|abilities|health|hp)\b",
     re.IGNORECASE
 )
 _INVENTORY_KEYWORDS = re.compile(
@@ -62,7 +62,7 @@ _INVENTORY_KEYWORDS = re.compile(
     re.IGNORECASE
 )
 _EXIT_HUB_KEYWORDS = re.compile(
-    r"\b(leave|exit|back|return|go back|hub|guild|tavern)\b",
+    r"\b(leave dungeon|return to guild|go to hub|hub|guild|tavern|go back to guild|leave quest)\b",
     re.IGNORECASE
 )
 _QUIT_WORDS = {"quit", "exit game", "q", "quit game"}

@@ -445,7 +445,7 @@ def start_exploration_loop(
                 return "EXIT"
 
             # ── HUD ──────────────────────────────────────────────
-            render_exploration_dashboard(party, current_node, global_state, quest_name)
+            render_exploration_dashboard(party, current_node, global_state, quest_name, quest_data=quest_data)
             print(f"   Action > ", end="", flush=True)
             user_input = input()
 
@@ -455,7 +455,9 @@ def start_exploration_loop(
             DataManager.append_to_log(f"[{player.name}] {user_input}")
 
             # ── Classify (Hybrid: Regex first, LLM fallback for UNKNOWN) ────
+            print("   Thinking...", end="\r", flush=True)
             intent = classify_exploration_intent_smart(user_input, current_node, quest_data=quest_data, settings=settings)
+            print(" " * 20, end="\r")
             intent_type = intent["type"]
 
             # ─── QUIT ────────────────────────────────────────────

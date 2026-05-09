@@ -29,6 +29,7 @@ def render_exploration_dashboard(
     node: dict,
     global_state: Optional[Dict[str, Any]] = None,
     quest_name: str = "",
+    quest_data: Optional[Dict[str, Any]] = None,
 ):
     """
     Renders a clean exploration-mode HUD to the terminal.
@@ -85,9 +86,15 @@ def render_exploration_dashboard(
     # ── Available Exits ───────────────────────────────────
     connected = node.get("connected_to", [])
     if connected:
-        # Try to show the names of connected nodes if they're in the quest data
-        # (caller may not pass quest_data, so we just show IDs)
-        exits_display = " | ".join(connected)
+        # Resolve node IDs to display names if quest_data is available
+        exit_names = []
+        for nid in connected:
+            if quest_data:
+                n = quest_data.get("nodes", {}).get(nid)
+                exit_names.append(n.get("name", nid) if n else nid)
+            else:
+                exit_names.append(nid)
+        exits_display = " | ".join(exit_names)
         print(f"  🚪 Exits: {exits_display}")
     else:
         print(f"  🚪 Exits: None — you are at a dead end.")
@@ -144,7 +151,8 @@ def render_hub_dashboard(
         for i, q in enumerate(available_quests, 1):
             print(f"    [{i}] {q['name']}")
             if q.get("description"):
-                print(f"        {q['description'][:70]}...")
+                desc = q["description"]
+                print(f"        {desc[:80]}{'...' if len(desc) > 80 else ''}")
     else:
         print("  📋 QUEST BOARD: No quests available.")
 

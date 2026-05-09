@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="N9lTAYzH6NXhv2aIVXTQ" name="start_loop">
-        <mxGraphModel dx="605" dy="455" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="1237" dy="655" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -608,7 +608,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="g42gaagTiGX86BFYsz2Q" name="Exploration">
-        <mxGraphModel dx="2473" dy="1310" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="2400" math="0" shadow="0">
+        <mxGraphModel dx="896" dy="503" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="2400" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -676,7 +676,7 @@
                     <mxGeometry x="730" y="790" width="140" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="intent_move" value="MOVE Intent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#455A64;strokeColor=#263238;fontColor=#ffffff;" parent="1" vertex="1">
-                    <mxGeometry x="480" y="870" width="160" height="40" as="geometry"/>
+                    <mxGeometry x="180" y="925" width="160" height="40" as="geometry"/>
                 </mxCell>
                 <mxCell id="item_gate" value="required_item&lt;br&gt;in inventory?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#6A1B9A;strokeColor=#6A1B9A;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
                     <mxGeometry x="490" y="950" width="140" height="70" as="geometry"/>
@@ -797,7 +797,9 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="e14" value="MOVE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;fontColor=#ffffff;endArrow=block;" parent="1" source="regex_result" target="intent_move" edge="1">
-                    <mxGeometry relative="1" as="geometry"/>
+                    <mxGeometry x="-0.176" y="10" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeColor=#ffffff;endArrow=block;" parent="1" source="intent_move" target="item_gate" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
