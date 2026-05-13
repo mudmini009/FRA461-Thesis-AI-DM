@@ -102,14 +102,23 @@ class NarratorAgent(BaseLLMProvider):
     # ─── Exploration Narrator Methods ─────────────────────────────────────────
     # These four methods are NEW. They do not alter any existing method above.
 
-    def narrate_room_entry(self, node: dict, world_lore: str = "", story_memory=None) -> str:
+    def narrate_room_entry(self, node: dict, world_lore: str = "", story_memory=None, quest_data: dict = None) -> str:
         """
         Narrates moving into a new node.
         Critically grounded: the system prompt lists ONLY the exits from
         node['connected_to'] so the LLM cannot hallucinate new paths.
+        Exit node IDs are resolved to display names to prevent raw IDs in narration.
         """
         connected = node.get("connected_to", [])
-        exits_str = ", ".join(connected) if connected else "none — you are trapped here"
+        # Resolve node IDs to display names
+        exit_names = []
+        for nid in connected:
+            if quest_data:
+                n = quest_data.get("nodes", {}).get(nid)
+                exit_names.append(n.get("name", nid) if n else nid)
+            else:
+                exit_names.append(nid)
+        exits_str = ", ".join(exit_names) if exit_names else "none — you are trapped here"
         lore_context = f"\nWORLD LORE:\n{world_lore}\n" if world_lore else ""
         memory_context = ""
         if story_memory:
@@ -122,15 +131,16 @@ class NarratorAgent(BaseLLMProvider):
         Name: {node.get('name', 'Unknown Room')}
         Type: {node.get('event_type', 'safe')}
         Description: {node.get('base_description', '')}
-        VALID EXITS (node IDs): {exits_str}
+        VALID EXITS: {exits_str}
 
         INSTRUCTIONS:
         1. Write 2-3 sentences in second person ("You enter...", "The room...").
         2. Describe the atmosphere vividly based on the Description above.
-        3. You MAY hint at the exits, but you MUST NOT mention any exit that
+        3. You MAY hint at the exits by their NAMES, but you MUST NOT mention any exit that
            is not in the VALID EXITS list above. Do NOT invent new paths.
-        4. Do NOT reveal combat specifics — just the atmosphere.
-        5. Keep it immersive and tense.
+        4. Do NOT use internal IDs like 'node_01'. Always use the room NAMES.
+        5. Do NOT reveal combat specifics — just the atmosphere.
+        6. Keep it immersive and tense.
         """
         try:
             response = self.narrator_model.generate_content(prompt)
@@ -138,14 +148,23 @@ class NarratorAgent(BaseLLMProvider):
         except Exception as e:
             return f"You enter {node.get('name', 'the room')}. The air is heavy with tension."
 
-    def narrate_exploration_look(self, node: dict, world_lore: str = "") -> str:
+    def narrate_exploration_look(self, node: dict, world_lore: str = "", quest_data: dict = None) -> str:
         """
         Describes the current room in rich detail for a LOOK/INSPECT command.
         Explicitly lists only the valid exits drawn from connected_to —
         the LLM cannot hallucinate additional paths.
+        Exit node IDs are resolved to display names to prevent raw IDs in narration.
         """
         connected = node.get("connected_to", [])
-        exits_str = ", ".join(connected) if connected else "none"
+        # Resolve node IDs to display names
+        exit_names = []
+        for nid in connected:
+            if quest_data:
+                n = quest_data.get("nodes", {}).get(nid)
+                exit_names.append(n.get("name", nid) if n else nid)
+            else:
+                exit_names.append(nid)
+        exits_str = ", ".join(exit_names) if exit_names else "none"
         lore_context = f"\nWORLD LORE:\n{world_lore}\n" if world_lore else ""
 
         prompt = f"""
@@ -160,11 +179,12 @@ class NarratorAgent(BaseLLMProvider):
         INSTRUCTIONS:
         1. Write a rich, evocative description of the room in 3-4 sentences.
         2. Second person ("You see...", "The walls...").
-        3. EXPLICITLY mention the available exits by name at the end.
+        3. EXPLICITLY mention the available exits by their NAMES at the end.
            You may ONLY name exits that are in the VALID EXITS list.
-        4. If the room has enemies (event_type: combat/boss), describe signs
+        4. Do NOT use internal IDs like 'node_01'. Always use the room NAMES.
+        5. If the room has enemies (event_type: combat/boss), describe signs
            of danger without inventing specific enemies — leave it ominous.
-        5. Do NOT invent rooms, corridors, or exits that are not listed.
+        6. Do NOT invent rooms, corridors, or exits that are not listed.
         """
         try:
             response = self.narrator_model.generate_content(prompt)
@@ -209,15 +229,32 @@ class NarratorAgent(BaseLLMProvider):
         except Exception as e:
             return f"An enemy emerges! {enemy_name} stands before you. Roll for Initiative — what is your first move?"
 
-    def narrate_node_cleared(self, node: dict, world_lore: str = "") -> str:
+    def narrate_node_cleared(self, node: dict, world_lore: str = "", cleared_by: str = "combat") -> str:
         """
-        Post-combat narration when the node is marked cleared.
-        Called immediately after start_combat_loop() returns 'VICTORY'
-        and before returning control to the exploration loop.
+        Post-resolution narration when the node is marked cleared.
+        Called after combat VICTORY or puzzle SUCCESS.
+        cleared_by: 'combat' or 'puzzle' — changes the tone and content.
         """
         lore_context = f"\nWORLD LORE:\n{world_lore}\n" if world_lore else ""
 
-        prompt = f"""
+        if cleared_by == "puzzle":
+            puzzle_obstacle = node.get("puzzle_obstacle", "an obstacle")
+            prompt = f"""
+        You are the Dungeon Master. The player has just SOLVED A PUZZLE or overcome an obstacle.
+        {lore_context}
+        ROOM: {node.get('name', 'Unknown')}
+        SCENE: {node.get('base_description', '')}
+        OBSTACLE OVERCOME: {puzzle_obstacle}
+
+        INSTRUCTIONS:
+        1. Write 2-3 sentences describing the satisfaction of solving the puzzle.
+        2. Describe the obstacle clearing away — a door opening, gas dissipating, a lock clicking.
+        3. End with a brief nudge toward what lies ahead — keep it open-ended.
+        4. Second person. No mechanical numbers, DC values, or HP.
+        5. Do NOT mention combat, enemies, foes, or battle — this was a puzzle, not a fight.
+        """
+        else:
+            prompt = f"""
         You are the Dungeon Master. The player has just won a combat encounter.
         {lore_context}
         ROOM: {node.get('name', 'Unknown')}

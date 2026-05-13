@@ -411,12 +411,18 @@ def start_exploration_loop(
     global_state["current_phase"] = "EXPLORATION"
     global_state["is_in_combat"] = False
 
+    # ── Read debug mode from settings ─────────────────────
+    global DEBUG_MODE
+    DEBUG_MODE = settings.get("engine", {}).get("debug_mode", False)
+
     quest_name = quest_data.get("name", quest_id)
     player = party[0]
 
     print(f"\n{'='*52}")
     print(f"  🗺️  ENTERING: {quest_name}")
     print(f"{'='*52}")
+
+    DataManager.append_phase_header("EXPLORATION", quest_name)
 
     # Narrate initial room entry on load
     current_node = QuestLoader.get_node(quest_data, current_node_id)
@@ -429,7 +435,7 @@ def start_exploration_loop(
 
     if current_node:
         print("   Generating room description...")
-        narration = llm_service.narrate_room_entry(current_node, world_lore, story_memory)
+        narration = llm_service.narrate_room_entry(current_node, world_lore, story_memory, quest_data=quest_data)
         print(f"\n   🗣️  DM: \"{narration}\"\n")
         DataManager.append_to_log(f"[EXPLORATION] Entered: {current_node.get('name')}\n[DM] {narration}\n")
 
@@ -455,10 +461,17 @@ def start_exploration_loop(
             DataManager.append_to_log(f"[{player.name}] {user_input}")
 
             # ── Classify (Hybrid: Regex first, LLM fallback for UNKNOWN) ────
+            # Handle debug toggle before classification
+            if user_input.lower().strip() == 'debug':
+                DEBUG_MODE = not DEBUG_MODE
+                print(f"   🔧 Debug Mode is now {'ON' if DEBUG_MODE else 'OFF'}")
+                continue
+
             print("   Thinking...", end="\r", flush=True)
             intent = classify_exploration_intent_smart(user_input, current_node, quest_data=quest_data, settings=settings)
             print(" " * 20, end="\r")
             intent_type = intent["type"]
+            debug_print(f"   🤖 [Router] type:{intent_type} | target:{intent.get('raw_target', '')}")
 
             # ─── QUIT ────────────────────────────────────────────
             if intent_type == "QUIT" or user_input.lower() in ["exit", "quit", "q"]:
@@ -485,7 +498,7 @@ def start_exploration_loop(
                 print("   Describing the room...", end="\r")
                 # Reload world lore in case lore was appended since last look
                 world_lore = data_manager.load_lore()
-                narration = llm_service.narrate_exploration_look(current_node, world_lore)
+                narration = llm_service.narrate_exploration_look(current_node, world_lore, quest_data=quest_data)
                 print(" " * 30, end="\r")
                 print(f"\n   🗣️  DM: \"{narration}\"\n")
                 DataManager.append_to_log(f"[LOOK] {narration}")
@@ -571,7 +584,7 @@ def start_exploration_loop(
 
                 # ── Step 2: Room narration ──────────────────────────
                 print("   Narrating...", end="\r")
-                room_narration = llm_service.narrate_room_entry(new_node, world_lore, story_memory)
+                room_narration = llm_service.narrate_room_entry(new_node, world_lore, story_memory, quest_data=quest_data)
                 print(" " * 20, end="\r")
                 print(f"\n   🗣️  DM: \"{room_narration}\"\n")
                 DataManager.append_to_log(f"[MOVE] -> {new_node['name']}\n[DM] {room_narration}\n")
@@ -629,6 +642,7 @@ def start_exploration_loop(
                     # Shift phase to COMBAT
                     global_state["current_phase"] = "COMBAT"
                     global_state["is_in_combat"] = True
+                    DataManager.append_phase_header("COMBAT", display_name)
 
                     # Atomic save before handing to combat loop
                     data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
@@ -696,6 +710,7 @@ def start_exploration_loop(
                 default_puzzle_dc = settings.get("exploration", {}).get("default_puzzle_dc", 14)
                 base_dc = current_node.get("puzzle_base_dc", default_puzzle_dc)
                 action_desc = intent.get("raw_target", user_input)
+                DataManager.append_phase_header("PUZZLE", puzzle_obstacle[:40])
 
                 print("   🎲 [SYSTEM] The Arbiter evaluates your approach...", end="\r")
                 world_lore = data_manager.load_lore()
@@ -735,7 +750,7 @@ def start_exploration_loop(
                         data_manager.save_quest_state(quest_id, quest_data)
 
                         # Narrate success
-                        narration = llm_service.narrate_node_cleared(current_node, world_lore)
+                        narration = llm_service.narrate_node_cleared(current_node, world_lore, cleared_by="puzzle")
                         print(f"\n   🗣️  DM: \"{narration}\"\n")
                         DataManager.append_to_log(f"[PUZZLE SOLVED] {action_desc} (Roll:{total} vs DC:{modified_dc})\n[DM] {narration}")
 
@@ -810,7 +825,8 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
     welcome = llm_service.narrate_hub_welcome(player.name, world_lore, story_memory, prologue_text)
     print(" " * 35, end="\r")
     print(f"\n   🗣️  DM: \"{welcome}\"\n")
-    DataManager.append_to_log(f"[HUB] {welcome}\n")
+    DataManager.append_phase_header("HUB")
+    DataManager.append_to_log(f"  🗣️ DM: {welcome}")
     data_manager.save_game(party, enemies, combat_memory=combat_memory, story_memory=story_memory, global_state=global_state)
 
     # ── Hub Loop ───────────────────────────────────────────────

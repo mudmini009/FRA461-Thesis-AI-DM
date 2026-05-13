@@ -1,15 +1,18 @@
-### Atmosphere & Setting
-The world of Aethel is a perpetual twilight, choked by the omnipresent Static Mist that hums with latent energy and paints the sky in iridescent, unsettling hues. The air itself feels heavy, crackling with unseen power, while the groaning symphony of decaying brass and grinding gears forms a constant, oppressive soundscape. Survival is a daily struggle against the rust, the decay, and the ever-present threat of the surface below.
+THE CITY OF SHATTERED GLASS (Dark Fantasy)
 
-### Key Factions
-The **Sky-Cities Accord** is a fragile alliance of the major floating metropolises, each governed by powerful Guilds of Engineers and Artificers, constantly vying for resources and technological supremacy. Below them, the **Rust Nomads** are hardy survivors who traverse the surface in heavily armored land-crawlers, scavenging for parts and knowledge amidst the dangerous Brass Jungles. The **Whispering Cog** represents a more enigmatic force, a cult that worships the ancient machinery, believing it holds forgotten divine power and seeking to reawaken its slumbering will.
+A grimdark floating city ruled by ancient vampires and perpetual twilight. The lower levels (The Sludge) are plagued by mutated monsters, cults, and disease, while the elite vampire lords rule from pristine glass spires above the clouds. Danger lurks in every shadow.
 
-### Magic & Technology
-Magic and technology are inextricably linked, both fueled by the Static Mist. "Technomancy" is the art of channeling this energy through intricate clockwork devices and imbued metals, allowing for feats that blur the line between the arcane and the mechanical, often at the cost of sanity or physical corruption from exposure. Uncontrolled exposure can lead to "Static Sickness," a debilitating condition that warps both mind and body, or catastrophic "Haywiring" of any complex mechanism.
+Key Factions:
+1. The Blood Barons: Snobbish, refined vampire aristocrats who wield blood magic and rapiers.
+2. The Sewer Mutants: Wretched, twisted mortals who have consumed too much tainted water.
+3. The Inquisition: A fanatical human order trying to burn the city down with holy fire.
 
-### Looming Threat
-The greatest danger is the slow, inevitable collapse of the Sky-Cities as their ancient foundations corrode and the Static Mist grows more volatile, threatening to plunge them into the predatory Swarms below. Simultaneously, whispers from the Rust Nomads speak of the Brass Jungles actively growing, the ancient machinery stirring with a malevolent sentience, hinting at a cataclysmic awakening that could consume all life.
+Magic:
+Magic here is "Blood-Bound." It requires physical sacrifice and is always crimson or black.
 
-The Sky-Cities are not built, but grown. Ancient, colossal machines form their foundations, their gears turning with a life of their own. The Static Mist is their lifeblood, and their slow decay is our doom.
+Atmosphere:
+Gothic horror meets survival suspense. Cobblestone streets, heavy fog, and terrifying ambushes.
 
-The Whispering Cog believes the machinery is divine. They perform rituals to appease the 'Great Grinder,' hoping to hasten its awakening and usher in a new age of mechanical enlightenment.
+The Blood Barons consider the Sludge a necessary evil, a breeding ground for their 'lesser' servants and a convenient place to dispose of their mistakes. The perpetual twilight above offers no solace here.
+
+These goblins are not native to the Sludge; they are refugees from the surface, driven down by the Inquisition's purges. They have learned to survive by scavenging and worshipping the tainted water.

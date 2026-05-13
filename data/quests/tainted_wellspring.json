@@ -1,0 +1,95 @@
+{
+    "quest_id": "tainted_wellspring",
+    "name": "The Tainted Wellspring",
+    "description": "The water from the Sludge's primary wellspring has turned a sickly crimson. Those who drink it are becoming... changed.",
+    "entrance_node": "node_01",
+    "nodes": {
+        "node_01": {
+            "node_id": "node_01",
+            "name": "The Sludge's Edge",
+            "base_description": "The air here is thick with the stench of decay and stagnant water. Twisted, fungal growths cling to the damp, crumbling walls. A faint, crimson glow emanates from deeper within.",
+            "connected_to": [
+                "node_02",
+                "node_03"
+            ],
+            "event_type": "safe",
+            "visited": false,
+            "cleared": true,
+            "lore_fragment": "The Blood Barons consider the Sludge a necessary evil, a breeding ground for their 'lesser' servants and a convenient place to dispose of their mistakes. The perpetual twilight above offers no solace here.",
+            "grants_item": null,
+            "required_item": null
+        },
+        "node_02": {
+            "node_id": "node_02",
+            "name": "Goblin Warrens",
+            "base_description": "A series of cramped, foul-smelling tunnels carved into the muck. Crude traps and discarded refuse litter the ground. The chittering of unseen creatures echoes from the darkness.",
+            "connected_to": [
+                "node_01",
+                "node_04"
+            ],
+            "event_type": "combat",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "These goblins are not native to the Sludge; they are refugees from the surface, driven down by the Inquisition's purges. They have learned to survive by scavenging and worshipping the tainted water.",
+            "grants_item": "Tainted Water Sample",
+            "required_item": null,
+            "enemy_name": "Crimson-Eyed Goblins",
+            "enemy_archetype": "minion",
+            "enemy_attack_flavor": "Jagged Bone Shiv",
+            "enemy_tag": "goblin"
+        },
+        "node_03": {
+            "node_id": "node_03",
+            "name": "The Whispering Chasm",
+            "base_description": "A deep, dark chasm splits the path, its depths obscured by a thick, crimson mist. The air hums with an unnatural energy, and faint, unsettling whispers seem to emanate from the abyss.",
+            "connected_to": [
+                "node_01",
+                "node_05"
+            ],
+            "event_type": "puzzle",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "The whispers are said to be the dying pleas of those who drank too deeply from the wellspring. Some believe they are the voices of the Sludge itself, beckoning new victims.",
+            "grants_item": null,
+            "required_item": "Tainted Water Sample",
+            "puzzle_obstacle": "A narrow, unstable bridge of bone and sinew spans the chasm. It groans ominously under the slightest pressure.",
+            "puzzle_base_dc": 14
+        },
+        "node_04": {
+            "node_id": "node_04",
+            "name": "Cultist Den",
+            "base_description": "A makeshift altar of bone and rusted metal stands in the center of this chamber. Strange symbols are scrawled on the walls in what appears to be dried blood. The air is heavy with incense and dread.",
+            "connected_to": [
+                "node_02"
+            ],
+            "event_type": "combat",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "These cultists worship the 'Crimson Mother,' a twisted entity they believe resides within the wellspring. They perform rituals to appease it, often involving the sacrifice of those unfortunate enough to fall into their hands.",
+            "grants_item": "Ritual Dagger",
+            "required_item": null,
+            "enemy_name": "Crimson Zealots",
+            "enemy_archetype": "skirmisher",
+            "enemy_attack_flavor": "Blood-Infused Incantation",
+            "enemy_tag": "cultist"
+        },
+        "node_05": {
+            "node_id": "node_05",
+            "name": "The Tainted Wellspring",
+            "base_description": "The source of the corruption. A large, cavernous chamber dominated by a pool of viscous, crimson liquid. The water pulses with a sickly light, and the air vibrates with raw, unholy power. Twisted, mutated forms writhe within the pool.",
+            "connected_to": [
+                "node_03"
+            ],
+            "event_type": "boss",
+            "visited": false,
+            "cleared": false,
+            "lore_fragment": "This wellspring was once a source of pure, life-giving water. The Blood Barons experimented with forbidden blood magic, and their hubris corrupted it, turning it into a font of mutation and madness.",
+            "grants_item": null,
+            "required_item": null,
+            "enemy_name": "The Sludge Mother",
+            "enemy_archetype": "boss",
+            "enemy_attack_flavor": "Corrosive Crimson Bile",
+            "enemy_tag": "cultist"
+        }
+    }
+}

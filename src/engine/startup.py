@@ -375,6 +375,21 @@ def initialize_new_game(llm_service: LLMService) -> bool:
 
     converted_stats = {k: v for k, v in math.get("stats", {}).items()}
 
+    # Parse abilities from the archetype JSON (e.g., Pray, Second Wind, Smite)
+    from src.models.character import Ability, RechargeType
+    parsed_abilities = []
+    for a_data in math.get("abilities", []):
+        try:
+            rt = RechargeType(a_data.get("recharge_type", "short_rest"))
+        except ValueError:
+            rt = RechargeType.SHORT_REST
+        parsed_abilities.append(Ability(
+            name=a_data.get("name", "Unknown"),
+            recharge_type=rt,
+            max_uses=a_data.get("max_uses", 1),
+            current_uses=a_data.get("current_uses", 1),
+        ))
+
     player = Character(
         id="player1",
         name=player_name,
@@ -388,7 +403,8 @@ def initialize_new_game(llm_service: LLMService) -> bool:
         condition=Condition.NORMAL,
         lore=lore_str,
         title=title_str,
-        stat_justification=stat_just_str
+        stat_justification=stat_just_str,
+        abilities=parsed_abilities,
     )
 
     # ── STEP 4: FINAL CHARACTER SHEET CONFIRMATION ────────────

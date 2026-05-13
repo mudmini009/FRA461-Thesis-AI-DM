@@ -1,45 +1,58 @@
 [PROLOGUE]
-The perpetual twilight of Aethel bled through the Static Mist, painting the sky in sickly, iridescent hues as the groaning symphony of decaying brass and grinding gears echoed through the decaying city.
+The City of Shattered Glass hung suspended in perpetual twilight, its obsidian spires piercing a sky choked with perpetual fog, a testament to the ancient, predatory lords who claimed dominion. 
 
-A sudden, violent shudder sent a cascade of rusted plating raining down from above, forcing Kaelen to shove their loyal mechanical wolf, Cog, forward, its metallic paws skittering on the slick, oil-stained cobblestones as a chunk of metal narrowly missed them.
 
-With a final, desperate heave, Kaelen pushed open the heavy, groaning wooden doors of the Adventurer's Guild, stepping inside to the relative quiet and the faint scent of stale ale and desperation.
+A guttural shriek echoed from the shadowed alley as a Sewer Mutant, its skin a sickly grey and limbs grotesquely elongated, lunged from the filth, its claws dripping with viscous ichor, but Valerius's faith was a bulwark, his warhammer a swift, righteous end. 
+
+
+With a final, shuddering breath, Inquisitor Valerius pushed open the heavy, iron-bound doors of the Adventurer's Guild and stepped inside.
 [END PROLOGUE]
 
-[HUB] You step inside, the heavy doors groaning shut behind you, muffling the oppressive symphony of the city and the unsettling shimmer of the Static Mist. The air inside is blessedly still, carrying the faint, comforting scent of stale ale, a stark contrast to the biting wind and the near-miss of falling debris that had accompanied your desperate arrival. A wave of relief washes over you, a testament to the journey just survived, as your eyes fall upon the perpetually busy Quest Board, a beacon of opportunity in this world of decay.
 
-[Kaelen] (Hub) 3
-[Kaelen] (Hub) quest board
-[QUEST ACCEPTED] The Whispering Gears
-[EXPLORATION] Entered: Ventilation Access Shaft
-[DM] You step through the groaning doorway, and the oppressive sounds of the city outside are immediately replaced by a chilling, metallic hum. The air in this new space is sharp with the tang of ozone and the cloying scent of decay, a stark contrast to the stale ale you left behind. Before you, a cold, metallic shaft plunges into an inky blackness, and from its depths, you can faintly hear the unsettling rhythm of grinding gears, a sound that speaks of unseen mechanisms at work.
+══════════════════════════════════════════════════
+  🏠 HUB — Adventurers Guild
+══════════════════════════════════════════════════
+  🗣️ DM: You step inside, the heavy doors groaning shut behind you, muffling the perpetual twilight and the lingering stench of the Sludge. The air within is a startling, almost alien warmth, thick with the scent of aged wood, dried herbs, and something vaguely metallic – a welcome contrast to the icy fog and the guttural shriek of the Sewer Mutant you so recently silenced. Relief washes over you, a fragile thing, but you made it. Before you, a collection of tattered parchment beckons from a grand, scarred wooden board.
+[Inquisitor Valerius] (Hub) I check my inventory
+[Inquisitor Valerius] (Hub) quest
+[QUEST ACCEPTED] The Tainted Wellspring
 
-[Kaelen] I'll use my PHYS +3 to carefully climb/scale down toward node_02, keeping my sword ready and Sparky right on my heels. Let's see what's making that noise.
-[Kaelen] MOVE node_02
-[MOVE] -> The Grinding Chamber
-[DM] You push through the heavy doors, the groan of ancient metal a familiar, yet still unsettling, greeting. Before you lies the Grinding Chamber, a cavernous space dominated by colossal, rusted gears that churn and grind with a deafening, relentless roar. The air hangs thick with the cloying scent of oil and decay, the floor beneath your feet slick with a treacherous, iridescent sheen, and strange, angular symbols are etched into the very metal of the grinding mechanisms, pulsing with a faint, internal light.
+──────────────────────────────────────────────────
+  🗺️  EXPLORATION — The Tainted Wellspring
+──────────────────────────────────────────────────
+[EXPLORATION] Entered: The Sludge's Edge
+[DM] You step through the heavy doors, the stench of decay and stagnant water immediately assaulting your senses. Twisted, fungal growths, slick with moisture, cling to the damp, crumbling walls, their sickly colors a stark contrast to the perpetual twilight outside. A faint, crimson glow pulses from deeper within, hinting at the grim paths that lie ahead, perhaps towards the **Goblin Warrens** or the unnerving depths of **The Whispering Chasm**.
 
-[ENCOUNTER] Cog-Driven Cultist in The Grinding Chamber
-[DM] The air crackles, not with the usual hum of the Static Mist, but with a sudden, sharp energy. The groaning of the colossal gears around you intensifies, a deafening roar that seems to vibrate through your very bones. As the massive teeth grind past, a figure detaches itself from the shadows cast by the churning metal, their movements jerky and unnatural.
+[Inquisitor Valerius] I examine the crimson glow pulsing from deeper within, cross-referencing its hue and pattern with any forbidden rites or water-corruption lore recorded in my leather-bound book. What does my training and this tome tell me about the nature of this taint?
+[LOOK] You find yourself on the precipice of something truly foul. The air, heavy and foul, clings to your lungs like a shroud, thick with the cloying scent of decay and stagnant water. Twisted, fungal growths, the color of bruised flesh, cling tenaciously to the damp, crumbling walls, their tendrils reaching out as if to grasp you. A faint, unsettling crimson glow pulses from somewhere deeper within the oppressive darkness.
 
-A Cog-Driven Cultist, their face obscured by a crude mask of interlocking brass plates, lunges from behind a colossal, rust-eaten cog. Their tattered robes are stained with oil, and a wickedly sharp wrench glints in their hand, augmented with sparking wires that snake from their wrist. They move with a disturbing, almost synchronized rhythm, their eyes – visible through narrow slits – burning with fanatical fervor.
+You can see paths leading to Goblin Warrens and The Whispering Chasm.
+[Inquisitor Valerius] I kneel and open my leather-bound book of forbidden rites, flipping to the section on blood-tainted water sources. I focus my training on identifying the crimson glow's origin. I want to roll MENT (+3) to recall any relevant lore; my tome should grant advantage.
+[LOOK] You stand at the precipice of a putrid chasm, the air heavy with the cloying scent of rot and the damp, earthy smell of fungal blooms that cling like diseased skin to the crumbling stone. Twisted, skeletal branches of some unknown, pale vegetation writhe in the perpetual gloom, their tips slick with a viscous, dark fluid. A faint, unsettling crimson luminescence pulses from the darkness ahead, hinting at the horrors that lie within.
 
-More figures begin to emerge from the gloom, their forms silhouetted against the pulsing glow of the chamber's arcane machinery, their chanting a low, guttural drone that mixes with the grinding of the gears. The oily floor seems to shimmer with an unseen threat.
+To your left, the path leads into the **Goblin Warrens**, and to your right, the way opens into **The Whispering Chasm**.
+[Inquisitor Valerius]  I advance into the Goblin Warrens.
+[ITEM] Found: Tainted Water Sample
+[MOVE] -> Goblin Warrens
+[DM] You push open the heavy, iron-bound doors, and the stench of decay assaults your senses. You enter a series of cramped, foul-smelling tunnels carved into the muck, the air thick with the chittering of unseen creatures echoing from the oppressive darkness. Crude traps and discarded refuse litter the ground, a testament to the desperate survival of those who dwell here, far from the light of The Sludge's Edge.
 
-The battle begins — what do you do?
+[ENCOUNTER] Crimson-Eyed Goblins in Goblin Warrens
+[DM] The air in the Goblin Warrens hangs thick with the stench of rot and something acridly metallic, a smell that claws at your throat. Suddenly, the seemingly solid muck beneath your feet erupts as a flurry of sharpened bone shards slams into your chest, throwing you off balance. From the shadows, a chorus of guttural snarls erupts as dozens of small, hunched figures with eyes that gleam like freshly spilled blood spill out from hidden crevices, their jagged teeth bared in a horrifying grin. The battle begins — what do you do?
 
-[Kaelen] ATTACK Cog-Driven Cultist
-   [SYSTEM] Kaelen attacked Cog-Driven Cultist: MISS
-   [SYSTEM] 👹 Cog-Driven Cultist attacks Kaelen: MISS!
-[DM] (Cog-Driven Cultist's Turn) A guttural snarl erupts from the Cog-Driven Cultist as it lunges, its rusted blade a blur in the dim light. You deftly sidestep the clumsy attack, the clanking metal whistling past your ear.
 
-[Kaelen] I'm going for a focused lunge with my longsword to show this guy that "The Gear-Driven Guardian" doesn't miss twice!
-   [SYSTEM] Kaelen attacked Cog-Driven Cultist: MISS
-   [SYSTEM] 👹 Cog-Driven Cultist attacks Kaelen: HIT! for 6 damage
-[DM] (Cog-Driven Cultist's Turn) The Cog-Driven Cultist lunges, its rusted blade a blur against the perpetual twilight. You feel a searing pain as the metal bites deep into your side, a sickening crunch of your armor protesting the impact. The world swims for a moment as the cultist's guttural war cry echoes in your ears.
+──────────────────────────────────────────────────
+  ⚔️  COMBAT — Crimson-Eyed Goblins
+──────────────────────────────────────────────────
+[Inquisitor Valerius] I raise my holy symbol and channel divine wrath through Prayer, smiting the goblins with radiant damage. Then I step back to the MID zone. Then I swing my warhammer at the nearest goblin.
+   [SYSTEM] ⚠️ Inquisitor Valerius does not have the ability: Prayer.
+   [SYSTEM] ⚠️ Inquisitor Valerius does not have the ability: Prayer.
+   [SYSTEM] ⚠️ Inquisitor Valerius does not have the ability: Prayer.
+   [SYSTEM] 👹 Crimson-Eyed Goblins attacks Inquisitor Valerius: MISS!
+[DM] (Crimson-Eyed Goblins's Turn) A pair of Crimson-Eyed Goblins, their eyes burning with a feverish crimson glow, dart from the shadows. Their crude blades slash through the air, but your faith is a shimmering shield, deflecting their desperate attacks.
 
-[Kaelen] ATTACK Cog-Driven Cultist
-   [SYSTEM] Kaelen attacked Cog-Driven Cultist: MISS
-   [SYSTEM] 👹 Cog-Driven Cultist attacks Kaelen: MISS!
-[DM] (Cog-Driven Cultist's Turn) The cultist lunges, their rusted blade whistling through the heavy, mist-laden air. You sidestep the clumsy thrust, the sharp clang of metal on metal echoing as their weapon scrapes harmlessly against your chainmail.
+[Inquisitor Valerius]  I channel divine energy to use Pray, rolling MENT to damage the goblins with radiant energy. Then I swing my warhammer at the nearest goblin.
+   [SYSTEM] ⚠️ Inquisitor Valerius does not have the ability: Pray.
+   [SYSTEM] ⚠️ Inquisitor Valerius does not have the ability: Pray.
+   [SYSTEM] 👹 Crimson-Eyed Goblins attacks Inquisitor Valerius: MISS!
+[DM] (Crimson-Eyed Goblins's Turn) The gnashing goblins surge forward, their crimson eyes burning with feral hunger. You brace yourself, their claws raking through the air, merely a whisper of the wind against your consecrated plate. Your faith holds firm, a divine shield deflecting their clumsy assault.
 

@@ -90,17 +90,17 @@ class LLMService:
         return self._character.expand_world_lore(concept, edit_instructions)
 
     # ─── Exploration Narrator ────────────────────────────────────
-    def narrate_room_entry(self, node: dict, world_lore: str = "", story_memory=None) -> str:
-        return self._narrator.narrate_room_entry(node, world_lore, story_memory)
+    def narrate_room_entry(self, node: dict, world_lore: str = "", story_memory=None, quest_data: dict = None) -> str:
+        return self._narrator.narrate_room_entry(node, world_lore, story_memory, quest_data=quest_data)
 
-    def narrate_exploration_look(self, node: dict, world_lore: str = "") -> str:
-        return self._narrator.narrate_exploration_look(node, world_lore)
+    def narrate_exploration_look(self, node: dict, world_lore: str = "", quest_data: dict = None) -> str:
+        return self._narrator.narrate_exploration_look(node, world_lore, quest_data=quest_data)
 
     def narrate_encounter_start(self, node: dict, enemy_name: str, world_lore: str = "") -> str:
         return self._narrator.narrate_encounter_start(node, enemy_name, world_lore)
 
-    def narrate_node_cleared(self, node: dict, world_lore: str = "") -> str:
-        return self._narrator.narrate_node_cleared(node, world_lore)
+    def narrate_node_cleared(self, node: dict, world_lore: str = "", cleared_by: str = "combat") -> str:
+        return self._narrator.narrate_node_cleared(node, world_lore, cleared_by=cleared_by)
 
     def narrate_hub_welcome(self, player_name: str, world_lore: str = "", story_memory=None, prologue_text: str = "") -> str:
         return self._narrator.narrate_hub_welcome(player_name, world_lore, story_memory, prologue_text)

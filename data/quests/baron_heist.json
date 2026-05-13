@@ -1,7 +1,7 @@
 {
-    "quest_id": "rust_nomad_raid",
-    "name": "Rust Nomad Raid",
-    "description": "A vital supply caravan en route from the surface has been ambushed. The Rust Nomads are known for their brutal efficiency.",
+    "quest_id": "baron_heist",
+    "name": "Baron's Bloodstone",
+    "description": "A Blood Baron's prized bloodstone has been stolen. Rumor has it, a desperate group of bandits are trying to fence it in the lower districts.",
     "entrance_node": "node_01",
     "nodes": {},
     "_meta": {

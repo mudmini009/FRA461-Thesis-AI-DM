@@ -2,41 +2,51 @@
     "party": [
         {
             "id": "player1",
-            "name": "Kaelen",
-            "role": "Fighter",
-            "hp": 14,
-            "max_hp": 20,
-            "ac": 16,
+            "name": "Inquisitor Valerius",
+            "role": "Cleric",
+            "hp": 18,
+            "max_hp": 18,
+            "ac": 18,
             "stats": {
-                "PHYS": 3,
-                "MENT": 0,
-                "SOC": -1
+                "PHYS": 1,
+                "MENT": 3,
+                "SOC": 0
             },
             "zone": "NEAR",
             "inventory": [
-                "Longsword",
-                "Chainmail",
-                "Healing Potion",
-                "Soot-stained goggles; A half-finished clockwork bird"
+                "Warhammer",
+                "Plate",
+                "Shield",
+                "Holy Symbol",
+                "A tarnished silver holy symbol; A worn leather-bound book of forbidden rites",
+                "Tainted Water Sample"
             ],
             "condition": "NORMAL",
-            "abilities": [],
-            "lore": "This tinkerer, more at ease with gears than with folk, seeks a mythical power source to quell the volatile nature of their creations. Their journey is marked by the constant hum of clockwork and the clanking of their loyal mechanical wolf.",
-            "title": "The Gear-Driven Guardian",
-            "stat_justification": "The focus on mechanical constructs and combat readiness aligns with the Fighter archetype."
+            "abilities": [
+                {
+                    "name": "Pray",
+                    "recharge_type": "short_rest",
+                    "max_uses": 99,
+                    "current_uses": 99
+                }
+            ],
+            "lore": "This devout warrior of the faith dedicates their life to purging heresy from the land; their faith is a shield, their warhammer a tool of divine judgment.",
+            "title": "The Heretic's Bane",
+            "stat_justification": "Your holy calling and martial prowess align perfectly with the Cleric archetype."
         }
     ],
     "enemies": [],
     "combat_memory": [
-        "Kaelen attacked Cog-Driven Cultist: MISS",
-        "Enemy phase: \ud83d\udc79 Cog-Driven Cultist attacks Kaelen: MISS!",
-        "Kaelen attacked Cog-Driven Cultist: MISS",
-        "Enemy phase: \ud83d\udc79 Cog-Driven Cultist attacks Kaelen: HIT! for 6 damage",
-        "Kaelen attacked Cog-Driven Cultist: MISS",
-        "Enemy phase: \ud83d\udc79 Cog-Driven Cultist attacks Kaelen: MISS!"
+        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Prayer.",
+        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Prayer.",
+        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Prayer.",
+        "Enemy phase: \ud83d\udc79 Crimson-Eyed Goblins attacks Inquisitor Valerius: MISS!",
+        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Pray.",
+        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Pray.",
+        "Enemy phase: \ud83d\udc79 Crimson-Eyed Goblins attacks Inquisitor Valerius: MISS!"
     ],
     "story_memory": [
-        "[PROLOGUE] The perpetual twilight of Aethel bled through the Static Mist, painting the sky in sickly, iridescent hues as the groaning symphony of decaying brass and grinding gears echoed through the decaying city.\\n\\nA sudden, violent shudder sent a cascade of rusted plating raining down from above, forcing Kaelen to shove their loyal mechanical wolf, Cog, forward, its metallic paws skittering on the slick, oil-stained cobblestones as a chunk of metal narrowly missed them.\\n\\nWith a final, desperate heave, Kaelen pushed open the heavy, groaning wooden doors of the Adventurer's Guild, stepping inside to the relative quiet and the faint scent of stale ale and desperation."
+        "[PROLOGUE] The City of Shattered Glass hung suspended in perpetual twilight, its obsidian spires piercing a sky choked with perpetual fog, a testament to the ancient, predatory lords who claimed dominion. \\n\\n\\nA guttural shriek echoed from the shadowed alley as a Sewer Mutant, its skin a sickly grey and limbs grotesquely elongated, lunged from the filth, its claws dripping with viscous ichor, but Valerius's faith was a bulwark, his warhammer a swift, righteous end. \\n\\n\\nWith a final, shuddering breath, Inquisitor Valerius pushed open the heavy, iron-bound doors of the Adventurer's Guild and stepped inside."
     ],
     "global_state": {
         "time": {
@@ -44,10 +54,10 @@
             "hour": 8,
             "phase": "Morning"
         },
-        "turn_counter": 6,
+        "turn_counter": 4,
         "is_in_combat": false,
         "current_phase": "EXPLORATION",
-        "current_quest_id": "whispering_gears",
+        "current_quest_id": "tainted_wellspring",
         "current_node_id": "node_02"
     },
     "quest_states": {
@@ -107,8 +117,8 @@
                         "node_05"
                     ],
                     "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
+                    "visited": true,
+                    "cleared": true,
                     "enemy_tag": "goblin_ambusher",
                     "lore_fragment": "### The Ambushers\nThese are no ordinary scavengers. The goblins here are disciplined, organized, and equipped with stolen Guild-issue weapons. Someone trained them. Their leader, a scarred brute the others call 'Skrix,' takes orders from something that hasn't shown its face yet."
                 },
@@ -120,8 +130,8 @@
                         "node_04"
                     ],
                     "event_type": "boss",
-                    "visited": false,
-                    "cleared": false,
+                    "visited": true,
+                    "cleared": true,
                     "enemy_tag": "mine_boss",
                     "lore_fragment": "### The Mechanized Cult Connection\nThe ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal \u2014 he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected."
                 }
@@ -294,6 +304,196 @@
                     "enemy_name": "The Gear-Priest",
                     "enemy_archetype": "boss",
                     "enemy_attack_flavor": "Channels raw static energy through a corrupted cog.",
+                    "enemy_tag": "cultist"
+                }
+            }
+        },
+        "ruined_outpost_salvage": {
+            "quest_id": "ruined_outpost_salvage",
+            "name": "Ruined Outpost Salvage",
+            "description": "An Iron Vanguard outpost in the Scarred Plains has fallen silent. Recover any valuable supplies and assess the situation.",
+            "entrance_node": "node_01",
+            "nodes": {
+                "node_01": {
+                    "node_id": "node_01",
+                    "name": "Outpost Gates",
+                    "base_description": "The rusted gates of the Iron Vanguard outpost hang precariously, their once proud black iron scarred by the elements. A faint smell of decay hangs in the air.",
+                    "connected_to": [
+                        "node_02",
+                        "node_03"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "The Iron Vanguard, a bulwark against the encroaching Ruin-Born, relies on discipline and steel. Their outposts are vital for maintaining order in the Scarred Plains.",
+                    "grants_item": null,
+                    "required_item": null
+                },
+                "node_02": {
+                    "node_id": "node_02",
+                    "name": "Barracks Mess Hall",
+                    "base_description": "Overturned tables and scattered mess kits litter the floor of what was once a bustling mess hall. The air is thick with the stench of stale blood and something acrid.",
+                    "connected_to": [
+                        "node_01",
+                        "node_04"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "The Ruin-Born are not a unified force, but rather a collection of savage tribes. Their attacks are often brutal and opportunistic, overwhelming unprepared garrisons.",
+                    "grants_item": "Tarnished Ration Tin",
+                    "required_item": null,
+                    "enemy_name": "Goblin Scavengers",
+                    "enemy_archetype": "minion",
+                    "enemy_attack_flavor": "A rusty dagger thrust with surprising speed.",
+                    "enemy_tag": "goblin"
+                },
+                "node_03": {
+                    "node_id": "node_03",
+                    "name": "Supply Depot Entrance",
+                    "base_description": "A heavy, reinforced door blocks the entrance to the outpost's supply depot. Strange symbols are crudely scrawled across its surface, hinting at something more than just a simple lock.",
+                    "connected_to": [
+                        "node_01",
+                        "node_05"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "The Whisper Elves are masters of subtle manipulation, often leaving behind arcane wards or traps to deter intruders from their territories or those they deem worthy of their attention.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "puzzle_obstacle": "The door is sealed by a magical ward that requires a specific sequence of runes to be activated. The runes are faded and partially obscured.",
+                    "puzzle_base_dc": 14
+                },
+                "node_04": {
+                    "node_id": "node_04",
+                    "name": "Armory Remnants",
+                    "base_description": "Shattered weapon racks and dented armor lie scattered amongst the debris. A few intact, but heavily damaged, weapons remain, hinting at a desperate struggle.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "The Iron Vanguard's reliance on black-powder weapons makes them vulnerable in close quarters. Their heavy armor, while protective, can also be a hindrance.",
+                    "grants_item": "Dented Iron Helmet",
+                    "required_item": null,
+                    "enemy_name": "Bandit Marauders",
+                    "enemy_archetype": "skirmisher",
+                    "enemy_attack_flavor": "A wild swing with a crude club.",
+                    "enemy_tag": "bandit"
+                },
+                "node_05": {
+                    "node_id": "node_05",
+                    "name": "Commanding Officer's Quarters",
+                    "base_description": "This room is in disarray, with papers and personal effects strewn about. A large, imposing figure stands defiantly amidst the chaos, guarding the last remnants of the outpost's command.",
+                    "connected_to": [
+                        "node_03"
+                    ],
+                    "event_type": "boss",
+                    "visited": true,
+                    "cleared": false,
+                    "lore_fragment": "The Ruin-Born are not merely mindless brutes; some possess a cunning and ferocity that makes them formidable leaders. This one likely orchestrated the attack on the outpost.",
+                    "grants_item": "Iron Vanguard Officer's Journal",
+                    "required_item": null,
+                    "enemy_name": "Ruin-Born Chieftain",
+                    "enemy_archetype": "boss",
+                    "enemy_attack_flavor": "A bone-crushing overhead smash with a jagged axe.",
+                    "enemy_tag": "goblin"
+                }
+            }
+        },
+        "tainted_wellspring": {
+            "quest_id": "tainted_wellspring",
+            "name": "The Tainted Wellspring",
+            "description": "The water from the Sludge's primary wellspring has turned a sickly crimson. Those who drink it are becoming... changed.",
+            "entrance_node": "node_01",
+            "nodes": {
+                "node_01": {
+                    "node_id": "node_01",
+                    "name": "The Sludge's Edge",
+                    "base_description": "The air here is thick with the stench of decay and stagnant water. Twisted, fungal growths cling to the damp, crumbling walls. A faint, crimson glow emanates from deeper within.",
+                    "connected_to": [
+                        "node_02",
+                        "node_03"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "The Blood Barons consider the Sludge a necessary evil, a breeding ground for their 'lesser' servants and a convenient place to dispose of their mistakes. The perpetual twilight above offers no solace here.",
+                    "grants_item": null,
+                    "required_item": null
+                },
+                "node_02": {
+                    "node_id": "node_02",
+                    "name": "Goblin Warrens",
+                    "base_description": "A series of cramped, foul-smelling tunnels carved into the muck. Crude traps and discarded refuse litter the ground. The chittering of unseen creatures echoes from the darkness.",
+                    "connected_to": [
+                        "node_01",
+                        "node_04"
+                    ],
+                    "event_type": "combat",
+                    "visited": true,
+                    "cleared": false,
+                    "lore_fragment": "These goblins are not native to the Sludge; they are refugees from the surface, driven down by the Inquisition's purges. They have learned to survive by scavenging and worshipping the tainted water.",
+                    "grants_item": "Tainted Water Sample",
+                    "required_item": null,
+                    "enemy_name": "Crimson-Eyed Goblins",
+                    "enemy_archetype": "minion",
+                    "enemy_attack_flavor": "Jagged Bone Shiv",
+                    "enemy_tag": "goblin"
+                },
+                "node_03": {
+                    "node_id": "node_03",
+                    "name": "The Whispering Chasm",
+                    "base_description": "A deep, dark chasm splits the path, its depths obscured by a thick, crimson mist. The air hums with an unnatural energy, and faint, unsettling whispers seem to emanate from the abyss.",
+                    "connected_to": [
+                        "node_01",
+                        "node_05"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "The whispers are said to be the dying pleas of those who drank too deeply from the wellspring. Some believe they are the voices of the Sludge itself, beckoning new victims.",
+                    "grants_item": null,
+                    "required_item": "Tainted Water Sample",
+                    "puzzle_obstacle": "A narrow, unstable bridge of bone and sinew spans the chasm. It groans ominously under the slightest pressure.",
+                    "puzzle_base_dc": 14
+                },
+                "node_04": {
+                    "node_id": "node_04",
+                    "name": "Cultist Den",
+                    "base_description": "A makeshift altar of bone and rusted metal stands in the center of this chamber. Strange symbols are scrawled on the walls in what appears to be dried blood. The air is heavy with incense and dread.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "These cultists worship the 'Crimson Mother,' a twisted entity they believe resides within the wellspring. They perform rituals to appease it, often involving the sacrifice of those unfortunate enough to fall into their hands.",
+                    "grants_item": "Ritual Dagger",
+                    "required_item": null,
+                    "enemy_name": "Crimson Zealots",
+                    "enemy_archetype": "skirmisher",
+                    "enemy_attack_flavor": "Blood-Infused Incantation",
+                    "enemy_tag": "cultist"
+                },
+                "node_05": {
+                    "node_id": "node_05",
+                    "name": "The Tainted Wellspring",
+                    "base_description": "The source of the corruption. A large, cavernous chamber dominated by a pool of viscous, crimson liquid. The water pulses with a sickly light, and the air vibrates with raw, unholy power. Twisted, mutated forms writhe within the pool.",
+                    "connected_to": [
+                        "node_03"
+                    ],
+                    "event_type": "boss",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "This wellspring was once a source of pure, life-giving water. The Blood Barons experimented with forbidden blood magic, and their hubris corrupted it, turning it into a font of mutation and madness.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "The Sludge Mother",
+                    "enemy_archetype": "boss",
+                    "enemy_attack_flavor": "Corrosive Crimson Bile",
                     "enemy_tag": "cultist"
                 }
             }

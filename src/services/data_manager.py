@@ -146,6 +146,21 @@ class DataManager:
         DataManager._log_buffer.append(text)
 
     @staticmethod
+    def append_phase_header(phase: str, label: str = "", log_path: str = "data/active/campaign_log.txt"):
+        """
+        Appends a visual phase separator to the log for readability.
+        Called when the game transitions between phases (HUB → EXPLORATION → COMBAT).
+        """
+        separators = {
+            "HUB":         f"\n{'═'*50}\n  🏠 HUB — {label or 'Adventurers Guild'}\n{'═'*50}",
+            "EXPLORATION":  f"\n{'─'*50}\n  🗺️  EXPLORATION — {label or 'Dungeon'}\n{'─'*50}",
+            "COMBAT":       f"\n{'─'*50}\n  ⚔️  COMBAT — {label or 'Encounter'}\n{'─'*50}",
+            "PUZZLE":       f"\n{'─'*50}\n  🧩 PUZZLE — {label or 'Obstacle'}\n{'─'*50}",
+        }
+        header = separators.get(phase.upper(), f"\n{'─'*50}\n  [{phase}] {label}\n{'─'*50}")
+        DataManager._log_buffer.append(header)
+
+    @staticmethod
     def flush_log(log_path: str = "data/active/campaign_log.txt"):
         """Atomically appends buffered logs to disk and forces OS sync to prevent parity desync."""
         if not DataManager._log_buffer:

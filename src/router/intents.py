@@ -223,6 +223,25 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         if not player.inventory:
             print(f"   ⚠️ Your inventory is empty!")
             return False, None
+
+        # ── Self-Target Guard ──────────────────────────────────────
+        # The LLM sometimes returns target:player1 / target:self / target:<player_name>
+        # when the player means "use potion on myself." In that case, we need to
+        # figure out what ITEM they want to use from context or default to a potion.
+        self_aliases = {"self", "me", "myself", "player1", "player", player.name.lower(), player.id.lower()}
+        if target_item.lower().strip() in self_aliases:
+            # Player targeted themselves — pick the most likely consumable from inventory
+            potion_match = [item for item in player.inventory if "potion" in item.lower() or "heal" in item.lower()]
+            if potion_match:
+                target_item = potion_match[0]
+            else:
+                # Fallback: use the first inventory item
+                target_item = player.inventory[0] if player.inventory else None
+                if not target_item:
+                    print(f"   ⚠️ Your inventory is empty!")
+                    return False, None
+            print(f"   🔍 Using '{target_item}' on yourself...")
+        # ──────────────────────────────────────────────────────────
             
         # Try to find the item in inventory
         fuzzy_cutoff = 0.4
@@ -230,7 +249,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
             fuzzy_cutoff = settings.get("engine", {}).get("fuzzy_match_cutoff", 0.4)
         matches = difflib.get_close_matches(target_item, player.inventory, n=1, cutoff=fuzzy_cutoff)
         if not matches:
-            print(f"   ⚠️ You and the party don't seem to have a '{target_item}'.")
+            print(f"   ⚠️ You don't seem to have a '{target_item}' in your inventory.")
             return False, None
             
         found_item = matches[0]
