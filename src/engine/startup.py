@@ -23,12 +23,45 @@ PREMADE_LORE_DIR = "data/premade/lore"
 #  for hp, ac, stats. Never let the LLM touch these.
 # ─────────────────────────────────────────────────────────────
 HARDCODED_ARCHETYPES = {
-    "fighter": {"hp": 20, "max_hp": 20, "ac": 16, "stats": {Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: -1}, "inventory": ["Longsword", "Chainmail", "Healing Potion"]},
-    "mage":    {"hp": 12, "max_hp": 12, "ac": 11, "stats": {Stat.PHYS: -1, Stat.MENT: 4, Stat.SOC: 0},  "inventory": ["Mana Potion", "Arcane Staff"]},
-    "rogue":   {"hp": 15, "max_hp": 15, "ac": 14, "stats": {Stat.PHYS: 2, Stat.MENT: 1, Stat.SOC: 1},  "inventory": ["Smoke Bomb", "Twin Daggers"]},
-    "cleric":  {"hp": 16, "max_hp": 16, "ac": 15, "stats": {Stat.PHYS: 1, Stat.MENT: 2, Stat.SOC: 1},  "inventory": ["Healing Potion", "Holy Mace"]},
-    "ranger":  {"hp": 16, "max_hp": 16, "ac": 14, "stats": {Stat.PHYS: 2, Stat.MENT: 1, Stat.SOC: 0},  "inventory": ["Healing Potion", "Longbow"]},
-    "paladin": {"hp": 18, "max_hp": 18, "ac": 17, "stats": {Stat.PHYS: 2, Stat.MENT: 1, Stat.SOC: 2},  "inventory": ["Healing Potion", "Holy Sword", "Shield"]},
+    "fighter": {
+        "hp": 20, "max_hp": 20, "ac": 16,
+        "stats": {Stat.PHYS: 3, Stat.MENT: 0, Stat.SOC: -1},
+        "inventory": ["Longsword", "Chainmail", "Healing Potion"],
+        "abilities": [{"name": "Second Wind", "recharge_type": "short_rest", "max_uses": 1, "current_uses": 1}],
+    },
+    "mage": {
+        "hp": 15, "max_hp": 15, "ac": 12,
+        "stats": {Stat.PHYS: 0, Stat.MENT: 4, Stat.SOC: 0},
+        "inventory": ["Mana Potion", "Arcane Staff"],
+        "abilities": [{"name": "Spells", "recharge_type": "long_rest", "max_uses": 2, "current_uses": 2}],
+    },
+    "rogue": {
+        "hp": 15, "max_hp": 15, "ac": 14,
+        "stats": {Stat.PHYS: 2, Stat.MENT: 1, Stat.SOC: 1},
+        "inventory": ["Smoke Bomb", "Twin Daggers"],
+        "abilities": [],
+    },
+    "cleric": {
+        "hp": 18, "max_hp": 18, "ac": 18,
+        "stats": {Stat.PHYS: 1, Stat.MENT: 3, Stat.SOC: 0},
+        "inventory": ["Warhammer", "Plate", "Shield", "Holy Symbol"],
+        "abilities": [{"name": "Pray", "recharge_type": "short_rest", "max_uses": 99, "current_uses": 99}],
+    },
+    "ranger": {
+        "hp": 16, "max_hp": 16, "ac": 14,
+        "stats": {Stat.PHYS: 2, Stat.MENT: 1, Stat.SOC: 0},
+        "inventory": ["Healing Potion", "Longbow"],
+        "abilities": [],
+    },
+    "paladin": {
+        "hp": 20, "max_hp": 20, "ac": 16,
+        "stats": {Stat.PHYS: 2, Stat.MENT: 1, Stat.SOC: 1},
+        "inventory": ["Healing Potion", "Holy Sword", "Shield"],
+        "abilities": [
+            {"name": "Smite", "recharge_type": "long_rest", "max_uses": 2, "current_uses": 2},
+            {"name": "Lay on Hands", "recharge_type": "long_rest", "max_uses": 1, "current_uses": 1},
+        ],
+    },
 }
 
 HARDCODED_BESTIARY = {
