@@ -8,6 +8,7 @@ Python validates the schema before returning.
 import json
 from typing import List, Dict, Any, Optional
 from src.agents.base import BaseLLMProvider
+from src.models.toon_converter import TOONConverter
 
 
 # Hardcoded fallback board entries for when LLM fails
@@ -72,46 +73,40 @@ WORLD LORE:
 AVAILABLE ENEMY TYPES (you MUST only use tags from this list):
 {tags_str}
 
-OUTPUT FORMAT — You MUST return ONLY a valid JSON array. No markdown, no explanation.
-Each element must have these exact keys:
-- "quest_id": a unique snake_case identifier (e.g. "haunted_chapel")
-- "name": a short quest title (e.g. "The Haunted Chapel")
-- "description": 1-2 sentence hook for the quest board
-- "theme": one word theme (e.g. "undead", "bandits", "beasts")
-- "enemy_tags": array of 1-2 tags from the AVAILABLE ENEMY TYPES list above
-- "num_nodes": integer between 3 and 5 (how many rooms/locations)
+OUTPUT FORMAT (TOON SYNTAX ONLY - STRICT):
+You MUST NOT output JSON or XML. You must output exactly {num_quests} lines of pipe-separated key:value pairs.
+Each line must represent a single quest posting with the following keys:
+- quest_id: a unique snake_case identifier (e.g. "haunted_chapel")
+- name: a short quest title (e.g. "The Haunted Chapel")
+- description: 1-2 sentence hook for the quest board
+- theme: one word theme (e.g. "undead", "bandits", "beasts")
+- enemy_tags: array of 1-2 tags from the AVAILABLE ENEMY TYPES list above inside brackets (e.g. [skeleton,cultist])
+- num_nodes: integer between 3 and 5 (how many rooms/locations)
+
+CRITICAL: Output EXACTLY {num_quests} lines. Do NOT write any code fences, introduction, or explanations. Use only pipe (|) delimiters.
 
 EXAMPLE OUTPUT:
-[
-  {{
-    "quest_id": "burned_chapel",
-    "name": "The Burned Chapel",
-    "description": "Strange lights flicker in the ruins of the old chapel on Gallows Hill.",
-    "theme": "undead",
-    "enemy_tags": ["skeleton", "cultist"],
-    "num_nodes": 4
-  }}
-]
-
-Return ONLY the JSON array. No other text."""
+quest_id:burned_chapel|name:The Burned Chapel|description:Strange lights flicker in the ruins of the old chapel on Gallows Hill.|theme:undead|enemy_tags:[skeleton,cultist]|num_nodes:4
+"""
 
         for attempt in range(2):
             try:
                 response = self.model.generate_content(prompt)
                 raw = response.text.strip()
 
-                # Strip markdown code fences if the model wraps them
-                if raw.startswith("```"):
-                    raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]
-                if raw.endswith("```"):
-                    raw = raw[:-3].strip()
-                if raw.startswith("json"):
-                    raw = raw[4:].strip()
+                # Parse TOON lines
+                lines = [line.strip() for line in raw.split('\n') if line.strip()]
+                # Strip ``` if present
+                lines = [line for line in lines if not line.startswith("```")]
 
-                quests = json.loads(raw)
+                quests = []
+                for line in lines:
+                    q = TOONConverter.decode(line)
+                    if q:
+                        quests.append(q)
 
                 if not isinstance(quests, list):
-                    raise ValueError("Response is not a JSON array")
+                    raise ValueError("Response is not a list of quests")
 
                 # Validate each quest entry
                 validated = []
@@ -119,8 +114,10 @@ Return ONLY the JSON array. No other text."""
                     if not all(k in q for k in ("quest_id", "name", "description", "enemy_tags", "num_nodes")):
                         continue
                     # Sanitize quest_id
-                    q["quest_id"] = q["quest_id"].lower().replace(" ", "_").replace("-", "_")
+                    q["quest_id"] = str(q["quest_id"]).lower().replace(" ", "_").replace("-", "_")
                     # Enforce enemy_tags against bestiary
+                    if not isinstance(q["enemy_tags"], list):
+                        q["enemy_tags"] = [str(q["enemy_tags"])]
                     q["enemy_tags"] = [t for t in q["enemy_tags"] if t in bestiary_tags]
                     if not q["enemy_tags"]:
                         q["enemy_tags"] = [bestiary_tags[0]]  # fallback to first tag

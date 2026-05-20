@@ -13,6 +13,7 @@ from typing import Dict, Any, List, Optional
 from collections import deque
 from src.agents.base import BaseLLMProvider
 from src.logic.enemy_factory import EnemyFactory
+from src.models.toon_converter import TOONConverter
 
 _FALLBACK_PATH = os.path.join("data", "quests", "_fallback_template.json")
 
@@ -64,15 +65,30 @@ class QuestCartographerAgent(BaseLLMProvider):
                 response = self.model.generate_content(prompt)
                 raw = response.text.strip()
 
-                # Strip markdown code fences
-                if raw.startswith("```"):
-                    raw = raw.split("\n", 1)[1] if "\n" in raw else raw[3:]
-                if raw.endswith("```"):
-                    raw = raw[:-3].strip()
-                if raw.startswith("json"):
-                    raw = raw[4:].strip()
+                # Parse lines
+                lines = [line.strip() for line in raw.split('\n') if line.strip()]
+                # Strip ``` if present
+                lines = [line for line in lines if not line.startswith("```")]
 
-                quest_data = json.loads(raw)
+                quest_data = {
+                    "quest_id": quest_id,
+                    "name": quest_name,
+                    "description": quest_desc,
+                    "nodes": {}
+                }
+
+                for line in lines:
+                    if line.startswith("entrance_node:"):
+                        quest_data["entrance_node"] = line.split(":", 1)[1].strip()
+                    elif line.startswith("node:"):
+                        node_data = TOONConverter.decode(line)
+                        node_id = node_data.get("node")
+                        if node_id:
+                            # clean node keys/values
+                            node_data["node_id"] = node_id
+                            # Remove the temporary key 'node'
+                            node_data.pop("node", None)
+                            quest_data["nodes"][node_id] = node_data
 
                 # Force correct quest_id
                 quest_data["quest_id"] = quest_id
@@ -90,7 +106,7 @@ class QuestCartographerAgent(BaseLLMProvider):
                     prompt = self._build_prompt(
                         quest_id, quest_name, quest_desc, enemy_tags, num_nodes,
                         world_lore, tags_str, sample_json,
-                        error_feedback=f"\n\nYOUR PREVIOUS OUTPUT HAD THESE ERRORS:\n{error_str}\nFix them and try again."
+                        error_feedback=f"\n\nYOUR PREVIOUS OUTPUT HAD THESE ERRORS:\n{error_str}\nFix them and try again in the same TOON format."
                     )
                     continue
 
@@ -109,7 +125,7 @@ class QuestCartographerAgent(BaseLLMProvider):
         world_lore, tags_str, sample_json, error_feedback=""
     ) -> str:
         return f"""You are a dungeon map architect for a dark-fantasy TTRPG.
-Generate a complete dungeon/quest map as a JSON object.
+Generate a complete dungeon/quest map in TOON syntax. Do NOT output JSON or XML.
 
 QUEST DETAILS:
 - Quest ID: {quest_id}
@@ -124,33 +140,32 @@ WORLD LORE:
 AVAILABLE ENEMY ARCHETYPES (use ONLY these in enemy_archetype fields):
 ["minion", "skirmisher", "brute", "boss"]
 
-SCHEMA RULES (CRITICAL — follow EXACTLY):
-1. Top-level keys: "quest_id", "name", "description", "entrance_node", "nodes"
-2. "nodes" is an object where each key is a node_id (e.g. "node_01", "node_02")
-3. Each node MUST have ALL of these fields:
-   - "node_id": string (same as the key)
-   - "name": string (display name like "Dark Corridor")
-   - "base_description": string (2-3 sentences describing the room)
-   - "connected_to": array of node_id strings (MUST reference real node keys)
-   - "event_type": one of "safe", "combat", "boss", "puzzle"
-   - "visited": false (ALWAYS false for new quests)
-   - "cleared": true if event_type is "safe", false otherwise
-   - "lore_fragment": string (2-3 sentences of discoverable world lore)
-   - "grants_item": string or null (item found in this room on first visit, e.g. "Rusty Key")
-   - "required_item": string or null (item needed to enter this room, e.g. "Rusty Key")
+TOON SYNTAX RULES (CRITICAL — follow EXACTLY):
+1. The first line MUST be: entrance_node:<node_id> (e.g. entrance_node:node_01)
+2. Every subsequent line must represent a single room/node starting with `node:<node_id>` (e.g. node:node_01|name:Room Name|...)
+3. Each node line MUST contain all of these keys separated by pipes:
+   - name: string (display name like "Dark Corridor")
+   - base_description: string (2-3 sentences describing the room)
+   - connected_to: array of node_id strings inside brackets (e.g. [node_02,node_03], referencing real node keys)
+   - event_type: one of "safe", "combat", "boss", "puzzle"
+   - visited: false (ALWAYS false)
+   - cleared: true if event_type is "safe", false otherwise
+   - lore_fragment: string (2-3 sentences of discoverable world lore)
+   - grants_item: string or null (item found in this room on first visit, e.g. "Rusty Key")
+   - required_item: string or null (item needed to enter this room, e.g. "Rusty Key")
 
 4. FOR COMBAT/BOSS NODES (event_type "combat" or "boss"), also include:
-   - "enemy_name": string (creative enemy name matching the room theme, e.g. "Crystal-Infected Miner")
-   - "enemy_archetype": one of "minion", "skirmisher", "brute", "boss"
-   - "enemy_attack_flavor": string (attack description, e.g. "Poisoned Pickaxe Smash")
-   - "enemy_tag": string from quest enemy types list (fallback tag)
+   - enemy_name: string (creative enemy name matching the room theme, e.g. "Crystal-Infected Miner")
+   - enemy_archetype: one of "minion", "skirmisher", "brute", "boss"
+   - enemy_attack_flavor: string (attack description, e.g. "Poisoned Pickaxe Smash")
+   - enemy_tag: string from quest enemy types list (fallback tag)
    Use "minion" or "skirmisher" for combat nodes, "boss" for boss nodes.
 
 5. FOR PUZZLE NODES (event_type "puzzle"), also include:
-   - "puzzle_obstacle": string (describe the obstacle, e.g. "A collapsed bridge spans a dark chasm")
-   - "puzzle_base_dc": integer between 10 and 16 (difficulty class)
+   - puzzle_obstacle: string (describe the obstacle, e.g. "A collapsed bridge spans a dark chasm")
+   - puzzle_base_dc: integer between 10 and 16 (difficulty class)
 
-6. "entrance_node" MUST be one of the node keys, and that node MUST be event_type "safe"
+6. entrance_node MUST be one of the node keys, and that node MUST be event_type "safe"
 7. The LAST node should be event_type "boss"
 8. Every connected_to reference MUST exist as a node key — NO dangling references
 9. The graph MUST be fully connected — every node reachable from entrance_node
@@ -158,7 +173,13 @@ SCHEMA RULES (CRITICAL — follow EXACTLY):
 11. Include at least ONE puzzle node for variety
 12. If a puzzle node has "required_item", an earlier safe/combat node MUST have a matching "grants_item"
 
-Return ONLY the JSON object. No markdown, no explanation, no extra text.{error_feedback}"""
+Return ONLY the TOON lines. Do NOT write any markdown code blocks, HTML, or explanations.
+
+EXAMPLE OUTPUT:
+entrance_node:node_01
+node:node_01|name:Entrance|base_description:A cold stone doorway leading underground.|connected_to:[node_02]|event_type:safe|visited:false|cleared:true|lore_fragment:The chapel above has long been abandoned.|grants_item:null|required_item:null
+node:node_02|name:The Shadow Crypt|base_description:Skeletons rattle in their alcoves.|connected_to:[node_01]|event_type:boss|visited:false|cleared:false|lore_fragment:The tomb is cursed.|grants_item:null|required_item:null|enemy_name:Gravekeeper Skeleton|enemy_archetype:boss|enemy_attack_flavor:Rusty Scythe Sweep|enemy_tag:skeleton
+{error_feedback}"""
 
     @staticmethod
     def _validate_quest_schema(quest_data: dict, bestiary_tags: List[str]) -> List[str]:

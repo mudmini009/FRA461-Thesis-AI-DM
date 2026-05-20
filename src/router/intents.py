@@ -39,7 +39,11 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
 
     # --- ABILITY PRE-EXECUTION GUARD ---
     ability_name = decision.get('ability_name')
+    is_applicable_ability = False
     if ability_name:
+        is_applicable_ability = (action_type == 'ABILITY' or (action_type == 'ATTACK' and ability_name.lower() == 'smite'))
+
+    if is_applicable_ability:
         ability_found = False
         for ability in player.abilities:
             if ability.name.lower() == ability_name.lower():
@@ -150,8 +154,10 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
         # The ability_name was previously verified in the pre-guard above
         
         target = _find_target(target_name, enemies, settings=settings) if target_name else player
-        if not target and target_name.lower() in player.name.lower():
-            target = player
+        if not target and target_name:
+            self_aliases = {"self", "me", "myself", "player1", "player", player.name.lower(), player.id.lower()}
+            if target_name.lower().strip() in self_aliases or target_name.lower() in player.name.lower():
+                target = player
             
         debug_print(f"   ✨ Using {ability_name} on {target.name if target else 'No target'}...")
         result = RulesEngine.resolve_ability(player, target, ability_name=ability_name)

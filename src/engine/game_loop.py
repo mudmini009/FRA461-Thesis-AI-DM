@@ -160,6 +160,8 @@ def start_combat_loop(data_path: str = "data/active/campaign_active.json") -> st
                             if log_msg:
                                 combat_memory.append(log_msg)
                                 DataManager.append_to_log(f"   [SYSTEM] {log_msg}")
+                            if not success:
+                                break
 
                 if escaped:
                     print(f"   🔄 Extricating from combat...")
