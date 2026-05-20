@@ -1,0 +1,157 @@
+{
+    "total_errors": 24,
+    "error_types": {
+        "ROUTING_AMBIGUITY": 3,
+        "SCHEMA_VIOLATION": 0,
+        "STAT_MISMATCH": 0,
+        "ENGINE_SYNC_FAILURE": 21,
+        "STATE_HALLUCINATION": 0,
+        "NARRATIVE_FAILURE": 0
+    },
+    "failed_scenarios": [
+        {
+            "scenario_id": "A-09",
+            "input": "I blast the boss with magic.",
+            "error_type": "ROUTING_AMBIGUITY",
+            "description": "The Intent Router classified the input as CREATIVE instead of FIXED. It failed to understand the user's phrasing."
+        },
+        {
+            "scenario_id": "A-18",
+            "input": "I use the bandage.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "A-19",
+            "input": "I throw the bomb.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-36",
+            "input": "I teleport to the moon instantly.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-37",
+            "input": "I turn into a god and kill everyone.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-38",
+            "input": "I drink the entire ocean.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-39",
+            "input": "I punch a hole in the fabric of reality.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-40",
+            "input": "I summon an army of 10,000 dragons.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-42",
+            "input": "I drink a potion.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-44",
+            "input": "I attack the dragon.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "C-45",
+            "input": "I attack.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "D-47",
+            "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-51",
+            "input": "I walk down the hallway to the Armory.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-52",
+            "input": "I sneak carefully into the goblin boss room.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-53",
+            "input": "I look around the dusty bookshelves.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-54",
+            "input": "I set up camp for the night in the corner.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-55",
+            "input": "Let me check my inventory and see what I have.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-56",
+            "input": "What is my character status?",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-57",
+            "input": "I want to leave this dungeon.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-58",
+            "input": "Check the quest board for new bounties.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "E-59",
+            "input": "I freeze the water to make an ice bridge.",
+            "error_type": "ROUTING_AMBIGUITY",
+            "description": "The Intent Router classified the input as UNKNOWN instead of PUZZLE_ATTEMPT. It failed to understand the user's phrasing."
+        },
+        {
+            "scenario_id": "E-60",
+            "input": "I try to decipher the ancient runes using my magic.",
+            "error_type": "ROUTING_AMBIGUITY",
+            "description": "The Intent Router classified the input as LOOK instead of PUZZLE_ATTEMPT. It failed to understand the user's phrasing."
+        },
+        {
+            "scenario_id": "F-69",
+            "input": "I move back to the hub.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        },
+        {
+            "scenario_id": "F-70",
+            "input": "quit",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "description": "The Python rules engine failed to correctly sync the state (e.g., failed to block an illegal move, or math was wrong)."
+        }
+    ]
+}
