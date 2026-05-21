@@ -1,0 +1,120 @@
+{
+    "total_scenarios": 90,
+    "total_errors": 11,
+    "total_passed": 79,
+    "pass_rate": "87.8%",
+    "error_types": {
+        "ROUTING_AMBIGUITY": 0,
+        "SCHEMA_VIOLATION": 1,
+        "STAT_MISMATCH": 0,
+        "ENGINE_SYNC_FAILURE": 9,
+        "DENIAL_FAILURE": 0,
+        "NARRATIVE_FAILURE": 1
+    },
+    "severity_counts": {
+        "CRITICAL": 10,
+        "MODERATE": 0,
+        "LOW": 1
+    },
+    "failed_scenarios": [
+        {
+            "scenario_id": "A-19",
+            "category": "Path A: Items",
+            "input": "I throw the bomb.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I throw the bomb.' (A-19). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "C-42",
+            "category": "Edge: Rules",
+            "input": "I drink a potion.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "The engine should have DENIED 'I drink a potion.' (C-42) but allowed it through. Rules engine returned: is_success=True",
+            "suggested_fix": "Review the action economy guards in execute_fixed_action() for this edge case."
+        },
+        {
+            "scenario_id": "C-43",
+            "category": "Edge: Rules",
+            "input": "I move to FAR and then back to NEAR.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "The engine should have DENIED 'I move to FAR and then back to NEAR.' (C-43) but allowed it through. Rules engine returned: is_success=True",
+            "suggested_fix": "Review the action economy guards in execute_fixed_action() for this edge case."
+        },
+        {
+            "scenario_id": "C-44",
+            "category": "Edge: Rules",
+            "input": "I attack the dragon.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "The engine should have DENIED 'I attack the dragon.' (C-44) but allowed it through. Rules engine returned: is_success=True",
+            "suggested_fix": "Review the action economy guards in execute_fixed_action() for this edge case."
+        },
+        {
+            "scenario_id": "C-45",
+            "category": "Edge: Rules",
+            "input": "I attack.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "The engine should have DENIED 'I attack.' (C-45) but allowed it through. Rules engine returned: is_success=True",
+            "suggested_fix": "Review the action economy guards in execute_fixed_action() for this edge case."
+        },
+        {
+            "scenario_id": "G-71",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_GENERATE_QUEST_LIVE",
+            "error_type": "SCHEMA_VIOLATION",
+            "severity": "CRITICAL",
+            "description": "Quest schema validation failed for G-71. The Cartographer produced invalid structure. Output: GENERATION_ERROR: BaseLLMProvider.__init__() got an unexpected keyword argument 'model_name'",
+            "suggested_fix": "Tighten the Cartographer prompt constraints or add post-generation repair logic."
+        },
+        {
+            "scenario_id": "H-85",
+            "category": "Flee: Contested",
+            "input": "I run away from the fight.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I run away from the fight.' (H-85). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "H-86",
+            "category": "Flee: Contested",
+            "input": "I try to escape the battle.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I try to escape the battle.' (H-86). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "H-88",
+            "category": "Abilities: Combo",
+            "input": "I move to NEAR and smite the goblin.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I move to NEAR and smite the goblin.' (H-88). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "H-89",
+            "category": "Flee: No Enemies",
+            "input": "SYSTEM_TRIGGER_FLEE_NO_ENEMIES",
+            "error_type": "NARRATIVE_FAILURE",
+            "severity": "LOW",
+            "description": "DM Narrator produced no output for 'SYSTEM_TRIGGER_FLEE_NO_ENEMIES' (H-89). Trace narrator field: {}",
+            "suggested_fix": "Ensure the narrate_result() function has a fallback for empty LLM responses."
+        },
+        {
+            "scenario_id": "H-90",
+            "category": "Abilities: Condition Block",
+            "input": "I use second wind.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "The engine should have DENIED 'I use second wind.' (H-90) but allowed it through. Rules engine returned: is_success=True",
+            "suggested_fix": "Review the action economy guards in execute_fixed_action() for this edge case."
+        }
+    ]
+}

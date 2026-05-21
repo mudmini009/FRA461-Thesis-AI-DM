@@ -1,0 +1,25 @@
+Category,Count,A_route_%,P_ground_%,S_sync_%,C_narr_%,Avg_Latency_ms
+Abilities: Charge Guard,1,100%,100%,100%,100%,848
+Abilities: Combo,1,100%,100%,0%,100%,1046
+Abilities: Condition Block,1,100%,100%,100%,100%,1503
+Abilities: Lay on Hands,1,100%,100%,100%,100%,767
+Abilities: Pray,1,100%,100%,100%,100%,814
+Abilities: Second Wind,1,100%,100%,100%,100%,689
+Abilities: Smite,1,100%,100%,100%,100%,746
+Edge: Impossible,5,100%,100%,100%,100%,7044
+Edge: Rules,5,100%,100%,80%,100%,2828
+Exploration: Guardrails,8,100%,100%,100%,100%,120
+Exploration: Hybrid Routing,12,100%,100%,100%,100%,116
+Flee: Contested,2,100%,100%,0%,100%,704
+Flee: No Enemies,1,100%,100%,100%,100%,0
+Path A: Items,5,100%,100%,80%,100%,1310
+Path A: Melee,5,100%,100%,100%,100%,1071
+Path A: Movement,5,100%,100%,100%,100%,770
+Path A: Ranged,5,100%,100%,100%,100%,965
+Path B: Creative,5,100%,100%,100%,100%,2929
+Path B: Improv,5,100%,100%,100%,100%,31313
+Path B: Social,5,100%,100%,100%,100%,3789
+Quest: Procedural Generation,10,100%,100%,100%,100%,227
+System: AI,2,100%,100%,100%,100%,0
+System: Memory,2,100%,100%,100%,100%,868
+System: State,1,100%,100%,100%,100%,0

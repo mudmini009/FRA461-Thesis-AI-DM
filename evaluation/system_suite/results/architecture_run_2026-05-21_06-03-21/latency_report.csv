@@ -1,0 +1,91 @@
+Scenario_ID,Category,Latency_ms
+A-01,Path A: Melee,854
+A-02,Path A: Melee,743
+A-03,Path A: Melee,656
+A-04,Path A: Melee,614
+A-05,Path A: Melee,798
+A-06,Path A: Ranged,857
+A-07,Path A: Ranged,726
+A-08,Path A: Ranged,739
+A-09,Path A: Ranged,2275
+A-10,Path A: Ranged,917
+A-11,Path A: Movement,727
+A-12,Path A: Movement,4497
+A-13,Path A: Movement,832
+A-14,Path A: Movement,839
+A-15,Path A: Movement,1042
+A-16,Path A: Items,1548
+A-17,Path A: Items,1666
+A-18,Path A: Items,1366
+A-19,Path A: Items,726
+A-20,Path A: Items,1431
+B-21,Path B: Creative,2407
+B-22,Path B: Creative,2387
+B-23,Path B: Creative,2405
+B-24,Path B: Creative,2434
+B-25,Path B: Creative,2454
+B-26,Path B: Social,2278
+B-27,Path B: Social,2493
+B-28,Path B: Social,2436
+B-29,Path B: Social,3720
+B-30,Path B: Social,2671
+B-31,Path B: Improv,2763
+B-32,Path B: Improv,2398
+B-33,Path B: Improv,3188
+B-34,Path B: Improv,2630
+B-35,Path B: Improv,3871
+C-36,Edge: Impossible,2027
+C-37,Edge: Impossible,1619
+C-38,Edge: Impossible,1613
+C-39,Edge: Impossible,1616
+C-40,Edge: Impossible,1591
+C-41,Edge: Rules,1349
+C-42,Edge: Rules,1578
+C-43,Edge: Rules,3379
+C-44,Edge: Rules,1096
+C-45,Edge: Rules,698
+D-46,System: AI,0
+D-47,System: AI,0
+D-48,System: Memory,714
+D-49,System: Memory,836
+D-50,System: State,0
+E-51,Exploration: Hybrid Routing,0
+E-52,Exploration: Hybrid Routing,725
+E-53,Exploration: Hybrid Routing,0
+E-54,Exploration: Hybrid Routing,0
+E-55,Exploration: Hybrid Routing,0
+E-56,Exploration: Hybrid Routing,0
+E-57,Exploration: Hybrid Routing,741
+E-58,Exploration: Hybrid Routing,0
+E-59,Exploration: Hybrid Routing,0
+E-60,Exploration: Hybrid Routing,0
+E-61,Exploration: Hybrid Routing,0
+E-62,Exploration: Hybrid Routing,0
+F-63,Exploration: Guardrails,0
+F-64,Exploration: Guardrails,0
+F-65,Exploration: Guardrails,0
+F-66,Exploration: Guardrails,0
+F-67,Exploration: Guardrails,0
+F-68,Exploration: Guardrails,709
+F-69,Exploration: Guardrails,0
+F-70,Exploration: Guardrails,0
+G-71,Quest: Procedural Generation,0
+G-72,Quest: Procedural Generation,0
+G-73,Quest: Procedural Generation,0
+G-74,Quest: Procedural Generation,0
+G-75,Quest: Procedural Generation,0
+G-76,Quest: Procedural Generation,0
+G-77,Quest: Procedural Generation,0
+G-78,Quest: Procedural Generation,44
+G-79,Quest: Procedural Generation,0
+G-80,Quest: Procedural Generation,0
+H-81,Abilities: Pray,721
+H-82,Abilities: Second Wind,804
+H-83,Abilities: Lay on Hands,666
+H-84,Abilities: Smite,670
+H-85,Flee: Contested,779
+H-86,Flee: Contested,779
+H-87,Abilities: Charge Guard,690
+H-88,Abilities: Combo,894
+H-89,Flee: No Enemies,0
+H-90,Abilities: Condition Block,776

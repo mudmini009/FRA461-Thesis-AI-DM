@@ -27,7 +27,7 @@
                     "name": "Pray",
                     "recharge_type": "short_rest",
                     "max_uses": 99,
-                    "current_uses": 99
+                    "current_uses": 98
                 }
             ],
             "lore": "This devout warrior of the faith dedicates their life to purging heresy from the land; their faith is a shield, their warhammer a tool of divine judgment.",
@@ -36,17 +36,10 @@
         }
     ],
     "enemies": [],
-    "combat_memory": [
-        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Prayer.",
-        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Prayer.",
-        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Prayer.",
-        "Enemy phase: \ud83d\udc79 Crimson-Eyed Goblins attacks Inquisitor Valerius: MISS!",
-        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Pray.",
-        "\u26a0\ufe0f Inquisitor Valerius does not have the ability: Pray.",
-        "Enemy phase: \ud83d\udc79 Crimson-Eyed Goblins attacks Inquisitor Valerius: MISS!"
-    ],
+    "combat_memory": [],
     "story_memory": [
-        "[PROLOGUE] The City of Shattered Glass hung suspended in perpetual twilight, its obsidian spires piercing a sky choked with perpetual fog, a testament to the ancient, predatory lords who claimed dominion. \\n\\n\\nA guttural shriek echoed from the shadowed alley as a Sewer Mutant, its skin a sickly grey and limbs grotesquely elongated, lunged from the filth, its claws dripping with viscous ichor, but Valerius's faith was a bulwark, his warhammer a swift, righteous end. \\n\\n\\nWith a final, shuddering breath, Inquisitor Valerius pushed open the heavy, iron-bound doors of the Adventurer's Guild and stepped inside."
+        "[PROLOGUE] The City of Shattered Glass hung suspended in perpetual twilight, its obsidian spires piercing a sky choked with perpetual fog, a testament to the ancient, predatory lords who claimed dominion. \\n\\n\\nA guttural shriek echoed from the shadowed alley as a Sewer Mutant, its skin a sickly grey and limbs grotesquely elongated, lunged from the filth, its claws dripping with viscous ichor, but Valerius's faith was a bulwark, his warhammer a swift, righteous end. \\n\\n\\nWith a final, shuddering breath, Inquisitor Valerius pushed open the heavy, iron-bound doors of the Adventurer's Guild and stepped inside.",
+        "The Crimson-Eyed Goblins' attacks proved futile against Inquisitor Valerius, who, despite a brief attempt to invoke divine aid, emerged from the skirmish unharmed."
     ],
     "global_state": {
         "time": {
@@ -54,7 +47,7 @@
             "hour": 8,
             "phase": "Morning"
         },
-        "turn_counter": 4,
+        "turn_counter": 5,
         "is_in_combat": false,
         "current_phase": "EXPLORATION",
         "current_quest_id": "tainted_wellspring",

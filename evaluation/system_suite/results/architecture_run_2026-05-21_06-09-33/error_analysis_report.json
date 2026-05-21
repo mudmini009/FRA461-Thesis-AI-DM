@@ -1,0 +1,66 @@
+{
+    "total_scenarios": 90,
+    "total_errors": 5,
+    "total_passed": 85,
+    "pass_rate": "94.4%",
+    "error_types": {
+        "ROUTING_AMBIGUITY": 0,
+        "SCHEMA_VIOLATION": 0,
+        "STAT_MISMATCH": 0,
+        "ENGINE_SYNC_FAILURE": 5,
+        "DENIAL_FAILURE": 0,
+        "NARRATIVE_FAILURE": 0
+    },
+    "severity_counts": {
+        "CRITICAL": 5,
+        "MODERATE": 0,
+        "LOW": 0
+    },
+    "failed_scenarios": [
+        {
+            "scenario_id": "A-19",
+            "category": "Path A: Items",
+            "input": "I throw the bomb.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I throw the bomb.' (A-19). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "C-42",
+            "category": "Edge: Rules",
+            "input": "I drink a potion.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "The engine should have DENIED 'I drink a potion.' (C-42) but allowed it through. Rules engine returned: is_success=True",
+            "suggested_fix": "Review the action economy guards in execute_fixed_action() for this edge case."
+        },
+        {
+            "scenario_id": "H-85",
+            "category": "Flee: Contested",
+            "input": "I run away from the fight.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I run away from the fight.' (H-85). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "H-86",
+            "category": "Flee: Contested",
+            "input": "I try to escape the battle.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I try to escape the battle.' (H-86). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        },
+        {
+            "scenario_id": "H-88",
+            "category": "Abilities: Combo",
+            "input": "I move to NEAR and smite the goblin.",
+            "error_type": "ENGINE_SYNC_FAILURE",
+            "severity": "CRITICAL",
+            "description": "State sync failed for 'I move to NEAR and smite the goblin.' (H-88). Rules engine returned: {\"is_success\": false}",
+            "suggested_fix": "Investigate the RulesEngine resolve function for this action type."
+        }
+    ]
+}

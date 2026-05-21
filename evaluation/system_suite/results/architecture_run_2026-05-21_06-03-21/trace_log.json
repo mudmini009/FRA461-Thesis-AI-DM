@@ -1,0 +1,2896 @@
+[
+    {
+        "scenario": {
+            "id": "A-01",
+            "category": "Path A: Melee",
+            "input": "I slash the goblin with my sword.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "melee"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 6,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: MISS"
+            },
+            "latency_ms": 854
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-02",
+            "category": "Path A: Melee",
+            "input": "I punch the bandit in the face.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "melee"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 22,
+                "damage": 8,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: HIT for 8 damage."
+            },
+            "latency_ms": 743
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-03",
+            "category": "Path A: Melee",
+            "input": "I hit the orc with my warhammer.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "melee"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24,
+                "damage": 11,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: HIT for 11 damage."
+            },
+            "latency_ms": 656
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-04",
+            "category": "Path A: Melee",
+            "input": "I stab the skeleton.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "melee"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 19,
+                "damage": 11,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: HIT for 11 damage."
+            },
+            "latency_ms": 614
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-05",
+            "category": "Path A: Melee",
+            "input": "I swing my greatsword at the guard.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "melee"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 20,
+                "damage": 8,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: HIT for 8 damage."
+            },
+            "latency_ms": 798
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-06",
+            "category": "Path A: Ranged",
+            "input": "I cast Firebolt at the FAR enemy.",
+            "expected_type": "FIXED",
+            "expected_command": "CAST"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "CAST"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 17,
+                "damage": 9,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA cast Firebolt on Goblin: HIT for 9 damage."
+            },
+            "latency_ms": 857
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-07",
+            "category": "Path A: Ranged",
+            "input": "I shoot my bow at the goblin.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "ranged"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 9,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: MISS"
+            },
+            "latency_ms": 726
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-08",
+            "category": "Path A: Ranged",
+            "input": "I throw a dagger at the archer.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "ranged"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 8,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: MISS"
+            },
+            "latency_ms": 739
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-09",
+            "category": "Path A: Ranged",
+            "input": "I blast the boss with magic.",
+            "expected_type": "FIXED",
+            "expected_command": "CAST"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "CAST"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 17,
+                "damage": 11,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA cast magic on Goblin: HIT for 11 damage."
+            },
+            "latency_ms": 2275
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-10",
+            "category": "Path A: Ranged",
+            "input": "I fire an arrow from afar.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_attack_type": "ranged"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 11,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: MISS"
+            },
+            "latency_ms": 917
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-11",
+            "category": "Path A: Movement",
+            "input": "I move from NEAR to MID.",
+            "expected_type": "FIXED",
+            "expected_command": "MOVE",
+            "expected_target": "MID"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA moved to the MID zone."
+            },
+            "latency_ms": 727
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-12",
+            "category": "Path A: Movement",
+            "input": "I retreat to the FAR zone.",
+            "expected_type": "FIXED",
+            "expected_command": "MOVE",
+            "expected_target": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA moved to the MID zone."
+            },
+            "latency_ms": 4497
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-13",
+            "category": "Path A: Movement",
+            "input": "I walk closer to the NEAR zone.",
+            "expected_type": "FIXED",
+            "expected_command": "MOVE",
+            "expected_target": "NEAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA is in the NEAR zone."
+            },
+            "latency_ms": 832
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-14",
+            "category": "Path A: Movement",
+            "input": "I dash to MID.",
+            "expected_type": "FIXED",
+            "expected_command": "MOVE",
+            "expected_target": "MID"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA moved to the MID zone."
+            },
+            "latency_ms": 839
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-15",
+            "category": "Path A: Movement",
+            "input": "I change my position to FAR.",
+            "expected_type": "FIXED",
+            "expected_command": "MOVE",
+            "expected_target": "FAR"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "MOVE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA moved to the MID zone."
+            },
+            "latency_ms": 1042
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-16",
+            "category": "Path A: Items",
+            "input": "I drink my healing potion.",
+            "expected_type": "FIXED",
+            "expected_command": "USE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used 'healing potion' (Consumed). Result: Restored 0 HP! (Now 20/20)"
+            },
+            "latency_ms": 1548
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-17",
+            "category": "Path A: Items",
+            "input": "I eat the ration.",
+            "expected_type": "FIXED",
+            "expected_command": "USE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used 'ration' (Consumed). Result: Restored 0 HP! (Now 20/20)"
+            },
+            "latency_ms": 1666
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-18",
+            "category": "Path A: Items",
+            "input": "I use the bandage.",
+            "expected_type": "FIXED",
+            "expected_command": "USE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used 'bandage' (Consumed). Result: Restored 0 HP! (Now 20/20)"
+            },
+            "latency_ms": 1366
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-19",
+            "category": "Path A: Items",
+            "input": "I throw the bomb.",
+            "expected_type": "FIXED",
+            "expected_command": "USE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "Action failed!"
+            },
+            "latency_ms": 726
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "A-20",
+            "category": "Path A: Items",
+            "input": "I read the magic scroll.",
+            "expected_type": "FIXED",
+            "expected_command": "USE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used 'magic scroll' (Consumed). Result: Restored 0 HP! (Now 20/20)"
+            },
+            "latency_ms": 1431
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-21",
+            "category": "Path B: Creative",
+            "input": "I kick the heavy table to block the arrow.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "PHYS"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 7
+            },
+            "dm_narrator": {
+                "output": "You shove the sturdy table with all your might, but the arrow's flight is too swift, whistling past the edge of the wood and finding its mark in your shoulder. A sharp, burning pain erupts as you stagger back, the table skittering uselessly across the floor."
+            },
+            "latency_ms": 2407
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-22",
+            "category": "Path B: Creative",
+            "input": "I swing from the chandelier to kick him.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "PHYS"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 8
+            },
+            "dm_narrator": {
+                "output": "You grasp the ornate fixture, your momentum carrying you forward, but the unexpected lurch sends you spinning wildly as your boot slams into empty air, the chandelier groaning under your weight. With a sickening crack, the chain snaps, and you plummet gracelessly to the floor below."
+            },
+            "latency_ms": 2387
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-23",
+            "category": "Path B: Creative",
+            "input": "I throw sand in his eyes.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "PHYS",
+            "expected_condition": "BLINDED"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 22
+            },
+            "dm_narrator": {
+                "output": "With a desperate flick of your wrist, you unleash a stinging cloud of grit that erupts into their face. Their eyes water and squint shut, momentarily blinded and disoriented by the sudden assault."
+            },
+            "latency_ms": 2405
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-24",
+            "category": "Path B: Creative",
+            "input": "I push the bookshelf onto the goblins.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "PHYS"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 13,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 9
+            },
+            "dm_narrator": {
+                "output": "You heave the ancient bookshelf with all your might, but it groans and splinters, collapsing in a heap of dust and splintered wood just short of the cackling goblins. They unleash a volley of rusty daggers as you stumble back, the smell of decaying paper filling your nostrils."
+            },
+            "latency_ms": 2434
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-25",
+            "category": "Path B: Creative",
+            "input": "I slide between his legs and trip him.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "PHYS",
+            "expected_condition": "PRONE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 23
+            },
+            "dm_narrator": {
+                "output": "You expertly duck under his flailing guard, your foot catching his ankle with a sharp, decisive jerk. He tumbles forward with a surprised grunt, hitting the dusty floorboards with a resounding thud."
+            },
+            "latency_ms": 2454
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-26",
+            "category": "Path B: Social",
+            "input": "I intimidate the bandit into surrendering.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "SOC"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 24
+            },
+            "dm_narrator": {
+                "output": "You let out a guttural roar, your eyes blazing with a feral intensity that makes the bandit's knees buckle. He throws his rusted dagger to the ground with a clatter, his bravado crumbling into abject fear as he stammers out his surrender."
+            },
+            "latency_ms": 2278
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-27",
+            "category": "Path B: Social",
+            "input": "I bluff and yell that the city guard is here!",
+            "expected_type": "CREATIVE",
+            "expected_stat": "SOC"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 13,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 21
+            },
+            "dm_narrator": {
+                "output": "Your booming voice echoes through the alley, \"The City Guard! Halt!\" causing a ripple of panicked shuffling and hurried whispers among the thugs before they freeze, their eyes darting towards the street in genuine alarm. You see a flicker of uncertainty cross their faces as they momentarily consider the possibility of real authority arriving."
+            },
+            "latency_ms": 2493
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-28",
+            "category": "Path B: Social",
+            "input": "I try to persuade the mercenary to switch sides.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "SOC"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 22
+            },
+            "dm_narrator": {
+                "output": "Your words, sharp and laced with the promise of coin, find their mark, and the mercenary's eyes gleam with newfound interest as they nod in agreement. A quick flick of a coin seals the deal, and they fall in behind you, ready for whatever comes next."
+            },
+            "latency_ms": 2436
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-29",
+            "category": "Path B: Social",
+            "input": "I taunt the orc to make him angry.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "SOC"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 20
+            },
+            "dm_narrator": {
+                "output": "You let out a guttural roar, spitting insults and mocking the creature's lineage, and its eyes blaze with renewed fury, fixating on you with a primal hatred. Its next lunge is a wild, unfocused burst of aggression, clearly aimed at silencing your taunts permanently."
+            },
+            "latency_ms": 3720
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-30",
+            "category": "Path B: Social",
+            "input": "I insult the boss to distract him.",
+            "expected_type": "CREATIVE",
+            "expected_stat": "SOC"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "SOC",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 11
+            },
+            "dm_narrator": {
+                "output": "With a sneer, you unleash a torrent of cutting words, and the boss's eyes blaze with fury, momentarily forgetting the peril he was in. You've successfully drawn his ire, and his focus shifts entirely to you."
+            },
+            "latency_ms": 2671
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-31",
+            "category": "Path B: Improv",
+            "input": "I smash my glass bottle to distract the guard.",
+            "expected_type": "CREATIVE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 21
+            },
+            "dm_narrator": {
+                "output": "The sharp crack of shattering glass echoes through the corridor, instantly drawing the guard's startled gaze and a curse as he spins towards the sudden noise. You seize the fleeting moment of his distraction, your heart pounding, to slip further into the shadows."
+            },
+            "latency_ms": 2763
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-32",
+            "category": "Path B: Improv",
+            "input": "I use my rope to tie the door shut.",
+            "expected_type": "CREATIVE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 11
+            },
+            "dm_narrator": {
+                "output": "You expertly loop and knot the rope, cinching the ancient door shut with surprising force, a satisfying thud echoing in the silence. The rough fibers bite into the wood, holding firm, a small but significant barrier against whatever lurks beyond."
+            },
+            "latency_ms": 2398
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-33",
+            "category": "Path B: Improv",
+            "input": "I light my torch and throw it at the oil spill.",
+            "expected_type": "CREATIVE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 9
+            },
+            "dm_narrator": {
+                "output": "As the torch arcs through the air, you watch in horror as it skitters across the slick surface, fizzling out harmlessly into the dark, oily water. A thick, acrid smoke begins to rise, clinging to the air and making your eyes water as the spill remains stubbornly unlit, a silent, dangerous obstacle."
+            },
+            "latency_ms": 3188
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-34",
+            "category": "Path B: Improv",
+            "input": "I jam my dagger into the gear mechanism.",
+            "expected_type": "CREATIVE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 14,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 13
+            },
+            "dm_narrator": {
+                "output": "You wrench the dagger with all your might, but the metal groans and sparks, the gears grinding stubbornly against your desperate thrust, refusing to yield. Instead, the dagger's tip snaps with a sickening crack, uselessly embedded in the unmoving contraption."
+            },
+            "latency_ms": 2630
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "B-35",
+            "category": "Path B: Improv",
+            "input": "I wrap my cloak around his head to blind him.",
+            "expected_type": "CREATIVE",
+            "expected_condition": "BLINDED"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 14
+            },
+            "dm_narrator": {
+                "output": "The rough wool of your cloak billows, a sudden, suffocating darkness as you pull it taut around the creature's head, muffling its surprised shriek. You feel the frantic scrabbling of its limbs against the fabric, a desperate, unseen struggle against your sudden embrace."
+            },
+            "latency_ms": 3871
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-36",
+            "category": "Edge: Impossible",
+            "input": "I teleport to the moon instantly.",
+            "expected_type": "CREATIVE",
+            "expected_allowed": false
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 0,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            },
+            "latency_ms": 2027
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-37",
+            "category": "Edge: Impossible",
+            "input": "I turn into a god and kill everyone.",
+            "expected_type": "CREATIVE",
+            "expected_allowed": false
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            },
+            "latency_ms": 1619
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-38",
+            "category": "Edge: Impossible",
+            "input": "I drink the entire ocean.",
+            "expected_type": "CREATIVE",
+            "expected_allowed": false
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            },
+            "latency_ms": 1613
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-39",
+            "category": "Edge: Impossible",
+            "input": "I punch a hole in the fabric of reality.",
+            "expected_type": "CREATIVE",
+            "expected_allowed": false
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 15,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            },
+            "latency_ms": 1616
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-40",
+            "category": "Edge: Impossible",
+            "input": "I summon an army of 10,000 dragons.",
+            "expected_type": "CREATIVE",
+            "expected_allowed": false
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": true,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 0,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            },
+            "latency_ms": 1591
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-41",
+            "category": "Edge: Rules",
+            "input": "I attack twice in one turn.",
+            "expected_engine_result": "DENY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": false,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": null,
+                "assigned_dc": null,
+                "enum_returned": "DISALLOW"
+            },
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "The Arbiter denied the action."
+            },
+            "latency_ms": 1349
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-42",
+            "category": "Edge: Rules",
+            "input": "I drink a potion.",
+            "expected_engine_result": "DENY",
+            "_note": "Player has no potion in inventory"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "USE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used 'healing potion' (Consumed). Result: Restored 0 HP! (Now 20/20)"
+            },
+            "latency_ms": 1578
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-43",
+            "category": "Edge: Rules",
+            "input": "I move to FAR and then back to NEAR.",
+            "expected_engine_result": "DENY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "CREATIVE",
+                "is_match": false,
+                "full_intent": {
+                    "type": "CREATIVE",
+                    "command": null
+                }
+            },
+            "action_arbiter": {
+                "assigned_stat": "PHYS",
+                "assigned_dc": 10,
+                "enum_returned": "STUNT"
+            },
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 7
+            },
+            "dm_narrator": {
+                "output": "You lunge forward with all your might, the ground a blur beneath your feet, only to stumble and find yourself right back where you started, the air thick with the smell of dust and disappointment."
+            },
+            "latency_ms": 3379
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-44",
+            "category": "Edge: Rules",
+            "input": "I attack the dragon.",
+            "expected_engine_result": "DENY",
+            "_note": "No dragon exists as an enemy"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 11,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: MISS"
+            },
+            "latency_ms": 1096
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "C-45",
+            "category": "Edge: Rules",
+            "input": "I attack.",
+            "expected_engine_result": "DENY",
+            "_note": "Player is UNCONSCIOUS (hp=0)"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": false,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: FAILED (PlayerA is UNCONSCIOUS and cannot attack!)"
+            },
+            "latency_ms": 698
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "D-46",
+            "category": "System: AI",
+            "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+            "expected_system_check": "AI_ATTACK_LOWEST_HP"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "AI_ATTACK_LOWEST_HP"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "D-47",
+            "category": "System: AI",
+            "input": "SYSTEM_TRIGGER_ENEMY_TURN",
+            "expected_system_check": "AI_MOVE_CLOSER"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "AI_MOVE_CLOSER"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "D-48",
+            "category": "System: Memory",
+            "input": "SYSTEM_TRIGGER_VICTORY",
+            "expected_system_check": "CONTEXT_COLLAPSE_FLUSH"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 714,
+            "system_check_output": "CONTEXT_COLLAPSE_FLUSH"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "D-49",
+            "category": "System: Memory",
+            "input": "SYSTEM_TRIGGER_VICTORY",
+            "expected_system_check": "ANCHOR_SAVED"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 836,
+            "system_check_output": "ANCHOR_SAVED"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "D-50",
+            "category": "System: State",
+            "input": "SYSTEM_TRIGGER_VICTORY",
+            "expected_system_check": "INVENTORY_MERGED"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "INVENTORY_MERGED"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-51",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I walk down the hallway to the Armory.",
+            "expected_type": "MOVE",
+            "expected_target": "Armory"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "MOVE",
+                "target": "the hallway to the Armory."
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-52",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I sneak carefully into the goblin boss room.",
+            "expected_type": "MOVE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "MOVE",
+                "target": "Goblin Boss Room"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 725
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-53",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I look around the dusty bookshelves.",
+            "expected_type": "LOOK",
+            "expected_target": "dusty bookshelves"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "LOOK",
+                "target": "the dusty bookshelves."
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-54",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I set up camp for the night in the corner.",
+            "expected_type": "REST"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "REST",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-55",
+            "category": "Exploration: Hybrid Routing",
+            "input": "Let me check my inventory and see what I have.",
+            "expected_type": "INVENTORY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "INVENTORY",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-56",
+            "category": "Exploration: Hybrid Routing",
+            "input": "What is my character status?",
+            "expected_type": "STATUS"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "STATUS",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-57",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I want to leave this dungeon.",
+            "expected_type": "EXIT_HUB"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "EXIT_HUB",
+                "target": null
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 741
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-58",
+            "category": "Exploration: Hybrid Routing",
+            "input": "Check the quest board for new bounties.",
+            "expected_type": "QUEST_BOARD"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "QUEST_BOARD",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-59",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I freeze the water to make an ice bridge.",
+            "expected_type": "PUZZLE_ATTEMPT",
+            "node_state": {
+                "event_type": "puzzle",
+                "cleared": false,
+                "connected_to": [
+                    "node_01"
+                ]
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "PUZZLE_ATTEMPT",
+                "target": "I freeze the water to make an ice bridge."
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-60",
+            "category": "Exploration: Hybrid Routing",
+            "input": "I try to decipher the ancient runes using my magic.",
+            "expected_type": "PUZZLE_ATTEMPT",
+            "node_state": {
+                "event_type": "puzzle",
+                "cleared": false,
+                "connected_to": [
+                    "node_01"
+                ]
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "PUZZLE_ATTEMPT",
+                "target": "I try to decipher the ancient runes using my magic."
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-61",
+            "category": "Exploration: Hybrid Routing",
+            "input": "go north",
+            "expected_type": "MOVE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "MOVE",
+                "target": "north"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "E-62",
+            "category": "Exploration: Hybrid Routing",
+            "input": "inspect the collapsed cart",
+            "expected_type": "LOOK"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "LOOK",
+                "target": "collapsed cart"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-63",
+            "category": "Exploration: Guardrails",
+            "input": "I rest here.",
+            "expected_system_check": "REST_BLOCKED_COMBAT",
+            "node_state": {
+                "event_type": "combat",
+                "cleared": false
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "REST",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "REST_BLOCKED_COMBAT"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-64",
+            "category": "Exploration: Guardrails",
+            "input": "I rest here.",
+            "expected_system_check": "REST_BLOCKED_PUZZLE",
+            "node_state": {
+                "event_type": "puzzle",
+                "cleared": false
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "REST",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "REST_BLOCKED_PUZZLE"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-65",
+            "category": "Exploration: Guardrails",
+            "input": "I rest here.",
+            "expected_system_check": "REST_ALLOWED",
+            "node_state": {
+                "event_type": "safe",
+                "cleared": true
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "REST",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "REST_ALLOWED"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-66",
+            "category": "Exploration: Guardrails",
+            "input": "I go to the throne room.",
+            "expected_system_check": "MOVE_BLOCKED_NO_EXIT",
+            "node_state": {
+                "connected_to": []
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "MOVE",
+                "target": "the throne room."
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "MOVE_BLOCKED_NO_EXIT"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-67",
+            "category": "Exploration: Guardrails",
+            "input": "I go to the kitchen.",
+            "expected_system_check": "MOVE_BLOCKED_INVALID_TARGET",
+            "node_state": {
+                "connected_to": [
+                    "node_armory"
+                ]
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "MOVE",
+                "target": "the kitchen."
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "MOVE_BLOCKED_INVALID_TARGET"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-68",
+            "category": "Exploration: Guardrails",
+            "input": "I return to the armory.",
+            "expected_system_check": "MOVE_ALLOWED",
+            "node_state": {
+                "connected_to": [
+                    "node_armory"
+                ]
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "MOVE",
+                "target": "Armory"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 709,
+            "system_check_output": "MOVE_ALLOWED"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-69",
+            "category": "Exploration: Guardrails",
+            "input": "I want to rest.",
+            "expected_system_check": "REST_ALLOWED",
+            "node_state": {
+                "event_type": "combat",
+                "cleared": true
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "REST",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "REST_ALLOWED"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "F-70",
+            "category": "Exploration: Guardrails",
+            "input": "I rest here.",
+            "expected_system_check": "REST_BLOCKED_COMBAT",
+            "node_state": {
+                "event_type": "boss",
+                "cleared": false
+            }
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "REST",
+                "target": ""
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "REST_BLOCKED_COMBAT"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-71",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_GENERATE_QUEST_LIVE",
+            "expected_system_check": "SCHEMA_VALID"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "GENERATION_ERROR: BaseLLMProvider.__init__() got an unexpected keyword argument 'model_name'",
+            "schema_validation_pass": false
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": false,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-72",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_VALIDATE_MISSING_ENTRANCE",
+            "expected_system_check": "SCHEMA_INVALID_ENTRANCE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "SCHEMA_INVALID_ENTRANCE"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-73",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_VALIDATE_UNREACHABLE_NODE",
+            "expected_system_check": "SCHEMA_INVALID_TOPOLOGY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "SCHEMA_INVALID_TOPOLOGY"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-74",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_VALIDATE_NO_COMBAT",
+            "expected_system_check": "SCHEMA_INVALID_NO_COMBAT"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "SCHEMA_INVALID_NO_COMBAT"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-75",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_VALIDATE_DANGLING_REF",
+            "expected_system_check": "SCHEMA_INVALID_DANGLING"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "SCHEMA_INVALID_DANGLING"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-76",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_VALIDATE_BAD_ENEMY",
+            "expected_system_check": "SCHEMA_INVALID_ENEMY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "SCHEMA_INVALID_ENEMY"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-77",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_VALIDATE_MISSING_DESC",
+            "expected_system_check": "SCHEMA_INVALID_DESC"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "SCHEMA_INVALID_DESC"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-78",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_TEST_LORE_APPEND",
+            "expected_system_check": "LORE_WRITTEN_ONCE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 44,
+            "system_check_output": "LORE_WRITTEN_ONCE"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-79",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_TEST_COMBAT_TRIGGER",
+            "expected_system_check": "COMBAT_TRIGGERED"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "COMBAT_TRIGGERED"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "G-80",
+            "category": "Quest: Procedural Generation",
+            "input": "SYSTEM_TEST_QUEST_COMPLETION",
+            "expected_system_check": "QUEST_MARKED_COMPLETE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "QUEST_MARKED_COMPLETE"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-81",
+            "category": "Abilities: Pray",
+            "input": "I pray to my god.",
+            "expected_type": "FIXED",
+            "expected_command": "ABILITY",
+            "expected_ability": "pray"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ABILITY"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used Pray: Pray succeeded! Restored 0 HP to PlayerA."
+            },
+            "latency_ms": 721
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-82",
+            "category": "Abilities: Second Wind",
+            "input": "I use second wind to heal myself.",
+            "expected_type": "FIXED",
+            "expected_command": "ABILITY",
+            "expected_ability": "second wind"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ABILITY"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used Second Wind: Second Wind restores 0 HP!"
+            },
+            "latency_ms": 804
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-83",
+            "category": "Abilities: Lay on Hands",
+            "input": "I lay on hands to heal my ally.",
+            "expected_type": "FIXED",
+            "expected_command": "ABILITY",
+            "expected_ability": "lay on hands"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ABILITY"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA used Lay on Hands: Lay on Hands restores 0 HP to PlayerA!"
+            },
+            "latency_ms": 666
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-84",
+            "category": "Abilities: Smite",
+            "input": "I smite the goblin with divine fury.",
+            "expected_type": "FIXED",
+            "expected_command": "ATTACK",
+            "expected_ability": "smite"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ATTACK"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 13,
+                "damage": 23,
+                "is_hit": true
+            },
+            "dm_narrator": {
+                "output": "PlayerA attacked Goblin: HIT for 23 damage."
+            },
+            "latency_ms": 670
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-85",
+            "category": "Flee: Contested",
+            "input": "I run away from the fight.",
+            "expected_type": "FIXED",
+            "expected_command": "FLEE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "FLEE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "Action failed!"
+            },
+            "latency_ms": 779
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-86",
+            "category": "Flee: Contested",
+            "input": "I try to escape the battle.",
+            "expected_type": "FIXED",
+            "expected_command": "FLEE"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "FLEE"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "Action failed!"
+            },
+            "latency_ms": 779
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-87",
+            "category": "Abilities: Charge Guard",
+            "input": "I pray to my god.",
+            "expected_type": "FIXED",
+            "expected_command": "ABILITY",
+            "_note": "Tests that ability with 0 charges is DENIED",
+            "expected_ability": "pray",
+            "ability_charges": 0,
+            "expected_engine_result": "DENY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ABILITY"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "\u26a0\ufe0f You have no uses of Pray left! You need a short rest."
+            },
+            "latency_ms": 690
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-88",
+            "category": "Abilities: Combo",
+            "input": "I move to NEAR and smite the goblin.",
+            "expected_type": "FIXED_COMBO"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED_COMBO",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED_COMBO",
+                    "command": null
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": false
+            },
+            "dm_narrator": {
+                "output": "Action failed!"
+            },
+            "latency_ms": 894
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-89",
+            "category": "Flee: No Enemies",
+            "input": "SYSTEM_TRIGGER_FLEE_NO_ENEMIES",
+            "expected_system_check": "FLEE_SUCCESS_NO_ENEMIES"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "SYSTEM"
+            },
+            "action_arbiter": {},
+            "rules_engine": {},
+            "dm_narrator": {},
+            "latency_ms": 0,
+            "system_check_output": "FLEE_SUCCESS_NO_ENEMIES"
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": true,
+            "narrative_present": false
+        }
+    },
+    {
+        "scenario": {
+            "id": "H-90",
+            "category": "Abilities: Condition Block",
+            "input": "I use second wind.",
+            "expected_type": "FIXED",
+            "expected_command": "ABILITY",
+            "_note": "Player is STUNNED \u2014 ability should fail",
+            "expected_ability": "second wind",
+            "player_condition": "STUNNED",
+            "expected_engine_result": "DENY"
+        },
+        "trace": {
+            "intent_router": {
+                "predicted_path": "FIXED",
+                "is_match": true,
+                "full_intent": {
+                    "type": "FIXED",
+                    "command": "ABILITY"
+                }
+            },
+            "action_arbiter": {},
+            "rules_engine": {
+                "is_success": true,
+                "dice_rolled": 0,
+                "damage": 0,
+                "is_hit": false
+            },
+            "dm_narrator": {
+                "output": "PlayerA failed to use Second Wind: PlayerA is STUNNED and cannot use abilities!"
+            },
+            "latency_ms": 776
+        },
+        "metrics": {
+            "routing_correct": true,
+            "grounding_correct": true,
+            "math_consistent": false,
+            "narrative_present": true
+        }
+    }
+]
