@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>🏰 Agentic-DualPath-Core</h1>
+  <h1>🏰 DualPath-Core</h1>
   <p><i>A Multi-Agent Hybrid TTRPG Engine | FIBO Senior Thesis (2026)</i></p>
 
   [![Project Status](https://img.shields.io/badge/Status-Phase_3_On_Going-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
