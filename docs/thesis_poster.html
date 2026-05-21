@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic-DualPath-Core Thesis Poster</title>
+  <!-- Google Fonts for premium modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <style>
+    /* Premium CSS Variables for elegant theme and colors */
+    :root {
+      --bg-dark: #0b0f19;
+      --panel-bg: rgba(23, 30, 48, 0.65);
+      --panel-border: rgba(255, 255, 255, 0.08);
+      --primary: #6366f1;
+      --primary-glow: rgba(99, 102, 241, 0.4);
+      --secondary: #8b5cf6;
+      --accent: #10b981;
+      --accent-red: #ef4444;
+      --accent-orange: #f59e0b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-bright: #ffffff;
+      --card-gradient: linear-gradient(135deg, rgba(30, 41, 59, 0.7), rgba(15, 23, 42, 0.8));
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    /* Print and Aspect Ratio Controls - Set up for standard 16:9 Landscape A0 layout */
+    .poster-container {
+      width: 100%;
+      max-width: 1720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Elegant Header */
+    header {
+      background: var(--card-gradient);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+    }
+
+    .header-logo-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .fibo-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 2px;
+      border: 2px solid #ff7e5f;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+
+    .kmutt-logo {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      color: #f59e0b;
+      letter-spacing: 1px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex-grow: 1;
+      padding: 0 40px;
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 34px;
+      letter-spacing: 0.5px;
+      color: var(--text-bright);
+      margin-bottom: 8px;
+      text-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    }
+
+    .subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .subtitle span {
+      background: rgba(99, 102, 241, 0.15);
+      padding: 4px 12px;
+      border-radius: 30px;
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      font-size: 13px;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .header-meta .author {
+      font-weight: 600;
+      color: var(--text-bright);
+      font-size: 16px;
+    }
+
+    .header-meta .advisor {
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* Main Poster Layout - 3 Equal Columns */
+    .poster-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr 1fr;
+      gap: 20px;
+    }
+
+    .column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Styled Section Panels */
+    section {
+      background: var(--card-gradient);
+      border: 1px solid var(--panel-border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    section:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text-bright);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+    }
+
+    h2 span.icon {
+      font-size: 22px;
+    }
+
+    /* Typography & Text Blocks */
+    p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-main);
+      margin-bottom: 12px;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    strong {
+      color: var(--text-bright);
+      font-weight: 600;
+    }
+
+    /* Special Highlight Box (Warning / Alert style) */
+    .highlight-box {
+      background: rgba(99, 102, 241, 0.1);
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+    }
+
+    .highlight-box.alert {
+      background: rgba(245, 158, 11, 0.08);
+      border-left-color: var(--accent-orange);
+    }
+
+    .highlight-box h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-bright);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .highlight-box p {
+      font-size: 13px;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* Custom CSS Diagrams */
+    .diagram-container {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    /* Two Path Router Visual Block */
+    .router-block {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 12px;
+    }
+
+    .router-node {
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .router-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      position: relative;
+      width: 100%;
+    }
+
+    .router-path {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .router-path.active-a {
+      border-color: var(--accent);
+      background: rgba(16, 185, 129, 0.04);
+    }
+
+    .router-path.active-b {
+      border-color: var(--secondary);
+      background: rgba(139, 92, 246, 0.04);
+    }
+
+    .path-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .active-a .path-title { color: var(--accent); }
+    .active-b .path-title { color: var(--secondary); }
+
+    .path-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .connector-line {
+      height: 15px;
+      width: 2px;
+      background: var(--text-muted);
+      opacity: 0.3;
+    }
+
+    /* Exploration Router Visual Block */
+    .flow-steps {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .step-card {
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .step-num {
+      background: var(--primary);
+      color: var(--text-bright);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-detail {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-name {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-bright);
+    }
+
+    .step-info {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Terminal Console Style for Gameplay Capture */
+    .terminal {
+      background: #05070c;
+      border: 1px solid #1e293b;
+      border-radius: 12px;
+      padding: 18px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #a7f3d0;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+      margin: 10px 0;
+    }
+
+    .term-header {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
+    }
+
+    .term-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .term-dot.r { background: var(--accent-red); }
+    .term-dot.y { background: var(--accent-orange); }
+    .term-dot.g { background: var(--accent); }
+
+    .term-line {
+      margin-bottom: 6px;
+    }
+
+    .term-prompt {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .term-system {
+      color: var(--accent-orange);
+    }
+
+    .term-dm {
+      color: #cbd5e1;
+    }
+
+    .term-success {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Evaluation Grid Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .stat-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--panel-border);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Bottom Contact block for KMUTT style */
+    footer {
+      background: var(--card-gradient);
+      border: 1px solid var(--panel-border);
+      border-radius: 12px;
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    /* PDF Print Rules for A0 */
+    @media print {
+      body {
+        padding: 0;
+        background: #000;
+      }
+      .poster-container {
+        max-width: 100%;
+      }
+      section, header, footer {
+        box-shadow: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="poster-container">
+    
+    <!-- HEADER -->
+    <header>
+      <div class="header-logo-container">
+        <div class="fibo-logo">FIBO</div>
+        <div class="kmutt-logo">KMUTT</div>
+      </div>
+      
+      <div class="header-text">
+        <h1>AGENTIC-DUALPATH-CORE: A MULTI-AGENT HYBRID TTRPG ENGINE</h1>
+        <div class="subtitle">
+          Senior Thesis Presentation
+          <span>29 May 2026</span>
+          <span>12:00 - 13:00</span>
+          <span>Room FB607</span>
+        </div>
+      </div>
+      
+      <div class="header-meta">
+        <div class="author"><strong>Author:</strong> Mr. Pollapaat Suttimala</div>
+        <div class="advisor"><strong>Advisor:</strong> Asst. Prof. Dr. Suriya Natsupakpong</div>
+        <div class="advisor"><strong>Co-advisor:</strong> Asst. Prof. Dr. Paisit Khan-Ar-Sa</div>
+      </div>
+    </header>
+
+    <!-- MAIN BODY GRID -->
+    <div class="poster-grid">
+      
+      <!-- COLUMN 1 -->
+      <div class="column">
+        
+        <section>
+          <h2><span class="icon">🔍</span>PROBLEM STATEMENT</h2>
+          <p>
+            Standard AI-driven Dungeon Masters (DMs) in Tabletop Role-Playing Games (TTRPGs) suffer from the <strong>"Hallucination Problem"</strong>.
+          </p>
+          <p>
+            When a single Large Language Model (LLM) manages both creative narration and underlying math, it routinely makes calculation errors, forgets character health points (HP), ignores inventory arrays, and permits spatial violations (such as passing through solid walls).
+          </p>
+        </section>
+
+        <section>
+          <h2><span class="icon">🗣️</span>THE NATURAL LANGUAGE CHALLENGE</h2>
+          <div class="highlight-box alert">
+            <h3>Why Simple Programs Fail</h3>
+            <p>
+              Natural language is rich, flexible, and ambiguous. Players expect to describe actions freely (e.g., <i>"I slide under the table to slash the goblin's ankles"</i>). Rigid code rules cannot understand these creative, unstructured player sentences.
+            </p>
+          </div>
+          <p>
+            Conversely, relying 100% on a neural network fails due to logic instability.
+          </p>
+          <p>
+            Therefore, the system requires an **LLM-based classifier** to comprehend open-ended player intentions, but must route standard mechanics to a **reliable Python backend** to calculate the mathematical rules.
+          </p>
+        </section>
+
+        <section>
+          <h2><span class="icon">🎯</span>PROPOSED SOLUTION</h2>
+          <p>
+            We introduce <strong>Agentic-DualPath-Core</strong>, a hybrid system that separates creative story interpretation from solid mathematical rules.
+          </p>
+          <p>
+            The engine intercepts user texts, dynamically categorizing intents into standard actions (attacks, basic movement) and creative actions (environmental puzzle-solving).
+          </p>
+        </section>
+
+      </div>
+
+      <!-- COLUMN 2 -->
+      <div class="column">
+        
+        <section>
+          <h2><span class="icon">⚙️</span>SYSTEM ARCHITECTURE</h2>
+          <p>
+            The system executes a <strong>Two-Path Orchestrator</strong> flow, dividing actions into separate processing layers:
+          </p>
+
+          <div class="diagram-container">
+            <div class="router-block">
+              <div class="router-node">
+                Player Input (Natural Language)
+              </div>
+              <div class="router-node" style="background: rgba(16, 185, 129, 0.1); border-color: var(--accent);">
+                Intent Router (Gemini Classify / Keyword Regex)
+              </div>
+              
+              <div class="router-split">
+                <div class="router-path active-a">
+                  <div class="path-title">Path A (Standard Rules)</div>
+                  <div class="path-desc">Attacks, Movement, standard spells, items.</div>
+                  <div class="path-desc" style="color: var(--accent); font-weight: bold; margin-top: 4px;">Python Rules Engine</div>
+                </div>
+                
+                <div class="router-path active-b">
+                  <div class="path-title">Path B (Creative Rules)</div>
+                  <div class="path-desc">Improvisation, environmental tricks, complex magic.</div>
+                  <div class="path-desc" style="color: var(--secondary); font-weight: bold; margin-top: 4px;">LLM Arbiter Layer</div>
+                </div>
+              </div>
+              
+              <div class="router-node" style="margin-top: 6px; background: rgba(99, 102, 241, 0.2);">
+                State Update & LLM Narrative Generation
+              </div>
+            </div>
+          </div>
+
+          <p>
+            <strong>Path A (Standard Rules - Python Engine):</strong> Standard actions are computed using hardcoded functions (dice rolls, Armor Class checks, HP subtraction). This guarantees 100% calculation accuracy and incurs zero token costs.
+          </p>
+          <p>
+            <strong>Path B (Creative Rules - LLM Arbiter):</strong> Improvised actions are judged by the LLM. It sets the Difficulty Class (DC) and returns a structural condition (e.g., target: `PRONE`), which Python then strictly applies to the game model.
+          </p>
+          <p>
+            <strong>TOON (Token-Oriented Object Notation):</strong> A highly compact custom text notation designed to pass game state data to the LLM. It reduces token size by <strong>~40%</strong> compared to standard JSON, saving API costs and reducing response times.
+          </p>
+        </section>
+
+      </div>
+
+      <!-- COLUMN 3 -->
+      <div class="column">
+        
+        <section>
+          <h2><span class="icon">🗺️</span>NODE-BASED EXPLORATION ENGINE</h2>
+          <p>
+            To expand the system beyond combat, we implemented a structured point-crawl Exploration Engine:
+          </p>
+          
+          <div class="flow-steps">
+            <div class="step-card">
+              <div class="step-num">1</div>
+              <div class="step-detail">
+                <div class="step-name">Pass 1: Regex Filter (Zero Cost)</div>
+                <div class="step-info">Filters simple commands like look, rest, status instantly.</div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">2</div>
+              <div class="step-detail">
+                <div class="step-name">Pass 2: Semantic Router (LLM)</div>
+                <div class="step-info">Maps complex movement sentences to active graph exits.</div>
+              </div>
+            </div>
+            <div class="step-card">
+              <div class="step-num">3</div>
+              <div class="step-detail">
+                <div class="step-name">Pass 3: Puzzle Interception</div>
+                <div class="step-info">Unrecognized inputs in puzzle rooms become puzzle attempts.</div>
+              </div>
+            </div>
+          </div>
+
+          <p style="margin-top: 12px;">
+            <strong>Spatial Guardrails:</strong> Python verifies if a target room is connected to the current node <i>before</i> calling the LLM, neutralizing spatial hallucinations (e.g., moving through walls).
+          </p>
+          <p>
+            <strong>Infinite Lore Prevention:</strong> Separates visited and cleared states, printing descriptions exactly once to prevent repetitive generations and token overflow.
+          </p>
+        </section>
+
+        <section>
+          <h2><span class="icon">💻</span>PLAYTEST CONSOLE CAPTURE</h2>
+          <div class="terminal">
+            <div class="term-header">
+              <div class="term-dot r"></div>
+              <div class="term-dot y"></div>
+              <div class="term-dot g"></div>
+            </div>
+            <div class="term-line"><span class="term-prompt">[EXPLORATION] Entered:</span> <span class="term-dm">Mine Entrance</span></div>
+            <div class="term-line"><span class="term-prompt">> Player:</span> I go to the next room</div>
+            <div class="term-line"><span class="term-system">🛑 [SYSTEM] Invalid MOVE blocked: 'the next room'</span></div>
+            <div class="term-line"><span class="term-prompt">> Player:</span> Go to main shaft</div>
+            <div class="term-line"><span class="term-system">[MOVE] -> Main Shaft (Pass 1: Regex match, 0 tokens)</span></div>
+            <div class="term-line"><span class="term-prompt">> Player:</span> I blow the toxic gas away with wind magic</div>
+            <div class="term-line"><span class="term-system">[PUZZLE_ATTEMPT] Routed to LLM Arbiter. Success!</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h2><span class="icon">⚔️</span>COMBAT & INITIATIVE QUEUE</h2>
+          <p>
+            <strong>Dynamic Turn Order:</strong> At the start of combat, all entities roll initiative (d20 + Physical stat). The system uses an <strong>Initiative Queue</strong> to sort combatants and loop through turns fairly.
+          </p>
+          <p style="margin-bottom: 0;">
+            <strong>Zone-Based Positioning:</strong> The battlefield uses grid-less zones (<code>NEAR</code>, <code>MID</code>, <code>FAR</code>). Attacking a target two zones away automatically incurs a mathematical disadvantage, calculated entirely in Python.
+          </p>
+        </section>
+
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>Author contact: Pollapaat Suttimala | +66 86-965-2595 | <a href="mailto:mudnott@gmail.com">mudnott@gmail.com</a></div>
+      <div>Institute of Field Robotics (FIBO), King Mongkut's University of Technology Thonburi (KMUTT)</div>
+      <div>Website: <a href="https://fibo.kmutt.ac.th" target="_blank">fibo.kmutt.ac.th</a></div>
+    </footer>
+
+  </div>
+
+</body>
+</html>
