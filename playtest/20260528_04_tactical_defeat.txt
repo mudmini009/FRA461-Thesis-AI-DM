@@ -1,0 +1,71 @@
+[PROLOGUE]
+The sky above Aethelgard bled a sickly grey, a constant reminder of the Severing that had scarred the land and its people.
+
+A guttural snarl echoed from the shadowed alley as a Ruin-Born brute, its skin a patchwork of scarred flesh and rusted metal, lunged with a crude cleaver, forcing Ultra to parry with a jarring clang of steel.
+
+With a final, weary push, Ultra shouldered open the heavy oak doors of the Adventurer's Guild, the scent of stale ale and desperation washing over him.
+[END PROLOGUE]
+
+
+══════════════════════════════════════════════════
+  🏠 HUB — Adventurers Guild
+══════════════════════════════════════════════════
+  🗣️ DM: You step inside, the heavy oak doors groaning shut behind you, muffling the distant snarls and the biting wind. The immediate warmth, a stark contrast to the grey skies and the jarring clang of steel you just endured, washes over you, carrying the comforting scent of stale ale and woodsmoke. For a moment, you can almost forget the labored breath and the aching muscles from that close call with the Ruin-Born’s cleaver. Before you, a worn quest board beckons, its parchment offerings a promise of purpose amidst the lingering unease.
+[Ultra] (Hub) quest board
+[QUEST ACCEPTED] Whispers in the Verdant Mire
+
+──────────────────────────────────────────────────
+  🗺️  EXPLORATION — Whispers in the Verdant Mire
+──────────────────────────────────────────────────
+[EXPLORATION] Entered: Moss-Kissed Clearing
+[DM] You push through a screen of clinging vines, the heavy oak doors groaning shut behind you, and enter the Moss-Kissed Clearing. Sunlight, fractured and weak, struggles to pierce the ancient, moss-draped oaks, casting long, dancing shadows across the damp earth. The air hangs thick and cloying, a potent perfume of decay and the deep, unsettling stillness of the forest. To your left, the path seems to dissolve into a Tangled Thicket, while to your right, the ground hints at a treacherous Mire's Edge.
+
+[Ultra] move to mire edge
+[MOVE] -> Mire's Edge
+[DM] You step through the heavy oak doors, the clang of steel still echoing in your ears, and find yourself at the **Mire's Edge**. The ground immediately gives way to a treacherous, stagnant pool of dark water, reflecting the perpetually oppressive sky above. The air hangs thick with the scent of decay, and a faint, almost imperceptible trail snakes its way deeper into the oppressive gloom, perhaps towards a **Moss-Kissed Clearing** or the unsettling quiet of **The Whispering Grove**.
+
+[PUZZLE] Encountered: A series of unstable, moss-slicked stones must be crossed to reach the other side of the mire.
+[Ultra] try to jump as hard as possible
+
+──────────────────────────────────────────────────
+  🧩 PUZZLE — A series of unstable, moss-slicked stone
+──────────────────────────────────────────────────
+[PUZZLE SOLVED] try to jump as hard as possible (Roll:19 vs DC:10)
+[DM] A wave of relief washes over you as the last stone settles firmly beneath your boot, the precarious dance across the mire now a memory. The air, thick with the stench of decay, seems to lighten, as if the very bog has exhaled with your success. The faint trail ahead shimmers, no longer obscured by the oppressive stillness, beckoning you onward into the heart of the Verdant Mire.
+[Ultra] go to the whispering glove
+[MOVE] -> The Whispering Grove
+[DM] You push through the gnarled roots and into a clearing dominated by colossal, ancient oaks. Their branches twist like skeletal fingers against the bruised sky, and an unnatural silence presses in, broken only by faint, disembodied whispers that seem to coil around you. The air itself feels thick with unseen presences, a palpable tension that hints at something ancient and watchful, and the only way out seems to be the path leading towards the Mire's Edge.
+
+[ENCOUNTER] Mire-Bound Wolf Pack Alpha in The Whispering Grove
+[DM] The unnatural silence of the Whispering Grove shatters as the ground beneath your feet erupts. A guttural snarl, impossibly deep and laced with the scent of decay, rips through the air as a hulking shadow detaches itself from the gnarled roots of an ancient oak. Its eyes, glowing with a malevolent, swampy luminescence, fix upon you, and the pack behind it emerges from the mist, a tide of matted fur and sharpened bone. The battle begins — what do you do?
+
+
+──────────────────────────────────────────────────
+  ⚔️  COMBAT — Mire-Bound Wolf Pack Alpha
+──────────────────────────────────────────────────
+[Ultra] attack
+   [SYSTEM] Ultra attacked Mire-Bound Wolf Pack Alpha: MISS
+   [SYSTEM] 👹 Mire-Bound Wolf Pack Alpha attacks Ultra: MISS!
+[DM] (Mire-Bound Wolf Pack Alpha's Turn) A guttural snarl erupts from the Mire-Bound Wolf Pack Alpha as it lunges, jaws snapping shut inches from your face. The fetid breath of the beast washes over you, a chilling reminder of the primal danger lurking in the Verdant Mire. You sidestep the snapping maw, the creature's momentum carrying it past with a frustrated growl.
+
+[Ultra] swing sword
+   [SYSTEM] Ultra attacked Mire-Bound Wolf Pack Alpha: HIT for 7 damage.
+   [SYSTEM] 👹 Mire-Bound Wolf Pack Alpha attacks Ultra: MISS!
+[DM] (Mire-Bound Wolf Pack Alpha's Turn) The Mire-Bound Wolf Pack Alpha lunges with bared fangs, its red eyes burning with primal fury. You sidestep with a surge of divine energy, the beast's snapping jaws whistling through the empty air mere inches from your face.
+
+[Ultra] chainmail tied it to make wolf not move
+   [SYSTEM] Ultra attempted: tie chainmail to wolf to immobilize it. Result: FAILED (DC 10)
+   [SYSTEM] 👹 Mire-Bound Wolf Pack Alpha attacks Ultra: MISS!
+[DM] (Mire-Bound Wolf Pack Alpha's Turn) The Mire-Bound Wolf Pack Alpha lunges, its snarling maw snapping at your helm, but you twist away just in time. The beast's claws rake harmlessly against your dented chainmail.
+
+[Ultra] attack
+   [SYSTEM] Ultra attacked Mire-Bound Wolf Pack Alpha: HIT for 11 damage.
+   [SYSTEM] 👹 Mire-Bound Wolf Pack Alpha attacks Ultra: CRITICAL HIT! for 13 damage
+[DM] (Mire-Bound Wolf Pack Alpha's Turn) The Mire-Bound Wolf Pack Alpha lunges, its eyes burning with feral hunger. Its claws rake across your chest, tearing through your chainmail with a sickening shriek of metal and flesh. A searing pain erupts from the wound as you stagger back, the beast's foul breath hot on your face.
+
+[Ultra] attack
+   [SYSTEM] Ultra attacked Mire-Bound Wolf Pack Alpha: HIT for 10 damage.
+   [SYSTEM] 👹 Mire-Bound Wolf Pack Alpha attacks Ultra: HIT! for 8 damage
+   [SYSTEM]    ⚠️ Ultra has fallen!
+[DM] (Mire-Bound Wolf Pack Alpha's Turn) A surge of primal hunger drives the Mire-Bound Wolf Pack Alpha forward, its jaws snapping with vicious intent. You feel a searing pain as its teeth tear through your armor, a brutal impact that sends you staggering. The world spins as your strength fails, and you collapse to the damp earth, the wolf's triumphant snarl echoing above you.
+

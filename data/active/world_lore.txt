@@ -1,18 +1,26 @@
-THE CITY OF SHATTERED GLASS (Dark Fantasy)
+THE WORLD OF AETHELgard
 
-A grimdark floating city ruled by ancient vampires and perpetual twilight. The lower levels (The Sludge) are plagued by mutated monsters, cults, and disease, while the elite vampire lords rule from pristine glass spires above the clouds. Danger lurks in every shadow.
+Aethelgard is a dark, gritty fantasy realm where magic is rare, dangerous, and often misunderstood. The world is recovering from a cataclysmic event known as "The Severing" which tore the sky open and rained strange crystals onto the land.
 
 Key Factions:
-1. The Blood Barons: Snobbish, refined vampire aristocrats who wield blood magic and rapiers.
-2. The Sewer Mutants: Wretched, twisted mortals who have consumed too much tainted water.
-3. The Inquisition: A fanatical human order trying to burn the city down with holy fire.
+1. The Iron Vanguard: A militaristic human order that uses black-powder weapons and heavy steel armor. They despise magic.
+2. The Whisper Elves: Nomadic, secretive elves who dwell in the deep forests. They are known for their deadly poisons and stealth.
+3. The Ruin-Born (Orcs/Goblins): Mutated creatures that thrive in the scarred wastelands left by The Severing. They are savage, unpredictable, and often use rusted, scavenged weapons.
 
 Magic:
-Magic here is "Blood-Bound." It requires physical sacrifice and is always crimson or black.
+Spells require physical components (blood, rare herbs, crystals). Casting is exhausting and visually spectacular (purple lightning, green fire).
 
 Atmosphere:
-Gothic horror meets survival suspense. Cobblestone streets, heavy fog, and terrifying ambushes.
+The tone is grim, suspenseful, and dangerous. Combat is deadly and physical. Weapons are heavy, armor gets dented, and exhaustion is real.
 
-The Blood Barons consider the Sludge a necessary evil, a breeding ground for their 'lesser' servants and a convenient place to dispose of their mistakes. The perpetual twilight above offers no solace here.
+### The Smuggler's Mine
+Once a legitimate iron mine operated by the Keldrath Company, the Smuggler's Mine was abandoned a decade ago when the veins ran dry. Rumour has it the company's foreman was found dead at the bottom of Shaft Three under mysterious circumstances. Since then, opportunists have used the tunnels as a black-market waypoint, and something older may have moved in long before the goblins arrived.
 
-These goblins are not native to the Sludge; they are refugees from the surface, driven down by the Inquisition's purges. They have learned to survive by scavenging and worshipping the tainted water.
+### The Iron Gate
+The gate bears the emblem of a coiled serpent biting its own tail — the same sigil found on three other 'abandoned' mine sites across the kingdom. Whatever the Keldrath Company was really doing here, they wanted certain things very well guarded.
+
+### The Ambushers
+These are no ordinary scavengers. The goblins here are disciplined, organized, and equipped with stolen Guild-issue weapons. Someone trained them. Their leader, a scarred brute the others call 'Skrix,' takes orders from something that hasn't shown its face yet.
+
+### The Mechanized Cult Connection
+The ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal — he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected.

@@ -1,0 +1,16 @@
+{
+    "quest_id": "crystal_cave_scavenge",
+    "name": "The Crystal Veins",
+    "description": "Ruin-Born have been seen emerging from the old crystal mines, their hides glinting with strange energy. Clear them out and secure any valuable crystals.",
+    "entrance_node": "node_01",
+    "nodes": {},
+    "_meta": {
+        "generated": true,
+        "theme": "ruin-born",
+        "enemy_tags": [
+            "goblin",
+            "wolf"
+        ],
+        "num_nodes": 4
+    }
+}

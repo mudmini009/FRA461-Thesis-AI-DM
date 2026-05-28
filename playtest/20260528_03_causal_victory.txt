@@ -1,0 +1,144 @@
+[PROLOGUE]
+The emerald canopy of Himmapan dripped with an ancient, oppressive humidity, the air thick with the scent of decaying blossoms and the distant, guttural roars of unseen beasts.
+
+Aethelred, the God-Scarred Warrior, felt the tremor of a Yaksha's earth-shattering stride through the very soles of his worn boots, the colossal demon's shadow momentarily eclipsing the sickly, phosphorescent glow of the jungle floor as he dodged a sweeping, golden mace.
+
+With a grunt that was more weariness than exertion, Aethelred pushed open the heavy, carved wooden doors of the Adventurer's Guild and stepped inside.
+[END PROLOGUE]
+
+
+══════════════════════════════════════════════════
+  🏠 HUB — Adventurers Guild
+══════════════════════════════════════════════════
+  🗣️ DM: You step inside, the heavy wooden doors groaning shut behind you, muffling the distant, guttural roars that still echo in your ears. The oppressive humidity of the emerald canopy gives way to a comforting warmth, a stark contrast to the near-miss with that colossal Yaksha's golden mace you just escaped. The scent of spiced tea and polished wood replaces the decaying blossoms, and for the first time in what feels like an eternity, the air feels truly safe. Before you, a board overflows with parchment, promising new challenges, now within these walls.
+[Aethelred] (Hub) quest
+[QUEST ACCEPTED] The Kinnaree's Lost Song
+
+──────────────────────────────────────────────────
+  🗺️  EXPLORATION — The Kinnaree's Lost Song
+──────────────────────────────────────────────────
+[EXPLORATION] Entered: Whispering Bamboo Grove
+[DM] You push through the heavy doors, the oppressive humidity of the jungle giving way to a cool, damp air that carries the faint, sweet perfume of unseen blossoms. Before you stretches a grove of impossibly tall, emerald bamboo stalks, their slender forms swaying as if in a silent, unseen breeze, their leaves rustling with an unnatural, almost conversational cadence. The very air seems to whisper secrets, hinting at the possibility of a hidden Goblin Ambush Clearing or the beckoning, ethereal hum of The Chanting Chamber.
+
+[Aethelred] i move very creaver to the chanting chamber room 
+[MOVE] -> The Chanting Chamber
+[DM] You push through the heavy, carved doors and step into a circular chamber, the air immediately thick with a potent, unsettling energy. Faded Sak Yant tattoos cover the living rock walls, their intricate patterns seeming to writhe in your peripheral vision, while a faint, discordant chanting grates against your ears, hinting at the twisted magic that saturates this place. The oppressive humidity of the Himmapan forest presses in, laced with a palpable sense of unease that seems to emanate from the very stone, and you can feel a pull towards both the rustling whispers of the bamboo grove and the shadowed sanctity of the corrupted shrine.
+
+[PUZZLE] Encountered: A series of ancient stone discs etched with runes must be rotated in the correct sequence to silence the chanting and reveal the path forward.
+[Aethelred] keep ratating randomly
+
+──────────────────────────────────────────────────
+  🧩 PUZZLE — A series of ancient stone discs etched w
+──────────────────────────────────────────────────
+[PUZZLE FAILED] keep ratating randomly (Roll:16 vs DC:18)
+[Aethelred] try rotate again
+
+──────────────────────────────────────────────────
+  🧩 PUZZLE — A series of ancient stone discs etched w
+──────────────────────────────────────────────────
+[PUZZLE SOLVED] try rotate again (Roll:18 vs DC:12)
+[DM] A wave of relief washes over you as the discordant chanting finally ceases, the oppressive weight lifting from the chamber. The intricate dance of runes and stone has yielded its secret, a satisfying click echoing in the sudden silence.
+
+With a grinding groan, a section of the chamber wall recedes, revealing a passage shrouded in an ethereal, shimmering light. The air within hums with an unknown energy, beckoning you onward into the unknown depths of Himmapan.
+[Aethelred] look
+[LOOK] You stand within a circular chamber hewn from living rock, the air thick with the oppressive weight of dark magic. Faded Sak Yant tattoos, swirling with forgotten power, adorn the walls, their intricate designs hinting at ancient rituals. A faint, discordant chanting slithers through the heavy air, a disquieting sound that prickles the hairs on your arms.
+
+You can leave this chamber through the Whispering Bamboo Grove or The Corrupted Shrine.
+[Aethelred] move coruuped srine
+[MOVE] -> The Corrupted Shrine
+[DM] You push open the heavy, carved wooden doors, stepping into what appears to be the heart of this corrupted grove. The air within The Corrupted Shrine is thick with a palpable despair, the stolen melody now a twisted cacophony that scrapes at your very soul. Before a desecrated altar, a lone figure stands silhouetted, a guardian of the fractured song, its corrupted echoes seeming to emanate from the direction of The Chanting Chamber.
+
+[ENCOUNTER] Cultist of the Howling Gale in The Corrupted Shrine
+[DM] The air thickens, heavy with the cloying scent of decaying lotus and something metallic, like old blood. As you step further into the grove, the ground beneath your feet gives way, revealing a hidden pit lined with sharpened bamboo spikes. Before you can even react, a guttural chant erupts from the shadows, a warped parody of a celestial melody.
+
+From behind the gnarled, moss-draped roots of an ancient banyan tree, a figure detaches itself. Clad in tattered robes stained with dark, swirling patterns that mimic the fury of a storm, the Cultist of the Howling Gale raises a gnarled staff, its tip wreathed in an unnatural emerald mist. Their eyes, burning with a feverish light, fix on you with a chilling intensity, and the air crackles with malevolent energy.
+
+The battle begins — what do you do?
+
+
+──────────────────────────────────────────────────
+  ⚔️  COMBAT — Cultist of the Howling Gale
+──────────────────────────────────────────────────
+[Aethelred] spill the shade of clelestial glass on the floor to make damage
+   [SYSTEM] Aethelred attempted: spill celestial glass on the floor to make damage. Result: FAILED (DC 10) | 'A shard of celestial glass; A tarnished halo fragment' was consumed/lost.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a guttural chant escaping their lips as a spectral wind whips around them. You sidestep the wild swing, the corrupted air whistling past your ear, leaving a chill in its wake.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: MISS
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a wicked daab whistling through the air. You twist, the enchanted blade slicing through the space where your head just was, a phantom chill grazing your skin.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: MISS
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a whirlwind of tattered robes and crackling energy, but you sidestep the clumsy strike with practiced ease. The air whips around you, smelling of ozone and desperation.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: MISS
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) A gust of wind, sharp and unnatural, whips around you, but you sidestep the unseen force. The Cultist's Saiyasart magic, meant to rend and tear, dissipates harmlessly against your divine resilience.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: MISS
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a guttural chant escaping his lips, but his blade slices only air as you deftly sidestep the wild swing. The humid jungle air seems to mock his failed assault.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 8 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) A chilling gust, laced with the scent of ozone and desperation, whips around you. The cultist's blade, crackling with unnatural energy, slices through the air where you stood a moment before, leaving only a faint, lingering chill.
+
+[Aethelred]  attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 6 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a wild swing of their enchanted blade missing your guard by a hair's breadth. You feel a gust of unnaturally cold wind, a mere whisper of the gale they command, as their attack sails harmlessly through the air.
+
+[Aethelred] chain tied the mosnter and sword attack
+   [SYSTEM] Aethelred attempted: chain tied the mosnter and sword attack. Result: PASSED (DC 10) | Cultist of the Howling Gale is now RESTRAINED!
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist flails wildly, their movements jerky and desperate, but their enchanted blade whistles through the humid air, missing you by a hair's breadth. You feel the unnatural chill of their wind magic, a mere whisper against your skin.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: MISS
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, their movements a frantic dance of Saiyasart, but their enchanted dagger whistles through the humid air, missing your scarred flesh by a hair's breadth. You feel the raw, unblessed wind they command buffet against you, a chilling echo of the stolen song.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 8 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a whirlwind of tattered robes and desperate, unfocused rage, but his strike passes through empty air as you sidestep with practiced ease. The wind magic he channels whips around you, a chilling caress rather than a true blow.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 5 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, their movements jerky and desperate, but the raw, untamed power that crackles around you deflects their wild strike. You stand firm, a bulwark against their twisted magic.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: MISS
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The Cultist of the Howling Gale lunges, their movements jerky and uncoordinated, but the blow whistles harmlessly through the humid air, a testament to your divine reflexes. You remain untouched, the air around you humming with an almost imperceptible, protective energy.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 6 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a flurry of wild, wind-whipped strikes aimed at your exposed form. You easily sidestep the clumsy assault, the air whistling harmlessly past your ear.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 7 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The Cultist of the Howling Gale lunges, their movements a frantic dance of desperation. You sidestep with practiced ease, their grasping hands finding only the humid air.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 6 damage.
+   [SYSTEM] 👹 Cultist of the Howling Gale attacks Aethelred: MISS!
+[DM] (Cultist of the Howling Gale's Turn) The cultist lunges, a desperate, wind-choked cry escaping their lips, but your divine reflexes, honed by aeons of existence, allow you to sidestep the clumsy blow.
+
+[Aethelred] attack
+   [SYSTEM] Aethelred attacked Cultist of the Howling Gale: HIT for 7 damage.
+
+[STORY SUMMARY] Aethelred, with a series of well-aimed blows, finally brought down the howling cultist.
+
+[CLEARED] The Corrupted Shrine
+[DM] The air, moments ago thick with the clash of steel and the guttural roars of your defeated foe, now settles into an unnerving quiet. The scent of ozone and something acridly sweet, the lingering residue of corrupted magic, hangs heavy in the air, mingling with the faint, metallic tang of spilled blood. You stand amidst the wreckage, the brutal cost of this victory etched into the very ground beneath your feet, but the echo of the stolen song, though muted, still whispers a promise of what awaits.
+

@@ -2,58 +2,157 @@
     "party": [
         {
             "id": "player1",
-            "name": "Inquisitor Valerius",
-            "role": "Cleric",
-            "hp": 18,
-            "max_hp": 18,
-            "ac": 18,
+            "name": "Vance. Proceed to the first encounter.",
+            "role": "Fighter",
+            "hp": 20,
+            "max_hp": 20,
+            "ac": 16,
             "stats": {
-                "PHYS": 1,
-                "MENT": 3,
-                "SOC": 0
+                "PHYS": 3,
+                "MENT": 0,
+                "SOC": -1
             },
-            "zone": "NEAR",
+            "zone": "FAR",
             "inventory": [
-                "Warhammer",
-                "Plate",
-                "Shield",
-                "Holy Symbol",
-                "A tarnished silver holy symbol; A worn leather-bound book of forbidden rites",
-                "Tainted Water Sample"
+                "Longsword",
+                "Chainmail",
+                "Healing Potion",
+                "stolen guild blade",
+                "cult talisman",
+                "iron key",
+                "strange vial"
             ],
             "condition": "NORMAL",
             "abilities": [
                 {
-                    "name": "Pray",
+                    "name": "Second Wind",
                     "recharge_type": "short_rest",
-                    "max_uses": 99,
-                    "current_uses": 98
+                    "max_uses": 1,
+                    "current_uses": 1
                 }
             ],
-            "lore": "This devout warrior of the faith dedicates their life to purging heresy from the land; their faith is a shield, their warhammer a tool of divine judgment.",
-            "title": "The Heretic's Bane",
-            "stat_justification": "Your holy calling and martial prowess align perfectly with the Cleric archetype."
+            "lore": "A battle-hardened warrior carrying a longsword and wearing heavy chainmail. Trained at the imperial academy.",
+            "title": "",
+            "stat_justification": ""
         }
     ],
-    "enemies": [],
+    "enemies": [
+        {
+            "id": "e1",
+            "name": "Mine Boss",
+            "role": "Enemy",
+            "hp": 0,
+            "max_hp": 22,
+            "ac": 14,
+            "stats": {
+                "PHYS": 2,
+                "MENT": 3,
+                "SOC": 1
+            },
+            "zone": "FAR",
+            "inventory": [],
+            "condition": "NORMAL",
+            "abilities": [],
+            "lore": "",
+            "title": "",
+            "stat_justification": ""
+        }
+    ],
     "combat_memory": [],
     "story_memory": [
-        "[PROLOGUE] The City of Shattered Glass hung suspended in perpetual twilight, its obsidian spires piercing a sky choked with perpetual fog, a testament to the ancient, predatory lords who claimed dominion. \\n\\n\\nA guttural shriek echoed from the shadowed alley as a Sewer Mutant, its skin a sickly grey and limbs grotesquely elongated, lunged from the filth, its claws dripping with viscous ichor, but Valerius's faith was a bulwark, his warhammer a swift, righteous end. \\n\\n\\nWith a final, shuddering breath, Inquisitor Valerius pushed open the heavy, iron-bound doors of the Adventurer's Guild and stepped inside.",
-        "The Crimson-Eyed Goblins' attacks proved futile against Inquisitor Valerius, who, despite a brief attempt to invoke divine aid, emerged from the skirmish unharmed."
+        "[PROLOGUE] The sky above Aethelgard bled a perpetual twilight, a bruised canvas scarred by the lingering wounds of The Severing.\\n\\nA sudden shriek echoed from a darkened alley as a pair of Ruin-Born goblins, their eyes glinting with malice, lunged from the shadows, their rusted blades glinting; Vance's heavy chainmail clanked as he spun, his longsword a blur of steel that met their clumsy charge with brutal efficiency.\\n\\nWith a final, guttural roar from the fallen creatures, Vance wiped his blade on his greave and, ignoring the stench of decay and desperation clinging to the city streets, pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside.",
+        "The sneaky goblin ambusher was swiftly dealt with by Vance.",
+        "After a fierce exchange, Vance, the intrepid explorer, managed to overcome the formidable Mine Boss, though not without enduring several heavy blows."
     ],
     "global_state": {
         "time": {
             "day": 1,
-            "hour": 8,
-            "phase": "Morning"
+            "hour": 16,
+            "phase": "Afternoon"
         },
-        "turn_counter": 5,
+        "turn_counter": 13,
         "is_in_combat": false,
         "current_phase": "EXPLORATION",
-        "current_quest_id": "tainted_wellspring",
-        "current_node_id": "node_02"
+        "current_quest_id": "sample_dungeon",
+        "current_node_id": "node_05"
     },
     "quest_states": {
+        "whispering_woods_scout": {
+            "quest_id": "whispering_woods_scout",
+            "name": "Whispers in the Verdant Mire",
+            "description": "A Whisper Elf envoy has gone missing near the treacherous Verdant Mire. Their last known location was a cluster of ancient, moss-covered oaks.",
+            "nodes": {
+                "node_01": {
+                    "name": "Moss-Kissed Clearing",
+                    "base_description": "Sunlight struggles to pierce the dense canopy, illuminating ancient oaks draped in thick moss. The air is heavy with the scent of damp earth and decay.",
+                    "connected_to": [
+                        "node_02",
+                        "node_03"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "The Whisper Elves believe these ancient trees are conduits to the spirit world, their roots reaching into forgotten realms.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "node_id": "node_01"
+                },
+                "node_02": {
+                    "name": "Tangled Thicket",
+                    "base_description": "Thorny vines and gnarled roots create a near-impenetrable barrier. Strange, guttural snarls echo from within the undergrowth.",
+                    "connected_to": [
+                        "node_01"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "The Ruin-Born often use such dense foliage for ambushes, their mutated forms surprisingly agile amongst the thorns.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Goblin Mire-Stalker",
+                    "enemy_archetype": "skirmisher",
+                    "enemy_attack_flavor": "Jagged Spear Thrust",
+                    "enemy_tag": "goblin_ambusher",
+                    "node_id": "node_02"
+                },
+                "node_03": {
+                    "name": "Mire's Edge",
+                    "base_description": "The ground becomes soft and treacherous, a stagnant pool of dark water reflecting the oppressive sky. A faint, almost imperceptible trail leads deeper into the mire.",
+                    "connected_to": [
+                        "node_01",
+                        "node_04"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "The Verdant Mire is said to be a place where the veil between worlds is thin, and strange creatures from the other side can sometimes slip through.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "puzzle_obstacle": "A series of unstable, moss-slicked stones must be crossed to reach the other side of the mire.",
+                    "puzzle_base_dc": 12,
+                    "node_id": "node_03"
+                },
+                "node_04": {
+                    "name": "The Whispering Grove",
+                    "base_description": "A cluster of colossal, ancient oaks stands sentinel, their branches twisted like skeletal fingers. The air here hums with an unnatural silence, broken only by faint, disembodied whispers.",
+                    "connected_to": [
+                        "node_03"
+                    ],
+                    "event_type": "boss",
+                    "visited": true,
+                    "cleared": false,
+                    "lore_fragment": "The Whisper Elves sometimes perform rituals in places like this, seeking guidance from the ancient spirits of the forest. However, not all spirits are benevolent.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Mire-Bound Wolf Pack Alpha",
+                    "enemy_archetype": "boss",
+                    "enemy_attack_flavor": "Vicious Bite and Mire-Leech Toxin",
+                    "enemy_tag": "wolf",
+                    "node_id": "node_04"
+                }
+            },
+            "entrance_node": "node_01"
+        },
         "sample_dungeon": {
             "quest_id": "sample_dungeon",
             "name": "Bounty: The Smuggler's Mine",
@@ -96,7 +195,7 @@
                         "node_02"
                     ],
                     "event_type": "safe",
-                    "visited": true,
+                    "visited": false,
                     "cleared": true,
                     "enemy_tag": null,
                     "lore_fragment": "### The Stolen Cargo\nThe Guild markings on the barrels confirm it: three of these shipments were reported hijacked on the King's Road over the past month. Someone organized is running this operation \u2014 goblins alone are not capable of this level of logistics. There is a handler deeper in the mine."
@@ -127,367 +226,6 @@
                     "cleared": true,
                     "enemy_tag": "mine_boss",
                     "lore_fragment": "### The Mechanized Cult Connection\nThe ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal \u2014 he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected."
-                }
-            }
-        },
-        "whispering_woods_raid": {
-            "quest_id": "whispering_woods_raid",
-            "name": "Whispering Woods Raid",
-            "description": "A caravan carrying vital supplies for the Iron Vanguard has been ambushed deep within the Whisper Elves' territory. Recover what remains.",
-            "entrance_node": "node_01",
-            "nodes": {
-                "node_01": {
-                    "node_id": "node_01",
-                    "name": "Forest Clearing",
-                    "base_description": "You stand at the edge of a blood-soaked clearing. The remnants of an Iron Vanguard caravan are scattered amongst the ancient trees. Broken wagons, splintered wood, and the chilling silence of death hang heavy in the air. The scent of pine is now mingled with the metallic tang of blood. A narrow, overgrown path leads deeper into the woods.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "safe",
-                    "visited": true,
-                    "cleared": true,
-                    "enemy_tag": null,
-                    "lore_fragment": "### The Whisper Elves' Domain\nThese woods have always been the domain of the Whisper Elves. They are fiercely territorial and possess an intimate knowledge of the forest, using its natural defenses to their advantage. Few dare to trespass, and fewer still return to tell the tale."
-                },
-                "node_02": {
-                    "node_id": "node_02",
-                    "name": "Ambush Point",
-                    "base_description": "The path opens into a denser part of the forest. Twisted roots form natural pitfalls, and the canopy above is so thick that only dappled sunlight pierces through. Crude tripwires are strung between trees, and the shadows seem to writhe with unseen movement. The air is thick with tension, and the rustling of leaves sounds like whispers. The path continues ahead, and a less-traveled trail branches off to the side.",
-                    "connected_to": [
-                        "node_01",
-                        "node_03",
-                        "node_04"
-                    ],
-                    "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
-                    "enemy_tag": "goblin_ambusher",
-                    "lore_fragment": "### Goblin Tactics\nThe Ruin-Born, particularly the goblins, are known for their opportunistic ambushes. They utilize the terrain to their advantage, setting traps and using the element of surprise to overwhelm their prey. This clearing shows signs of their crude, yet effective, methods."
-                },
-                "node_03": {
-                    "node_id": "node_03",
-                    "name": "Scavenger's Cache",
-                    "base_description": "Hidden behind a thicket of thorny bushes, you discover a small, makeshift camp. Rusted weapons, torn scraps of cloth, and gnawed bones litter the ground. A few discarded sacks contain pilfered goods from the caravan \u2013 mostly dried rations and some dented metal plating. The air here is rank with the smell of unwashed bodies and stale ale. The only way out is back to the Ambush Point.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "safe",
-                    "visited": false,
-                    "cleared": true,
-                    "enemy_tag": null,
-                    "lore_fragment": "### Bandit Scum\nWhile the Whisper Elves are the primary inhabitants of these woods, opportunistic bandits and Ruin-Born often use their territory as a hunting ground. They prey on the weak and the unwary, leaving behind only ruin and despair. These scavengers likely took advantage of the chaos."
-                },
-                "node_04": {
-                    "node_id": "node_04",
-                    "name": "The Whispering Grove",
-                    "base_description": "You enter a clearing dominated by a massive, ancient tree whose branches twist like skeletal fingers towards the sky. Strange, luminescent fungi grow on its bark, casting an eerie glow. The air here is unnaturally still, and a faint, almost imperceptible whispering can be heard, seemingly emanating from the tree itself. At the base of the tree, a figure clad in dark leather and adorned with poisoned darts stands guard. They are clearly not alone in this sacred place.",
-                    "connected_to": [
-                        "node_02",
-                        "node_05"
-                    ],
-                    "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
-                    "enemy_tag": "bandit",
-                    "lore_fragment": "### The Grove's Secret\nThis grove is said to be a place of power for the Whisper Elves, where they commune with the spirits of the forest. The presence of bandits here suggests a deeper corruption, or perhaps a desperate alliance. The whispering might be the voices of the forest itself, warning intruders."
-                },
-                "node_05": {
-                    "node_id": "node_05",
-                    "name": "The Elven Chieftain's Lair",
-                    "base_description": "Deep within the grove, you find a hidden alcove carved into the roots of the ancient tree. The air is thick with the scent of exotic herbs and potent poisons. Scattered around are vials, alchemical equipment, and a collection of intricately carved bone totems. Before you stands the Chieftain, a lithe figure with eyes that gleam with ancient malice and a bow strung with what looks like dried sinew. They are the architect of this ambush, and they will defend their territory with deadly precision.",
-                    "connected_to": [
-                        "node_04"
-                    ],
-                    "event_type": "boss",
-                    "visited": false,
-                    "cleared": false,
-                    "enemy_tag": "bandit",
-                    "lore_fragment": "### The Poisoned Arrow\nThe Whisper Elves are masters of poison, their knowledge passed down through generations. Their arrows can fell the mightiest warriors, and their brews can incapacitate even the most resilient foes. This Chieftain is the embodiment of their deadly art, a true threat to any who dare to disturb their peace."
-                }
-            }
-        },
-        "whispering_gears": {
-            "quest_id": "whispering_gears",
-            "name": "The Whispering Gears",
-            "description": "A section of the lower city's ventilation system has gone silent. Engineers suspect a rogue cult and their disturbing rituals.",
-            "entrance_node": "node_01",
-            "nodes": {
-                "node_01": {
-                    "node_id": "node_01",
-                    "name": "Ventilation Access Shaft",
-                    "base_description": "A cold, metallic shaft descends into darkness. The air is thick with the smell of ozone and decay. Faint grinding sounds echo from below.",
-                    "connected_to": [
-                        "node_02",
-                        "node_03"
-                    ],
-                    "event_type": "safe",
-                    "visited": true,
-                    "cleared": true,
-                    "lore_fragment": "The Sky-Cities are not built, but grown. Ancient, colossal machines form their foundations, their gears turning with a life of their own. The Static Mist is their lifeblood, and their slow decay is our doom.",
-                    "grants_item": null,
-                    "required_item": null
-                },
-                "node_02": {
-                    "node_id": "node_02",
-                    "name": "The Grinding Chamber",
-                    "base_description": "Massive, rusted gears dominate this chamber, still turning with a deafening groan. The floor is slick with an oily residue. Strange symbols are etched into the metal.",
-                    "connected_to": [
-                        "node_01",
-                        "node_04"
-                    ],
-                    "event_type": "combat",
-                    "visited": true,
-                    "cleared": false,
-                    "lore_fragment": "The Whispering Cog believes the machinery is divine. They perform rituals to appease the 'Great Grinder,' hoping to hasten its awakening and usher in a new age of mechanical enlightenment.",
-                    "grants_item": null,
-                    "required_item": null,
-                    "enemy_name": "Cog-Driven Cultist",
-                    "enemy_archetype": "minion",
-                    "enemy_attack_flavor": "Whirls a rusty wrench with cultic fervor.",
-                    "enemy_tag": "cultist"
-                },
-                "node_03": {
-                    "node_id": "node_03",
-                    "name": "The Static Conduit",
-                    "base_description": "A narrow passage where the air crackles with raw energy. Wires hang precariously, sparking intermittently. A large, locked grate blocks further progress.",
-                    "connected_to": [
-                        "node_01",
-                        "node_05"
-                    ],
-                    "event_type": "puzzle",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "Technomancy is a dangerous art. The Static Mist can grant immense power, but prolonged exposure warps the mind and body, leading to 'Static Sickness' or the dreaded 'Haywiring' of one's very being.",
-                    "grants_item": "Static Key",
-                    "required_item": null,
-                    "puzzle_obstacle": "A heavy grate secured by a complex, sparking lock. The lock is humming with residual static energy.",
-                    "puzzle_base_dc": 14
-                },
-                "node_04": {
-                    "node_id": "node_04",
-                    "name": "The Scavenger's Nest",
-                    "base_description": "A small alcove filled with discarded parts and crude tools. The stench of unwashed bodies hangs heavy in the air. A hulking figure guards the entrance to the next area.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "Goblins, once common pests, have adapted to the lower city's decay. They scavenge for anything useful, often falling prey to the cultists or becoming their unwilling servants.",
-                    "grants_item": null,
-                    "required_item": null,
-                    "enemy_name": "Rust-Eaten Goblin Brute",
-                    "enemy_archetype": "brute",
-                    "enemy_attack_flavor": "Swings a massive, crudely fashioned hammer.",
-                    "enemy_tag": "goblin"
-                },
-                "node_05": {
-                    "node_id": "node_05",
-                    "name": "The Heart of the Machine",
-                    "base_description": "This vast chamber houses a colossal, pulsating mechanism. The air is thick with the hum of latent power and the chanting of cultists. At the center, a robed figure directs the ritual.",
-                    "connected_to": [
-                        "node_03"
-                    ],
-                    "event_type": "boss",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "The cult believes that by feeding the ancient machinery with energy and sacrifice, they can awaken its true purpose, a purpose that may involve the destruction of the Sky-Cities and the liberation of the surface.",
-                    "grants_item": null,
-                    "required_item": "Static Key",
-                    "enemy_name": "The Gear-Priest",
-                    "enemy_archetype": "boss",
-                    "enemy_attack_flavor": "Channels raw static energy through a corrupted cog.",
-                    "enemy_tag": "cultist"
-                }
-            }
-        },
-        "ruined_outpost_salvage": {
-            "quest_id": "ruined_outpost_salvage",
-            "name": "Ruined Outpost Salvage",
-            "description": "An Iron Vanguard outpost in the Scarred Plains has fallen silent. Recover any valuable supplies and assess the situation.",
-            "entrance_node": "node_01",
-            "nodes": {
-                "node_01": {
-                    "node_id": "node_01",
-                    "name": "Outpost Gates",
-                    "base_description": "The rusted gates of the Iron Vanguard outpost hang precariously, their once proud black iron scarred by the elements. A faint smell of decay hangs in the air.",
-                    "connected_to": [
-                        "node_02",
-                        "node_03"
-                    ],
-                    "event_type": "safe",
-                    "visited": true,
-                    "cleared": true,
-                    "lore_fragment": "The Iron Vanguard, a bulwark against the encroaching Ruin-Born, relies on discipline and steel. Their outposts are vital for maintaining order in the Scarred Plains.",
-                    "grants_item": null,
-                    "required_item": null
-                },
-                "node_02": {
-                    "node_id": "node_02",
-                    "name": "Barracks Mess Hall",
-                    "base_description": "Overturned tables and scattered mess kits litter the floor of what was once a bustling mess hall. The air is thick with the stench of stale blood and something acrid.",
-                    "connected_to": [
-                        "node_01",
-                        "node_04"
-                    ],
-                    "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "The Ruin-Born are not a unified force, but rather a collection of savage tribes. Their attacks are often brutal and opportunistic, overwhelming unprepared garrisons.",
-                    "grants_item": "Tarnished Ration Tin",
-                    "required_item": null,
-                    "enemy_name": "Goblin Scavengers",
-                    "enemy_archetype": "minion",
-                    "enemy_attack_flavor": "A rusty dagger thrust with surprising speed.",
-                    "enemy_tag": "goblin"
-                },
-                "node_03": {
-                    "node_id": "node_03",
-                    "name": "Supply Depot Entrance",
-                    "base_description": "A heavy, reinforced door blocks the entrance to the outpost's supply depot. Strange symbols are crudely scrawled across its surface, hinting at something more than just a simple lock.",
-                    "connected_to": [
-                        "node_01",
-                        "node_05"
-                    ],
-                    "event_type": "puzzle",
-                    "visited": true,
-                    "cleared": true,
-                    "lore_fragment": "The Whisper Elves are masters of subtle manipulation, often leaving behind arcane wards or traps to deter intruders from their territories or those they deem worthy of their attention.",
-                    "grants_item": null,
-                    "required_item": null,
-                    "puzzle_obstacle": "The door is sealed by a magical ward that requires a specific sequence of runes to be activated. The runes are faded and partially obscured.",
-                    "puzzle_base_dc": 14
-                },
-                "node_04": {
-                    "node_id": "node_04",
-                    "name": "Armory Remnants",
-                    "base_description": "Shattered weapon racks and dented armor lie scattered amongst the debris. A few intact, but heavily damaged, weapons remain, hinting at a desperate struggle.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "The Iron Vanguard's reliance on black-powder weapons makes them vulnerable in close quarters. Their heavy armor, while protective, can also be a hindrance.",
-                    "grants_item": "Dented Iron Helmet",
-                    "required_item": null,
-                    "enemy_name": "Bandit Marauders",
-                    "enemy_archetype": "skirmisher",
-                    "enemy_attack_flavor": "A wild swing with a crude club.",
-                    "enemy_tag": "bandit"
-                },
-                "node_05": {
-                    "node_id": "node_05",
-                    "name": "Commanding Officer's Quarters",
-                    "base_description": "This room is in disarray, with papers and personal effects strewn about. A large, imposing figure stands defiantly amidst the chaos, guarding the last remnants of the outpost's command.",
-                    "connected_to": [
-                        "node_03"
-                    ],
-                    "event_type": "boss",
-                    "visited": true,
-                    "cleared": false,
-                    "lore_fragment": "The Ruin-Born are not merely mindless brutes; some possess a cunning and ferocity that makes them formidable leaders. This one likely orchestrated the attack on the outpost.",
-                    "grants_item": "Iron Vanguard Officer's Journal",
-                    "required_item": null,
-                    "enemy_name": "Ruin-Born Chieftain",
-                    "enemy_archetype": "boss",
-                    "enemy_attack_flavor": "A bone-crushing overhead smash with a jagged axe.",
-                    "enemy_tag": "goblin"
-                }
-            }
-        },
-        "tainted_wellspring": {
-            "quest_id": "tainted_wellspring",
-            "name": "The Tainted Wellspring",
-            "description": "The water from the Sludge's primary wellspring has turned a sickly crimson. Those who drink it are becoming... changed.",
-            "entrance_node": "node_01",
-            "nodes": {
-                "node_01": {
-                    "node_id": "node_01",
-                    "name": "The Sludge's Edge",
-                    "base_description": "The air here is thick with the stench of decay and stagnant water. Twisted, fungal growths cling to the damp, crumbling walls. A faint, crimson glow emanates from deeper within.",
-                    "connected_to": [
-                        "node_02",
-                        "node_03"
-                    ],
-                    "event_type": "safe",
-                    "visited": true,
-                    "cleared": true,
-                    "lore_fragment": "The Blood Barons consider the Sludge a necessary evil, a breeding ground for their 'lesser' servants and a convenient place to dispose of their mistakes. The perpetual twilight above offers no solace here.",
-                    "grants_item": null,
-                    "required_item": null
-                },
-                "node_02": {
-                    "node_id": "node_02",
-                    "name": "Goblin Warrens",
-                    "base_description": "A series of cramped, foul-smelling tunnels carved into the muck. Crude traps and discarded refuse litter the ground. The chittering of unseen creatures echoes from the darkness.",
-                    "connected_to": [
-                        "node_01",
-                        "node_04"
-                    ],
-                    "event_type": "combat",
-                    "visited": true,
-                    "cleared": false,
-                    "lore_fragment": "These goblins are not native to the Sludge; they are refugees from the surface, driven down by the Inquisition's purges. They have learned to survive by scavenging and worshipping the tainted water.",
-                    "grants_item": "Tainted Water Sample",
-                    "required_item": null,
-                    "enemy_name": "Crimson-Eyed Goblins",
-                    "enemy_archetype": "minion",
-                    "enemy_attack_flavor": "Jagged Bone Shiv",
-                    "enemy_tag": "goblin"
-                },
-                "node_03": {
-                    "node_id": "node_03",
-                    "name": "The Whispering Chasm",
-                    "base_description": "A deep, dark chasm splits the path, its depths obscured by a thick, crimson mist. The air hums with an unnatural energy, and faint, unsettling whispers seem to emanate from the abyss.",
-                    "connected_to": [
-                        "node_01",
-                        "node_05"
-                    ],
-                    "event_type": "puzzle",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "The whispers are said to be the dying pleas of those who drank too deeply from the wellspring. Some believe they are the voices of the Sludge itself, beckoning new victims.",
-                    "grants_item": null,
-                    "required_item": "Tainted Water Sample",
-                    "puzzle_obstacle": "A narrow, unstable bridge of bone and sinew spans the chasm. It groans ominously under the slightest pressure.",
-                    "puzzle_base_dc": 14
-                },
-                "node_04": {
-                    "node_id": "node_04",
-                    "name": "Cultist Den",
-                    "base_description": "A makeshift altar of bone and rusted metal stands in the center of this chamber. Strange symbols are scrawled on the walls in what appears to be dried blood. The air is heavy with incense and dread.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "combat",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "These cultists worship the 'Crimson Mother,' a twisted entity they believe resides within the wellspring. They perform rituals to appease it, often involving the sacrifice of those unfortunate enough to fall into their hands.",
-                    "grants_item": "Ritual Dagger",
-                    "required_item": null,
-                    "enemy_name": "Crimson Zealots",
-                    "enemy_archetype": "skirmisher",
-                    "enemy_attack_flavor": "Blood-Infused Incantation",
-                    "enemy_tag": "cultist"
-                },
-                "node_05": {
-                    "node_id": "node_05",
-                    "name": "The Tainted Wellspring",
-                    "base_description": "The source of the corruption. A large, cavernous chamber dominated by a pool of viscous, crimson liquid. The water pulses with a sickly light, and the air vibrates with raw, unholy power. Twisted, mutated forms writhe within the pool.",
-                    "connected_to": [
-                        "node_03"
-                    ],
-                    "event_type": "boss",
-                    "visited": false,
-                    "cleared": false,
-                    "lore_fragment": "This wellspring was once a source of pure, life-giving water. The Blood Barons experimented with forbidden blood magic, and their hubris corrupted it, turning it into a font of mutation and madness.",
-                    "grants_item": null,
-                    "required_item": null,
-                    "enemy_name": "The Sludge Mother",
-                    "enemy_archetype": "boss",
-                    "enemy_attack_flavor": "Corrosive Crimson Bile",
-                    "enemy_tag": "cultist"
                 }
             }
         }
