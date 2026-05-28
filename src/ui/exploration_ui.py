@@ -105,7 +105,11 @@ def render_exploration_dashboard(
         base_dc = node.get("puzzle_base_dc", 14)
         print(f"  🧩 Puzzle: \"{obstacle}\"  (DC {base_dc})")
         print(f"  💡 Describe your creative solution to proceed!")
+        print("─" * 52)
 
+    # ── Command Hints ──────────────────────────────────────
+    print("  Commands: LOOK | MOVE [exit] | REST | STATUS | INVENTORY | QUIT")
+    print("  💬 Natural language/free speech works too! Just describe what you do.")
     print("─" * 52)
 
 
@@ -145,16 +149,8 @@ def render_hub_dashboard(
 
     print("─" * 52)
 
-    # ── Quest Board ───────────────────────────────────────
-    if available_quests:
-        print("  📋 QUEST BOARD:")
-        for i, q in enumerate(available_quests, 1):
-            print(f"    [{i}] {q['name']}")
-            if q.get("description"):
-                desc = q["description"]
-                print(f"        {desc[:80]}{'...' if len(desc) > 80 else ''}")
-    else:
-        print("  📋 QUEST BOARD: No quests available.")
+    # ── Quest Board UX ────────────────────────────────────
+    print("  📋 QUEST BOARD: Available! (Type 'QUEST' to view and select quests)")
 
     print("─" * 52)
     print("  Commands: QUEST BOARD | REST | STATUS | INVENTORY | QUIT")

@@ -139,6 +139,25 @@ class DataManager:
         except Exception:
             return None
 
+    def delete_quest_state(self, quest_id: str) -> None:
+        """
+        Removes the saved quest state for a specific quest from the campaign save file.
+        This forces the engine to reload the clean quest template when starting fresh.
+        """
+        try:
+            if not os.path.exists(self.data_path):
+                return
+            with open(self.data_path, 'r') as f:
+                data = json.load(f)
+            if "quest_states" in data and quest_id in data["quest_states"]:
+                del data["quest_states"][quest_id]
+                with open(self.data_path, 'w') as f:
+                    json.dump(data, f, indent=4)
+                    f.flush()
+                    os.fsync(f.fileno())
+        except Exception as e:
+            print(f"⚠️ Error deleting quest state '{quest_id}': {e}")
+
 
     @staticmethod
     def append_to_log(text: str, log_path: str = "data/active/campaign_log.txt"):

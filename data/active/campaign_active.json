@@ -2,7 +2,7 @@
     "party": [
         {
             "id": "player1",
-            "name": "Vance. Proceed to the first encounter.",
+            "name": "Thorne Blacksteel",
             "role": "Fighter",
             "hp": 20,
             "max_hp": 20,
@@ -12,15 +12,11 @@
                 "MENT": 0,
                 "SOC": -1
             },
-            "zone": "FAR",
+            "zone": "NEAR",
             "inventory": [
                 "Longsword",
                 "Chainmail",
-                "Healing Potion",
-                "stolen guild blade",
-                "cult talisman",
-                "iron key",
-                "strange vial"
+                "Healing Potion"
             ],
             "condition": "NORMAL",
             "abilities": [
@@ -36,45 +32,22 @@
             "stat_justification": ""
         }
     ],
-    "enemies": [
-        {
-            "id": "e1",
-            "name": "Mine Boss",
-            "role": "Enemy",
-            "hp": 0,
-            "max_hp": 22,
-            "ac": 14,
-            "stats": {
-                "PHYS": 2,
-                "MENT": 3,
-                "SOC": 1
-            },
-            "zone": "FAR",
-            "inventory": [],
-            "condition": "NORMAL",
-            "abilities": [],
-            "lore": "",
-            "title": "",
-            "stat_justification": ""
-        }
-    ],
+    "enemies": [],
     "combat_memory": [],
     "story_memory": [
-        "[PROLOGUE] The sky above Aethelgard bled a perpetual twilight, a bruised canvas scarred by the lingering wounds of The Severing.\\n\\nA sudden shriek echoed from a darkened alley as a pair of Ruin-Born goblins, their eyes glinting with malice, lunged from the shadows, their rusted blades glinting; Vance's heavy chainmail clanked as he spun, his longsword a blur of steel that met their clumsy charge with brutal efficiency.\\n\\nWith a final, guttural roar from the fallen creatures, Vance wiped his blade on his greave and, ignoring the stench of decay and desperation clinging to the city streets, pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside.",
-        "The sneaky goblin ambusher was swiftly dealt with by Vance.",
-        "After a fierce exchange, Vance, the intrepid explorer, managed to overcome the formidable Mine Boss, though not without enduring several heavy blows."
+        "[PROLOGUE] The sky above Aethelgard bled a perpetual twilight, a bruised canvas where the scars of The Severing still wept raw.  \\n\\nA guttural shriek echoed from a shadowed alley as Thorne Blacksteel deflected a rusted cleaver, the clang of steel on steel a jarring counterpoint to the stench of refuse and desperation. \\n\\nHe shoved the snarling Ruin-Born back, the heavy oak doors of the Adventurer's Guild groaning open under his gauntleted hand as he stepped into the relative sanctuary within."
     ],
     "global_state": {
         "time": {
             "day": 1,
-            "hour": 16,
-            "phase": "Afternoon"
+            "hour": 8,
+            "phase": "Morning"
         },
-        "turn_counter": 13,
+        "turn_counter": 0,
         "is_in_combat": false,
         "current_phase": "EXPLORATION",
         "current_quest_id": "sample_dungeon",
-        "current_node_id": "node_05"
+        "current_node_id": "node_04"
     },
     "quest_states": {
         "whispering_woods_scout": {
@@ -228,6 +201,101 @@
                     "lore_fragment": "### The Mechanized Cult Connection\nThe ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal \u2014 he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected."
                 }
             }
+        },
+        "forgotten_mine_delve": {
+            "quest_id": "forgotten_mine_delve",
+            "name": "Forgotten Mine Delve",
+            "description": "The old iron mine near Oakhaven has become infested. Clear out the vermin and secure the tunnels.",
+            "nodes": {
+                "node_01": {
+                    "name": "Mine Entrance",
+                    "base_description": "The gaping maw of the old iron mine, choked with debris and the stench of decay. Rusted tracks lead into the darkness.",
+                    "connected_to": [
+                        "node_02",
+                        "node_03"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "This mine was once a source of great wealth for Oakhaven, before the Severing twisted the earth.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "node_id": "node_01"
+                },
+                "node_02": {
+                    "name": "Collapsed Tunnel",
+                    "base_description": "A section of the tunnel has caved in, blocking the path with tons of rock and splintered timbers. A narrow crawlspace offers a precarious alternative.",
+                    "connected_to": [
+                        "node_01"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "The Ruin-Born are known to cause cave-ins to trap intruders or create defensive positions.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "puzzle_obstacle": "A precarious crawlspace through unstable rubble.",
+                    "puzzle_base_dc": 12,
+                    "node_id": "node_02"
+                },
+                "node_03": {
+                    "name": "Goblin Warrens",
+                    "base_description": "The air here is thick with the smell of unwashed bodies and stale refuse. Crude nests are scattered amongst the ore carts.",
+                    "connected_to": [
+                        "node_01",
+                        "node_04"
+                    ],
+                    "event_type": "combat",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "These goblins are descendants of those who survived the Severing, their forms warped by the strange energies.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Scrabbling Goblin Pack",
+                    "enemy_archetype": "minion",
+                    "enemy_attack_flavor": "Jagged Shiv Attack",
+                    "enemy_tag": "goblin",
+                    "node_id": "node_03"
+                },
+                "node_04": {
+                    "name": "The Ore Chute",
+                    "base_description": "A steep, dark chute descends into the depths. The sound of dripping water echoes from below, mixed with guttural snarls.",
+                    "connected_to": [
+                        "node_03",
+                        "node_05"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "Whispers of the Whisper Elves speak of ancient, forgotten mining techniques that could extract ore with unnatural speed.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Rusted Goblin Brute",
+                    "enemy_archetype": "brute",
+                    "enemy_attack_flavor": "Club Smash",
+                    "enemy_tag": "goblin",
+                    "node_id": "node_04"
+                },
+                "node_05": {
+                    "name": "The Mine Boss's Lair",
+                    "base_description": "The cavern opens into a large chamber, littered with the remains of past victims and crude fortifications. A hulking figure stands guard over a pile of scavenged treasures.",
+                    "connected_to": [
+                        "node_04"
+                    ],
+                    "event_type": "boss",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "The Ruin-Born often revere powerful individuals, granting them dominion over their squalid territories.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Gnashfang, The Mine Lord",
+                    "enemy_archetype": "boss",
+                    "enemy_attack_flavor": "Crushing Maul Swing",
+                    "enemy_tag": "mine_boss",
+                    "node_id": "node_05"
+                }
+            },
+            "entrance_node": "node_01"
         }
     }
 }

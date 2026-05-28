@@ -1,107 +1,55 @@
 [PROLOGUE]
-The sky above Aethelgard bled a perpetual twilight, a bruised canvas scarred by the lingering wounds of The Severing.
+The sky above Aethelgard bled a perpetual twilight, a bruised canvas where the scars of The Severing still wept raw.  
 
-A sudden shriek echoed from a darkened alley as a pair of Ruin-Born goblins, their eyes glinting with malice, lunged from the shadows, their rusted blades glinting; Vance's heavy chainmail clanked as he spun, his longsword a blur of steel that met their clumsy charge with brutal efficiency.
+A guttural shriek echoed from a shadowed alley as Thorne Blacksteel deflected a rusted cleaver, the clang of steel on steel a jarring counterpoint to the stench of refuse and desperation. 
 
-With a final, guttural roar from the fallen creatures, Vance wiped his blade on his greave and, ignoring the stench of decay and desperation clinging to the city streets, pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside.
+He shoved the snarling Ruin-Born back, the heavy oak doors of the Adventurer's Guild groaning open under his gauntleted hand as he stepped into the relative sanctuary within.
 [END PROLOGUE]
 
 
 ══════════════════════════════════════════════════
   🏠 HUB — Adventurers Guild
 ══════════════════════════════════════════════════
-  🗣️ DM: You step inside, and a wave of unexpected warmth washes over you, a stark contrast to the chilling twilight and the stench of decay clinging to your armor. The clang of steel against rusted iron still echoes faintly in your ears from the alley, a fresh memory of the Ruin-Born's desperate lunge. The heavy wooden doors creak shut behind you, muffling the city's oppressive hum, and the air here smells of pipe smoke, stale ale, and something faintly metallic – perhaps the scent of past victories. Before you, pinned to a rough-hewn wooden board, a collection of parchments beckons, promising challenges and perhaps, just perhaps, a moment's respite from the shadows.
-[Vance. Proceed to the first encounter.] (Hub) Display current character status (HP/Inventory) to confirm resource state. Survey the interior of the Adventurer's Guild for active NPCs, job board objectives, or tactical mission nodes.
-[Vance. Proceed to the first encounter.] (Hub) 2
-[Vance. Proceed to the first encounter.] (Hub) questboard
+  🗣️ DM: You push through the heavy oak doors, the groaning hinges a familiar sound against the recent memory of a snarling Ruin-Born’s shriek and the sharp clang of deflected steel. The sudden warmth of the Adventurer's Guild washes over you, a welcome balm after the biting twilight and the stench of the shadowed alley. You’ve made it, Thorne Blacksteel, and though the world outside still bleeds raw, here, at least, the immediate danger has receded. Your eyes, still sharp from the recent close call, are drawn to the battered Quest Board, its parchment offerings a promise of challenges yet to be faced, on your own terms.
+[Thorne Blacksteel] (Hub) quest
 [QUEST ACCEPTED] Bounty: The Smuggler's Mine
 
 ──────────────────────────────────────────────────
   🗺️  EXPLORATION — Bounty: The Smuggler's Mine
 ──────────────────────────────────────────────────
 [EXPLORATION] Entered: Mine Entrance
-[DM] You stand before the gaping maw of the Smuggler's Mine, the air immediately growing damp and thick with the smell of mud and something ancient, something rotten. Dripping water echoes from the oppressive darkness ahead, a constant, unsettling rhythm in the gloom. To your left, a collapsed ore cart lies on its side, its wheels long since stripped, leaving only the primary path into the earth: the Main Shaft.
+[DM] You step through the splintered doors and into a damp, chilling cavern. The air hangs heavy with the stench of mud and decay, a smell that speaks of things long buried and best left undisturbed. Before you yawns the **Main Shaft**, a tunnel swallowed by an oppressive darkness, the only sound the mournful drip of water echoing from its unseen depths.
 
-[Vance. Proceed to the first encounter.] Move to Main Shaft.
+[Thorne Blacksteel] enter Main Shaft
 [MOVE] -> Main Shaft
-[DM] You push open the heavy wooden doors, the clang of your chainmail echoing in the sudden, oppressive silence. The Main Shaft stretches before you, a cavernous maw of rotten timbers and spent torches, the air thick with the stench of damp earth and something far more ancient. A chilling draft, carrying the faint scent of decay and the unsettling murmur of distant voices, whispers from deeper within the darkness. To your east, a rusted iron gate, mangled as if by immense force, bars a passage that might lead to a Storage Bay, while to the north, the main tunnel beckons, a path towards that disquieting sound.
+[DM] You push open the heavy oak doors and step into the Main Shaft, a cavernous tunnel that reeks of damp earth and decay. Rotting timbers groan overhead, threatening to give way, while the skeletal remains of ancient torches cast no light in the oppressive gloom. A chilling draft slithers from deeper within, carrying with it the unsettling whisper of something unseen, and the path ahead splits, one way barred by a rusted iron gate that guards the Storage Bay, the other leading towards the distant echo of voices in the Ambush Chamber.
 
-[Vance. Proceed to the first encounter.] Move to Ambush Chamber.
+[Thorne Blacksteel] ambush chamber
 [MOVE] -> Ambush Chamber
-[DM] You step through the threshold, and with a sudden, jarring clatter, torches erupt to life along the rough-hewn cavern walls. The air, thick with the stench of damp earth and something fouler, immediately prickles with tension as the low-ceilinged chamber reveals itself. Crates have been haphazardly piled into makeshift barricades, and a chilling screech tears through the silence as goblin ambushers spill from the shadows, their wicked blades already drawn and their yellow eyes burning with predatory hunger.
+[DM] You step through the groaning oak doors, and with a sudden, jarring scrape, torches along the walls erupt in a sputtering blaze, revealing a wide, low-ceilinged cavern. The air grows thick with the acrid stench of goblin and the metallic tang of fear as a chorus of guttural screeches erupts, and figures melt from the shadows, their rusted blades glinting in the newfound light. The path you entered from, the **Main Shaft**, is behind you, while a grim, reinforced door marked with a crude skull promises a way into **The Boss's Den**.
 
-[ENCOUNTER] Goblin Ambusher in Ambush Chamber
-[DM] The instant your boot crosses the threshold, a cascade of sparks erupts from hidden tripwires, igniting torches that cast a wild, dancing light across the cavern. The air, thick with the scent of damp earth and something metallic, is suddenly rent by a guttural screech. From behind hastily constructed barricades of splintered crates and rusted mining equipment, a wave of snarling goblins spills forth, their yellow eyes burning with a feral hunger, crude, stolen blades glinting in the flickering light. The battle begins — what do you do?
+[Thorne Blacksteel] quit
 
+══════════════════════════════════════════════════
+  🏠 HUB — Adventurers Guild
+══════════════════════════════════════════════════
+  🗣️ DM: You step inside, the heavy oak doors groaning shut behind you, muffling the guttural shrieks and the clang of steel that still echo in your ears. The air inside is thick with the scent of stale ale and woodsmoke, a welcome balm after the stench of refuse and desperation you just left behind. For a moment, the warmth is almost overwhelming, a stark contrast to the bruised twilight sky that bled above Aethelgard.
 
-──────────────────────────────────────────────────
-  ⚔️  COMBAT — Goblin Ambusher
-──────────────────────────────────────────────────
-   [SYSTEM] 🏃 👹 Goblin Ambusher moves to the MID zone toward Vance. Proceed to the first encounter..
-[DM] (Goblin Ambusher's Turn) The air in the mine shaft thickens with the foul stench of goblin. One of the hunched creatures, its skin a sickly green and eyes burning with feral intelligence, scuttles forward from the shadows, its rusted blade held low. It advances directly towards you, Vance, its guttural snarl echoing in the oppressive silence.
-
-[Vance. Proceed to the first encounter.] Move to the MID zone and attack the Goblin Ambusher with my longsword.
-   [SYSTEM] Vance. Proceed to the first encounter. moved to the MID zone.
-   [SYSTEM] Vance. Proceed to the first encounter. attacked Goblin Ambusher: HIT for 10 damage.
-
-[STORY SUMMARY] The sneaky goblin ambusher was swiftly dealt with by Vance.
-
-[CLEARED] Ambush Chamber
-[DM] The guttural shrieks of the goblins finally fall silent, replaced by the ragged rhythm of your own breathing. The air, thick moments before with the clang of steel and the stench of their foul bodies, now hangs heavy with the coppery tang of spilled blood and the acrid bite of spent alchemical fire. You stand amidst the debris of shattered crates and goblin corpses, the flickering torchlight casting long, dancing shadows that seem to writhe with unseen threats. Beyond the carnage, the reinforced door, still marked with its grim sigil, beckons, promising further dangers in the depths of the Smuggler's Mine.
-
-[Vance. Proceed to the first encounter.] INVENTORY; Move to The Boss's Den.
-[MOVE] -> The Boss's Den
-[DM] You push open the heavy door, and the air immediately assaults your senses, thick with the cloying sweetness of incense battling the sharp, acrid bite of alchemical reagents. Before you, a crudely constructed throne of splintered crates dominates the chamber, and a large, scorched circle marked with dark, arcane symbols covers the floor. A detailed map of the King's Road hangs on the wall, dotted with crimson marks at every ambush point, a chilling testament to the Mine Boss's planning.
-
-[ENCOUNTER] Mine Boss in The Boss's Den
-[DM] The heavy iron gate groans shut behind you, its clang echoing through the damp, torch-lit chamber. The air, thick with the cloying scent of unknown incense and the sharp bite of alchemical fumes, suddenly feels suffocating. Before you can even process the crude throne in the center of the room, a guttural chuckle erupts from the shadows.
-
-From behind a precarious stack of crates, a figure unfolds himself, impossibly tall and clad in battered, iron plates that gleam with an unnatural, oily sheen. His eyes, like twin embers, fix on you, a predatory grin stretching across his scarred face as he rises from his seat. He knew you were coming.
-
-The battle begins — what do you do?
-
+Your eyes adjust to the dim light, catching sight of the weathered quest board hanging prominently on the far wall, a silent testament to the dangers that still lie beyond these walls, but for now, you are within.
+[Thorne Blacksteel] (Hub) quest
+[QUEST ACCEPTED] Bounty: The Smuggler's Mine
 
 ──────────────────────────────────────────────────
-  ⚔️  COMBAT — Mine Boss
+  🗺️  EXPLORATION — Bounty: The Smuggler's Mine
 ──────────────────────────────────────────────────
-[Vance. Proceed to the first encounter.] Move to the FAR zone (Mine Boss) and initiate a melee attack with my longsword.
-   [SYSTEM] Vance. Proceed to the first encounter. moved to the FAR zone.
-   [SYSTEM] Vance. Proceed to the first encounter. attacked Mine Boss: CRITICAL HIT for 14 damage.
-   [SYSTEM] 👹 Mine Boss attacks Vance. Proceed to the first encounter.: MISS!
-[DM] (Mine Boss's Turn) The Mine Boss lunges, his rusted cleaver whistling through the air, but your swift sidestep leaves him swinging at empty space. The clang of steel on stone echoes in the confined tunnel.
+[EXPLORATION] Entered: Mine Entrance
+[DM] You step through the ruined doorway and into the damp chill of the mine entrance. The air hangs heavy with the scent of wet earth and a cloying rot, punctuated by the steady drip, drip, drip of unseen water. Before you yawns the **Main Shaft**, a black maw promising deeper darkness and the echoes of what lies within.
 
-[Vance. Proceed to the first encounter.] Attack the Mine Boss with my longsword.
-   [SYSTEM] Vance. Proceed to the first encounter. attacked Mine Boss: HIT for 5 damage.
-   [SYSTEM] 👹 Mine Boss attacks Vance. Proceed to the first encounter.: HIT! for 4 damage
-[DM] (Mine Boss's Turn) The Mine Boss, a hulking brute with a crude axe, swings wildly. You feel a searing pain as the rusted metal bites into your shoulder, sending a jolt of agony through your arm. Your chainmail offers some protection, but the impact still knocks the wind from your lungs.
+[Thorne Blacksteel] Move to Main Shaft
+[MOVE] -> Main Shaft
+[DM] You step through the groaning oak doors into a wide, oppressive tunnel, the air thick with the scent of damp earth and decay. Rotting timbers overhead creak ominously with every gust of the cold draft that whispers from deeper within, carrying with it the unnerving sensation of unseen eyes. The path ahead forks; a gaping maw to the east, barred by a violently twisted iron gate, hints at a way into the Storage Bay, while to the north, the tunnel descends into the echoing darkness, promising passage toward the faint murmur of distant voices.
 
-[Vance. Proceed to the first encounter.] Attack the Mine Boss with my longsword to finish the fight.
-   [SYSTEM] Vance. Proceed to the first encounter. attacked Mine Boss: MISS
-   [SYSTEM] 👹 Mine Boss attacks Vance. Proceed to the first encounter.: HIT! for 3 damage
-[DM] (Mine Boss's Turn) The Mine Boss's crude axe swings wildly, but you parry the blow with your longsword. A glancing hit still connects, however, your chainmail groaning under the impact as a searing pain shoots up your arm.
+[Thorne Blacksteel] ambush chamber
+[MOVE] -> Ambush Chamber
+[DM] You step through the groaning oak doors, and the air in the chamber ignites with the sudden, sputtering flare of torches along the walls, revealing a low-ceilinged cavern. The sudden light casts long, dancing shadows that do little to dispel the oppressive gloom, and the stench of stale sweat and something acrid assaults your senses. Before you can even register the makeshift barricades of splintered crates, a chorus of guttural screeches erupts as Goblin Ambushers, their yellow eyes burning with feral hunger, swarm from the darkness, their rusted blades glinting in the torchlight. Behind you lies the way back to the Main Shaft, but ahead, a reinforced door, crudely marked with a skull, beckons towards The Boss's Den.
 
-[Vance. Proceed to the first encounter.] Use smoke pellet on the Mine Boss to create an opening, then strike with my longsword to finish the encounter.
-   [SYSTEM] ⚠️ Vance. Proceed to the first encounter. does not have the ability: smoke pellet.
-   [SYSTEM] 👹 Mine Boss attacks Vance. Proceed to the first encounter.: HIT! for 7 damage
-[DM] (Mine Boss's Turn) The Mine Boss's crude axe swings wide, but you sidestep the clumsy blow. He recovers quickly, however, and brings the heavy weapon down in a brutal arc. The steel bites deep into your shoulder, tearing through chainmail and flesh. You grit your teeth against the searing pain, the world momentarily blurring at the edges.
-
-[Vance. Proceed to the first encounter.] use smoke pollet to block
-[Vance. Proceed to the first encounter.] use smoke pellet in bag
-[Vance. Proceed to the first encounter.] use smoke
-   [SYSTEM] Vance. Proceed to the first encounter. used 'smoke pellet' (Consumed). Result: Used 'smoke pellet'.
-   [SYSTEM] 👹 Mine Boss attacks Vance. Proceed to the first encounter.: MISS!
-[DM] (Mine Boss's Turn) The Mine Boss lunges, his crude axe whistling through the air, but your quick dodge sends it harmlessly past your ear. You feel the rush of displaced air against your cheek.
-
-[Vance. Proceed to the first encounter.] Attack the Mine Boss with my longsword.
-   [SYSTEM] Vance. Proceed to the first encounter. attacked Mine Boss: HIT for 8 damage.
-
-[STORY SUMMARY] After a fierce exchange, Vance, the intrepid explorer, managed to overcome the formidable Mine Boss, though not without enduring several heavy blows.
-
-[CLEARED] The Boss's Den
-[DM] The din of battle fades, replaced by the ragged rasp of your own breathing and the metallic clink of your armor. The acrid tang of alchemical reagents still hangs heavy in the air, now mingled with the coppery scent of spilled blood and the faint, lingering smell of scorched earth from the ritual circle. You stand amidst the defeated, the harsh reality of this grim world pressing in once more.
-
-The silence stretches, a heavy blanket after the storm of violence. Your muscles ache with a weariness that goes bone-deep, and you can feel the sting of minor wounds, the bruises already forming beneath your dented armor. Yet, the Mine Boss's map still hangs on the wall, its red marks a stark reminder of the larger network you've only just begun to unravel.
-
-[QUEST COMPLETE] Bounty: The Smuggler's Mine
-[Vance. Proceed to the first encounter.] (Hub) rest
-[SYSTEM] Vance. Proceed to the first encounter. takes a long rest, returning to full health.

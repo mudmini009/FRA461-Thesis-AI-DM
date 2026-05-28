@@ -28,8 +28,10 @@
             ],
             "event_type": "puzzle",
             "visited": false,
-            "cleared": true,
+            "cleared": false,
             "enemy_tag": null,
+            "puzzle_obstacle": "A rusted iron gate blocks access to the Storage Bay.",
+            "puzzle_base_dc": 14,
             "lore_fragment": "### The Iron Gate\nThe gate bears the emblem of a coiled serpent biting its own tail — the same sigil found on three other 'abandoned' mine sites across the kingdom. Whatever the Keldrath Company was really doing here, they wanted certain things very well guarded."
         },
         "node_03": {

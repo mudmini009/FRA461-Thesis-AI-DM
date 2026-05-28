@@ -942,6 +942,9 @@ def start_hub_loop(data_path: str = "data/active/campaign_active.json") -> str:
                 print(f"\n   ✦ Accepting quest: {chosen['name']}")
                 DataManager.append_to_log(f"[QUEST ACCEPTED] {chosen['name']}")
 
+                # Reset any existing progress/save state for this quest so it plays fresh
+                data_manager.delete_quest_state(chosen_id)
+
                 # ── Generate map on-demand for procedural quests ──────
                 quest_file = QuestLoader.load_quest(chosen_id)
                 is_stub = not quest_file.get("nodes") if quest_file else True

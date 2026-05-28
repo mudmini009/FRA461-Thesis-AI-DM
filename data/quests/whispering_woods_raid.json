@@ -1,15 +1,15 @@
 {
     "quest_id": "whispering_woods_raid",
-    "name": "Whispers in the Woods",
-    "description": "A caravan carrying vital supplies for the Iron Vanguard has gone missing near the Whisper Elf territory. Find them, or what's left.",
+    "name": "Whispering Woods Raid",
+    "description": "A Whisper Elf caravan carrying vital supplies has been ambushed. Recover what you can before the Ruin-Born strip it bare.",
     "entrance_node": "node_01",
     "nodes": {},
     "_meta": {
         "generated": true,
         "theme": "elves",
         "enemy_tags": [
-            "goblin_ambusher",
-            "bandit"
+            "goblin",
+            "goblin_ambusher"
         ],
         "num_nodes": 3
     }

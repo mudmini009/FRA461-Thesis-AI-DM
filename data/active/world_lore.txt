@@ -12,15 +12,3 @@ Spells require physical components (blood, rare herbs, crystals). Casting is exh
 
 Atmosphere:
 The tone is grim, suspenseful, and dangerous. Combat is deadly and physical. Weapons are heavy, armor gets dented, and exhaustion is real.
-
-### The Smuggler's Mine
-Once a legitimate iron mine operated by the Keldrath Company, the Smuggler's Mine was abandoned a decade ago when the veins ran dry. Rumour has it the company's foreman was found dead at the bottom of Shaft Three under mysterious circumstances. Since then, opportunists have used the tunnels as a black-market waypoint, and something older may have moved in long before the goblins arrived.
-
-### The Iron Gate
-The gate bears the emblem of a coiled serpent biting its own tail — the same sigil found on three other 'abandoned' mine sites across the kingdom. Whatever the Keldrath Company was really doing here, they wanted certain things very well guarded.
-
-### The Ambushers
-These are no ordinary scavengers. The goblins here are disciplined, organized, and equipped with stolen Guild-issue weapons. Someone trained them. Their leader, a scarred brute the others call 'Skrix,' takes orders from something that hasn't shown its face yet.
-
-### The Mechanized Cult Connection
-The ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal — he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected.

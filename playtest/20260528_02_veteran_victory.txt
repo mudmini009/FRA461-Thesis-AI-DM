@@ -1,0 +1,58 @@
+[PROLOGUE]
+The wind howled through the skeletal remains of what was once a proud city, carrying the stench of decay and the ever-present grit of shattered sky-crystals.
+
+A guttural roar echoed from a shadowed alley, followed by the clang of rusted metal as a Ruin-Born brute lunged, its crude axe whistling past sluyhsu's helm, the impact jarring their very bones.
+
+With a prayer to their deity, sluyhsu pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside.
+[END PROLOGUE]
+
+
+══════════════════════════════════════════════════
+  🏠 HUB — Adventurers Guild
+══════════════════════════════════════════════════
+  🗣️ DM: The heavy oak doors groan shut behind you, muffling the howling wind and the distant, unsettling echoes of the world you just fled. The sudden warmth of the Adventurer's Guild washes over you, a stark, welcome contrast to the biting chill and the stench of decay that clung to your armor just moments ago, a stark reminder of the Ruin-Born’s whistling axe. You've made it, the grit of the shattered sky-crystals still settling in your beard. Before you, a battered parchment-laden board beckons, promising new trials, but for now, a moment of respite.
+[sluyhsu] (Hub) status
+[sluyhsu] (Hub) QUEST BOARD
+[QUEST ACCEPTED] Forgotten Mine Delve
+
+──────────────────────────────────────────────────
+  🗺️  EXPLORATION — Forgotten Mine Delve
+──────────────────────────────────────────────────
+[EXPLORATION] Entered: Mine Entrance
+[DM] You step through the doorway and into the gaping maw of the old iron mine. The air hangs heavy with the stench of decay, a thick, cloying smell that clings to the back of your throat. Rusted tracks, choked with debris, snake into the oppressive darkness ahead, hinting at paths leading to a collapsed tunnel or perhaps the goblin warrens.
+
+[sluyhsu] STATUS
+[sluyhsu] Goblin Warrens
+[MOVE] -> Goblin Warrens
+[DM] You cautiously push open a creaking, grime-caked door, and the stench of stale refuse and unwashed bodies assaults your senses. This chamber, clearly a Goblin Warren, is a chaotic mess of crude nests strewn amongst overturned ore carts, the air thick and cloying. A faint, metallic tang hints at the depths of this twisted mine, perhaps leading further into the darkness or back towards the distant Mine Entrance.
+
+[ENCOUNTER] Scrabbling Goblin Pack in Goblin Warrens
+[DM] The stench hits you first, a foul wave of unwashed bodies and something disturbingly like decay, thicker than the dust of the mine. Suddenly, the shadows writhe, and a guttural snarl erupts from the darkness. A swarm of hunched, twisted forms, their skin the color of bruised dirt and their eyes like shards of obsidian, spill from behind ore carts and out of crudely dug holes in the cavern walls. They brandish rusted blades and crude clubs, their movements jerky and unnervingly fast. The battle begins — what do you do?
+
+
+──────────────────────────────────────────────────
+  ⚔️  COMBAT — Scrabbling Goblin Pack
+──────────────────────────────────────────────────
+[sluyhsu] I hold my holy symbol high and channel divine radiance at the Scrabbling Goblin Pack. I use my Pray ability offensively.
+   [SYSTEM] sluyhsu failed to use Pray: Pray failed! Rolled 8 vs DC 13.
+   [SYSTEM] 👹 Scrabbling Goblin Pack attacks sluyhsu: MISS!
+[DM] (Scrabbling Goblin Pack's Turn) The scuttling horde of goblins swarms towards you, their rusted blades a blur of motion. You brace yourself, the heavy plate armor a familiar weight, but their wild swings miss their mark, scraping harmlessly against your steel.
+
+[sluyhsu]  I channel again, gripping my holy symbol tighter. I use Pray offensively on the Scrabbling Goblin Pack.
+   [SYSTEM] sluyhsu failed to use Pray: Pray failed! Rolled 9 vs DC 13.
+   [SYSTEM] 👹 Scrabbling Goblin Pack attacks sluyhsu: CRITICAL HIT! for 9 damage
+[DM] (Scrabbling Goblin Pack's Turn) The air crackles with the unnatural energy of the Severing as a goblin lunges, its rusty blade finding a chink in your armor. The impact sends a searing jolt through your body, the force of the blow staggering you as your vision momentarily blurs. You can feel the rough metal bite deep, a burning pain erupting from the wound.
+
+[sluyhsu]  I press my hand against the bleeding wound and whisper a prayer to my deity. I use Pray to heal myself.
+   [SYSTEM] sluyhsu used Pray: Pray succeeded! Restored 8 HP to sluyhsu.
+   [SYSTEM] 👹 Scrabbling Goblin Pack attacks sluyhsu: MISS!
+[DM] (Scrabbling Goblin Pack's Turn) A chittering horde of goblins swarms forward, their rusted blades a blur of motion. You brace yourself, the heavy plate armor groaning under the near-miss of a crude spear, its tip scraping harmlessly against your greaves.
+
+[sluyhsu] I swing my warhammer at the Scrabbling Goblin Pack.
+   [SYSTEM] sluyhsu attacked Scrabbling Goblin Pack: HIT for 9 damage.
+
+[STORY SUMMARY] The brave adventurer, though battered and bruised by a goblin's wicked strike, managed to push back the creatures with a prayer and a well-aimed blow.
+
+[CLEARED] Goblin Warrens
+[DM] The hacking and guttural shrieks of the goblins finally fade, leaving behind a heavy, ringing silence in the warren. The stench of blood, coppery and thick, now mingles with the lingering acrid bite of spent gunpowder and the sickly sweet odor of goblin filth. Your muscles ache with the exertion, and the metallic tang of your own sweat coats your tongue. As you catch your breath, your gaze drifts deeper into the cavern, towards the choked darkness that still beckons.
+
