@@ -2,16 +2,23 @@
   <h1>🏰 DualPath-Core</h1>
   <p><i>A Multi-Agent Hybrid TTRPG Engine | FIBO Senior Thesis (2026)</i></p>
 
-  [![Project Status](https://img.shields.io/badge/Status-Phase_3_On_Going-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
+  [![Project Status](https://img.shields.io/badge/Status-Final_Release-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
   [![Ruleset](https://img.shields.io/badge/Ruleset-Our_Lite_5e-blueviolet?style=for-the-badge)](./LITE_5E_RULES.md) 
   [![Model](https://img.shields.io/badge/AI-Gemini_2.5_Flash_Lite-blue?style=for-the-badge)](https://ai.google.dev/)
 </div>
 
 ---
 
-> **FIBO PROGRESS 2 SHOWCASE** > _Next-Gen Agentic Orchestration for Tabletop RPGs_
+> **🎓 FIBO SENIOR THESIS (2026) - FINAL RELEASE & GRADUATION DEMO**
+> _Next-Gen Agentic Orchestration for Tabletop RPGs_
 
 This project features a **Multi-Agent Hybrid Architecture** designed to solve the "AI Hallucination" problem in TTRPGs. By implementing a **Two-Path Orchestrator**, the system autonomously routes player intent between a **Deterministic Python Rules Engine** (for mechanical precision) and an **LLM-based Creative Arbiter** (for improvisational logic). Through a rigorous **Multi-Agent Handshake**, the engine ensures that all game state mutations are grounded in hard-coded logic while maintaining the narrative flexibility of Large Language Models.
+
+### 📚 Thesis Documents & Presentation Materials
+All graduation artifacts are available in the [**`docs/`**](./docs/) directory:
+- 📄 **Final Graduation Thesis Report:** [**`docs/Thesis_Final.pdf`**](./docs/Thesis_Final.pdf) (Comprehensive research, methodology, and results).
+- 📊 **Defense Presentation Slides:** [**`docs/อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf`**](./docs/อ.โซ่-อ.ปอ-AI%20DM-FinalSenior.pdf) (Key slides for the final thesis defense Q&A).
+- 🖼️ **Academic Poster:** [**`docs/65340500046_Poster.pdf`**](./docs/65340500046_Poster.pdf) (Project showcase poster).
 
 ---
 
@@ -54,7 +61,7 @@ conda activate ai_dm_core
 pip install -r requirements.txt
 
 # Run the dedicated launcher
-python demo_day.py
+python main.py
 ```
 
 ---
@@ -103,68 +110,80 @@ python demo_day.py
 
 ```text
 AI_Dungeon_Master/
-├── docs/                    # [THESIS] Final 2026 graduation thesis reports (WIP)
+├── docs/                    # [THESIS] Graduation reports, presentation slides, posters, and system manuals
+│   ├── Thesis_Final.pdf
+│   ├── อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf
+│   ├── 65340500046_Poster.pdf
+│   ├── appendix_c_project_manual.md # Appendix C: System structure and usage manuals (Thai)
+│   ├── presentation_backup_slides_appendix.md # Q&A Defense slides appendix (Thai)
+│   ├── evaluation_master_appendix_thai.md # Comprehensive 90-scenario evaluation matrix (Thai)
+│   └── baseline_comparison_deep_dive_th.md # Proposed vs Baseline model deep-dive (Thai)
 ├── archive/                 # [HISTORY] Past iterations and research
 │   ├── phase2_demo/         # Old FIBO lab scripts and demo JSONs
 │   ├── references/          # Academic research papers and references
 │   └── old_docs/            # Past presentations and progress reports
-├── main.py                  # [ENTRY] Full game entry point
+├── main.py                  # [ENTRY] Full game entry point and dedicated launcher
 ├── LITE_5E_RULES.md         # [RULES] The formal "Lite 5e" rulebook for the AI and Player
-├── ARCHITECTURE.md          # [DOCS] High-level system design overview
-├── requirements.txt         # [DEPS] Project dependencies
+├── requirements.txt         # [DEPS] Project dependencies (frozen from conda env)
 ├── src/
-│   ├── agents/              # [AGENTS] Specialized LLM agents (post-refactor)
+│   ├── agents/              # [AGENTS] Specialized LLM agents
 │   │   ├── base.py          # BaseLLMProvider – shared API setup & model init
-│   │   ├── arbiter_agent.py # ArbiterAgent – action validation & item categorization
-│   │   ├── narrator_agent.py# NarratorAgent – combat narration & outcome description
-│   │   ├── campaign_agent.py# CampaignAgent – recap & cold-open prologue generation
-│   │   └── character_agent.py# CharacterAgent – Zero-Hallucination character & world lore 
-│   ├── engine/              # [ORCHESTRATOR] Pre-game flow & main combat loop
-│   │   ├── startup.py       # Pre-game flow: character creation, lore, prologue
-│   │   └── game_loop.py     # Handles turn queue and execution flow
-│   ├── ui/                  # [CLI] Presentation layer
-│   │   ├── character_sheet.py # Character Sheet & World Lore TUI renderers
-│   │   ├── dashboard.py     # Renders HP, ASCII targets, and zones
-│   │   └── menu.py          # Main menu, recap menu
-│   ├── router/              # [THE BRAIN] Intent Classification & Action Logic
-│   │   ├── intent_router.py # Two-path router (FIXED vs CREATIVE)
-│   │   └── intents.py       # Action execution handlers (MOVE/ATTACK/USE)
+│   │   ├── arbiter_agent.py # ArbiterAgent – creative action evaluation & side effects
+│   │   ├── narrator_agent.py# NarratorAgent – descriptions & flavor text
+│   │   ├── campaign_agent.py# CampaignAgent – recaps & prologue cold-opens
+│   │   ├── character_agent.py# CharacterAgent – world lore & background setup
+│   │   ├── quest_architect_agent.py # QuestArchitectAgent – high-level quest summary
+│   │   └── quest_cartographer_agent.py # QuestCartographerAgent – map generation & 7-Layer Guardrails
+│   ├── engine/              # [ORCHESTRATOR] Pre-game flow & main loop
+│   │   ├── startup.py       # Pre-game flow: character sheets, API key checks, prologue
+│   │   └── game_loop.py     # Main loop orchestrating Explore/Combat transitions
+│   ├── ui/                  # [CLI] Presentation layer (HUD and menus)
+│   │   ├── character_sheet.py # Character stats & world lore renderer
+│   │   ├── dashboard.py     # ASCII target trackers & status bars
+│   │   ├── menu.py          # Main, recap, and pause menus
+│   │   ├── combat_ui.py     # Combat HUD and log renderer
+│   │   └── exploration_ui.py# Exploration/Hub HUD with command hints & quest boards
+│   ├── router/              # [THE BRAIN] Intent Classification & Routing
+│   │   ├── intent_router.py # Two-path orchestrator routing player input
+│   │   ├── intents.py       # Intent execution (Smite constraints & moves check)
+│   │   └── exploration_router.py # Regex/LLM hybrid router
 │   ├── logic/               # [CALCULATOR] Pure Python Mechanics
-│   │   ├── rules_engine.py  # Dice, DC checks, damage math
-│   │   ├── combat_manager.py# Initiative queue
-│   │   ├── enemy_ai.py      # Enemy turn logic
-│   │   ├── dice_roller.py   # Dice rolling utilities
-│   │   └── abilities.py     # Ability definitions
+│   │   ├── rules_engine.py  # D&D 5e dice checks, AC, combat calculations
+│   │   ├── combat_manager.py# Initiative queue manager
+│   │   ├── enemy_ai.py      # Enemy target selection (lowest HP focus)
+│   │   ├── enemy_factory.py # Skeleton & Flesh scaling algorithm
+│   │   ├── dice_roller.py   # Base RNG rolls
+│   │   ├── abilities.py     # Ability registry
+│   │   └── time_manager.py  # Time flow & automatic rest healing logic
 │   ├── models/              # [STATE] Single Source of Truth
-│   │   ├── character.py     # Character dataclass (stats, lore, conditions)
-│   │   ├── game_state.py    # Global state container
-│   │   └── toon_converter.py# TOON serializer for minimal token usage
-│   └── services/            # [IO] External APIs & Persistence
-│       ├── llm_service.py   # Backward-compatible façade over src/agents/
-│       ├── data_manager.py  # JSON save/load system
-│       └── rag_service.py   # RAG/Context preparation
+│   │   ├── character.py     # Character dataclass (stats, abilities, conditions)
+│   │   ├── game_state.py    # GameState container
+│   │   └── toon_converter.py# Bidirectional TOON parser
+│   └── services/            # [IO] External APIs & Save/Load Persistence
+│       ├── llm_service.py   # Backward-compatible agent facade
+│       ├── data_manager.py  # Campaign saving/loading system
+│       └── rag_service.py   # Context synthesis
 ├── data/
-│   ├── active/              # Live session data (written during gameplay)
-│   │   ├── campaign_active.json  # Current save state
-│   │   ├── campaign_log.txt      # Continuous transcript
-│   │   └── world_lore.txt        # Active world context for the Narrator
-│   ├── config/              # Engine configuration (edited by user)
-│   │   ├── settings.json         # Editable engine parameters
-│   │   ├── settings_backup.json  # Safe default settings fallback
-│   │   └── bestiary.json         # Enemy stat templates
-│   └── premade/             # Hand-crafted selection templates
-│       ├── characters/      # Premade class JSON files (fighter, mage, rogue…)
-│       └── lore/            # Premade world lore .txt files
-├── archive/progress_2/      # Deprecated files from pre-Phase-3 (kept for history)
-├── evaluation/              # [QA] Evaluation & regression suite
-│   └── combat/
-│       ├── evaluation_runner.py  # 50-scenario regression runner
-│       ├── scenario_suite.json   # Structured test scenarios
-│       └── results/              # Auto-generated trace logs and metrics CSV
-└── tests/                   # [QA] Unit tests
-    ├── test_rules.py        # RulesEngine pytest coverage
-    ├── test_persistence.py  # DataManager save/load parity
-    └── test_*.py            # Other scenario and module tests
+│   ├── active/              # Live session data (session state & continuous logs)
+│   │   ├── campaign_active.json # Current active save file
+│   │   ├── campaign_log.txt     # Irreversible campaign session history
+│   │   └── world_lore.txt       # Active lore context
+│   ├── config/              # User-facing settings & database templates
+│   │   ├── settings.json        # Dynamic engine parameters (max history, DC, etc.)
+│   │   ├── settings_backup.json # Safe settings fallback
+│   │   └── bestiary.json        # Enemy blueprint databases
+│   └── premade/             # Out-of-the-box template databases
+│       ├── characters/      # Precompiled class JSONs
+│       └── lore/            # Pre-written setting files
+└── evaluation/              # [QA] Comprehensive validation suites
+    ├── combat/              # Old combat simulation files
+    │   ├── evaluation_runner.py # Combat-only runner
+    │   └── scenario_suite.json  # 50 scenarios
+    └── system_suite/        # Full System Q/A & comparative suite
+        ├── comprehensive_runner.py # Comparative 90-scenario runner
+        ├── generate_master_suite.py# Programmatic scenario generator
+        ├── master_scenario_suite.json # Full 90-scenario master suite
+        └── results/             # Proposed vs Baseline CSV summaries and trace logs
 ```
 
 
