@@ -28,11 +28,9 @@ class TimeManager:
 
         logs = []
         for p in party:
-            # Heal 1d8 + PHYS
-            heal = random.randint(1, 8) + p.stats.get(Stat.PHYS, 0)
-            heal = max(1, heal) # Min 1 heal
+            # Full Heal (automatic fully heal, no dice rolling)
             old_hp = p.hp
-            p.hp = min(p.max_hp, p.hp + heal)
+            p.hp = p.max_hp
             actual_heal = p.hp - old_hp
             
             # Reset Short Rest abilities

@@ -2,7 +2,7 @@
     "party": [
         {
             "id": "player1",
-            "name": "Thorne Blacksteel",
+            "name": "carer",
             "role": "Fighter",
             "hp": 20,
             "max_hp": 20,
@@ -16,7 +16,11 @@
             "inventory": [
                 "Longsword",
                 "Chainmail",
-                "Healing Potion"
+                "Healing Potion",
+                "Blood-stained apron; A small",
+                "intricately carved meat hook",
+                "boss trophy",
+                "healing potion"
             ],
             "condition": "NORMAL",
             "abilities": [
@@ -27,15 +31,16 @@
                     "current_uses": 1
                 }
             ],
-            "lore": "A battle-hardened warrior carrying a longsword and wearing heavy chainmail. Trained at the imperial academy.",
-            "title": "",
-            "stat_justification": ""
+            "lore": "Once a renowned butcher whose skill with a blade was legendary; now this wanderer seeks to ply their trade in more\u2026 lucrative arenas, driven by a singular, expensive ambition.",
+            "title": "The Cleaver of Coin",
+            "stat_justification": "The raw, brutal efficiency of a butcher translates directly to the combat prowess of a Fighter."
         }
     ],
     "enemies": [],
     "combat_memory": [],
     "story_memory": [
-        "[PROLOGUE] The sky above Aethelgard bled a perpetual twilight, a bruised canvas where the scars of The Severing still wept raw.  \\n\\nA guttural shriek echoed from a shadowed alley as Thorne Blacksteel deflected a rusted cleaver, the clang of steel on steel a jarring counterpoint to the stench of refuse and desperation. \\n\\nHe shoved the snarling Ruin-Born back, the heavy oak doors of the Adventurer's Guild groaning open under his gauntleted hand as he stepped into the relative sanctuary within."
+        "[PROLOGUE] The emerald canopy of Himmapan dripped with the scent of ancient earth and forgotten gods, a realm where the air itself hummed with potent magic and the shadows writhed with unseen horrors.\\n\\nA guttural roar echoed through the narrow, torch-lit alley as a hulking Yaksha, its skin like polished obsidian, swung a massive golden club, narrowly missing carer's head as they dove behind a crumbling stone pillar.\\n\\nWith a final, desperate surge of adrenaline, carer shoved open the heavy, iron-bound doors of the Adventurer's Guild, the scent of stale ale and desperation washing over them.",
+        "The tenacious carer, after a frustrating series of near misses, finally shattered the Corrupted Crystal Guardian with a series of well-placed blows."
     ],
     "global_state": {
         "time": {
@@ -43,10 +48,10 @@
             "hour": 8,
             "phase": "Morning"
         },
-        "turn_counter": 0,
+        "turn_counter": 28,
         "is_in_combat": false,
         "current_phase": "EXPLORATION",
-        "current_quest_id": "sample_dungeon",
+        "current_quest_id": "kinnaree_whispers",
         "current_node_id": "node_04"
     },
     "quest_states": {
@@ -125,82 +130,6 @@
                 }
             },
             "entrance_node": "node_01"
-        },
-        "sample_dungeon": {
-            "quest_id": "sample_dungeon",
-            "name": "Bounty: The Smuggler's Mine",
-            "description": "A gang of goblin ambushers has taken over an abandoned mine on the outskirts of the city, using it to stash stolen goods. The Guild is offering a bounty for clearing them out and retrieving the stolen cargo.",
-            "entrance_node": "node_01",
-            "nodes": {
-                "node_01": {
-                    "node_id": "node_01",
-                    "name": "Mine Entrance",
-                    "base_description": "You stand before the gaping maw of the Smuggler's Mine. A rusted iron sign, long since defaced by claw marks, once read 'Keldrath Co. \u2014 Authorized Personnel Only.' The air is damp and thick with the smell of mud and something older, something rotten. Dripping water echoes in the dark. To your left, a collapsed ore cart lies on its side, its wheels stripped. The only way forward is the Main Shaft, a dark tunnel yawning open straight ahead.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "safe",
-                    "visited": true,
-                    "cleared": true,
-                    "enemy_tag": null,
-                    "lore_fragment": "### The Smuggler's Mine\nOnce a legitimate iron mine operated by the Keldrath Company, the Smuggler's Mine was abandoned a decade ago when the veins ran dry. Rumour has it the company's foreman was found dead at the bottom of Shaft Three under mysterious circumstances. Since then, opportunists have used the tunnels as a black-market waypoint, and something older may have moved in long before the goblins arrived."
-                },
-                "node_02": {
-                    "node_id": "node_02",
-                    "name": "Main Shaft",
-                    "base_description": "The main tunnel is wide enough for three men abreast, the walls reinforced with rotten timber beams that groan underfoot. Ancient torches hang in iron brackets, their oil long since spent. A cold draft flows from deeper in \u2014 something breathes in the dark below. The path splits ahead: a rusted iron gate, nearly wrenched off its hinges, blocks access to the Storage Bay to the east. To the north, the tunnel continues toward the sounds of distant voices. The Entrance lies back the way you came.",
-                    "connected_to": [
-                        "node_01",
-                        "node_03",
-                        "node_04"
-                    ],
-                    "event_type": "puzzle",
-                    "visited": true,
-                    "cleared": true,
-                    "enemy_tag": null,
-                    "lore_fragment": "### The Iron Gate\nThe gate bears the emblem of a coiled serpent biting its own tail \u2014 the same sigil found on three other 'abandoned' mine sites across the kingdom. Whatever the Keldrath Company was really doing here, they wanted certain things very well guarded."
-                },
-                "node_03": {
-                    "node_id": "node_03",
-                    "name": "Storage Bay",
-                    "base_description": "The Storage Bay reeks of stolen goods: sacks of grain, crates of weapons, and barrels stamped with Guild insignia that was clearly meant for legitimate merchants. Sloppy handwriting on a wall details crude inventory tallies in what you recognize as Goblin script. Hooks on the wall hold rope, torches, and a set of lockpicks that someone dropped in a hurry. The room is quiet now, but recently disturbed. Clawed boot prints lead back toward the Ambush Chamber. The only exit back is through the broken gate.",
-                    "connected_to": [
-                        "node_02"
-                    ],
-                    "event_type": "safe",
-                    "visited": false,
-                    "cleared": true,
-                    "enemy_tag": null,
-                    "lore_fragment": "### The Stolen Cargo\nThe Guild markings on the barrels confirm it: three of these shipments were reported hijacked on the King's Road over the past month. Someone organized is running this operation \u2014 goblins alone are not capable of this level of logistics. There is a handler deeper in the mine."
-                },
-                "node_04": {
-                    "node_id": "node_04",
-                    "name": "Ambush Chamber",
-                    "base_description": "Torches blaze to life along the walls the instant you step through the threshold \u2014 a crude tripwire mechanism. The chamber opens into a wide, low-ceilinged cavern. Crates are stacked into impromptu barricades. A screech rips through the air. Goblin Ambushers melt out of the shadows, blades drawn, yellow eyes gleaming with malice. The exit back to the Main Shaft is behind you. A reinforced door at the far end, marked with a crude skull, leads deeper. But first \u2014 you will have to fight.",
-                    "connected_to": [
-                        "node_02",
-                        "node_05"
-                    ],
-                    "event_type": "combat",
-                    "visited": true,
-                    "cleared": true,
-                    "enemy_tag": "goblin_ambusher",
-                    "lore_fragment": "### The Ambushers\nThese are no ordinary scavengers. The goblins here are disciplined, organized, and equipped with stolen Guild-issue weapons. Someone trained them. Their leader, a scarred brute the others call 'Skrix,' takes orders from something that hasn't shown its face yet."
-                },
-                "node_05": {
-                    "node_id": "node_05",
-                    "name": "The Boss's Den",
-                    "base_description": "The air here is thick with incense and the acrid tang of alchemy. A crude throne made from smashed crates sits at the centre of the room. Mounted on the wall: a detailed map of the King's Road, with red marks at every ambush site. The floor is scorched in a wide circle \u2014 dark ritual markings. On the throne, reclining with contemptuous ease, sits the Mine Boss: a towering cultist in patched iron armour, his eyes reflecting the torchlight with an unnatural orange glow. He smiles when he sees you. He knew you were coming.",
-                    "connected_to": [
-                        "node_04"
-                    ],
-                    "event_type": "boss",
-                    "visited": true,
-                    "cleared": true,
-                    "enemy_tag": "mine_boss",
-                    "lore_fragment": "### The Mechanized Cult Connection\nThe ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal \u2014 he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected."
-                }
-            }
         },
         "forgotten_mine_delve": {
             "quest_id": "forgotten_mine_delve",
@@ -293,6 +222,160 @@
                     "enemy_attack_flavor": "Crushing Maul Swing",
                     "enemy_tag": "mine_boss",
                     "node_id": "node_05"
+                }
+            },
+            "entrance_node": "node_01"
+        },
+        "sample_dungeon": {
+            "quest_id": "sample_dungeon",
+            "name": "Bounty: The Smuggler's Mine",
+            "description": "A gang of goblin ambushers has taken over an abandoned mine on the outskirts of the city, using it to stash stolen goods. The Guild is offering a bounty for clearing them out and retrieving the stolen cargo.",
+            "entrance_node": "node_01",
+            "nodes": {
+                "node_01": {
+                    "node_id": "node_01",
+                    "name": "Mine Entrance",
+                    "base_description": "You stand before the gaping maw of the Smuggler's Mine. A rusted iron sign, long since defaced by claw marks, once read 'Keldrath Co. \u2014 Authorized Personnel Only.' The air is damp and thick with the smell of mud and something older, something rotten. Dripping water echoes in the dark. To your left, a collapsed ore cart lies on its side, its wheels stripped. The only way forward is the Main Shaft, a dark tunnel yawning open straight ahead.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### The Smuggler's Mine\nOnce a legitimate iron mine operated by the Keldrath Company, the Smuggler's Mine was abandoned a decade ago when the veins ran dry. Rumour has it the company's foreman was found dead at the bottom of Shaft Three under mysterious circumstances. Since then, opportunists have used the tunnels as a black-market waypoint, and something older may have moved in long before the goblins arrived."
+                },
+                "node_02": {
+                    "node_id": "node_02",
+                    "name": "Main Shaft",
+                    "base_description": "The main tunnel is wide enough for three men abreast, the walls reinforced with rotten timber beams that groan underfoot. Ancient torches hang in iron brackets, their oil long since spent. A cold draft flows from deeper in \u2014 something breathes in the dark below. The path splits ahead: a rusted iron gate, nearly wrenched off its hinges, blocks access to the Storage Bay to the east. To the north, the tunnel continues toward the sounds of distant voices. The Entrance lies back the way you came.",
+                    "connected_to": [
+                        "node_01",
+                        "node_03",
+                        "node_04"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": true,
+                    "cleared": false,
+                    "enemy_tag": null,
+                    "puzzle_obstacle": "A rusted iron gate blocks access to the Storage Bay.",
+                    "puzzle_base_dc": 14,
+                    "lore_fragment": "### The Iron Gate\nThe gate bears the emblem of a coiled serpent biting its own tail \u2014 the same sigil found on three other 'abandoned' mine sites across the kingdom. Whatever the Keldrath Company was really doing here, they wanted certain things very well guarded."
+                },
+                "node_03": {
+                    "node_id": "node_03",
+                    "name": "Storage Bay",
+                    "base_description": "The Storage Bay reeks of stolen goods: sacks of grain, crates of weapons, and barrels stamped with Guild insignia that was clearly meant for legitimate merchants. Sloppy handwriting on a wall details crude inventory tallies in what you recognize as Goblin script. Hooks on the wall hold rope, torches, and a set of lockpicks that someone dropped in a hurry. The room is quiet now, but recently disturbed. Clawed boot prints lead back toward the Ambush Chamber. The only exit back is through the broken gate.",
+                    "connected_to": [
+                        "node_02"
+                    ],
+                    "event_type": "safe",
+                    "visited": false,
+                    "cleared": true,
+                    "enemy_tag": null,
+                    "lore_fragment": "### The Stolen Cargo\nThe Guild markings on the barrels confirm it: three of these shipments were reported hijacked on the King's Road over the past month. Someone organized is running this operation \u2014 goblins alone are not capable of this level of logistics. There is a handler deeper in the mine."
+                },
+                "node_04": {
+                    "node_id": "node_04",
+                    "name": "Ambush Chamber",
+                    "base_description": "Torches blaze to life along the walls the instant you step through the threshold \u2014 a crude tripwire mechanism. The chamber opens into a wide, low-ceilinged cavern. Crates are stacked into impromptu barricades. A screech rips through the air. Goblin Ambushers melt out of the shadows, blades drawn, yellow eyes gleaming with malice. The exit back to the Main Shaft is behind you. A reinforced door at the far end, marked with a crude skull, leads deeper. But first \u2014 you will have to fight.",
+                    "connected_to": [
+                        "node_02",
+                        "node_05"
+                    ],
+                    "event_type": "combat",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": "goblin_ambusher",
+                    "lore_fragment": "### The Ambushers\nThese are no ordinary scavengers. The goblins here are disciplined, organized, and equipped with stolen Guild-issue weapons. Someone trained them. Their leader, a scarred brute the others call 'Skrix,' takes orders from something that hasn't shown its face yet."
+                },
+                "node_05": {
+                    "node_id": "node_05",
+                    "name": "The Boss's Den",
+                    "base_description": "The air here is thick with incense and the acrid tang of alchemy. A crude throne made from smashed crates sits at the centre of the room. Mounted on the wall: a detailed map of the King's Road, with red marks at every ambush site. The floor is scorched in a wide circle \u2014 dark ritual markings. On the throne, reclining with contemptuous ease, sits the Mine Boss: a towering cultist in patched iron armour, his eyes reflecting the torchlight with an unnatural orange glow. He smiles when he sees you. He knew you were coming.",
+                    "connected_to": [
+                        "node_04"
+                    ],
+                    "event_type": "boss",
+                    "visited": true,
+                    "cleared": true,
+                    "enemy_tag": "mine_boss",
+                    "lore_fragment": "### The Mechanized Cult Connection\nThe ritual circle on the floor matches illustrations in a forbidden text recovered last winter by the Ascendants. The Mine Boss is not just a criminal \u2014 he is an acolyte of the Mechanized Cult, siphoning resources to fund something far larger than a smuggling ring. The cult's reach extends deeper into the university's core than anyone suspected."
+                }
+            }
+        },
+        "kinnaree_whispers": {
+            "quest_id": "kinnaree_whispers",
+            "name": "Whispers of the Peaks",
+            "description": "Kinnaree scouts report a growing darkness emanating from the Crystal Caves. Strange whispers drive travelers mad.",
+            "nodes": {
+                "node_01": {
+                    "name": "Crystal Cave Entrance",
+                    "base_description": "The air grows cold and thin as you approach the cave mouth. Strange, crystalline formations shimmer with an unnatural light, and faint, disembodied whispers seem to slither into your mind.",
+                    "connected_to": [
+                        "node_02",
+                        "node_03"
+                    ],
+                    "event_type": "safe",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "The Kinnaree speak of these peaks as sacred grounds, but a growing darkness corrupts their ancient magic.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "node_id": "node_01"
+                },
+                "node_02": {
+                    "name": "Whispering Grotto",
+                    "base_description": "The whispers intensify here, echoing off the jagged crystal walls. Shadows writhe in the periphery, and the very air feels heavy with dread. A faint, sickly sweet scent hangs in the air.",
+                    "connected_to": [
+                        "node_01"
+                    ],
+                    "event_type": "combat",
+                    "visited": false,
+                    "cleared": false,
+                    "lore_fragment": "These cultists twist the natural energies of Himmapan, drawing power from the encroaching void. Their chants are a perversion of sacred incantations.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Whispering Cultist",
+                    "enemy_archetype": "minion",
+                    "enemy_attack_flavor": "Chants of Madness",
+                    "enemy_tag": "cultist",
+                    "node_id": "node_02"
+                },
+                "node_03": {
+                    "name": "Chasm of Echoes",
+                    "base_description": "A deep chasm splits the cave floor, spanned only by a precarious, ancient bridge made of woven vines and glowing moss. The whispers here are a cacophony, threatening to overwhelm reason.",
+                    "connected_to": [
+                        "node_01",
+                        "node_04"
+                    ],
+                    "event_type": "puzzle",
+                    "visited": true,
+                    "cleared": false,
+                    "lore_fragment": "The Kinnaree once used these bridges to traverse the treacherous peaks. Now, they crumble under the weight of the encroaching darkness.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "puzzle_obstacle": "A rickety vine bridge spans a bottomless chasm, its integrity questionable.",
+                    "puzzle_base_dc": 14,
+                    "node_id": "node_03"
+                },
+                "node_04": {
+                    "name": "The Crystal Heart",
+                    "base_description": "At the heart of the cave, a massive, pulsating crystal emanates a palpable aura of corruption. Twisted figures writhe around it, their forms contorted by the dark energy. The whispers coalesce into a single, malevolent voice.",
+                    "connected_to": [
+                        "node_03"
+                    ],
+                    "event_type": "boss",
+                    "visited": true,
+                    "cleared": true,
+                    "lore_fragment": "This crystal is a nexus of Saiyasart, twisted by an unknown entity. The Kinnaree fear it will shatter the balance of Himmapan.",
+                    "grants_item": null,
+                    "required_item": null,
+                    "enemy_name": "Corrupted Crystal Guardian",
+                    "enemy_archetype": "boss",
+                    "enemy_attack_flavor": "Crystal Shard Barrage",
+                    "enemy_tag": "goblin_ambusher",
+                    "node_id": "node_04"
                 }
             },
             "entrance_node": "node_01"

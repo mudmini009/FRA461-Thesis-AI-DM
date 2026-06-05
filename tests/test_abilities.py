@@ -82,7 +82,7 @@ def test_paladin_combo_smite_attack_charges():
     smite_ability = Ability(name="Smite", recharge_type=RechargeType.SHORT_REST, max_uses=2, current_uses=2)
     player = Character(
         id="p1", name="Sir Chad", role="Paladin", 
-        stats={Stat.PHYS: 3, Stat.MENT: 1, Stat.SOC: 1}, hp=20, max_hp=20, ac=16, 
+        stats={Stat.PHYS: 100, Stat.MENT: 1, Stat.SOC: 1}, hp=20, max_hp=20, ac=16, 
         zone=Zone.NEAR, inventory=[], abilities=[smite_ability]
     )
     enemy = Character(

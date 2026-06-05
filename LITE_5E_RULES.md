@@ -168,15 +168,16 @@ Throughout the adventure, characters will acquire and use items. Our system enfo
 
 ## Rest & Time
 
-### Short Rest
+Our streamlined system simplifies resting and sleeping to prioritize smooth pacing:
 
-- **Duration:** 1 Hour
-- **Effect:** Restores HP equal to `1d8 + Modifier` (if applicable), refreshes limited-use abilities (e.g., Second Wind).
+### Short Rest (Resting/Sleeping/Camping)
+- **Duration:** 1 Hour (Must be done in a safe location)
+- **Effect:** **Automatically and completely restores all Hit Points (HP) to maximum**, and refreshes limited-use abilities (e.g., Second Wind).
+- **No Dice Rolls:** Resting is a guaranteed full recovery; no dice rolls or skill checks are required to regain health.
 
 ### Long Rest
-
 - **Duration:** 8 Hours (Must be done in a safe location)
-- **Effect:** Completely restores all HP, Spells, and limited-use abilities to maximum.
+- **Effect:** Completely restores all HP, Spells, and all limited-use abilities to maximum.
 
 ---
 

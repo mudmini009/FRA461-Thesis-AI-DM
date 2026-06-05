@@ -1,0 +1,95 @@
+[PROLOGUE]
+The sky above Aethelgard bled a perpetual twilight, a grim reminder of the Severing that had scarred the land and twisted its very essence.
+
+Vanguard’s heavy plate armor clanked with each weary step, the stench of refuse and desperation thick in the narrow alleyways as a pack of snarling Ruin-Born, their eyes glinting with feral hunger, lunged from the shadows, only to be met with the blinding flash of holy light and the brutal clang of steel.
+
+With a final, bone-jarring heave, Vanguard pushed open the heavy wooden doors of the Adventurer's Guild and stepped inside.
+[END PROLOGUE]
+
+
+══════════════════════════════════════════════════
+  🏠 HUB — Adventurers Guild
+══════════════════════════════════════════════════
+  🗣️ DM: You step inside, the heavy wooden doors groaning shut behind you, muffling the distant, desperate sounds of the city and the unsettling memory of those snarling Ruin-Born. The air within is thick with the comforting aroma of stale ale and pipe smoke, a stark contrast to the cold, fetid alleyways where holy light and brutal steel were your only salvation. The warmth wraps around you, a welcome respite from the perpetual twilight and the gnawing chill of Aethelgard's harsh reality. Before you, tacked to a worn wooden board, a dozen parchment notices beckon, each a promise of coin and a chance to carve your own path through this broken world.
+[VANGUARD] (Hub) QUEST BOARD
+[QUEST ACCEPTED] Bounty: The Smuggler's Mine
+
+──────────────────────────────────────────────────
+  🗺️  EXPLORATION — Bounty: The Smuggler's Mine
+──────────────────────────────────────────────────
+[EXPLORATION] Entered: Mine Entrance
+[DM] You stand before the gaping maw of the Smuggler's Mine, a place that reeks of damp earth and a rot that seems to predate even the goblins. The air is heavy, and the only sounds are the persistent drip of unseen water and the echo of your own breathing within the oppressive darkness. To your left, a broken ore cart lies overturned, a testament to the mine's abandonment, leaving only the yawning blackness of the Main Shaft as your path forward.
+
+[VANGUARD] MOVE Main Shaft
+[MOVE] -> Main Shaft
+[DM] You step into the Main Shaft, the air thick with the scent of damp earth and decay. The tunnel stretches before you, wide enough to swallow three men, its rotten timber supports groaning a mournful song with every draft that whispers from the darkness ahead. The flickering memory of torchlight is long gone, leaving you in a gloom that feels as ancient as the rock itself, a chilling awareness that something stirs in the depths. Ahead, the passage diverges: a warped iron gate, its coiled serpent emblem barely visible, blocks the way to what might be the Storage Bay, while to the north, the tunnel beckons with the faint, unsettling murmur of distant voices.
+
+[PUZZLE] Encountered: A rusted iron gate blocks access to the Storage Bay.
+[VANGUARD] I use the massive weight and leverage of my Greatsword to wedge into the rusted hinges of the iron gate, channeling my holy warrior strength to wrench it open, demanding a lower DC based on my character profile's specific equipment.
+[VANGUARD] I use the massive weight and leverage of my Greatsword to wedge into the rusted hinges of the iron gate, channeling my holy warrior strength to wrench it open, demanding a lower DC based on my character profile's specific equipment.
+[VANGUARD] I use the massive weight and leverage of my Greatsword to wedge into the rusted hinges of the iron gate, channeling my holy warrior strength to wrench it open, demanding a lower DC based on my character profile's specific equipment.
+[VANGUARD] MOVE Ambush Chamber
+[MOVE] -> Ambush Chamber
+[DM] You step through the threshold and a crude tripwire mechanism ignites the torches lining the walls, casting flickering, dancing shadows across the wide, low-ceilinged cavern. The air is thick with the acrid tang of goblin and the metallic scent of fresh blood as the screech of their approach echoes through the chamber. Improvised barricades of crates offer scant cover, and the glint of malice in their yellow eyes promises a brutal reception before you can even consider the path back to the Main Shaft or the reinforced door marked with a crude skull that beckons deeper into The Boss's Den.
+
+[ENCOUNTER] Goblin Ambusher in Ambush Chamber
+[DM] The moment your boot crosses the threshold, a series of sharp clicks echoes from the walls, and sputtering torches erupt to life, bathing the cavern in a flickering, hellish glow. The air, thick with the stench of damp earth and something acridly metallic, is immediately shattered by a high-pitched shriek. From behind crude barricades of splintered crates and within the deeper shadows of the low-ceilinged chamber, the goblins surge forth, their rusted blades glinting, their beady yellow eyes burning with a predatory hunger. The battle begins — what do you do?
+
+
+──────────────────────────────────────────────────
+  ⚔️  COMBAT — Goblin Ambusher
+──────────────────────────────────────────────────
+[VANGUARD] I move 1 Zone to MID, move another 1 Zone to NEAR, and immediately execute a Melee Attack with my Greatsword against the Goblin Ambusher, spending a slot to activate Smite.
+   [SYSTEM] VANGUARD is in the NEAR zone.
+   [SYSTEM] VANGUARD is in the NEAR zone.
+   [SYSTEM] VANGUARD attacked Goblin Ambusher: FAILED (Target is out of melee range!)
+   [SYSTEM] 🏃 👹 Goblin Ambusher moves to the MID zone toward VANGUARD.
+[DM] (Goblin Ambusher's Turn) A guttural snarl echoes from the darkness as a Goblin Ambusher, its crude blade held low, scrambles from the shadows and into the dim light of the mine tunnel. It lunges towards you, its beady eyes fixed on your holy sigil, a twisted mockery of aggression.
+
+[VANGUARD] I move 1 Zone to MID to enter the same zone as the Goblin Ambusher, then use my Action to make a Melee Attack with my Greatsword.
+   [SYSTEM] VANGUARD moved to the MID zone.
+   [SYSTEM] VANGUARD attacked Goblin Ambusher: HIT for 9 damage.
+
+[STORY SUMMARY] The valiant Vanguard closed the distance, striking down a lurking Goblin Ambusher.
+
+[CLEARED] Ambush Chamber
+[DM] The last of the goblins falls with a choked gurgle, their crude blades clattering to the stone floor. A heavy silence descends, broken only by your own ragged breaths and the drip of some unknown moisture from the cavern ceiling. The air hangs thick with the coppery tang of spilled blood and the acrid bite of spent alchemical powder, a stark reminder of the close call you just endured. The reinforced door at the far end of the chamber, marked with its grim sigil, remains your next objective, promising further passage into the depths of the Smuggler's Mine.
+
+[VANGUARD] MOVE The Boss's Den
+[MOVE] -> The Boss's Den
+[DM] You push open the heavy, iron-bound door, stepping into the Boss's Den. The air hangs heavy and cloying, a disquieting blend of exotic incense and the sharp, metallic bite of alchemical reagents. Before you, a crude throne fashioned from splintered crates dominates the chamber, and the walls are adorned with a disturbing map of the King's Road, its routes marred by ominous red markings at every known ambush site. A wide, scorched circle on the floor, etched with dark, arcane symbols, hints at the unnatural rituals conducted here. Reclining on the makeshift throne, a towering figure in patched iron armor fixes you with eyes that burn with an unnatural orange glow, a contemptuous smile spreading across his scarred face as he acknowledges your arrival.
+
+[ENCOUNTER] Mine Boss in The Boss's Den
+[DM] The heavy iron gate groans shut behind you, the clang echoing like a death knell through the cavernous space. Before you can even register the stale, metallic scent of the mine, a guttural roar erupts from the shadows, and a swarm of snarling goblins, their eyes glinting with a disturbing intelligence, spill from hidden alcoves. Their crude blades, surprisingly sharp, gleam in the flickering torchlight as they surge towards you, a wave of savage fury.
+
+From the depths of the room, a figure rises from a makeshift throne, his scarred iron armor catching the light like polished obsidian. This is no mere goblin chieftain; this is the Mine Boss, his gaze burning with an unnatural, molten orange intensity as he surveys you with a chilling, anticipatory smile. He knew you were coming, and now, the trap is sprung.
+
+The battle begins — what do you do?
+
+
+──────────────────────────────────────────────────
+  ⚔️  COMBAT — Mine Boss
+──────────────────────────────────────────────────
+   [SYSTEM] 🏃 👹 Mine Boss moves to the MID zone toward VANGUARD.
+   [SYSTEM] 👹 Mine Boss attacks VANGUARD: MISS!
+[DM] (Mine Boss's Turn) The Mine Boss, a hulking brute with eyes that gleam with a disturbing fervor, charges into the fray. He swings a crude, iron-shod club, a wild arc of destruction aimed squarely at you. You feel the rush of air as the weapon whistles past your helm, the impact missing its mark by a hair's breadth.
+
+[VANGUARD] I crush the newly looted smoke pellet onto the floor to blind the Mine Boss, then use my Action to strike him with my Greatsword while utilizing my final Smite slot.
+   [SYSTEM] 👹 Mine Boss attacks VANGUARD: MISS!
+[DM] (Mine Boss's Turn) The Mine Boss lunges, his crude blade whistling through the air, but your divine shield flares, deflecting the blow harmlessly. You feel the rush of air, but no impact.
+
+[VANGUARD] use smoke pallet
+   [SYSTEM] VANGUARD used 'smoke pellet' (Consumed). Result: Used 'smoke pellet'.
+   [SYSTEM] 👹 Mine Boss attacks VANGUARD: HIT! for 4 damage
+[DM] (Mine Boss's Turn) The Mine Boss lunges, his crude blade a blur of rusted metal. You feel a jarring impact as it bites into your armor, a hot line of pain searing across your chest. The force of the blow sends a tremor through your sturdy chainmail, but your holy oath holds firm.
+
+[VANGUARD] I attack the Mine Boss with my Greatsword and expend my final Smite slot to maximize damage output.
+   [SYSTEM] VANGUARD attacked Mine Boss: CRITICAL HIT for 26 damage.
+
+[STORY SUMMARY] The formidable Mine Boss, after weathering a few missed blows and a puff of obscuring smoke, finally fell to a devastating critical strike from the Vanguard.
+
+[CLEARED] The Boss's Den
+[DM] The air, moments ago thick with the clang of steel and guttural roars, now settles into a heavy, ringing silence. The stench of burnt flesh and spilled goblin ichor clings to your nostrils, a grim testament to the brutal exchange. Your muscles ache, a deep, bone-weary exhaustion seeping into your very core, but the immediate threat has been silenced.
+
+As you catch your breath, you notice the Mine Boss's contemptuous smile falters, replaced by a flicker of something akin to surprise. The map on the wall, with its ominous red marks, seems to pulse with a hidden significance. Whatever this cult was planning, this was only the beginning.
+

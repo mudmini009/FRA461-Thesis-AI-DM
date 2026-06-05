@@ -52,9 +52,11 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                     msg = f"⚠️ You have no uses of {ability.name} left! You need a {ability.recharge_type.value.replace('_', ' ')}."
                     print(f"   {msg}")
                     return False, msg
-                # Decrement charge natively
-                ability.current_uses -= 1
-                debug_print(f"   🎟️ Consumed 1 charge of {ability.name}. ({ability.current_uses}/{ability.max_uses} left)")
+                # Decrement charge natively ONLY for standalone ABILITY or non-Smite attacks.
+                # For Smite, we only decrement it if the attack successfully hits.
+                if ability_name.lower() != 'smite':
+                    ability.current_uses -= 1
+                    debug_print(f"   🎟️ Consumed 1 charge of {ability.name}. ({ability.current_uses}/{ability.max_uses} left)")
                 break
         
         if not ability_found:
@@ -86,6 +88,7 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
                 print(f"   ⚠️ You can only move 1 zone per turn. Moving you to {target_zone.name} instead.")
             elif current_idx == target_idx:
                 print(f"   🏃 You are already in the {target_zone.name} zone.")
+                player.has_moved = True
                 return True, f"{player.name} is in the {target_zone.name} zone."
                 
             player.zone = target_zone
@@ -130,6 +133,15 @@ def execute_fixed_action(action_type: str, decision: dict, player: Character, en
             else:
                  print(f"   💥 HIT!")
                  debug_print(f"      (Rolled {roll_info} = {result.get('total', 0)} vs AC {target.ac})")
+            
+            # --- DIVINE SMITE CONSUMPTION ON HIT ---
+            if ability_name and ability_name.lower() == 'smite':
+                for ability in player.abilities:
+                    if ability.name.lower() == 'smite':
+                        ability.current_uses -= 1
+                        debug_print(f"   🎟️ Consumed 1 charge of Smite. ({ability.current_uses}/{ability.max_uses} left)")
+                        break
+            # ---------------------------------------
             
             print(f"   🩸 Damage Dealt: {result.get('damage', 0)}")
             print(f"   📉 {target.name} is now {target.get_health_status()} ({target.condition.name})")
