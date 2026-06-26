@@ -5,7 +5,7 @@
 
 ## 🗄️ 1. แหล่งเก็บข้อมูลดิจิทัล (Project Repository)
 ผู้ใช้งานสามารถเข้าถึงรหัสต้นฉบับ (Source Code), สคริปต์ทวนสอบผลลัพธ์ประสิทธิภาพ (Evaluation Suite), และข้อมูลประวัติการพัฒนา (Trace Logs) ทั้งหมดของโครงงานนี้ได้ที่:
-*   **GitHub Repository:** [https://github.com/mudmini009/FRA461-Thesis-AI-DM](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
+*   **GitHub Repository:** [https://github.com/mudmini009/DualPath-Core-TTRPG-engine](https://github.com/mudmini009/DualPath-Core-TTRPG-engine)
 *   **สิทธิ์การเข้าถึงและการแจกจ่าย:** สัญญาอนุญาตแบบโอเพนซอร์ส (Open-Source License) สำหรับการศึกษาและวิจัยด้านปัญญาประดิษฐ์ในเกมแบบ TTRPG
 
 ### 📂 เนื้อหาภายในคลังข้อมูลดิจิทัลประกอบด้วย:

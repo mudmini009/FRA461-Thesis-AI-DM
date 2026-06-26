@@ -2,7 +2,7 @@
   <h1>🏰 DualPath-Core</h1>
   <p><i>A Multi-Agent Hybrid TTRPG Engine | FIBO Senior Thesis (2026)</i></p>
 
-  [![Project Status](https://img.shields.io/badge/Status-Final_Release-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/FRA461-Thesis-AI-DM)
+  [![Project Status](https://img.shields.io/badge/Status-Final_Release-success?style=for-the-badge&logo=github)](https://github.com/mudmini009/DualPath-Core-TTRPG-engine)
   [![Ruleset](https://img.shields.io/badge/Ruleset-Our_Lite_5e-blueviolet?style=for-the-badge)](./LITE_5E_RULES.md) 
   [![Model](https://img.shields.io/badge/AI-Gemini_2.5_Flash_Lite-blue?style=for-the-badge)](https://ai.google.dev/)
 </div>
@@ -224,3 +224,20 @@ This project is built upon the foundational research of AI-assisted narrative ge
 
 > [!NOTE]
 > *Full academic PDFs can be found in the `<samp>archive/references/</samp>` directory.*
+
+---
+
+## 📜 Citation
+
+If you use the DualPath-Core architecture, code, or evaluation datasets in your academic research, please cite our upcoming work:
+
+```bibtex
+@misc{sutthimala2026dualpath,
+  author       = {Suttimala, Pollapaat},
+  title        = {{DualPath-Core: A Multi-Agent Hybrid TTRPG Engine}},
+  year         = {2026},
+  publisher    = {GitHub},
+  journal      = {GitHub Repository},
+  howpublished = {\url{https://github.com/mudmini009/DualPath-Core-TTRPG-engine}}
+}
+```
