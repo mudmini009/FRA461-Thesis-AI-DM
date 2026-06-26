@@ -233,7 +233,7 @@ If you use the DualPath-Core architecture, code, or evaluation datasets in your 
 
 ```bibtex
 @misc{mudmini0092026dualpath,
-  author = {Nott, Mud},
+  author = {Pollapaat Suttimala},
   title = {DualPath-Core: A Multi-Agent Hybrid TTRPG Engine},
   year = {2026},
   publisher = {GitHub},
