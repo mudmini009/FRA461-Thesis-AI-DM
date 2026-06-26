@@ -115,11 +115,7 @@ AI_Dungeon_Master/
 ├── docs/                    # [THESIS] Graduation reports, presentation slides, posters, and system manuals
 │   ├── Thesis_Final.pdf         # Defense presentation slides
 │   ├── อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf # Final graduation thesis report
-│   ├── 65340500046_Poster.pdf   # Project academic poster
-│   ├── appendix_c_project_manual.md # Appendix C: System structure and usage manuals (Thai)
-│   ├── presentation_backup_slides_appendix.md # Q&A Defense slides appendix (Thai)
-│   ├── evaluation_master_appendix_thai.md # Comprehensive 90-scenario evaluation matrix (Thai)
-│   └── baseline_comparison_deep_dive_th.md # Proposed vs Baseline model deep-dive (Thai)
+│   └── 65340500046_Poster.pdf   # Project academic poster
 ├── archive/                 # [HISTORY] Past iterations and research
 │   ├── phase2_demo/         # Old FIBO lab scripts and demo JSONs
 │   ├── references/          # Academic research papers and references
