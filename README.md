@@ -124,6 +124,7 @@ AI_Dungeon_Master/
 │   └── old_docs/            # Past presentations and progress reports
 ├── main.py                  # [ENTRY] Full game entry point and dedicated launcher
 ├── LITE_5E_RULES.md         # [RULES] The formal "Lite 5e" rulebook for the AI and Player
+├── ARCHITECTURE.md          # [DOCS] High-level system design overview (proposed Two-Path engine)
 ├── requirements.txt         # [DEPS] Project dependencies (frozen from conda env)
 ├── src/
 │   ├── agents/              # [AGENTS] Specialized LLM agents

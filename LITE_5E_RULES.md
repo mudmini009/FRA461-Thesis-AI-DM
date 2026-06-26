@@ -137,7 +137,7 @@ To flee from combat, a player must declare their intent to escape (e.g., "I run 
 
 - **HP:** 20 | **AC:** 16 (Chainmail)
 - **Attack (Melee):** Greatsword → `2d6 + PHYS`
-- **Ability:** `Smite` → Adds `2d8` damage (2 uses / day)
+- **Ability:** `Smite` → Adds `2d8` damage (2 uses / day; charge is only consumed on a successful hit)
 - **Ability:** `Lay on Hands` → Heals HP `1d8 + MENT` (1 use / day)
 
 ### **Cleric**
