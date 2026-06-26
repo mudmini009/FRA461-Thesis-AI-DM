@@ -14,27 +14,29 @@
 
 This project features a **Multi-Agent Hybrid Architecture** designed to solve the "AI Hallucination" problem in TTRPGs. By implementing a **Two-Path Orchestrator**, the system autonomously routes player intent between a **Deterministic Python Rules Engine** (for mechanical precision) and an **LLM-based Creative Arbiter** (for improvisational logic). Through a rigorous **Multi-Agent Handshake**, the engine ensures that all game state mutations are grounded in hard-coded logic while maintaining the narrative flexibility of Large Language Models.
 
-### 📚 Thesis Documents & Presentation Materials
-All graduation artifacts are available in the [**`docs/`**](./docs/) directory:
-- 📄 **Final Graduation Thesis Report:** [**`docs/Thesis_Final.pdf`**](./docs/Thesis_Final.pdf) (Comprehensive research, methodology, and results).
-- 📊 **Defense Presentation Slides:** [**`docs/อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf`**](./docs/อ.โซ่-อ.ปอ-AI%20DM-FinalSenior.pdf) (Key slides for the final thesis defense Q&A).
-- 🖼️ **Academic Poster:** [**`docs/65340500046_Poster.pdf`**](./docs/65340500046_Poster.pdf) (Project showcase poster).
+> ### 🎓 Thesis Artifact Download Center
+> 
+> | Document Type | File Link | Key Focus Area |
+> | :--- | :--- | :--- |
+> | 📄 **Thesis Report** | [docs/อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf](./docs/อ.โซ่-อ.ปอ-AI%20DM-FinalSenior.pdf) | Full academic manuscript, methodology & diagrams |
+> | 📊 **Defense Slides** | [docs/Thesis_Final.pdf](./docs/Thesis_Final.pdf) | Final Q&A presentation slide deck |
+> | 🖼️ **Academic Poster** | [docs/65340500046_Poster.pdf](./docs/65340500046_Poster.pdf) | Senior project showcase poster |
 
 ---
 
 ## 📊 Core Features
 
-- ⚔️ **Two-Path Architecture:** Automatically routes player intent to either the **Rules Engine** (for standard actions) or the **LLM Arbiter** (for creative improv).
-- 🎲 **Stateless Rules Engine:** Deterministic Python logic for initiative, dice rolling, range checks, and damage calculation.
-- 🤖 **LLM Arbiter:** A "Referee" AI that judges creative actions, assigns Difficulty Classes (DC), and applies symbolic status effects (e.g., `STUNNED`, `RESTRAINED`).
-- 🏃 **Tactical Zone Combat:** Grid-less tactical movement using `NEAR`, `MID`, and `FAR` zones with range-based disadvantage.
-- 🃏 **Initiative Queue:** A dynamic turn-order system where every character (Player & Enemy) rolls initiative at the start of combat.
-- 🧠 **Contextual Short-Term Memory:** Utilizes an efficient $\mathcal{O}(1)$ `collections.deque` sliding window to inject recent gameplay events (max 10) directly into the Arbiter and Narrator LLM prompts, ensuring contextual continuity without wasting API tokens on the stateless routing layer.
-- 📜 **Continuous Campaign Record:** Background process that permanently logs an irreversible, real-time transcript of player inputs, DM generations, and hidden internal Python math `[SYSTEM]` checkpoints to a `.txt` file for future RAG summarization models.
-- ⚡ **Dynamic Sequence Actions:** Supports complex commands like "I shoot then run away" or "I run in then attack", executing them in the order specified by the user.
-- 🎒 **Inventory Engine:** Auto-looting, dynamic disposable items, and rigorous LLM-categorized consumable mechanics.
-- 🗣️ **Narrative State Transitions:** Talk your way out of fights with Diplomacy (`PACIFIED` state), or use tactical math-based fleeing mechanics.
-- 💡 **QoL Features:** "Idiot-proof" automated API key wizard and developer debug toggles to expose underlying AI processing.
+- **`⚔️ Two-Path Architecture`** — Automatically routes player intent to either the rules engine (Path A) or creative LLM arbiter (Path B).
+- **`🎲 Stateless Rules Engine`** — Pure Python logic calculates D&D 5e dice checks, AC, combat math, and ranges deterministically.
+- **`🤖 LLM Arbiter`** — Evaluates creative roleplay actions, determines DC, and returns symbolic status conditions (`STUNNED`, `PRONE`).
+- **`🏃 Tactical Zone Combat`** — Grid-less zone-based movement (`NEAR`, `MID`, `FAR`) with automatic distance restrictions.
+- **`🃏 Initiative Turn Queue`** — Dynamic round sequencing rolling `d20 + PHYS` for fair turn order.
+- **`🧠 Contextual Short Memory`** — Efficient sliding-window deque limits LLM prompt context to the last 10 round states.
+- **`📜 Campaign Logging`** — Background logging of player actions and system mathematical check logs to `campaign_log.txt`.
+- **`⚡ Dynamic Sequence Actions`** — Combines movement and combat in specified orders (e.g. "move NEAR and smite").
+- **`🎒 Inventory Engine`** — Dynamic auto-looting, disposable items, and strict consumable tracking.
+- **`🗣️ Narrative Diplomacy`** — Talk out of encounters utilizing social checks and the `PACIFIED` state.
+- **`💡 Developer Debug Mode`** — Diagnostic toggle exposing raw LLM outputs, AST structures, and dice rolls.
 
 ---
 ## 📜 Game Rules
@@ -111,9 +113,9 @@ python main.py
 ```text
 AI_Dungeon_Master/
 ├── docs/                    # [THESIS] Graduation reports, presentation slides, posters, and system manuals
-│   ├── Thesis_Final.pdf
-│   ├── อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf
-│   ├── 65340500046_Poster.pdf
+│   ├── Thesis_Final.pdf         # Defense presentation slides
+│   ├── อ.โซ่-อ.ปอ-AI DM-FinalSenior.pdf # Final graduation thesis report
+│   ├── 65340500046_Poster.pdf   # Project academic poster
 │   ├── appendix_c_project_manual.md # Appendix C: System structure and usage manuals (Thai)
 │   ├── presentation_backup_slides_appendix.md # Q&A Defense slides appendix (Thai)
 │   ├── evaluation_master_appendix_thai.md # Comprehensive 90-scenario evaluation matrix (Thai)

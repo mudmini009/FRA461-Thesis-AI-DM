@@ -127,31 +127,27 @@ To flee from combat, a player must declare their intent to escape (e.g., "I run 
 
 ## Example Classes
 
-### **Fighter**
+> ### ⚔️ **Fighter** (The Frontline Guardian)
+> - **Hit Points (HP):** `20` | **Armor Class (AC):** `16` (Chainmail)
+> - **Primary Attack (Melee):** Longsword $\rightarrow$ `1d8 + PHYS`
+> - **Special Class Ability:** `Second Wind` $\rightarrow$ Heals HP `1d10 + 1` (1 use / combat)
 
-- **HP:** 20 | **AC:** 16 (Chainmail)
-- **Attack (Melee):** Longsword → `1d8 + PHYS`
-- **Ability:** `Second Wind` → Heals HP `1d10 + 1` (1 use / combat)
+> ### 🛡️ **Paladin** (The Holy Crusader)
+> - **Hit Points (HP):** `20` | **Armor Class (AC):** `16` (Chainmail)
+> - **Primary Attack (Melee):** Greatsword $\rightarrow$ `2d6 + PHYS`
+> - **Special Class Ability:** `Smite` $\rightarrow$ Adds `2d8` damage (2 uses / day; charge is only consumed on a successful hit)
+> - **Special Class Ability:** `Lay on Hands` $\rightarrow$ Heals HP `1d8 + MENT` (1 use / day)
 
-### **Paladin**
+> ### ☀️ **Cleric** (The Divine Channeler)
+> - **Hit Points (HP):** `18` | **Armor Class (AC):** `18` (Plate + Shield)
+> - **Primary Attack (Melee):** Warhammer $\rightarrow$ `1d8 + PHYS`
+> - **Special Class Ability:** `Pray` (Roll MENT vs DC 13) $\rightarrow$ Choose outcome: Heal an ally (`1d8 + MENT`) or Damage an enemy (`1d8 + MENT` Radiant Dmg)
 
-- **HP:** 20 | **AC:** 16 (Chainmail)
-- **Attack (Melee):** Greatsword → `2d6 + PHYS`
-- **Ability:** `Smite` → Adds `2d8` damage (2 uses / day; charge is only consumed on a successful hit)
-- **Ability:** `Lay on Hands` → Heals HP `1d8 + MENT` (1 use / day)
-
-### **Cleric**
-
-- **HP:** 18 | **AC:** 18 (Plate + Shield)
-- **Attack (Melee):** Warhammer → `1d8 + PHYS`
-- **Ability:** `Pray` (Roll MENT vs DC 13) → Choose outcome: Heal an ally (`1d8 + MENT`) or Damage an enemy (`1d8 + MENT` Radiant Dmg)
-
-### **Mage**
-
-- **HP:** 15 | **AC:** 12 (Robes + Mage Armor)
-- **Attack (Ranged Spell):** Firebolt → `1d10 + MENT` (Ranged)
-- **Attack (Melee):** Quarterstaff → `1d6 + PHYS` (Melee - Emergency case)
-- **Spells:** 2 uses / day (Free-form magic; the LLM Arbiter handles DC and the narrative impact)
+> ### 🔮 **Mage** (The Reality Bender)
+> - **Hit Points (HP):** `15` | **Armor Class (AC):** `12` (Robes + Mage Armor)
+> - **Primary Attack (Ranged Spell):** Firebolt $\rightarrow$ `1d10 + MENT` (Ranged)
+> - **Primary Attack (Melee):** Quarterstaff $\rightarrow$ `1d6 + PHYS` (Melee - Emergency case)
+> - **Special Class Spells:** 2 uses / day (Free-form magic; the LLM Arbiter handles DC and the narrative impact)
 
 ---
 
